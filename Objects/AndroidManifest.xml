@@ -11,6 +11,7 @@
 	    android:normalScreens="true" 
 	    android:smallScreens="true" 
 	    android:anyDensity="true"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
 	<application
 		android:icon="@drawable/icon"
 		android:label="Pictorario"
@@ -27,9 +28,23 @@
 			</intent-filter>
 			
 		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".visualizacion"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
 		<service android:name=".starter">
 		</service>
 		<receiver android:name=".starter$starter_BR">
 		</receiver>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".acercade"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
 	</application>
 </manifest>
