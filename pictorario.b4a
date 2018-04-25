@@ -1,268 +1,274 @@
 ﻿Build1=Default,javi.prieto.pictorario
-File1=ban_arse.png
-File10=clase_5.png
-File100=hacer la cama.png
-File101=hacer la cama_1.png
-File102=hacer pis.png
-File103=hacer pis_1.png
-File104=hamburguesa y patatas fritas.png
-File105=hamburguesa.png
-File106=hospital.png
-File107=hospital_1.png
-File108=instrumentos.png
-File109=juego de la peonza.png
-File11=clase_6.png
-File110=juego de las canicas.png
-File111=juego de los pinchitos.png
-File112=juego de mesa.png
-File113=juego de mesa_1.png
-File114=juego de palmas.png
-File115=juego del hula hoop.png
-File116=juego del pilla pilla.png
-File117=jugar a hockey_1.png
-File118=jugar a hockey_2.png
-File119=jugar a la petanca.png
-File12=clase_7.png
-File120=jugar a la videoconsola.png
-File121=jugar a los bolos.png
-File122=jugar a ping pong.png
-File123=jugar al baloncesto.png
-File124=jugar al balonmano.png
-File125=jugar al be@isbol.png
-File126=jugar al billar.png
-File127=jugar al corro.png
-File128=jugar al corro_1.png
-File129=jugar al fu@tbol.png
-File13=clase_8.png
-File130=jugar al fu@tbol_1.png
-File131=jugar al fu@tbol_2.png
-File132=jugar al golf.png
-File133=jugar al rugby.png
-File134=jugar al tenis.png
-File135=jugar al voleibol.png
-File136=jugar al waterpolo.png
-File137=jugar con el tablet.png
-File138=jugar.png
-File139=jugar_1.png
-File14=clase_9.png
-File140=jugar_2.png
-File141=jugar_3.png
-File142=juguete.png
-File143=lavar el pelo.png
-File144=lavar el pelo_1.png
-File145=lavar el pelo_2.png
-File146=lavar la cara.png
-File147=lavar la cara_1.png
-File148=lavar la cara_2.png
-File149=lavar la ropa.png
-File15=coche.png
-File150=lavar las manos.png
-File151=lavar las manos_1.png
-File152=lavar los dientes.png
-File153=lavar los dientes_1.png
-File154=lavar los dientes_2.png
-File155=levantarse de la cama.png
-File156=levantarse de la cama_1.png
-File157=me@dico.png
-File158=me@dico_1.png
-File159=medicarse_2.png
-File16=coche_1.png
-File160=medicarse_3.png
-File161=medicarse_4.png
-File162=medicina.png
-File163=medicina_1.png
-File164=merendar.png
-File165=merendar_1.png
-File166=merendar_2.png
-File167=mo@vil.png
-File168=montar a caballo.png
-File169=montar a caballo_1.png
-File17=colegio.png
-File170=montar a caballo_2.png
-File171=montar en bici.png
-File172=montar en bici_1.png
-File173=muffin.png
-File174=muffin_1.png
-File175=museo.png
-File176=museo_1.png
-File177=noche.png
-File178=noche_1.png
-File179=parchi@s.png
-File18=colegio_1.png
-File180=parque tema@tico.png
-File181=parque.png
-File182=pasear al perro.png
-File183=pasear al perro_1.png
-File184=pasear al perro_2.png
-File185=pasear en bicicleta.png
-File186=pasear en bicicleta_1.png
-File187=pasear_3.png
-File188=pasear_5.png
-File189=pasear_6.png
-File19=comer.png
-File190=pastel.png
-File191=patines de hielo.png
-File192=patines_2.png
-File193=patines_3.png
-File194=patinete.png
-File195=pediatra.png
-File196=pediatra_1.png
-File197=pediatra_2.png
-File198=pegamento.png
-File199=peli@cula.png
-File2=cenar_2.png
-File20=comer_1.png
-File200=pelota de baloncesto.png
-File201=pelota de be@isbol.png
-File202=pelota de fu@tbol.png
-File203=pelota de tenis.png
-File204=pelota.png
-File205=peluche.png
-File206=picnic.png
-File207=picnic_1.png
-File208=pintar.png
-File209=pintar_1.png
-File21=comida.png
-File210=pintar_5.png
-File211=pintar_7.png
-File212=pinturas de cera.png
-File213=pinturas de colores.png
-File214=pinturas de colores_1.png
-File215=piscina cubierta.png
-File216=piscina de bolas.png
-File217=piscina.png
-File218=piso.png
-File219=pizza.png
-File22=comprar.png
-File220=ponerse ropa_1.png
-File221=ponerse ropa_2.png
-File222=potito.png
-File223=pueblo.png
-File224=rayuela.png
-File225=RelojActividades.bal
-File226=restaurante.png
-File227=restaurante_1.png
-File228=restaurante_2.png
-File229=restaurante_3.png
-File23=comprar_2.png
-File230=saltar a la comba.png
-File231=saltar a la comba_1.png
-File232=saltar a la comba_2.png
-File233=secar el pelo.png
-File234=secar el pelo_1.png
-File235=secar el pelo_2.png
-File236=secar el pelo_3.png
-File237=secarse.png
-File238=secarse_1.png
-File239=secarse_2.png
-File24=comprar_3.png
-File240=siesta.png
-File241=siesta_1.png
-File242=tele.png
-File243=tele_1.png
-File244=ti@teres.png
-File245=tijeras escolares.png
-File246=tijeras.png
-File247=toboga@n.png
-File248=toboga@n_1.png
-File249=tomar el sol.png
-File25=computador.png
-File250=tomar el sol_1.png
-File251=tomar el sol_2.png
-File252=trabajos manuales_1.png
-File253=trabajos manuales_2.png
-File254=ver la tele_3.png
-File255=ver la tele_4.png
-File256=ver la tele_5.png
-File257=ver la tele_6.png
-File258=ver la tele_7.png
-File259=vestirse.png
-File26=computador_1.png
-File260=vestirse_1.png
-File261=videojuego.png
-File262=videojuego_1.png
-File263=zoo.png
-File27=computador_2.png
-File28=conductor.png
-File29=conductor_1.png
-File3=cepillar los dientes.png
-File30=conductora.png
-File31=correr.png
-File32=correr_1.png
-File33=correr_2.png
-File34=cortar el cesped.png
-File35=cortar el cesped_1.png
-File36=corte de pelo.png
-File37=corte de pelo_1.png
-File38=corte de pelo_2.png
-File39=cumplean_os.png
-File4=cepillar los dientes_1.png
-File40=cumplean_os_10.png
-File41=cumplean_os_11.png
-File42=cumplean_os_3.png
-File43=cumplean_os_5.png
-File44=cumplean_os_8.png
-File45=desayunar.png
-File46=desayunar_1.png
-File47=desayunar_2.png
-File48=desayuno.png
-File49=desnudarse_1.png
-File5=clase.png
-File50=desnudarse_2.png
-File51=desnudarse_3.png
-File52=desnudarse_4.png
-File53=despertar.png
-File54=despertar_1.png
-File55=despertar_2.png
-File56=dibujos animados.png
-File57=discoteca.png
-File58=domicilio.png
-File59=domicilio_1.png
-File6=clase_1.png
-File60=donut.png
-File61=dormir_1.png
-File62=dormir_2.png
-File63=dormir_3.png
-File64=duchar.png
-File65=duchar_1.png
-File66=duchar_2.png
-File67=equitacio@n.png
-File68=equitacio@n_1.png
-File69=equitacio@n_2.png
-File7=clase_2.png
-File70=escuchar mu@sica.png
-File71=esqui@.png
-File72=esqui@_1.png
-File73=estudiar.png
-File74=estudiar_1.png
-File75=excursin.png
-File76=excursio@n_1.png
-File77=excursio@n_2.png
-File78=excursionista.png
-File79=fiesta.png
-File8=clase_3.png
-File80=fiesta_1.png
-File81=fiesta_2.png
-File82=fiesta_3.png
-File83=fotografi@a.png
-File84=fotografiar.png
-File85=fotografiar_1.png
-File86=fregar.png
-File87=fregar_1.png
-File88=fregar_2.png
-File89=gimnasia.png
-File9=clase_4.png
-File90=gimnasia_19.png
-File91=gimnasia_2.png
-File92=gimnasia_21.png
-File93=gimnasio.png
-File94=gimnasio_1.png
-File95=hacer caca.png
-File96=hacer caca_1.png
-File97=hacer caca_2.png
-File98=hacer caca_3.png
-File99=hacer caca_4.png
-FileGroup1=Default Group\Pictogramas
+File1=AcercaDe.bal
+File10=clase_4.png
+File100=hacer caca_3.png
+File101=hacer caca_4.png
+File102=hacer la cama.png
+File103=hacer la cama_1.png
+File104=hacer pis.png
+File105=hacer pis_1.png
+File106=hamburguesa y patatas fritas.png
+File107=hamburguesa.png
+File108=hospital.png
+File109=hospital_1.png
+File11=clase_5.png
+File110=instrumentos.png
+File111=juego de la peonza.png
+File112=juego de las canicas.png
+File113=juego de los pinchitos.png
+File114=juego de mesa.png
+File115=juego de mesa_1.png
+File116=juego de palmas.png
+File117=juego del hula hoop.png
+File118=juego del pilla pilla.png
+File119=jugar a hockey_1.png
+File12=clase_6.png
+File120=jugar a hockey_2.png
+File121=jugar a la petanca.png
+File122=jugar a la videoconsola.png
+File123=jugar a los bolos.png
+File124=jugar a ping pong.png
+File125=jugar al baloncesto.png
+File126=jugar al balonmano.png
+File127=jugar al be@isbol.png
+File128=jugar al billar.png
+File129=jugar al corro.png
+File13=clase_7.png
+File130=jugar al corro_1.png
+File131=jugar al fu@tbol.png
+File132=jugar al fu@tbol_1.png
+File133=jugar al fu@tbol_2.png
+File134=jugar al golf.png
+File135=jugar al rugby.png
+File136=jugar al tenis.png
+File137=jugar al voleibol.png
+File138=jugar al waterpolo.png
+File139=jugar con el tablet.png
+File14=clase_8.png
+File140=jugar.png
+File141=jugar_1.png
+File142=jugar_2.png
+File143=jugar_3.png
+File144=juguete.png
+File145=lavar el pelo.png
+File146=lavar el pelo_1.png
+File147=lavar el pelo_2.png
+File148=lavar la cara.png
+File149=lavar la cara_1.png
+File15=clase_9.png
+File150=lavar la cara_2.png
+File151=lavar la ropa.png
+File152=lavar las manos.png
+File153=lavar las manos_1.png
+File154=lavar los dientes.png
+File155=lavar los dientes_1.png
+File156=lavar los dientes_2.png
+File157=levantarse de la cama.png
+File158=levantarse de la cama_1.png
+File159=logotipo.png
+File16=coche.png
+File160=me@dico.png
+File161=me@dico_1.png
+File162=medicarse_2.png
+File163=medicarse_3.png
+File164=medicarse_4.png
+File165=medicina.png
+File166=medicina_1.png
+File167=merendar.png
+File168=merendar_1.png
+File169=merendar_2.png
+File17=coche_1.png
+File170=mo@vil.png
+File171=montar a caballo.png
+File172=montar a caballo_1.png
+File173=montar a caballo_2.png
+File174=montar en bici.png
+File175=montar en bici_1.png
+File176=muffin.png
+File177=muffin_1.png
+File178=museo.png
+File179=museo_1.png
+File18=colegio.png
+File180=noche.png
+File181=noche_1.png
+File182=parchi@s.png
+File183=parque tema@tico.png
+File184=parque.png
+File185=pasear al perro.png
+File186=pasear al perro_1.png
+File187=pasear al perro_2.png
+File188=pasear en bicicleta.png
+File189=pasear en bicicleta_1.png
+File19=colegio_1.png
+File190=pasear_3.png
+File191=pasear_5.png
+File192=pasear_6.png
+File193=pastel.png
+File194=patines de hielo.png
+File195=patines_2.png
+File196=patines_3.png
+File197=patinete.png
+File198=pediatra.png
+File199=pediatra_1.png
+File2=ban_arse.png
+File20=comer.png
+File200=pediatra_2.png
+File201=pegamento.png
+File202=peli@cula.png
+File203=pelota de baloncesto.png
+File204=pelota de be@isbol.png
+File205=pelota de fu@tbol.png
+File206=pelota de tenis.png
+File207=pelota.png
+File208=peluche.png
+File209=picnic.png
+File21=comer_1.png
+File210=picnic_1.png
+File211=pictogramas.png
+File212=pintar.png
+File213=pintar_1.png
+File214=pintar_5.png
+File215=pintar_7.png
+File216=pinturas de cera.png
+File217=pinturas de colores.png
+File218=pinturas de colores_1.png
+File219=piscina cubierta.png
+File22=comida.png
+File220=piscina de bolas.png
+File221=piscina.png
+File222=piso.png
+File223=pizza.png
+File224=ponerse ropa_1.png
+File225=ponerse ropa_2.png
+File226=Portada.bal
+File227=potito.png
+File228=pueblo.png
+File229=rayuela.png
+File23=comprar.png
+File230=RelojActividades.bal
+File231=restaurante.png
+File232=restaurante_1.png
+File233=restaurante_2.png
+File234=restaurante_3.png
+File235=saltar a la comba.png
+File236=saltar a la comba_1.png
+File237=saltar a la comba_2.png
+File238=secar el pelo.png
+File239=secar el pelo_1.png
+File24=comprar_2.png
+File240=secar el pelo_2.png
+File241=secar el pelo_3.png
+File242=secarse.png
+File243=secarse_1.png
+File244=secarse_2.png
+File245=siesta.png
+File246=siesta_1.png
+File247=tele.png
+File248=tele_1.png
+File249=ti@teres.png
+File25=comprar_3.png
+File250=tijeras escolares.png
+File251=tijeras.png
+File252=toboga@n.png
+File253=toboga@n_1.png
+File254=tomar el sol.png
+File255=tomar el sol_1.png
+File256=tomar el sol_2.png
+File257=trabajar_en_el_ordenador.png
+File258=trabajos manuales_1.png
+File259=trabajos manuales_2.png
+File26=computador.png
+File260=ver la tele_3.png
+File261=ver la tele_4.png
+File262=ver la tele_5.png
+File263=ver la tele_6.png
+File264=ver la tele_7.png
+File265=vestirse.png
+File266=vestirse_1.png
+File267=videojuego.png
+File268=videojuego_1.png
+File269=zoo.png
+File27=computador_1.png
+File28=computador_2.png
+File29=conductor.png
+File3=cenar_2.png
+File30=conductor_1.png
+File31=conductora.png
+File32=correr.png
+File33=correr_1.png
+File34=correr_2.png
+File35=cortar el cesped.png
+File36=cortar el cesped_1.png
+File37=corte de pelo.png
+File38=corte de pelo_1.png
+File39=corte de pelo_2.png
+File4=cepillar los dientes.png
+File40=cumplean_os.png
+File41=cumplean_os_10.png
+File42=cumplean_os_11.png
+File43=cumplean_os_3.png
+File44=cumplean_os_5.png
+File45=cumplean_os_8.png
+File46=desayunar.png
+File47=desayunar_1.png
+File48=desayunar_2.png
+File49=desayuno.png
+File5=cepillar los dientes_1.png
+File50=desnudarse_1.png
+File51=desnudarse_2.png
+File52=desnudarse_3.png
+File53=desnudarse_4.png
+File54=despertar.png
+File55=despertar_1.png
+File56=despertar_2.png
+File57=dibujos animados.png
+File58=discoteca.png
+File59=domicilio.png
+File6=clase.png
+File60=domicilio_1.png
+File61=donut.png
+File62=dormir_1.png
+File63=dormir_2.png
+File64=dormir_3.png
+File65=duchar.png
+File66=duchar_1.png
+File67=duchar_2.png
+File68=engranaje.png
+File69=equitacio@n.png
+File7=clase_1.png
+File70=equitacio@n_1.png
+File71=equitacio@n_2.png
+File72=escuchar mu@sica.png
+File73=esqui@.png
+File74=esqui@_1.png
+File75=estudiar.png
+File76=estudiar_1.png
+File77=excursin.png
+File78=excursio@n_1.png
+File79=excursio@n_2.png
+File8=clase_2.png
+File80=excursionista.png
+File81=fiesta.png
+File82=fiesta_1.png
+File83=fiesta_2.png
+File84=fiesta_3.png
+File85=fotografi@a.png
+File86=fotografiar.png
+File87=fotografiar_1.png
+File88=fregar.png
+File89=fregar_1.png
+File9=clase_3.png
+File90=fregar_2.png
+File91=gimnasia.png
+File92=gimnasia_19.png
+File93=gimnasia_2.png
+File94=gimnasia_21.png
+File95=gimnasio.png
+File96=gimnasio_1.png
+File97=hacer caca.png
+File98=hacer caca_1.png
+File99=hacer caca_2.png
+FileGroup1=Default Group
 FileGroup10=Default Group\Pictogramas
 FileGroup100=Default Group\Pictogramas
 FileGroup101=Default Group\Pictogramas
@@ -328,7 +334,7 @@ FileGroup155=Default Group\Pictogramas
 FileGroup156=Default Group\Pictogramas
 FileGroup157=Default Group\Pictogramas
 FileGroup158=Default Group\Pictogramas
-FileGroup159=Default Group\Pictogramas
+FileGroup159=Default Group
 FileGroup16=Default Group\Pictogramas
 FileGroup160=Default Group\Pictogramas
 FileGroup161=Default Group\Pictogramas
@@ -387,7 +393,7 @@ FileGroup208=Default Group\Pictogramas
 FileGroup209=Default Group\Pictogramas
 FileGroup21=Default Group\Pictogramas
 FileGroup210=Default Group\Pictogramas
-FileGroup211=Default Group\Pictogramas
+FileGroup211=Default Group
 FileGroup212=Default Group\Pictogramas
 FileGroup213=Default Group\Pictogramas
 FileGroup214=Default Group\Pictogramas
@@ -402,13 +408,13 @@ FileGroup221=Default Group\Pictogramas
 FileGroup222=Default Group\Pictogramas
 FileGroup223=Default Group\Pictogramas
 FileGroup224=Default Group\Pictogramas
-FileGroup225=Default Group
-FileGroup226=Default Group\Pictogramas
+FileGroup225=Default Group\Pictogramas
+FileGroup226=Default Group
 FileGroup227=Default Group\Pictogramas
 FileGroup228=Default Group\Pictogramas
 FileGroup229=Default Group\Pictogramas
 FileGroup23=Default Group\Pictogramas
-FileGroup230=Default Group\Pictogramas
+FileGroup230=Default Group
 FileGroup231=Default Group\Pictogramas
 FileGroup232=Default Group\Pictogramas
 FileGroup233=Default Group\Pictogramas
@@ -437,7 +443,7 @@ FileGroup253=Default Group\Pictogramas
 FileGroup254=Default Group\Pictogramas
 FileGroup255=Default Group\Pictogramas
 FileGroup256=Default Group\Pictogramas
-FileGroup257=Default Group\Pictogramas
+FileGroup257=Default Group
 FileGroup258=Default Group\Pictogramas
 FileGroup259=Default Group\Pictogramas
 FileGroup26=Default Group\Pictogramas
@@ -445,6 +451,12 @@ FileGroup260=Default Group\Pictogramas
 FileGroup261=Default Group\Pictogramas
 FileGroup262=Default Group\Pictogramas
 FileGroup263=Default Group\Pictogramas
+FileGroup264=Default Group\Pictogramas
+FileGroup265=Default Group\Pictogramas
+FileGroup266=Default Group\Pictogramas
+FileGroup267=Default Group\Pictogramas
+FileGroup268=Default Group\Pictogramas
+FileGroup269=Default Group\Pictogramas
 FileGroup27=Default Group\Pictogramas
 FileGroup28=Default Group\Pictogramas
 FileGroup29=Default Group\Pictogramas
@@ -490,7 +502,7 @@ FileGroup64=Default Group\Pictogramas
 FileGroup65=Default Group\Pictogramas
 FileGroup66=Default Group\Pictogramas
 FileGroup67=Default Group\Pictogramas
-FileGroup68=Default Group\Pictogramas
+FileGroup68=Default Group
 FileGroup69=Default Group\Pictogramas
 FileGroup7=Default Group\Pictogramas
 FileGroup70=Default Group\Pictogramas
@@ -528,11 +540,14 @@ FileGroup99=Default Group\Pictogramas
 Group=Default Group
 IconFile=
 Library1=core
+Library2=phone
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~
-Module1=Starter
-NumberOfFiles=263
-NumberOfLibraries=1
-NumberOfModules=1
+Module1=Visualizacion
+Module2=Starter
+Module3=AcercaDe
+NumberOfFiles=269
+NumberOfLibraries=2
+NumberOfModules=3
 Version=7.8
 @EndOfDesignText@
 #Region  Project Attributes 
@@ -545,7 +560,7 @@ Version=7.8
 #End Region
 
 #Region  Activity Attributes 
-	#FullScreen: False
+	#FullScreen: True
 	#IncludeTitle: False
 #End Region
 
@@ -553,341 +568,79 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 
-	Type Actividad ( hora_inicio As Int, minuto_inicio As Int, hora_fin As Int, minuto_fin As Int, pictograma As String, descripcion As String, color As Int )
-	
-	Type Tablero ( tipo As Int, indicar_hora As Int, tam_icono As Float )
-	' Tipo 0: Reloj 12h AM
-	' Tipo 1: Reloj 12h PM
-	' Tipo 2: Reloj 24h
-	' Tipo 3: Arco
-	' Indicar Hora 0: No indicar nada
-	' Indicar Hora 1: Solo hora
-	' Indicar Hora 2: Hora y minuto
-	' Indicar Hora 3: Hora, minuto y segundos
 End Sub
 
 Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	'These variables can only be accessed from this module.
 
-	Private PanelDescripcion As Panel
-	Private PanelReloj As Panel
-	Private ImagenPictograma As ImageView
-	Private FondoPictograma As Panel
-	Private TextoPictograma As Label
-
-	Dim MaxActividades=20 As Int 'Número máximo de actividades por panel
-
-	Dim Pantalla As Canvas 'Región donde se dibuja el reloj
+	Dim PictogramaSecuencia(Starter.MaxSecuencias) As Button
+	Dim EditarSecuencia(Starter.MaxSecuencias) As Button
+	Dim EtiquetaSecuencia(Starter.MaxActividades) As Label
 	
-	'Posiciones del Reloj	
-	Dim CentroX, CentroY, Radio As Float
-	Dim MinHora,MaxHora As Int
+	Dim BotonAcercaDe As Button
+	Dim BotonCrear As Button
 	
-	'Botones de Actividades
-	Dim Boton(MaxActividades) As Button
-
-	Dim MisActividades(MaxActividades) As Actividad
-	Dim MiTablero As Tablero
-	Dim TotalActividades As Int
-
-	Dim ColoresPastel() As Int
-	ColoresPastel = Array As Int(0xFFffb3ba,0xFFffdfba,0xFFffffba,0xFFbaffc9,0xFFbae1ff,0xFFffbaff,0xFFdfffba,0xFFbaffc9,0xFFbae1ff,0xFFffe1b1,0xFFbaffe1)
+	Private PanelScroll As ScrollView
 	
-	Private CambiarVista As Button
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("Portada")
 
-	Activity.LoadLayout("RelojActividades")
-	
-	MiTablero.Initialize
-	MiTablero.tipo=3
-	MiTablero.indicar_hora=1
-	MiTablero.tam_icono=10%x
-	
-	MisActividades(0).hora_inicio=8
-	MisActividades(0).minuto_inicio=0
-	MisActividades(0).hora_fin=8
-	MisActividades(0).minuto_fin=15
-	MisActividades(0).pictograma="despertar_1"
-	MisActividades(0).descripcion="Despertarse"
-	MisActividades(0).color=ColoresPastel(0)
-	
-	MisActividades(1).hora_inicio=8
-	MisActividades(1).minuto_inicio=15
-	MisActividades(1).hora_fin=8
-	MisActividades(1).minuto_fin=30
-	MisActividades(1).pictograma="vestirse"
-	MisActividades(1).descripcion="Vestirse"
-	MisActividades(1).color=ColoresPastel(1)
-	
-	MisActividades(2).hora_inicio=8
-	MisActividades(2).minuto_inicio=30
-	MisActividades(2).hora_fin=9
-	MisActividades(2).minuto_fin=0
-	MisActividades(2).pictograma="desayunar"
-	MisActividades(2).descripcion="Desayunar"
-	MisActividades(2).color=ColoresPastel(2)
-	
-	MisActividades(3).hora_inicio=9
-	MisActividades(3).minuto_inicio=0
-	MisActividades(3).hora_fin=14
-	MisActividades(3).minuto_fin=0
-	MisActividades(3).pictograma="colegio"
-	MisActividades(3).descripcion="Cole"
-	MisActividades(3).color=ColoresPastel(3)
+	Dim Act As Int
+	For Act=0 To Starter.NumSecuencias-1
 		
-	MisActividades(4).hora_inicio=14
-	MisActividades(4).minuto_inicio=0
-	MisActividades(4).hora_fin=15
-	MisActividades(4).minuto_fin=0
-	MisActividades(4).pictograma="comer"
-	MisActividades(4).descripcion="Comer"
-	MisActividades(4).color=ColoresPastel(4)
-
-	MisActividades(5).hora_inicio=15
-	MisActividades(5).minuto_inicio=0
-	MisActividades(5).hora_fin=20
-	MisActividades(5).minuto_fin=0
-	MisActividades(5).pictograma="juguete"
-	MisActividades(5).descripcion="Jugar"
-	MisActividades(5).color=ColoresPastel(5)
-
-	MisActividades(6).hora_inicio=20
-	MisActividades(6).minuto_inicio=0
-	MisActividades(6).hora_fin=20
-	MisActividades(6).minuto_fin=30
-	MisActividades(6).pictograma="ban_arse"
-	MisActividades(6).descripcion="Bañarse"
-	MisActividades(6).color=ColoresPastel(6)
-
-	MisActividades(7).hora_inicio=20
-	MisActividades(7).minuto_inicio=30
-	MisActividades(7).hora_fin=21
-	MisActividades(7).minuto_fin=0
-	MisActividades(7).pictograma="cenar_2"
-	MisActividades(7).descripcion="Cenar"
-	MisActividades(7).color=ColoresPastel(7)
-
-	MisActividades(8).hora_inicio=21
-	MisActividades(8).minuto_inicio=0
-	MisActividades(8).hora_fin=21
-	MisActividades(8).minuto_fin=30
-	MisActividades(8).pictograma="dormir_1"
-	MisActividades(8).descripcion="Acostarse"
-	MisActividades(8).color=ColoresPastel(8)
-	
-	TotalActividades=9
-	
-	DibujarTablero
-	
-End Sub
-
-Sub DibujarTablero()
-	
-	CentroX=50%x
-	CentroY=60%x
-	Radio=45%x
-	
-	Pantalla.Initialize(PanelReloj)
-
-	'Horas a representar
-	If MiTablero.tipo<2 Then 'Reloj 12h
-		MinHora=1
-		MaxHora=12
-	Else If MiTablero.tipo==2 Then 'Reloj 24h
-		MinHora=1
-		MaxHora=24
-	Else 'Arco
-		MinHora=MisActividades(0).hora_inicio
-		MaxHora=MisActividades(TotalActividades-1).hora_fin
-		If (MisActividades(TotalActividades-1).minuto_fin<>0) Then
-			MaxHora=MaxHora+1
-		End If
-	End If
-	
-	'Círculo o arco del reloj
-	If MiTablero.tipo<3 Then 'Reloj
-		'Marco y Reloj
-		Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,Colors.Gray,True,0)
-		Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors.White,True,0)
-	Else 'Arco
-		Dim Recorte As Path
-
-		Recorte.Initialize(CentroX,CentroY+3%Y)
-		Recorte.LineTo( (CosD(114)*Radio*3)+CentroX, (SinD(114)*Radio*3)+CentroY)
-		Recorte.LineTo(0,100%Y)
-		Recorte.LineTo(0,0)
-		Recorte.LineTo(100%X,0)
-		Recorte.LineTo(100%X,100%Y)
-		Recorte.LineTo( (CosD(81)*Radio*3)+CentroX, (SinD(81)*Radio)+CentroY)
-		Pantalla.ClipPath(Recorte)
-		Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,Colors.Gray,True,0)
-		Pantalla.RemoveClip
-
-		Recorte.Initialize(CentroX,CentroY)
-		Recorte.LineTo( (CosD(116)*Radio*3)+CentroX, (SinD(116)*Radio*3)+CentroY)
-		Recorte.LineTo(0,100%Y)
-		Recorte.LineTo(0,0)
-		Recorte.LineTo(100%X,0)
-		Recorte.LineTo(100%X,100%Y)
-		Recorte.LineTo( (CosD(80)*Radio*3)+CentroX, (SinD(80)*Radio)+CentroY)
-		Pantalla.ClipPath(Recorte)
-		Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors.White,True,0)
-		Pantalla.RemoveClip
-	End If	
+		PictogramaSecuencia(Act).Initialize("BotonPictograma")
+		PictogramaSecuencia(Act).Tag=Act
+		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.PictogramaSecuencia(Act)&".png"))
+		PanelScroll.Panel.AddView(PictogramaSecuencia(Act),10dip,10dip+90dip*Act,80dip,80dip)
 		
-	For Hora=MinHora To MaxHora Step 1
-		'Dibuja un punto en cada hora
-		Dim X=HoraMinuto_X(Hora,0,0.95) As Float	
-		Dim Y=HoraMinuto_Y(Hora,0,0.95) As Float
-		'Crea una etiqueta con cada número de hora
-		Pantalla.DrawCircle(X,Y,Radio*0.02,Colors.LightGray,True,0)
-		Dim X=HoraMinuto_X(Hora,0,0.85) As Float
-		Dim Y=HoraMinuto_Y(Hora,0,0.85) As Float
-		Dim NumeroHora As Label
-		NumeroHora.Initialize("")
-		NumeroHora.Text=(Hora) Mod 24
-		NumeroHora.TextColor=Colors.DarkGray
-		NumeroHora.Gravity=Gravity.CENTER
-		NumeroHora.TextSize=15
-		Activity.AddView(NumeroHora,X-15dip,Y-15dip,30dip,30dip)
+		EditarSecuencia(Act).Initialize("BotonEditar")
+		EditarSecuencia(Act).Tag=Act
+		EditarSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,"engranaje.png"))
+		PanelScroll.Panel.AddView(EditarSecuencia(Act),100%X-60dip,30dip+90dip*Act,40dip,40dip)
+
+		EtiquetaSecuencia(Act).Initialize("TextoSecuencia")
+		EtiquetaSecuencia(Act).Tag=Act
+		EtiquetaSecuencia(Act).Text=Starter.DescripcionSecuencia(Act)
+		EtiquetaSecuencia(Act).TextColor=Colors.Black
+		EtiquetaSecuencia(Act).TextSize=16
+		EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.LEFT)
+		PanelScroll.Panel.AddView(EtiquetaSecuencia(Act),110dip,10dip+90dip*Act,100%X-170dip,80dip)
 	Next
 
-	If MiTablero.tipo=1 Then 'Si es 12h PM, pasamos a 12 a 24
-		MinHora=MinHora+12
-		MaxHora=MaxHora+12
-	End If
-	
-	'Actividades
-	For NActividad=0 To TotalActividades-1 Step 1
-		DibujarActividad(NActividad)
-	Next
-	
-	'Aguja
-	Dim HoraActual=DateTime.GetHour(DateTime.Now) As Int
-	Dim MinutoActual=DateTime.GetMinute(DateTime.Now) As Int
-	Dim SegundoActual=DateTime.GetSecond(DateTime.Now) As Int
-	If (MiTablero.indicar_hora>0 And HoraActual>=MinHora And HoraActual<MaxHora) Then
-		If (MiTablero.tipo=3 Or MiTablero.indicar_hora==1) Then
-			Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.8),HoraMinuto_Y(HoraActual,MinutoActual,0.8),Colors.Red,8dip)
-		Else
-			Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.6),HoraMinuto_Y(HoraActual,MinutoActual,0.6),Colors.DarkGray,8dip)
-			If (MiTablero.indicar_hora>1) Then
-				Dim AnguloMinuto=270+(MinutoActual*6) As Float
-				Pantalla.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloMinuto)*Radio*0.8,CentroY+SinD(AnguloMinuto)*Radio*0.75,Colors.DarkGray,6dip)
-				If (MiTablero.indicar_hora>2) Then
-					Dim AnguloSegundo=270+(SegundoActual*6) As Float
-					Pantalla.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloSegundo)*Radio*0.9,CentroY+SinD(AnguloSegundo)*Radio*0.9,Colors.Red,4dip)
-				End If
-			End If
-		End If
-	End If
-	
-	'Punto Central
-	Pantalla.DrawCircle(CentroX,CentroY,Radio*0.1,Colors.Black,True,0)		
+	BotonCrear.Initialize("BotonCrear")
+	BotonCrear.Text="Crear Secuencia"
+	BotonCrear.TextSize=20
+	BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+	BotonCrear.TextColor=Colors.Black
+	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-20dip,80dip)
 
-	'Indica modo de visualización
-	CambiarVista.Text=MiTablero.tipo
-	Select MiTablero.tipo
-		Case 0
-			CambiarVista.Text="12hAM"
-		Case 1
-			CambiarVista.Text="12hPM"
-		Case 2
-			CambiarVista.Text="24h"
-		Case 3
-			CambiarVista.Text="Arco"
-	End Select
-			
+	BotonAcercaDe.Initialize("BotonAcercaDe")
+	BotonAcercaDe.Text="Acerca de Pictorario"
+	BotonAcercaDe.TextSize=20
+	BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+	BotonAcercaDe.TextColor=Colors.Black
+	PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90dip*(Starter.NumSecuencias+1)-10dip,100%X-20dip,80dip)
+	
+	PanelScroll.Panel.Height=90dip*(Starter.NumSecuencias+1)+100dip
+	
 End Sub
 
-Sub DibujarActividad(NumActividad As Int)
-	
-	'Descarta las que no estén en nuestra franja
-	If ( MiTablero.tipo>1 Or (MiTablero.tipo==1 And MisActividades(NumActividad).hora_fin>11) Or (MiTablero.tipo==0 And MisActividades(NumActividad).hora_inicio<12) ) Then
-	
-		'Captura horas de actividad
-		Dim HoraInicio=MisActividades(NumActividad).hora_inicio As Int
-		Dim MinInicio=MisActividades(NumActividad).minuto_inicio As Int
-		Dim HoraFin=MisActividades(NumActividad).hora_fin As Int
-		Dim MinFin=MisActividades(NumActividad).minuto_fin As Int
-		If (MiTablero.tipo==0 And HoraFin>11) Then
-			HoraFin=12
-			MinFin=0
-		Else If (MiTablero.tipo==1 And HoraInicio<12) Then
-			HoraInicio=12
-			MinInicio=0
-		End If
-	
-		'Hora Mitad
-		Dim HoraMitad=(HoraInicio+HoraFin)/2 As Float
-		Dim MinutoMitad=(MinInicio+MinFin)/2 As Float
-		
-		'Triángulo de recorte
-		Dim Recorte As Path
-		Recorte.Initialize(CentroX,CentroY)
-		Recorte.LineTo( HoraMinuto_X(HoraInicio,MinInicio,1.5) , HoraMinuto_Y(HoraInicio,MinInicio,1.5) )
-		Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMitad,1.5), HoraMinuto_Y(HoraMitad,MinutoMitad,1.5))
-		Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,1.5) , HoraMinuto_Y(HoraFin,MinFin,1.5) )
-		Recorte.LineTo(CentroX,CentroY)
-		
-		'Arco de circunferencia
-		Pantalla.ClipPath(Recorte)
-		Pantalla.DrawCircle(CentroX,CentroY,Radio*0.7,MisActividades(NumActividad).color,True,0)
-		Pantalla.RemoveClip
-		
-		'Botón
-		Boton(NumActividad).Initialize("BotonActividad")
-		Boton(NumActividad).Tag=NumActividad
-		Dim DistanciaBoton=0.3+0.1*(NumActividad Mod 3) As Float
-		Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,DistanciaBoton)-MiTablero.tam_icono/2 As Float
-		Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,DistanciaBoton)-MiTablero.tam_icono/2 As Float
-		Dim BordeBoton As Rect
-		BordeBoton.Initialize(BotonX-1dip,BotonY-1dip,BotonX+MiTablero.tam_icono+2dip,BotonY+MiTablero.tam_icono+2dip)
-		Pantalla.DrawRect(BordeBoton,Colors.Black,True,0)
-		Activity.AddView(Boton(NumActividad),BotonX,BotonY,MiTablero.tam_icono,MiTablero.tam_icono)
-		Boton(NumActividad).SetBackgroundImage(LoadBitmap(File.DirAssets,MisActividades(NumActividad).pictograma&".png"))
-	End If
-
-End Sub
-
-Sub HoraMinuto_X(Hora As Float,Minuto As Float,Distancia As Float) As Float
-	If MiTablero.tipo==3 Then
-		Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(MaxHora-MinHora) As Float
-		Return (CosD(Angulo)*Radio*Distancia)+CentroX
-	Else
-		If MiTablero.tipo==2 Then
-				Hora=Hora/2
-				Minuto=Minuto/2
-			End If
-		Return (CosD((Hora+Minuto/60)*(360/12)+270)*Radio*Distancia)+CentroX
-	End If
-End Sub
-
-Sub HoraMinuto_Y(Hora As Float,Minuto As Float,Distancia As Float) As Float
-	If MiTablero.tipo==3 Then
-		Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(MaxHora-MinHora) As Float
-		Return (SinD(Angulo)*Radio*Distancia)+CentroY
-	Else
-		If MiTablero.tipo==2 Then
-			Hora=Hora/2
-			Minuto=Minuto/2		
-		End If
-		Return (SinD((Hora+Minuto/60)*(360/12)+270)*Radio*Distancia)+CentroY
-	End If
-End Sub
-
-Sub BotonActividad_click
+Sub BotonPictograma_click
 	Dim BotonPulsado As Button
 	BotonPulsado=Sender
-	Dim ActividadPulsada As Actividad
-	ActividadPulsada=MisActividades(BotonPulsado.Tag)
-	ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets,MisActividades(BotonPulsado.Tag).pictograma & ".png")
-	TextoPictograma.Text=ActividadPulsada.descripcion.ToUpperCase&CRLF&"de "&ActividadPulsada.hora_inicio&":"&NumberFormat(ActividadPulsada.minuto_inicio,2,0)&" a "&ActividadPulsada.hora_fin&":"&NumberFormat(ActividadPulsada.minuto_fin,2,0)
-	FondoPictograma.Color=MisActividades(BotonPulsado.Tag).color
-	BotonPulsado.BringToFront()
+	Starter.SecuenciaActiva=BotonPulsado.Tag
+	StartActivity(Visualizacion)
+End Sub
+
+Sub TextoSecuencia_click
+	Dim EtiquetaPulsada As Label
+	EtiquetaPulsada=Sender
+	Starter.SecuenciaActiva=EtiquetaPulsada.Tag
+	StartActivity(Visualizacion)
 End Sub
 
 Sub Activity_Resume
@@ -899,14 +652,11 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 
-Sub PanelReloj_Touch (Action As Int, X As Float, Y As Float)
-	
+Sub VerSecuencias_Click
+	Starter.SecuenciaActiva=1
+	StartActivity(Visualizacion)
 End Sub
 
-Sub CambiarVista_Click
-	MiTablero.tipo=((MiTablero.tipo)+1) Mod 4
-	Activity.RemoveAllViews
-	Activity.Invalidate
-	Activity.LoadLayout("RelojActividades")
-	DibujarTablero
+Sub BotonAcercaDe_Click
+	StartActivity(AcercaDe)
 End Sub
