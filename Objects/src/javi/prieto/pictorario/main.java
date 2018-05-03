@@ -31,6 +31,7 @@ public class main extends Activity implements B4AActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        mostCurrent = this;
 		if (processBA == null) {
 			processBA = new BA(this.getApplicationContext(), null, null, "javi.prieto.pictorario", "javi.prieto.pictorario.main");
 			processBA.loadHtSubs(this.getClass());
@@ -45,6 +46,7 @@ public class main extends Activity implements B4AActivity{
 				p.finish();
 			}
 		}
+        processBA.setActivityPaused(true);
         processBA.runHook("oncreate", this, null);
 		if (!includeTitle) {
         	this.getWindow().requestFeature(android.view.Window.FEATURE_NO_TITLE);
@@ -53,7 +55,7 @@ public class main extends Activity implements B4AActivity{
         	getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,   
         			android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-		mostCurrent = this;
+		
         processBA.sharedProcessBA.activityBA = null;
 		layout = new BALayout(this);
 		setContentView(layout);
@@ -259,8 +261,10 @@ public class main extends Activity implements B4AActivity{
     @Override 
 	public void onPause() {
 		super.onPause();
-        if (_activity == null) //workaround for emulator bug (Issue 2423)
+        if (_activity == null)
             return;
+        if (this != mostCurrent)
+			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
         BA.LogInfo("** Activity (main) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
         if (mostCurrent != null)
@@ -356,7 +360,7 @@ mostCurrent._pictogramasecuencia[_act].Initialize(mostCurrent.activityBA,"BotonP
  //BA.debugLineNum = 44;BA.debugLine="PictogramaSecuencia(Act).Tag=Act";
 mostCurrent._pictogramasecuencia[_act].setTag((Object)(_act));
  //BA.debugLineNum = 45;BA.debugLine="PictogramaSecuencia(Act).SetBackgroundImage(Load";
-mostCurrent._pictogramasecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._starter._pictogramasecuencia[_act]+".png").getObject()));
+mostCurrent._pictogramasecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._starter._secuencia[_act].pictograma+".png").getObject()));
  //BA.debugLineNum = 46;BA.debugLine="PanelScroll.Panel.AddView(PictogramaSecuencia(Ac";
 mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._pictogramasecuencia[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
  //BA.debugLineNum = 48;BA.debugLine="EditarSecuencia(Act).Initialize(\"BotonEditar\")";
@@ -371,8 +375,8 @@ mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._edi
 mostCurrent._etiquetasecuencia[_act].Initialize(mostCurrent.activityBA,"TextoSecuencia");
  //BA.debugLineNum = 54;BA.debugLine="EtiquetaSecuencia(Act).Tag=Act";
 mostCurrent._etiquetasecuencia[_act].setTag((Object)(_act));
- //BA.debugLineNum = 55;BA.debugLine="EtiquetaSecuencia(Act).Text=Starter.DescripcionS";
-mostCurrent._etiquetasecuencia[_act].setText(BA.ObjectToCharSequence(mostCurrent._starter._descripcionsecuencia[_act]));
+ //BA.debugLineNum = 55;BA.debugLine="EtiquetaSecuencia(Act).Text=Starter.Secuencia(Ac";
+mostCurrent._etiquetasecuencia[_act].setText(BA.ObjectToCharSequence(mostCurrent._starter._secuencia[_act].descripcion));
  //BA.debugLineNum = 56;BA.debugLine="EtiquetaSecuencia(Act).TextColor=Colors.Black";
 mostCurrent._etiquetasecuencia[_act].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 57;BA.debugLine="EtiquetaSecuencia(Act).TextSize=16";

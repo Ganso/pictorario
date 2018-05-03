@@ -541,14 +541,15 @@ Group=Default Group
 IconFile=
 Library1=core
 Library2=phone
+Library3=keyvaluestore2
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~
 Module1=Visualizacion
 Module2=Starter
 Module3=AcercaDe
 NumberOfFiles=269
-NumberOfLibraries=2
+NumberOfLibraries=3
 NumberOfModules=3
-Version=7.8
+Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
@@ -594,7 +595,7 @@ Sub Activity_Create(FirstTime As Boolean)
 		
 		PictogramaSecuencia(Act).Initialize("BotonPictograma")
 		PictogramaSecuencia(Act).Tag=Act
-		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.PictogramaSecuencia(Act)&".png"))
+		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.Secuencia(Act).pictograma&".png"))
 		PanelScroll.Panel.AddView(PictogramaSecuencia(Act),10dip,10dip+90dip*Act,80dip,80dip)
 		
 		EditarSecuencia(Act).Initialize("BotonEditar")
@@ -604,7 +605,7 @@ Sub Activity_Create(FirstTime As Boolean)
 
 		EtiquetaSecuencia(Act).Initialize("TextoSecuencia")
 		EtiquetaSecuencia(Act).Tag=Act
-		EtiquetaSecuencia(Act).Text=Starter.DescripcionSecuencia(Act)
+		EtiquetaSecuencia(Act).Text=Starter.Secuencia(Act).descripcion
 		EtiquetaSecuencia(Act).TextColor=Colors.Black
 		EtiquetaSecuencia(Act).TextSize=16
 		EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.LEFT)
