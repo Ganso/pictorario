@@ -66,7 +66,7 @@ Sub Service_Create
 	'This is a good place to load resources that are not specific to a single activity.
 
 	NumSecuencias=0
-	kvs.Initialize(File.DirDefaultExternal, "configuracion")
+	kvs.Initialize(File.DirInternal, "configuracion")
 	
 	Cargar_Configuracion
 	'Inicializar_Con_Ejemplo
@@ -86,19 +86,22 @@ End Sub
 
 Sub Cargar_Configuracion
 	NumSecuencias=kvs.GetDefault("NumSecuencias",0)
-	For i=0 To NumSecuencias-1
-		Secuencia(i)=kvs.Get("Secuencia."&i)
-		For j=0 To Secuencia(i).num_actividades
-			ActividadSecuencia(i,j)=kvs.Get("ActividadSecuencia."&i&"."&j)
-		Next
-	Next
 	If NumSecuencias==0 Then
 		Inicializar_Con_Ejemplo
+		Guardar_Configuracion
+	Else
+		For i=0 To NumSecuencias-1
+			Secuencia(i)=kvs.Get("Secuencia."&i)
+			For j=0 To Secuencia(i).num_actividades
+				ActividadSecuencia(i,j)=kvs.Get("ActividadSecuencia."&i&"."&j)
+			Next
+		Next
 	End If
 End Sub
 
 Sub Inicializar_Con_Ejemplo
-	NumSecuencias=2
+
+	NumSecuencias=1
 	
 	'Secuencia 0
 	
@@ -174,49 +177,49 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(0).tablero.tam_icono=10
 	
 	Secuencia(0).pictograma="colegio"
-	Secuencia(0).descripcion="Secuencia de prueba de día completo"
+	Secuencia(0).descripcion="Secuencia de prueba"
 	
 	'Secuencia 1
 	
-	Secuencia(1).Initialize
-	
-	Secuencia(1).num_actividades=4
-
-	ActividadSecuencia(1,0).hora_inicio=8
-	ActividadSecuencia(1,0).minuto_inicio=0
-	ActividadSecuencia(1,0).hora_fin=8
-	ActividadSecuencia(1,0).minuto_fin=15
-	ActividadSecuencia(1,0).pictograma="despertar_1"
-	ActividadSecuencia(1,0).descripcion="Despertarse"
-	
-	ActividadSecuencia(1,1).hora_inicio=8
-	ActividadSecuencia(1,1).minuto_inicio=15
-	ActividadSecuencia(1,1).hora_fin=8
-	ActividadSecuencia(1,1).minuto_fin=30
-	ActividadSecuencia(1,1).pictograma="vestirse"
-	ActividadSecuencia(1,1).descripcion="Vestirse"
-	
-	ActividadSecuencia(1,2).hora_inicio=8
-	ActividadSecuencia(1,2).minuto_inicio=30
-	ActividadSecuencia(1,2).hora_fin=9
-	ActividadSecuencia(1,2).minuto_fin=0
-	ActividadSecuencia(1,2).pictograma="desayunar"
-	ActividadSecuencia(1,2).descripcion="Desayunar"
-	
-	ActividadSecuencia(1,3).hora_inicio=9
-	ActividadSecuencia(1,3).minuto_inicio=0
-	ActividadSecuencia(1,3).hora_fin=14
-	ActividadSecuencia(1,3).minuto_fin=0
-	ActividadSecuencia(1,3).pictograma="colegio"
-	ActividadSecuencia(1,3).descripcion="Cole"
-	
-	Secuencia(1).tablero.tipo=3
-	Secuencia(1).tablero.indicar_hora=3
-	Secuencia(1).tablero.tam_icono=20
-	
-	Secuencia(1).pictograma="despertar_1"
-	
-	Secuencia(1).descripcion="Mañana de día laborable"
+'	Secuencia(1).Initialize
+'	
+'	Secuencia(1).num_actividades=4
+'
+'	ActividadSecuencia(1,0).hora_inicio=8
+'	ActividadSecuencia(1,0).minuto_inicio=0
+'	ActividadSecuencia(1,0).hora_fin=8
+'	ActividadSecuencia(1,0).minuto_fin=15
+'	ActividadSecuencia(1,0).pictograma="despertar_1"
+'	ActividadSecuencia(1,0).descripcion="Despertarse"
+'	
+'	ActividadSecuencia(1,1).hora_inicio=8
+'	ActividadSecuencia(1,1).minuto_inicio=15
+'	ActividadSecuencia(1,1).hora_fin=8
+'	ActividadSecuencia(1,1).minuto_fin=30
+'	ActividadSecuencia(1,1).pictograma="vestirse"
+'	ActividadSecuencia(1,1).descripcion="Vestirse"
+'	
+'	ActividadSecuencia(1,2).hora_inicio=8
+'	ActividadSecuencia(1,2).minuto_inicio=30
+'	ActividadSecuencia(1,2).hora_fin=9
+'	ActividadSecuencia(1,2).minuto_fin=0
+'	ActividadSecuencia(1,2).pictograma="desayunar"
+'	ActividadSecuencia(1,2).descripcion="Desayunar"
+'	
+'	ActividadSecuencia(1,3).hora_inicio=9
+'	ActividadSecuencia(1,3).minuto_inicio=0
+'	ActividadSecuencia(1,3).hora_fin=14
+'	ActividadSecuencia(1,3).minuto_fin=0
+'	ActividadSecuencia(1,3).pictograma="colegio"
+'	ActividadSecuencia(1,3).descripcion="Cole"
+'	
+'	Secuencia(1).tablero.tipo=3
+'	Secuencia(1).tablero.indicar_hora=3
+'	Secuencia(1).tablero.tam_icono=20
+'	
+'	Secuencia(1).pictograma="despertar_1"
+'	
+'	Secuencia(1).descripcion="Mañana de día laborable"
 
 End Sub
 
