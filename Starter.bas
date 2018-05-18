@@ -18,7 +18,7 @@ Sub Process_Globals
 
 	''' TIPOS PERSONALIZADOS
 
-	Type Actividad ( hora_inicio As Int, minuto_inicio As Int, hora_fin As Int, minuto_fin As Int, Pictograma As String, descripcion As String )
+	Type Actividad ( hora_inicio As Int, minuto_inicio As Int, hora_fin As Int, minuto_fin As Int, Pictograma As String, Descripcion As String )
 	
 	Type Tablero ( tipo As Int, indicar_hora As Int, tam_icono As Int )
 	' Tipo 0: Reloj 12h AM
@@ -31,12 +31,20 @@ Sub Process_Globals
 	' Indicar Hora 3: Hora, minuto y segundos
 	' Tamaño de icono: Porcentaje del ancho de pantalla que ocupa el icono (valor medio, 10)
 	
-	Type Secuencia ( descripcion As String, tablero As Tablero, pictograma As String, num_actividades As Int )
+	Type Secuencia ( Descripcion As String, tablero As Tablero, pictograma As String, num_actividades As Int )
 	
 	''' VALORES MÁXIMOS
 	
 	Dim MaxSecuencias=10 As Int 'Número máximo de secuencias
 	Dim MaxActividades=20 As Int 'Número máximo de actividades por secuencia
+
+	''' TABLEROS
+	
+	Dim DescripcionTablero(4) As String
+	DescripcionTablero = Array As String("Reloj de 12h (mañana)","Reloj de 12h (tarde)","Reloj de 24h","Arco de secuencia")
+
+	Dim DescripcionMinutero(4) As String
+	DescripcionMinutero = Array As String("Sin indicación","Indicar hora","Indicar hora y minutos","Indicar hora, minutos y segundos")
 
 	''' COLORES
 	
@@ -48,9 +56,8 @@ Sub Process_Globals
 
 	Dim NumSecuencias As Int 'Número de secuencias
 	Dim SecuenciaActiva As Int
-	Dim Secuencia(MaxActividades) As Secuencia
-	Dim ActividadSecuencia(MaxSecuencias,MaxActividades) As Actividad 'Array bidimensional de actividades
-
+	Dim Secuencia(MaxSecuencias+1) As Secuencia
+	Dim ActividadSecuencia(MaxSecuencias+1,MaxActividades) As Actividad 'Array bidimensional de actividades
 
 End Sub
 
@@ -64,7 +71,7 @@ Sub Service_Create
 	Cargar_Configuracion
 	'Inicializar_Con_Ejemplo
 	'Guardar_Configuracion
-
+	
 End Sub
 
 Sub Guardar_Configuracion
@@ -78,7 +85,6 @@ Sub Guardar_Configuracion
 End Sub
 
 Sub Cargar_Configuracion
-	
 	NumSecuencias=kvs.GetDefault("NumSecuencias",0)
 	For i=0 To NumSecuencias-1
 		Secuencia(i)=kvs.Get("Secuencia."&i)
@@ -86,6 +92,9 @@ Sub Cargar_Configuracion
 			ActividadSecuencia(i,j)=kvs.Get("ActividadSecuencia."&i&"."&j)
 		Next
 	Next
+	If NumSecuencias==0 Then
+		Inicializar_Con_Ejemplo
+	End If
 End Sub
 
 Sub Inicializar_Con_Ejemplo
@@ -227,3 +236,4 @@ End Sub
 Sub Service_Destroy
 
 End Sub
+

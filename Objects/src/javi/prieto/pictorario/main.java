@@ -332,118 +332,154 @@ public anywheresoftware.b4a.objects.LabelWrapper[] _etiquetasecuencia = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _botonacercade = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _botoncrear = null;
 public anywheresoftware.b4a.objects.ScrollViewWrapper _panelscroll = null;
-public javi.prieto.pictorario.visualizacion _visualizacion = null;
+public javi.prieto.pictorario.configurarsecuencia _configurarsecuencia = null;
 public javi.prieto.pictorario.starter _starter = null;
+public javi.prieto.pictorario.visualizacion _visualizacion = null;
 public javi.prieto.pictorario.acercade _acercade = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
 vis = vis | (main.mostCurrent != null);
+vis = vis | (configurarsecuencia.mostCurrent != null);
 vis = vis | (visualizacion.mostCurrent != null);
 vis = vis | (acercade.mostCurrent != null);
 return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
-int _act = 0;
  //BA.debugLineNum = 36;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 38;BA.debugLine="Activity.LoadLayout(\"Portada\")";
-mostCurrent._activity.LoadLayout("Portada",mostCurrent.activityBA);
- //BA.debugLineNum = 40;BA.debugLine="Dim Act As Int";
-_act = 0;
- //BA.debugLineNum = 41;BA.debugLine="For Act=0 To Starter.NumSecuencias-1";
-{
-final int step3 = 1;
-final int limit3 = (int) (mostCurrent._starter._numsecuencias-1);
-_act = (int) (0) ;
-for (;(step3 > 0 && _act <= limit3) || (step3 < 0 && _act >= limit3) ;_act = ((int)(0 + _act + step3))  ) {
- //BA.debugLineNum = 43;BA.debugLine="PictogramaSecuencia(Act).Initialize(\"BotonPictog";
-mostCurrent._pictogramasecuencia[_act].Initialize(mostCurrent.activityBA,"BotonPictograma");
- //BA.debugLineNum = 44;BA.debugLine="PictogramaSecuencia(Act).Tag=Act";
-mostCurrent._pictogramasecuencia[_act].setTag((Object)(_act));
- //BA.debugLineNum = 45;BA.debugLine="PictogramaSecuencia(Act).SetBackgroundImage(Load";
-mostCurrent._pictogramasecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._starter._secuencia[_act].pictograma+".png").getObject()));
- //BA.debugLineNum = 46;BA.debugLine="PanelScroll.Panel.AddView(PictogramaSecuencia(Ac";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._pictogramasecuencia[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
- //BA.debugLineNum = 48;BA.debugLine="EditarSecuencia(Act).Initialize(\"BotonEditar\")";
-mostCurrent._editarsecuencia[_act].Initialize(mostCurrent.activityBA,"BotonEditar");
- //BA.debugLineNum = 49;BA.debugLine="EditarSecuencia(Act).Tag=Act";
-mostCurrent._editarsecuencia[_act].setTag((Object)(_act));
- //BA.debugLineNum = 50;BA.debugLine="EditarSecuencia(Act).SetBackgroundImage(LoadBitm";
-mostCurrent._editarsecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"engranaje.png").getObject()));
- //BA.debugLineNum = 51;BA.debugLine="PanelScroll.Panel.AddView(EditarSecuencia(Act),1";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._editarsecuencia[_act].getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
- //BA.debugLineNum = 53;BA.debugLine="EtiquetaSecuencia(Act).Initialize(\"TextoSecuenci";
-mostCurrent._etiquetasecuencia[_act].Initialize(mostCurrent.activityBA,"TextoSecuencia");
- //BA.debugLineNum = 54;BA.debugLine="EtiquetaSecuencia(Act).Tag=Act";
-mostCurrent._etiquetasecuencia[_act].setTag((Object)(_act));
- //BA.debugLineNum = 55;BA.debugLine="EtiquetaSecuencia(Act).Text=Starter.Secuencia(Ac";
-mostCurrent._etiquetasecuencia[_act].setText(BA.ObjectToCharSequence(mostCurrent._starter._secuencia[_act].descripcion));
- //BA.debugLineNum = 56;BA.debugLine="EtiquetaSecuencia(Act).TextColor=Colors.Black";
-mostCurrent._etiquetasecuencia[_act].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 57;BA.debugLine="EtiquetaSecuencia(Act).TextSize=16";
-mostCurrent._etiquetasecuencia[_act].setTextSize((float) (16));
- //BA.debugLineNum = 58;BA.debugLine="EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CE";
-mostCurrent._etiquetasecuencia[_act].setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.LEFT));
- //BA.debugLineNum = 59;BA.debugLine="PanelScroll.Panel.AddView(EtiquetaSecuencia(Act)";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._etiquetasecuencia[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (110)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (170))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
- }
-};
- //BA.debugLineNum = 62;BA.debugLine="BotonCrear.Initialize(\"BotonCrear\")";
-mostCurrent._botoncrear.Initialize(mostCurrent.activityBA,"BotonCrear");
- //BA.debugLineNum = 63;BA.debugLine="BotonCrear.Text=\"Crear Secuencia\"";
-mostCurrent._botoncrear.setText(BA.ObjectToCharSequence("Crear Secuencia"));
- //BA.debugLineNum = 64;BA.debugLine="BotonCrear.TextSize=20";
-mostCurrent._botoncrear.setTextSize((float) (20));
- //BA.debugLineNum = 65;BA.debugLine="BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL";
-mostCurrent._botoncrear.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
- //BA.debugLineNum = 66;BA.debugLine="BotonCrear.TextColor=Colors.Black";
-mostCurrent._botoncrear.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 67;BA.debugLine="PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*S";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._botoncrear.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*mostCurrent._starter._numsecuencias),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (20))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
- //BA.debugLineNum = 69;BA.debugLine="BotonAcercaDe.Initialize(\"BotonAcercaDe\")";
-mostCurrent._botonacercade.Initialize(mostCurrent.activityBA,"BotonAcercaDe");
- //BA.debugLineNum = 70;BA.debugLine="BotonAcercaDe.Text=\"Acerca de Pictorario\"";
-mostCurrent._botonacercade.setText(BA.ObjectToCharSequence("Acerca de Pictorario"));
- //BA.debugLineNum = 71;BA.debugLine="BotonAcercaDe.TextSize=20";
-mostCurrent._botonacercade.setTextSize((float) (20));
- //BA.debugLineNum = 72;BA.debugLine="BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTI";
-mostCurrent._botonacercade.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
- //BA.debugLineNum = 73;BA.debugLine="BotonAcercaDe.TextColor=Colors.Black";
-mostCurrent._botonacercade.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 74;BA.debugLine="PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90di";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._botonacercade.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*(mostCurrent._starter._numsecuencias+1)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (20))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
- //BA.debugLineNum = 76;BA.debugLine="PanelScroll.Panel.Height=90dip*(Starter.NumSecuen";
-mostCurrent._panelscroll.getPanel().setHeight((int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*(mostCurrent._starter._numsecuencias+1)+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (100))));
- //BA.debugLineNum = 78;BA.debugLine="End Sub";
+ //BA.debugLineNum = 38;BA.debugLine="DibujarPortada";
+_dibujarportada();
+ //BA.debugLineNum = 39;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 98;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 100;BA.debugLine="End Sub";
+ //BA.debugLineNum = 112;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 114;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 94;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 96;BA.debugLine="End Sub";
+ //BA.debugLineNum = 108;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 109;BA.debugLine="DibujarPortada";
+_dibujarportada();
+ //BA.debugLineNum = 110;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botonacercade_click() throws Exception{
- //BA.debugLineNum = 108;BA.debugLine="Sub BotonAcercaDe_Click";
- //BA.debugLineNum = 109;BA.debugLine="StartActivity(AcercaDe)";
+ //BA.debugLineNum = 122;BA.debugLine="Sub BotonAcercaDe_Click";
+ //BA.debugLineNum = 123;BA.debugLine="StartActivity(AcercaDe)";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._acercade.getObject()));
- //BA.debugLineNum = 110;BA.debugLine="End Sub";
+ //BA.debugLineNum = 124;BA.debugLine="End Sub";
+return "";
+}
+public static String  _botoncrear_click() throws Exception{
+ //BA.debugLineNum = 126;BA.debugLine="Sub BotonCrear_Click";
+ //BA.debugLineNum = 127;BA.debugLine="Starter.SecuenciaActiva=Starter.MaxSecuencias";
+mostCurrent._starter._secuenciaactiva = mostCurrent._starter._maxsecuencias;
+ //BA.debugLineNum = 128;BA.debugLine="StartActivity(ConfigurarSecuencia)";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._configurarsecuencia.getObject()));
+ //BA.debugLineNum = 129;BA.debugLine="End Sub";
+return "";
+}
+public static String  _botoneditar_click() throws Exception{
+anywheresoftware.b4a.objects.ButtonWrapper _botonpulsado = null;
+ //BA.debugLineNum = 94;BA.debugLine="Sub BotonEditar_click";
+ //BA.debugLineNum = 95;BA.debugLine="Dim BotonPulsado As Button";
+_botonpulsado = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 96;BA.debugLine="BotonPulsado=Sender";
+_botonpulsado.setObject((android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
+ //BA.debugLineNum = 97;BA.debugLine="Starter.SecuenciaActiva=BotonPulsado.Tag";
+mostCurrent._starter._secuenciaactiva = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
+ //BA.debugLineNum = 98;BA.debugLine="StartActivity(ConfigurarSecuencia)";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._configurarsecuencia.getObject()));
+ //BA.debugLineNum = 99;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botonpictograma_click() throws Exception{
 anywheresoftware.b4a.objects.ButtonWrapper _botonpulsado = null;
- //BA.debugLineNum = 80;BA.debugLine="Sub BotonPictograma_click";
- //BA.debugLineNum = 81;BA.debugLine="Dim BotonPulsado As Button";
+ //BA.debugLineNum = 87;BA.debugLine="Sub BotonPictograma_click";
+ //BA.debugLineNum = 88;BA.debugLine="Dim BotonPulsado As Button";
 _botonpulsado = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 82;BA.debugLine="BotonPulsado=Sender";
+ //BA.debugLineNum = 89;BA.debugLine="BotonPulsado=Sender";
 _botonpulsado.setObject((android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
- //BA.debugLineNum = 83;BA.debugLine="Starter.SecuenciaActiva=BotonPulsado.Tag";
+ //BA.debugLineNum = 90;BA.debugLine="Starter.SecuenciaActiva=BotonPulsado.Tag";
 mostCurrent._starter._secuenciaactiva = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
- //BA.debugLineNum = 84;BA.debugLine="StartActivity(Visualizacion)";
+ //BA.debugLineNum = 91;BA.debugLine="StartActivity(Visualizacion)";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._visualizacion.getObject()));
+ //BA.debugLineNum = 92;BA.debugLine="End Sub";
+return "";
+}
+public static String  _dibujarportada() throws Exception{
+int _act = 0;
+ //BA.debugLineNum = 41;BA.debugLine="Sub DibujarPortada";
+ //BA.debugLineNum = 43;BA.debugLine="Activity.RemoveAllViews";
+mostCurrent._activity.RemoveAllViews();
+ //BA.debugLineNum = 44;BA.debugLine="Activity.LoadLayout(\"Portada\")";
+mostCurrent._activity.LoadLayout("Portada",mostCurrent.activityBA);
+ //BA.debugLineNum = 46;BA.debugLine="Dim Act As Int";
+_act = 0;
+ //BA.debugLineNum = 47;BA.debugLine="For Act=0 To Starter.NumSecuencias-1";
+{
+final int step4 = 1;
+final int limit4 = (int) (mostCurrent._starter._numsecuencias-1);
+_act = (int) (0) ;
+for (;(step4 > 0 && _act <= limit4) || (step4 < 0 && _act >= limit4) ;_act = ((int)(0 + _act + step4))  ) {
+ //BA.debugLineNum = 49;BA.debugLine="PictogramaSecuencia(Act).Initialize(\"BotonPictog";
+mostCurrent._pictogramasecuencia[_act].Initialize(mostCurrent.activityBA,"BotonPictograma");
+ //BA.debugLineNum = 50;BA.debugLine="PictogramaSecuencia(Act).Tag=Act";
+mostCurrent._pictogramasecuencia[_act].setTag((Object)(_act));
+ //BA.debugLineNum = 51;BA.debugLine="PictogramaSecuencia(Act).SetBackgroundImage(Load";
+mostCurrent._pictogramasecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._starter._secuencia[_act].pictograma+".png").getObject()));
+ //BA.debugLineNum = 52;BA.debugLine="PanelScroll.Panel.AddView(PictogramaSecuencia(Ac";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._pictogramasecuencia[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+ //BA.debugLineNum = 54;BA.debugLine="EtiquetaSecuencia(Act).Initialize(\"TextoSecuenci";
+mostCurrent._etiquetasecuencia[_act].Initialize(mostCurrent.activityBA,"TextoSecuencia");
+ //BA.debugLineNum = 55;BA.debugLine="EtiquetaSecuencia(Act).Tag=Act";
+mostCurrent._etiquetasecuencia[_act].setTag((Object)(_act));
+ //BA.debugLineNum = 56;BA.debugLine="EtiquetaSecuencia(Act).Text=Starter.Secuencia(Ac";
+mostCurrent._etiquetasecuencia[_act].setText(BA.ObjectToCharSequence(mostCurrent._starter._secuencia[_act].Descripcion));
+ //BA.debugLineNum = 57;BA.debugLine="EtiquetaSecuencia(Act).TextColor=Colors.Black";
+mostCurrent._etiquetasecuencia[_act].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 58;BA.debugLine="EtiquetaSecuencia(Act).TextSize=16";
+mostCurrent._etiquetasecuencia[_act].setTextSize((float) (16));
+ //BA.debugLineNum = 59;BA.debugLine="EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CE";
+mostCurrent._etiquetasecuencia[_act].setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.LEFT));
+ //BA.debugLineNum = 60;BA.debugLine="PanelScroll.Panel.AddView(EtiquetaSecuencia(Act)";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._etiquetasecuencia[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (110)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (170))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+ //BA.debugLineNum = 62;BA.debugLine="EditarSecuencia(Act).Initialize(\"BotonEditar\")";
+mostCurrent._editarsecuencia[_act].Initialize(mostCurrent.activityBA,"BotonEditar");
+ //BA.debugLineNum = 63;BA.debugLine="EditarSecuencia(Act).Tag=Act";
+mostCurrent._editarsecuencia[_act].setTag((Object)(_act));
+ //BA.debugLineNum = 64;BA.debugLine="EditarSecuencia(Act).SetBackgroundImage(LoadBitm";
+mostCurrent._editarsecuencia[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"engranaje.png").getObject()));
+ //BA.debugLineNum = 65;BA.debugLine="PanelScroll.Panel.AddView(EditarSecuencia(Act),1";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._editarsecuencia[_act].getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
+ }
+};
+ //BA.debugLineNum = 69;BA.debugLine="BotonCrear.Initialize(\"BotonCrear\")";
+mostCurrent._botoncrear.Initialize(mostCurrent.activityBA,"BotonCrear");
+ //BA.debugLineNum = 70;BA.debugLine="BotonCrear.Text=\"Crear Secuencia\"";
+mostCurrent._botoncrear.setText(BA.ObjectToCharSequence("Crear Secuencia"));
+ //BA.debugLineNum = 71;BA.debugLine="BotonCrear.TextSize=20";
+mostCurrent._botoncrear.setTextSize((float) (20));
+ //BA.debugLineNum = 72;BA.debugLine="BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL";
+mostCurrent._botoncrear.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+ //BA.debugLineNum = 73;BA.debugLine="BotonCrear.TextColor=Colors.Black";
+mostCurrent._botoncrear.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 74;BA.debugLine="PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*S";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._botoncrear.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*mostCurrent._starter._numsecuencias),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+ //BA.debugLineNum = 76;BA.debugLine="BotonAcercaDe.Initialize(\"BotonAcercaDe\")";
+mostCurrent._botonacercade.Initialize(mostCurrent.activityBA,"BotonAcercaDe");
+ //BA.debugLineNum = 77;BA.debugLine="BotonAcercaDe.Text=\"Acerca de Pictorario\"";
+mostCurrent._botonacercade.setText(BA.ObjectToCharSequence("Acerca de Pictorario"));
+ //BA.debugLineNum = 78;BA.debugLine="BotonAcercaDe.TextSize=20";
+mostCurrent._botonacercade.setTextSize((float) (20));
+ //BA.debugLineNum = 79;BA.debugLine="BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTI";
+mostCurrent._botonacercade.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+ //BA.debugLineNum = 80;BA.debugLine="BotonAcercaDe.TextColor=Colors.Black";
+mostCurrent._botonacercade.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 81;BA.debugLine="PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90di";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._botonacercade.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*(mostCurrent._starter._numsecuencias+1)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+ //BA.debugLineNum = 83;BA.debugLine="PanelScroll.Panel.Height=90dip*(Starter.NumSecuen";
+mostCurrent._panelscroll.getPanel().setHeight((int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*(mostCurrent._starter._numsecuencias+1)+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (100))));
  //BA.debugLineNum = 85;BA.debugLine="End Sub";
 return "";
 }
@@ -492,8 +528,9 @@ public static void initializeProcessGlobals() {
 	    main.processGlobalsRun = true;
 		try {
 		        main._process_globals();
-visualizacion._process_globals();
+configurarsecuencia._process_globals();
 starter._process_globals();
+visualizacion._process_globals();
 acercade._process_globals();
 		
         } catch (Exception e) {
@@ -507,25 +544,25 @@ return "";
 }
 public static String  _textosecuencia_click() throws Exception{
 anywheresoftware.b4a.objects.LabelWrapper _etiquetapulsada = null;
- //BA.debugLineNum = 87;BA.debugLine="Sub TextoSecuencia_click";
- //BA.debugLineNum = 88;BA.debugLine="Dim EtiquetaPulsada As Label";
+ //BA.debugLineNum = 101;BA.debugLine="Sub TextoSecuencia_click";
+ //BA.debugLineNum = 102;BA.debugLine="Dim EtiquetaPulsada As Label";
 _etiquetapulsada = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 89;BA.debugLine="EtiquetaPulsada=Sender";
+ //BA.debugLineNum = 103;BA.debugLine="EtiquetaPulsada=Sender";
 _etiquetapulsada.setObject((android.widget.TextView)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
- //BA.debugLineNum = 90;BA.debugLine="Starter.SecuenciaActiva=EtiquetaPulsada.Tag";
+ //BA.debugLineNum = 104;BA.debugLine="Starter.SecuenciaActiva=EtiquetaPulsada.Tag";
 mostCurrent._starter._secuenciaactiva = (int)(BA.ObjectToNumber(_etiquetapulsada.getTag()));
- //BA.debugLineNum = 91;BA.debugLine="StartActivity(Visualizacion)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._visualizacion.getObject()));
- //BA.debugLineNum = 92;BA.debugLine="End Sub";
-return "";
-}
-public static String  _versecuencias_click() throws Exception{
- //BA.debugLineNum = 103;BA.debugLine="Sub VerSecuencias_Click";
- //BA.debugLineNum = 104;BA.debugLine="Starter.SecuenciaActiva=1";
-mostCurrent._starter._secuenciaactiva = (int) (1);
  //BA.debugLineNum = 105;BA.debugLine="StartActivity(Visualizacion)";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._visualizacion.getObject()));
  //BA.debugLineNum = 106;BA.debugLine="End Sub";
+return "";
+}
+public static String  _versecuencias_click() throws Exception{
+ //BA.debugLineNum = 117;BA.debugLine="Sub VerSecuencias_Click";
+ //BA.debugLineNum = 118;BA.debugLine="Starter.SecuenciaActiva=1";
+mostCurrent._starter._secuenciaactiva = (int) (1);
+ //BA.debugLineNum = 119;BA.debugLine="StartActivity(Visualizacion)";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._visualizacion.getObject()));
+ //BA.debugLineNum = 120;BA.debugLine="End Sub";
 return "";
 }
 }

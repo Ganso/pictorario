@@ -1,273 +1,275 @@
 ﻿Build1=Default,javi.prieto.pictorario
 File1=AcercaDe.bal
 File10=clase_4.png
-File100=hacer caca_3.png
-File101=hacer caca_4.png
-File102=hacer la cama.png
-File103=hacer la cama_1.png
-File104=hacer pis.png
-File105=hacer pis_1.png
-File106=hamburguesa y patatas fritas.png
-File107=hamburguesa.png
-File108=hospital.png
-File109=hospital_1.png
+File100=hacer caca_2.png
+File101=hacer caca_3.png
+File102=hacer caca_4.png
+File103=hacer la cama.png
+File104=hacer la cama_1.png
+File105=hacer pis.png
+File106=hacer pis_1.png
+File107=hamburguesa y patatas fritas.png
+File108=hamburguesa.png
+File109=hospital.png
 File11=clase_5.png
-File110=instrumentos.png
-File111=juego de la peonza.png
-File112=juego de las canicas.png
-File113=juego de los pinchitos.png
-File114=juego de mesa.png
-File115=juego de mesa_1.png
-File116=juego de palmas.png
-File117=juego del hula hoop.png
-File118=juego del pilla pilla.png
-File119=jugar a hockey_1.png
+File110=hospital_1.png
+File111=instrumentos.png
+File112=juego de la peonza.png
+File113=juego de las canicas.png
+File114=juego de los pinchitos.png
+File115=juego de mesa.png
+File116=juego de mesa_1.png
+File117=juego de palmas.png
+File118=juego del hula hoop.png
+File119=juego del pilla pilla.png
 File12=clase_6.png
-File120=jugar a hockey_2.png
-File121=jugar a la petanca.png
-File122=jugar a la videoconsola.png
-File123=jugar a los bolos.png
-File124=jugar a ping pong.png
-File125=jugar al baloncesto.png
-File126=jugar al balonmano.png
-File127=jugar al be@isbol.png
-File128=jugar al billar.png
-File129=jugar al corro.png
+File120=jugar a hockey_1.png
+File121=jugar a hockey_2.png
+File122=jugar a la petanca.png
+File123=jugar a la videoconsola.png
+File124=jugar a los bolos.png
+File125=jugar a ping pong.png
+File126=jugar al baloncesto.png
+File127=jugar al balonmano.png
+File128=jugar al be@isbol.png
+File129=jugar al billar.png
 File13=clase_7.png
-File130=jugar al corro_1.png
-File131=jugar al fu@tbol.png
-File132=jugar al fu@tbol_1.png
-File133=jugar al fu@tbol_2.png
-File134=jugar al golf.png
-File135=jugar al rugby.png
-File136=jugar al tenis.png
-File137=jugar al voleibol.png
-File138=jugar al waterpolo.png
-File139=jugar con el tablet.png
+File130=jugar al corro.png
+File131=jugar al corro_1.png
+File132=jugar al fu@tbol.png
+File133=jugar al fu@tbol_1.png
+File134=jugar al fu@tbol_2.png
+File135=jugar al golf.png
+File136=jugar al rugby.png
+File137=jugar al tenis.png
+File138=jugar al voleibol.png
+File139=jugar al waterpolo.png
 File14=clase_8.png
-File140=jugar.png
-File141=jugar_1.png
-File142=jugar_2.png
-File143=jugar_3.png
-File144=juguete.png
-File145=lavar el pelo.png
-File146=lavar el pelo_1.png
-File147=lavar el pelo_2.png
-File148=lavar la cara.png
-File149=lavar la cara_1.png
+File140=jugar con el tablet.png
+File141=jugar.png
+File142=jugar_1.png
+File143=jugar_2.png
+File144=jugar_3.png
+File145=juguete.png
+File146=lavar el pelo.png
+File147=lavar el pelo_1.png
+File148=lavar el pelo_2.png
+File149=lavar la cara.png
 File15=clase_9.png
-File150=lavar la cara_2.png
-File151=lavar la ropa.png
-File152=lavar las manos.png
-File153=lavar las manos_1.png
-File154=lavar los dientes.png
-File155=lavar los dientes_1.png
-File156=lavar los dientes_2.png
-File157=levantarse de la cama.png
-File158=levantarse de la cama_1.png
-File159=logotipo.png
+File150=lavar la cara_1.png
+File151=lavar la cara_2.png
+File152=lavar la ropa.png
+File153=lavar las manos.png
+File154=lavar las manos_1.png
+File155=lavar los dientes.png
+File156=lavar los dientes_1.png
+File157=lavar los dientes_2.png
+File158=levantarse de la cama.png
+File159=levantarse de la cama_1.png
 File16=coche.png
-File160=me@dico.png
-File161=me@dico_1.png
-File162=medicarse_2.png
-File163=medicarse_3.png
-File164=medicarse_4.png
-File165=medicina.png
-File166=medicina_1.png
-File167=merendar.png
-File168=merendar_1.png
-File169=merendar_2.png
+File160=logotipo.png
+File161=me@dico.png
+File162=me@dico_1.png
+File163=medicarse_2.png
+File164=medicarse_3.png
+File165=medicarse_4.png
+File166=medicina.png
+File167=medicina_1.png
+File168=merendar.png
+File169=merendar_1.png
 File17=coche_1.png
-File170=mo@vil.png
-File171=montar a caballo.png
-File172=montar a caballo_1.png
-File173=montar a caballo_2.png
-File174=montar en bici.png
-File175=montar en bici_1.png
-File176=muffin.png
-File177=muffin_1.png
-File178=museo.png
-File179=museo_1.png
+File170=merendar_2.png
+File171=mo@vil.png
+File172=montar a caballo.png
+File173=montar a caballo_1.png
+File174=montar a caballo_2.png
+File175=montar en bici.png
+File176=montar en bici_1.png
+File177=muffin.png
+File178=muffin_1.png
+File179=museo.png
 File18=colegio.png
-File180=noche.png
-File181=noche_1.png
-File182=parchi@s.png
-File183=parque tema@tico.png
-File184=parque.png
-File185=pasear al perro.png
-File186=pasear al perro_1.png
-File187=pasear al perro_2.png
-File188=pasear en bicicleta.png
-File189=pasear en bicicleta_1.png
+File180=museo_1.png
+File181=noche.png
+File182=noche_1.png
+File183=parchi@s.png
+File184=parque tema@tico.png
+File185=parque.png
+File186=pasear al perro.png
+File187=pasear al perro_1.png
+File188=pasear al perro_2.png
+File189=pasear en bicicleta.png
 File19=colegio_1.png
-File190=pasear_3.png
-File191=pasear_5.png
-File192=pasear_6.png
-File193=pastel.png
-File194=patines de hielo.png
-File195=patines_2.png
-File196=patines_3.png
-File197=patinete.png
-File198=pediatra.png
-File199=pediatra_1.png
+File190=pasear en bicicleta_1.png
+File191=pasear_3.png
+File192=pasear_5.png
+File193=pasear_6.png
+File194=pastel.png
+File195=patines de hielo.png
+File196=patines_2.png
+File197=patines_3.png
+File198=patinete.png
+File199=pediatra.png
 File2=ban_arse.png
 File20=comer.png
-File200=pediatra_2.png
-File201=pegamento.png
-File202=peli@cula.png
-File203=pelota de baloncesto.png
-File204=pelota de be@isbol.png
-File205=pelota de fu@tbol.png
-File206=pelota de tenis.png
-File207=pelota.png
-File208=peluche.png
-File209=picnic.png
+File200=pediatra_1.png
+File201=pediatra_2.png
+File202=pegamento.png
+File203=peli@cula.png
+File204=pelota de baloncesto.png
+File205=pelota de be@isbol.png
+File206=pelota de fu@tbol.png
+File207=pelota de tenis.png
+File208=pelota.png
+File209=peluche.png
 File21=comer_1.png
-File210=picnic_1.png
-File211=pictogramas.png
-File212=pintar.png
-File213=pintar_1.png
-File214=pintar_5.png
-File215=pintar_7.png
-File216=pinturas de cera.png
-File217=pinturas de colores.png
-File218=pinturas de colores_1.png
-File219=piscina cubierta.png
+File210=picnic.png
+File211=picnic_1.png
+File212=pictogramas.png
+File213=pintar.png
+File214=pintar_1.png
+File215=pintar_5.png
+File216=pintar_7.png
+File217=pinturas de cera.png
+File218=pinturas de colores.png
+File219=pinturas de colores_1.png
 File22=comida.png
-File220=piscina de bolas.png
-File221=piscina.png
-File222=piso.png
-File223=pizza.png
-File224=ponerse ropa_1.png
-File225=ponerse ropa_2.png
-File226=Portada.bal
-File227=potito.png
-File228=pueblo.png
-File229=rayuela.png
+File220=piscina cubierta.png
+File221=piscina de bolas.png
+File222=piscina.png
+File223=piso.png
+File224=pizza.png
+File225=ponerse ropa_1.png
+File226=ponerse ropa_2.png
+File227=Portada.bal
+File228=potito.png
+File229=pueblo.png
 File23=comprar.png
-File230=RelojActividades.bal
-File231=restaurante.png
-File232=restaurante_1.png
-File233=restaurante_2.png
-File234=restaurante_3.png
-File235=saltar a la comba.png
-File236=saltar a la comba_1.png
-File237=saltar a la comba_2.png
-File238=secar el pelo.png
-File239=secar el pelo_1.png
+File230=rayuela.png
+File231=reloj_6.png
+File232=RelojActividades.bal
+File233=restaurante.png
+File234=restaurante_1.png
+File235=restaurante_2.png
+File236=restaurante_3.png
+File237=saltar a la comba.png
+File238=saltar a la comba_1.png
+File239=saltar a la comba_2.png
 File24=comprar_2.png
-File240=secar el pelo_2.png
-File241=secar el pelo_3.png
-File242=secarse.png
-File243=secarse_1.png
-File244=secarse_2.png
-File245=siesta.png
-File246=siesta_1.png
-File247=tele.png
-File248=tele_1.png
-File249=ti@teres.png
+File240=secar el pelo.png
+File241=secar el pelo_1.png
+File242=secar el pelo_2.png
+File243=secar el pelo_3.png
+File244=secarse.png
+File245=secarse_1.png
+File246=secarse_2.png
+File247=siesta.png
+File248=siesta_1.png
+File249=tele.png
 File25=comprar_3.png
-File250=tijeras escolares.png
-File251=tijeras.png
-File252=toboga@n.png
-File253=toboga@n_1.png
-File254=tomar el sol.png
-File255=tomar el sol_1.png
-File256=tomar el sol_2.png
-File257=trabajar_en_el_ordenador.png
-File258=trabajos manuales_1.png
-File259=trabajos manuales_2.png
+File250=tele_1.png
+File251=ti@teres.png
+File252=tijeras escolares.png
+File253=tijeras.png
+File254=toboga@n.png
+File255=toboga@n_1.png
+File256=tomar el sol.png
+File257=tomar el sol_1.png
+File258=tomar el sol_2.png
+File259=trabajar_en_el_ordenador.png
 File26=computador.png
-File260=ver la tele_3.png
-File261=ver la tele_4.png
-File262=ver la tele_5.png
-File263=ver la tele_6.png
-File264=ver la tele_7.png
-File265=vestirse.png
-File266=vestirse_1.png
-File267=videojuego.png
-File268=videojuego_1.png
-File269=zoo.png
+File260=trabajos manuales_1.png
+File261=trabajos manuales_2.png
+File262=ver la tele_3.png
+File263=ver la tele_4.png
+File264=ver la tele_5.png
+File265=ver la tele_6.png
+File266=ver la tele_7.png
+File267=vestirse.png
+File268=vestirse_1.png
+File269=videojuego.png
 File27=computador_1.png
+File270=videojuego_1.png
+File271=zoo.png
 File28=computador_2.png
 File29=conductor.png
 File3=cenar_2.png
 File30=conductor_1.png
 File31=conductora.png
-File32=correr.png
-File33=correr_1.png
-File34=correr_2.png
-File35=cortar el cesped.png
-File36=cortar el cesped_1.png
-File37=corte de pelo.png
-File38=corte de pelo_1.png
-File39=corte de pelo_2.png
+File32=ConfigurarSecuencia.bal
+File33=correr.png
+File34=correr_1.png
+File35=correr_2.png
+File36=cortar el cesped.png
+File37=cortar el cesped_1.png
+File38=corte de pelo.png
+File39=corte de pelo_1.png
 File4=cepillar los dientes.png
-File40=cumplean_os.png
-File41=cumplean_os_10.png
-File42=cumplean_os_11.png
-File43=cumplean_os_3.png
-File44=cumplean_os_5.png
-File45=cumplean_os_8.png
-File46=desayunar.png
-File47=desayunar_1.png
-File48=desayunar_2.png
-File49=desayuno.png
+File40=corte de pelo_2.png
+File41=cumplean_os.png
+File42=cumplean_os_10.png
+File43=cumplean_os_11.png
+File44=cumplean_os_3.png
+File45=cumplean_os_5.png
+File46=cumplean_os_8.png
+File47=desayunar.png
+File48=desayunar_1.png
+File49=desayunar_2.png
 File5=cepillar los dientes_1.png
-File50=desnudarse_1.png
-File51=desnudarse_2.png
-File52=desnudarse_3.png
-File53=desnudarse_4.png
-File54=despertar.png
-File55=despertar_1.png
-File56=despertar_2.png
-File57=dibujos animados.png
-File58=discoteca.png
-File59=domicilio.png
+File50=desayuno.png
+File51=desnudarse_1.png
+File52=desnudarse_2.png
+File53=desnudarse_3.png
+File54=desnudarse_4.png
+File55=despertar.png
+File56=despertar_1.png
+File57=despertar_2.png
+File58=dibujos animados.png
+File59=discoteca.png
 File6=clase.png
-File60=domicilio_1.png
-File61=donut.png
-File62=dormir_1.png
-File63=dormir_2.png
-File64=dormir_3.png
-File65=duchar.png
-File66=duchar_1.png
-File67=duchar_2.png
-File68=engranaje.png
-File69=equitacio@n.png
+File60=domicilio.png
+File61=domicilio_1.png
+File62=donut.png
+File63=dormir_1.png
+File64=dormir_2.png
+File65=dormir_3.png
+File66=duchar.png
+File67=duchar_1.png
+File68=duchar_2.png
+File69=engranaje.png
 File7=clase_1.png
-File70=equitacio@n_1.png
-File71=equitacio@n_2.png
-File72=escuchar mu@sica.png
-File73=esqui@.png
-File74=esqui@_1.png
-File75=estudiar.png
-File76=estudiar_1.png
-File77=excursin.png
-File78=excursio@n_1.png
-File79=excursio@n_2.png
+File70=equitacio@n.png
+File71=equitacio@n_1.png
+File72=equitacio@n_2.png
+File73=escuchar mu@sica.png
+File74=esqui@.png
+File75=esqui@_1.png
+File76=estudiar.png
+File77=estudiar_1.png
+File78=excursin.png
+File79=excursio@n_1.png
 File8=clase_2.png
-File80=excursionista.png
-File81=fiesta.png
-File82=fiesta_1.png
-File83=fiesta_2.png
-File84=fiesta_3.png
-File85=fotografi@a.png
-File86=fotografiar.png
-File87=fotografiar_1.png
-File88=fregar.png
-File89=fregar_1.png
+File80=excursio@n_2.png
+File81=excursionista.png
+File82=fiesta.png
+File83=fiesta_1.png
+File84=fiesta_2.png
+File85=fiesta_3.png
+File86=fotografi@a.png
+File87=fotografiar.png
+File88=fotografiar_1.png
+File89=fregar.png
 File9=clase_3.png
-File90=fregar_2.png
-File91=gimnasia.png
-File92=gimnasia_19.png
-File93=gimnasia_2.png
-File94=gimnasia_21.png
-File95=gimnasio.png
-File96=gimnasio_1.png
-File97=hacer caca.png
-File98=hacer caca_1.png
-File99=hacer caca_2.png
+File90=fregar_1.png
+File91=fregar_2.png
+File92=gimnasia.png
+File93=gimnasia_19.png
+File94=gimnasia_2.png
+File95=gimnasia_21.png
+File96=gimnasio.png
+File97=gimnasio_1.png
+File98=hacer caca.png
+File99=hacer caca_1.png
 FileGroup1=Default Group
 FileGroup10=Default Group\Pictogramas
 FileGroup100=Default Group\Pictogramas
@@ -334,9 +336,9 @@ FileGroup155=Default Group\Pictogramas
 FileGroup156=Default Group\Pictogramas
 FileGroup157=Default Group\Pictogramas
 FileGroup158=Default Group\Pictogramas
-FileGroup159=Default Group
+FileGroup159=Default Group\Pictogramas
 FileGroup16=Default Group\Pictogramas
-FileGroup160=Default Group\Pictogramas
+FileGroup160=Default Group
 FileGroup161=Default Group\Pictogramas
 FileGroup162=Default Group\Pictogramas
 FileGroup163=Default Group\Pictogramas
@@ -393,8 +395,8 @@ FileGroup208=Default Group\Pictogramas
 FileGroup209=Default Group\Pictogramas
 FileGroup21=Default Group\Pictogramas
 FileGroup210=Default Group\Pictogramas
-FileGroup211=Default Group
-FileGroup212=Default Group\Pictogramas
+FileGroup211=Default Group\Pictogramas
+FileGroup212=Default Group
 FileGroup213=Default Group\Pictogramas
 FileGroup214=Default Group\Pictogramas
 FileGroup215=Default Group\Pictogramas
@@ -409,14 +411,14 @@ FileGroup222=Default Group\Pictogramas
 FileGroup223=Default Group\Pictogramas
 FileGroup224=Default Group\Pictogramas
 FileGroup225=Default Group\Pictogramas
-FileGroup226=Default Group
-FileGroup227=Default Group\Pictogramas
+FileGroup226=Default Group\Pictogramas
+FileGroup227=Default Group
 FileGroup228=Default Group\Pictogramas
 FileGroup229=Default Group\Pictogramas
 FileGroup23=Default Group\Pictogramas
-FileGroup230=Default Group
+FileGroup230=Default Group\Pictogramas
 FileGroup231=Default Group\Pictogramas
-FileGroup232=Default Group\Pictogramas
+FileGroup232=Default Group
 FileGroup233=Default Group\Pictogramas
 FileGroup234=Default Group\Pictogramas
 FileGroup235=Default Group\Pictogramas
@@ -443,9 +445,9 @@ FileGroup253=Default Group\Pictogramas
 FileGroup254=Default Group\Pictogramas
 FileGroup255=Default Group\Pictogramas
 FileGroup256=Default Group\Pictogramas
-FileGroup257=Default Group
+FileGroup257=Default Group\Pictogramas
 FileGroup258=Default Group\Pictogramas
-FileGroup259=Default Group\Pictogramas
+FileGroup259=Default Group
 FileGroup26=Default Group\Pictogramas
 FileGroup260=Default Group\Pictogramas
 FileGroup261=Default Group\Pictogramas
@@ -458,12 +460,14 @@ FileGroup267=Default Group\Pictogramas
 FileGroup268=Default Group\Pictogramas
 FileGroup269=Default Group\Pictogramas
 FileGroup27=Default Group\Pictogramas
+FileGroup270=Default Group\Pictogramas
+FileGroup271=Default Group\Pictogramas
 FileGroup28=Default Group\Pictogramas
 FileGroup29=Default Group\Pictogramas
 FileGroup3=Default Group\Pictogramas
 FileGroup30=Default Group\Pictogramas
 FileGroup31=Default Group\Pictogramas
-FileGroup32=Default Group\Pictogramas
+FileGroup32=Default Group
 FileGroup33=Default Group\Pictogramas
 FileGroup34=Default Group\Pictogramas
 FileGroup35=Default Group\Pictogramas
@@ -502,8 +506,8 @@ FileGroup64=Default Group\Pictogramas
 FileGroup65=Default Group\Pictogramas
 FileGroup66=Default Group\Pictogramas
 FileGroup67=Default Group\Pictogramas
-FileGroup68=Default Group
-FileGroup69=Default Group\Pictogramas
+FileGroup68=Default Group\Pictogramas
+FileGroup69=Default Group
 FileGroup7=Default Group\Pictogramas
 FileGroup70=Default Group\Pictogramas
 FileGroup71=Default Group\Pictogramas
@@ -542,13 +546,15 @@ IconFile=
 Library1=core
 Library2=phone
 Library3=keyvaluestore2
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~
-Module1=Visualizacion
+Library4=dialogs
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~~\n~
+Module1=ConfigurarSecuencia
 Module2=Starter
-Module3=AcercaDe
-NumberOfFiles=269
-NumberOfLibraries=3
-NumberOfModules=3
+Module3=Visualizacion
+Module4=AcercaDe
+NumberOfFiles=271
+NumberOfLibraries=4
+NumberOfModules=4
 Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
@@ -588,6 +594,12 @@ End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
+	DibujarPortada
+End Sub
+
+Sub DibujarPortada
+
+	Activity.RemoveAllViews
 	Activity.LoadLayout("Portada")
 
 	Dim Act As Int
@@ -598,11 +610,6 @@ Sub Activity_Create(FirstTime As Boolean)
 		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.Secuencia(Act).pictograma&".png"))
 		PanelScroll.Panel.AddView(PictogramaSecuencia(Act),10dip,10dip+90dip*Act,80dip,80dip)
 		
-		EditarSecuencia(Act).Initialize("BotonEditar")
-		EditarSecuencia(Act).Tag=Act
-		EditarSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,"engranaje.png"))
-		PanelScroll.Panel.AddView(EditarSecuencia(Act),100%X-60dip,30dip+90dip*Act,40dip,40dip)
-
 		EtiquetaSecuencia(Act).Initialize("TextoSecuencia")
 		EtiquetaSecuencia(Act).Tag=Act
 		EtiquetaSecuencia(Act).Text=Starter.Secuencia(Act).descripcion
@@ -610,6 +617,12 @@ Sub Activity_Create(FirstTime As Boolean)
 		EtiquetaSecuencia(Act).TextSize=16
 		EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.LEFT)
 		PanelScroll.Panel.AddView(EtiquetaSecuencia(Act),110dip,10dip+90dip*Act,100%X-170dip,80dip)
+
+		EditarSecuencia(Act).Initialize("BotonEditar")
+		EditarSecuencia(Act).Tag=Act
+		EditarSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,"engranaje.png"))
+		PanelScroll.Panel.AddView(EditarSecuencia(Act),100%X-60dip,30dip+90dip*Act,40dip,40dip)
+
 	Next
 
 	BotonCrear.Initialize("BotonCrear")
@@ -617,14 +630,14 @@ Sub Activity_Create(FirstTime As Boolean)
 	BotonCrear.TextSize=20
 	BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonCrear.TextColor=Colors.Black
-	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-20dip,80dip)
+	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-10dip,80dip)
 
 	BotonAcercaDe.Initialize("BotonAcercaDe")
 	BotonAcercaDe.Text="Acerca de Pictorario"
 	BotonAcercaDe.TextSize=20
 	BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonAcercaDe.TextColor=Colors.Black
-	PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90dip*(Starter.NumSecuencias+1)-10dip,100%X-20dip,80dip)
+	PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90dip*(Starter.NumSecuencias+1)-10dip,100%X-10dip,80dip)
 	
 	PanelScroll.Panel.Height=90dip*(Starter.NumSecuencias+1)+100dip
 	
@@ -637,6 +650,13 @@ Sub BotonPictograma_click
 	StartActivity(Visualizacion)
 End Sub
 
+Sub BotonEditar_click
+	Dim BotonPulsado As Button
+	BotonPulsado=Sender
+	Starter.SecuenciaActiva=BotonPulsado.Tag
+	StartActivity(ConfigurarSecuencia)
+End Sub
+
 Sub TextoSecuencia_click
 	Dim EtiquetaPulsada As Label
 	EtiquetaPulsada=Sender
@@ -645,7 +665,7 @@ Sub TextoSecuencia_click
 End Sub
 
 Sub Activity_Resume
-
+	DibujarPortada
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -660,4 +680,9 @@ End Sub
 
 Sub BotonAcercaDe_Click
 	StartActivity(AcercaDe)
+End Sub
+
+Sub BotonCrear_Click
+	Starter.SecuenciaActiva=Starter.MaxSecuencias
+	StartActivity(ConfigurarSecuencia)
 End Sub
