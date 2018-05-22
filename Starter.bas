@@ -177,49 +177,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(0).tablero.tam_icono=10
 	
 	Secuencia(0).pictograma="colegio"
-	Secuencia(0).descripcion="Secuencia de prueba"
-	
-	'Secuencia 1
-	
-'	Secuencia(1).Initialize
-'	
-'	Secuencia(1).num_actividades=4
-'
-'	ActividadSecuencia(1,0).hora_inicio=8
-'	ActividadSecuencia(1,0).minuto_inicio=0
-'	ActividadSecuencia(1,0).hora_fin=8
-'	ActividadSecuencia(1,0).minuto_fin=15
-'	ActividadSecuencia(1,0).pictograma="despertar_1"
-'	ActividadSecuencia(1,0).descripcion="Despertarse"
-'	
-'	ActividadSecuencia(1,1).hora_inicio=8
-'	ActividadSecuencia(1,1).minuto_inicio=15
-'	ActividadSecuencia(1,1).hora_fin=8
-'	ActividadSecuencia(1,1).minuto_fin=30
-'	ActividadSecuencia(1,1).pictograma="vestirse"
-'	ActividadSecuencia(1,1).descripcion="Vestirse"
-'	
-'	ActividadSecuencia(1,2).hora_inicio=8
-'	ActividadSecuencia(1,2).minuto_inicio=30
-'	ActividadSecuencia(1,2).hora_fin=9
-'	ActividadSecuencia(1,2).minuto_fin=0
-'	ActividadSecuencia(1,2).pictograma="desayunar"
-'	ActividadSecuencia(1,2).descripcion="Desayunar"
-'	
-'	ActividadSecuencia(1,3).hora_inicio=9
-'	ActividadSecuencia(1,3).minuto_inicio=0
-'	ActividadSecuencia(1,3).hora_fin=14
-'	ActividadSecuencia(1,3).minuto_fin=0
-'	ActividadSecuencia(1,3).pictograma="colegio"
-'	ActividadSecuencia(1,3).descripcion="Cole"
-'	
-'	Secuencia(1).tablero.tipo=3
-'	Secuencia(1).tablero.indicar_hora=3
-'	Secuencia(1).tablero.tam_icono=20
-'	
-'	Secuencia(1).pictograma="despertar_1"
-'	
-'	Secuencia(1).descripcion="Mañana de día laborable"
+	Secuencia(0).descripcion="Secuencia de ejemplo"
 
 End Sub
 
@@ -240,3 +198,24 @@ Sub Service_Destroy
 
 End Sub
 
+Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
+	'Copia la secuencia Seq1 encima de la Seq2
+	Secuencia(Seq2).Initialize
+	Secuencia(Seq2).descripcion=Secuencia(Seq1).descripcion
+	Secuencia(Seq2).num_actividades=Secuencia(Seq1).num_actividades
+	Secuencia(Seq2).pictograma=Secuencia(Seq1).pictograma
+	Secuencia(Seq2).tablero.Initialize
+	Secuencia(Seq2).tablero.tipo=Secuencia(Seq1).tablero.tipo
+	Secuencia(Seq2).tablero.tam_icono=Secuencia(Seq1).tablero.tam_icono
+	Secuencia(Seq2).tablero.indicar_hora=Secuencia(Seq1).tablero.indicar_hora
+	For i=0 To Secuencia(Seq1).num_actividades-1
+		ActividadSecuencia(Seq2,i)=ActividadSecuencia(Seq1,i)
+	Next
+End Sub
+
+Sub IntercambiarAtividades (Act1 As Int, Act2 As Int)
+	Dim ActInt As Actividad
+	ActInt=ActividadSecuencia(MaxSecuencias,Act1)
+	ActividadSecuencia(MaxSecuencias,Act2)=ActividadSecuencia(MaxSecuencias,Act1)
+	ActividadSecuencia(MaxSecuencias,Act1)=ActInt
+End Sub

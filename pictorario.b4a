@@ -586,18 +586,37 @@ Sub DibujarPortada
 	
 End Sub
 
+Sub BotonEditar_click
+	Dim BotonPulsado As Button
+	Dim Opciones As List
+	Dim resultado As Int
+	
+	BotonPulsado=Sender
+	Starter.SecuenciaActiva=BotonPulsado.Tag
+	Opciones.Initialize2(Array As String("Editar secuencia","Borrar secuencia","CANCELAR"))
+	resultado=InputList(Opciones,"Acción",-1)
+	Select resultado
+		Case 0
+			StartActivity(ConfigurarSecuencia)
+		Case 1
+			If Msgbox2("¿Está seguro de que quiere borrar la secuencia """&Starter.Secuencia(Starter.SecuenciaActiva).descripcion&"""?","Borrar secuencia","Sí","","No",Null)==DialogResponse.POSITIVE Then
+				For Sec=Starter.SecuenciaActiva To Starter.NumSecuencias-2
+					'Copia las siguientes hacia atrás
+					CallSub3(Starter,"CopiarSecuencias",Sec+1,Sec)
+				Next
+				'Reduce en uno el total, guarda el resultado, y recarga la portada
+				Starter.NumSecuencias=Starter.NumSecuencias-1
+				CallSub(Starter,"Guardar_Configuracion")
+				DibujarPortada
+			End If
+	End Select
+End Sub
+
 Sub BotonPictograma_click
 	Dim BotonPulsado As Button
 	BotonPulsado=Sender
 	Starter.SecuenciaActiva=BotonPulsado.Tag
 	StartActivity(Visualizacion)
-End Sub
-
-Sub BotonEditar_click
-	Dim BotonPulsado As Button
-	BotonPulsado=Sender
-	Starter.SecuenciaActiva=BotonPulsado.Tag
-	StartActivity(ConfigurarSecuencia)
 End Sub
 
 Sub TextoSecuencia_click
