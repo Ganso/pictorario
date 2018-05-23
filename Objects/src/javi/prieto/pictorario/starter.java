@@ -14,7 +14,7 @@ public class starter extends  android.app.Service{
 			android.content.Intent in = new android.content.Intent(context, starter.class);
 			if (intent != null)
 				in.putExtra("b4a_internal_intent", intent);
-            ServiceHelper.StarterHelper.startServiceFromReceiver (context, in, true, anywheresoftware.b4a.ShellBA.class);
+            ServiceHelper.StarterHelper.startServiceFromReceiver (context, in, true, BA.class);
 		}
 
 	}
@@ -29,7 +29,7 @@ public class starter extends  android.app.Service{
         super.onCreate();
         mostCurrent = this;
         if (processBA == null) {
-		    processBA = new anywheresoftware.b4a.ShellBA(this, null, null, "javi.prieto.pictorario", "javi.prieto.pictorario.starter");
+		    processBA = new BA(this, null, null, "javi.prieto.pictorario", "javi.prieto.pictorario.starter");
             if (BA.isShellModeRuntimeCheck(processBA)) {
                 processBA.raiseEvent2(null, true, "SHELL", false);
 		    }
@@ -119,7 +119,22 @@ public class starter extends  android.app.Service{
 @Override
 	public android.os.IBinder onBind(android.content.Intent intent) {
 		return null;
-	}
+	}public anywheresoftware.b4a.keywords.Common __c = null;
+public static b4a.example3.keyvaluestore _v5 = null;
+public static int _v6 = 0;
+public static int _v7 = 0;
+public static String[] _v0 = null;
+public static String[] _vv1 = null;
+public static int _vv2 = 0;
+public static int[] _vv3 = null;
+public static int _vv4 = 0;
+public static int _vv5 = 0;
+public static javi.prieto.pictorario.starter._secuencia[] _vv6 = null;
+public static javi.prieto.pictorario.starter._actividad[][] _vv7 = null;
+public javi.prieto.pictorario.main _vvvvvvv4 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvv3 = null;
+public javi.prieto.pictorario.visualizacion _vvv4 = null;
+public javi.prieto.pictorario.acercade _vvv1 = null;
 public static class _actividad{
 public boolean IsInitialized;
 public int hora_inicio;
@@ -173,437 +188,338 @@ num_actividades = 0;
 		public String toString() {
 			return BA.TypeToString(this, false);
 		}}
-public anywheresoftware.b4a.keywords.Common __c = null;
-public static b4a.example3.keyvaluestore _kvs = null;
-public static int _maxsecuencias = 0;
-public static int _maxactividades = 0;
-public static String[] _descripciontablero = null;
-public static String[] _descripcionminutero = null;
-public static int _maxcolores = 0;
-public static int[] _colores = null;
-public static int _numsecuencias = 0;
-public static int _secuenciaactiva = 0;
-public static javi.prieto.pictorario.starter._secuencia[] _secuencia = null;
-public static javi.prieto.pictorario.starter._actividad[][] _actividadsecuencia = null;
-public javi.prieto.pictorario.main _main = null;
-public javi.prieto.pictorario.configurarsecuencia _configurarsecuencia = null;
-public javi.prieto.pictorario.visualizacion _visualizacion = null;
-public javi.prieto.pictorario.acercade _acercade = null;
-public static String  _copiarsecuencias(int _seq1,int _seq2) throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "copiarsecuencias"))
-	return (String) Debug.delegate(processBA, "copiarsecuencias", new Object[] {_seq1,_seq2});
-int _i = 0;
-RDebugUtils.currentLine=4521984;
- //BA.debugLineNum = 4521984;BA.debugLine="Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)";
-RDebugUtils.currentLine=4521986;
- //BA.debugLineNum = 4521986;BA.debugLine="Secuencia(Seq2).Initialize";
-_secuencia[_seq2].Initialize();
-RDebugUtils.currentLine=4521987;
- //BA.debugLineNum = 4521987;BA.debugLine="Secuencia(Seq2).descripcion=Secuencia(Seq1).descr";
-_secuencia[_seq2].Descripcion = _secuencia[_seq1].Descripcion;
-RDebugUtils.currentLine=4521988;
- //BA.debugLineNum = 4521988;BA.debugLine="Secuencia(Seq2).num_actividades=Secuencia(Seq1).n";
-_secuencia[_seq2].num_actividades = _secuencia[_seq1].num_actividades;
-RDebugUtils.currentLine=4521989;
- //BA.debugLineNum = 4521989;BA.debugLine="Secuencia(Seq2).pictograma=Secuencia(Seq1).pictog";
-_secuencia[_seq2].pictograma = _secuencia[_seq1].pictograma;
-RDebugUtils.currentLine=4521990;
- //BA.debugLineNum = 4521990;BA.debugLine="Secuencia(Seq2).tablero.Initialize";
-_secuencia[_seq2].tablero.Initialize();
-RDebugUtils.currentLine=4521991;
- //BA.debugLineNum = 4521991;BA.debugLine="Secuencia(Seq2).tablero.tipo=Secuencia(Seq1).tabl";
-_secuencia[_seq2].tablero.tipo = _secuencia[_seq1].tablero.tipo;
-RDebugUtils.currentLine=4521992;
- //BA.debugLineNum = 4521992;BA.debugLine="Secuencia(Seq2).tablero.tam_icono=Secuencia(Seq1)";
-_secuencia[_seq2].tablero.tam_icono = _secuencia[_seq1].tablero.tam_icono;
-RDebugUtils.currentLine=4521993;
- //BA.debugLineNum = 4521993;BA.debugLine="Secuencia(Seq2).tablero.indicar_hora=Secuencia(Se";
-_secuencia[_seq2].tablero.indicar_hora = _secuencia[_seq1].tablero.indicar_hora;
-RDebugUtils.currentLine=4521994;
- //BA.debugLineNum = 4521994;BA.debugLine="For i=0 To Secuencia(Seq1).num_actividades-1";
-{
-final int step9 = 1;
-final int limit9 = (int) (_secuencia[_seq1].num_actividades-1);
-_i = (int) (0) ;
-for (;(step9 > 0 && _i <= limit9) || (step9 < 0 && _i >= limit9) ;_i = ((int)(0 + _i + step9))  ) {
-RDebugUtils.currentLine=4521995;
- //BA.debugLineNum = 4521995;BA.debugLine="ActividadSecuencia(Seq2,i)=ActividadSecuencia(Se";
-_actividadsecuencia[_seq2][_i] = _actividadsecuencia[_seq1][_i];
- }
-};
-RDebugUtils.currentLine=4521997;
- //BA.debugLineNum = 4521997;BA.debugLine="End Sub";
-return "";
-}
-public static String  _guardar_configuracion() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "guardar_configuracion"))
-	return (String) Debug.delegate(processBA, "guardar_configuracion", null);
-int _i = 0;
-int _j = 0;
-RDebugUtils.currentLine=2359296;
- //BA.debugLineNum = 2359296;BA.debugLine="Sub Guardar_Configuracion";
-RDebugUtils.currentLine=2359297;
- //BA.debugLineNum = 2359297;BA.debugLine="kvs.Put(\"NumSecuencias\", NumSecuencias)";
-_kvs._put("NumSecuencias",(Object)(_numsecuencias));
-RDebugUtils.currentLine=2359298;
- //BA.debugLineNum = 2359298;BA.debugLine="For i=0 To NumSecuencias-1";
-{
-final int step2 = 1;
-final int limit2 = (int) (_numsecuencias-1);
-_i = (int) (0) ;
-for (;(step2 > 0 && _i <= limit2) || (step2 < 0 && _i >= limit2) ;_i = ((int)(0 + _i + step2))  ) {
-RDebugUtils.currentLine=2359299;
- //BA.debugLineNum = 2359299;BA.debugLine="kvs.Put(\"Secuencia.\"&i, Secuencia(i))";
-_kvs._put("Secuencia."+BA.NumberToString(_i),(Object)(_secuencia[_i]));
-RDebugUtils.currentLine=2359300;
- //BA.debugLineNum = 2359300;BA.debugLine="For j=0 To Secuencia(i).num_actividades";
-{
-final int step4 = 1;
-final int limit4 = _secuencia[_i].num_actividades;
-_j = (int) (0) ;
-for (;(step4 > 0 && _j <= limit4) || (step4 < 0 && _j >= limit4) ;_j = ((int)(0 + _j + step4))  ) {
-RDebugUtils.currentLine=2359301;
- //BA.debugLineNum = 2359301;BA.debugLine="kvs.Put(\"ActividadSecuencia.\"&i&\".\"&j, Activida";
-_kvs._put("ActividadSecuencia."+BA.NumberToString(_i)+"."+BA.NumberToString(_j),(Object)(_actividadsecuencia[_i][_j]));
- }
-};
- }
-};
-RDebugUtils.currentLine=2359304;
- //BA.debugLineNum = 2359304;BA.debugLine="End Sub";
-return "";
-}
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "application_error"))
-	return (Boolean) Debug.delegate(processBA, "application_error", new Object[] {_error,_stacktrace});
-RDebugUtils.currentLine=2686976;
- //BA.debugLineNum = 2686976;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
-RDebugUtils.currentLine=2686977;
- //BA.debugLineNum = 2686977;BA.debugLine="Return True";
+ //BA.debugLineNum = 187;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
+ //BA.debugLineNum = 188;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
-RDebugUtils.currentLine=2686978;
- //BA.debugLineNum = 2686978;BA.debugLine="End Sub";
+ //BA.debugLineNum = 189;BA.debugLine="End Sub";
 return false;
 }
 public static String  _cargar_configuracion() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "cargar_configuracion"))
-	return (String) Debug.delegate(processBA, "cargar_configuracion", null);
 int _i = 0;
 int _j = 0;
-RDebugUtils.currentLine=2424832;
- //BA.debugLineNum = 2424832;BA.debugLine="Sub Cargar_Configuracion";
-RDebugUtils.currentLine=2424833;
- //BA.debugLineNum = 2424833;BA.debugLine="NumSecuencias=kvs.GetDefault(\"NumSecuencias\",0)";
-_numsecuencias = (int)(BA.ObjectToNumber(_kvs._getdefault("NumSecuencias",(Object)(0))));
-RDebugUtils.currentLine=2424834;
- //BA.debugLineNum = 2424834;BA.debugLine="If NumSecuencias==0 Then";
-if (_numsecuencias==0) { 
-RDebugUtils.currentLine=2424835;
- //BA.debugLineNum = 2424835;BA.debugLine="Inicializar_Con_Ejemplo";
+ //BA.debugLineNum = 81;BA.debugLine="Sub Cargar_Configuracion";
+ //BA.debugLineNum = 82;BA.debugLine="NumSecuencias=kvs.GetDefault(\"NumSecuencias\",0)";
+_vv4 = (int)(BA.ObjectToNumber(_v5._getdefault("NumSecuencias",(Object)(0))));
+ //BA.debugLineNum = 83;BA.debugLine="If NumSecuencias==0 Then";
+if (_vv4==0) { 
+ //BA.debugLineNum = 84;BA.debugLine="Inicializar_Con_Ejemplo";
 _inicializar_con_ejemplo();
-RDebugUtils.currentLine=2424836;
- //BA.debugLineNum = 2424836;BA.debugLine="Guardar_Configuracion";
+ //BA.debugLineNum = 85;BA.debugLine="Guardar_Configuracion";
 _guardar_configuracion();
  }else {
-RDebugUtils.currentLine=2424838;
- //BA.debugLineNum = 2424838;BA.debugLine="For i=0 To NumSecuencias-1";
+ //BA.debugLineNum = 87;BA.debugLine="For i=0 To NumSecuencias-1";
 {
 final int step6 = 1;
-final int limit6 = (int) (_numsecuencias-1);
+final int limit6 = (int) (_vv4-1);
 _i = (int) (0) ;
 for (;(step6 > 0 && _i <= limit6) || (step6 < 0 && _i >= limit6) ;_i = ((int)(0 + _i + step6))  ) {
-RDebugUtils.currentLine=2424839;
- //BA.debugLineNum = 2424839;BA.debugLine="Secuencia(i)=kvs.Get(\"Secuencia.\"&i)";
-_secuencia[_i] = (javi.prieto.pictorario.starter._secuencia)(_kvs._get("Secuencia."+BA.NumberToString(_i)));
-RDebugUtils.currentLine=2424840;
- //BA.debugLineNum = 2424840;BA.debugLine="For j=0 To Secuencia(i).num_actividades";
+ //BA.debugLineNum = 88;BA.debugLine="Secuencia(i)=kvs.Get(\"Secuencia.\"&i)";
+_vv6[_i] = (javi.prieto.pictorario.starter._secuencia)(_v5._get("Secuencia."+BA.NumberToString(_i)));
+ //BA.debugLineNum = 89;BA.debugLine="For j=0 To Secuencia(i).num_actividades";
 {
 final int step8 = 1;
-final int limit8 = _secuencia[_i].num_actividades;
+final int limit8 = _vv6[_i].num_actividades;
 _j = (int) (0) ;
 for (;(step8 > 0 && _j <= limit8) || (step8 < 0 && _j >= limit8) ;_j = ((int)(0 + _j + step8))  ) {
-RDebugUtils.currentLine=2424841;
- //BA.debugLineNum = 2424841;BA.debugLine="ActividadSecuencia(i,j)=kvs.Get(\"ActividadSecu";
-_actividadsecuencia[_i][_j] = (javi.prieto.pictorario.starter._actividad)(_kvs._get("ActividadSecuencia."+BA.NumberToString(_i)+"."+BA.NumberToString(_j)));
+ //BA.debugLineNum = 90;BA.debugLine="ActividadSecuencia(i,j)=kvs.Get(\"ActividadSecu";
+_vv7[_i][_j] = (javi.prieto.pictorario.starter._actividad)(_v5._get("ActividadSecuencia."+BA.NumberToString(_i)+"."+BA.NumberToString(_j)));
  }
 };
  }
 };
  };
-RDebugUtils.currentLine=2424845;
- //BA.debugLineNum = 2424845;BA.debugLine="End Sub";
+ //BA.debugLineNum = 94;BA.debugLine="End Sub";
+return "";
+}
+public static String  _copiarsecuencias(int _seq1,int _seq2) throws Exception{
+int _i = 0;
+ //BA.debugLineNum = 195;BA.debugLine="Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)";
+ //BA.debugLineNum = 197;BA.debugLine="Secuencia(Seq2).Initialize";
+_vv6[_seq2].Initialize();
+ //BA.debugLineNum = 198;BA.debugLine="Secuencia(Seq2).descripcion=Secuencia(Seq1).descr";
+_vv6[_seq2].Descripcion = _vv6[_seq1].Descripcion;
+ //BA.debugLineNum = 199;BA.debugLine="Secuencia(Seq2).num_actividades=Secuencia(Seq1).n";
+_vv6[_seq2].num_actividades = _vv6[_seq1].num_actividades;
+ //BA.debugLineNum = 200;BA.debugLine="Secuencia(Seq2).pictograma=Secuencia(Seq1).pictog";
+_vv6[_seq2].pictograma = _vv6[_seq1].pictograma;
+ //BA.debugLineNum = 201;BA.debugLine="Secuencia(Seq2).tablero.Initialize";
+_vv6[_seq2].tablero.Initialize();
+ //BA.debugLineNum = 202;BA.debugLine="Secuencia(Seq2).tablero.tipo=Secuencia(Seq1).tabl";
+_vv6[_seq2].tablero.tipo = _vv6[_seq1].tablero.tipo;
+ //BA.debugLineNum = 203;BA.debugLine="Secuencia(Seq2).tablero.tam_icono=Secuencia(Seq1)";
+_vv6[_seq2].tablero.tam_icono = _vv6[_seq1].tablero.tam_icono;
+ //BA.debugLineNum = 204;BA.debugLine="Secuencia(Seq2).tablero.indicar_hora=Secuencia(Se";
+_vv6[_seq2].tablero.indicar_hora = _vv6[_seq1].tablero.indicar_hora;
+ //BA.debugLineNum = 205;BA.debugLine="For i=0 To Secuencia(Seq1).num_actividades-1";
+{
+final int step9 = 1;
+final int limit9 = (int) (_vv6[_seq1].num_actividades-1);
+_i = (int) (0) ;
+for (;(step9 > 0 && _i <= limit9) || (step9 < 0 && _i >= limit9) ;_i = ((int)(0 + _i + step9))  ) {
+ //BA.debugLineNum = 206;BA.debugLine="ActividadSecuencia(Seq2,i)=ActividadSecuencia(Se";
+_vv7[_seq2][_i] = _vv7[_seq1][_i];
+ }
+};
+ //BA.debugLineNum = 208;BA.debugLine="End Sub";
+return "";
+}
+public static String  _guardar_configuracion() throws Exception{
+int _i = 0;
+int _j = 0;
+ //BA.debugLineNum = 71;BA.debugLine="Sub Guardar_Configuracion";
+ //BA.debugLineNum = 72;BA.debugLine="kvs.Put(\"NumSecuencias\", NumSecuencias)";
+_v5._put("NumSecuencias",(Object)(_vv4));
+ //BA.debugLineNum = 73;BA.debugLine="For i=0 To NumSecuencias-1";
+{
+final int step2 = 1;
+final int limit2 = (int) (_vv4-1);
+_i = (int) (0) ;
+for (;(step2 > 0 && _i <= limit2) || (step2 < 0 && _i >= limit2) ;_i = ((int)(0 + _i + step2))  ) {
+ //BA.debugLineNum = 74;BA.debugLine="kvs.Put(\"Secuencia.\"&i, Secuencia(i))";
+_v5._put("Secuencia."+BA.NumberToString(_i),(Object)(_vv6[_i]));
+ //BA.debugLineNum = 75;BA.debugLine="For j=0 To Secuencia(i).num_actividades";
+{
+final int step4 = 1;
+final int limit4 = _vv6[_i].num_actividades;
+_j = (int) (0) ;
+for (;(step4 > 0 && _j <= limit4) || (step4 < 0 && _j >= limit4) ;_j = ((int)(0 + _j + step4))  ) {
+ //BA.debugLineNum = 76;BA.debugLine="kvs.Put(\"ActividadSecuencia.\"&i&\".\"&j, Activida";
+_v5._put("ActividadSecuencia."+BA.NumberToString(_i)+"."+BA.NumberToString(_j),(Object)(_vv7[_i][_j]));
+ }
+};
+ }
+};
+ //BA.debugLineNum = 79;BA.debugLine="End Sub";
 return "";
 }
 public static String  _inicializar_con_ejemplo() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "inicializar_con_ejemplo"))
-	return (String) Debug.delegate(processBA, "inicializar_con_ejemplo", null);
-RDebugUtils.currentLine=2490368;
- //BA.debugLineNum = 2490368;BA.debugLine="Sub Inicializar_Con_Ejemplo";
-RDebugUtils.currentLine=2490370;
- //BA.debugLineNum = 2490370;BA.debugLine="NumSecuencias=1";
-_numsecuencias = (int) (1);
-RDebugUtils.currentLine=2490374;
- //BA.debugLineNum = 2490374;BA.debugLine="Secuencia(0).Initialize";
-_secuencia[(int) (0)].Initialize();
-RDebugUtils.currentLine=2490376;
- //BA.debugLineNum = 2490376;BA.debugLine="Secuencia(0).num_actividades=9";
-_secuencia[(int) (0)].num_actividades = (int) (9);
-RDebugUtils.currentLine=2490378;
- //BA.debugLineNum = 2490378;BA.debugLine="ActividadSecuencia(0,0).hora_inicio=8";
-_actividadsecuencia[(int) (0)][(int) (0)].hora_inicio = (int) (8);
-RDebugUtils.currentLine=2490379;
- //BA.debugLineNum = 2490379;BA.debugLine="ActividadSecuencia(0,0).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (0)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490380;
- //BA.debugLineNum = 2490380;BA.debugLine="ActividadSecuencia(0,0).hora_fin=8";
-_actividadsecuencia[(int) (0)][(int) (0)].hora_fin = (int) (8);
-RDebugUtils.currentLine=2490381;
- //BA.debugLineNum = 2490381;BA.debugLine="ActividadSecuencia(0,0).minuto_fin=15";
-_actividadsecuencia[(int) (0)][(int) (0)].minuto_fin = (int) (15);
-RDebugUtils.currentLine=2490382;
- //BA.debugLineNum = 2490382;BA.debugLine="ActividadSecuencia(0,0).pictograma=\"despertar_1\"";
-_actividadsecuencia[(int) (0)][(int) (0)].Pictograma = "despertar_1";
-RDebugUtils.currentLine=2490383;
- //BA.debugLineNum = 2490383;BA.debugLine="ActividadSecuencia(0,0).descripcion=\"Despertarse\"";
-_actividadsecuencia[(int) (0)][(int) (0)].Descripcion = "Despertarse";
-RDebugUtils.currentLine=2490385;
- //BA.debugLineNum = 2490385;BA.debugLine="ActividadSecuencia(0,1).hora_inicio=8";
-_actividadsecuencia[(int) (0)][(int) (1)].hora_inicio = (int) (8);
-RDebugUtils.currentLine=2490386;
- //BA.debugLineNum = 2490386;BA.debugLine="ActividadSecuencia(0,1).minuto_inicio=15";
-_actividadsecuencia[(int) (0)][(int) (1)].minuto_inicio = (int) (15);
-RDebugUtils.currentLine=2490387;
- //BA.debugLineNum = 2490387;BA.debugLine="ActividadSecuencia(0,1).hora_fin=8";
-_actividadsecuencia[(int) (0)][(int) (1)].hora_fin = (int) (8);
-RDebugUtils.currentLine=2490388;
- //BA.debugLineNum = 2490388;BA.debugLine="ActividadSecuencia(0,1).minuto_fin=30";
-_actividadsecuencia[(int) (0)][(int) (1)].minuto_fin = (int) (30);
-RDebugUtils.currentLine=2490389;
- //BA.debugLineNum = 2490389;BA.debugLine="ActividadSecuencia(0,1).pictograma=\"vestirse\"";
-_actividadsecuencia[(int) (0)][(int) (1)].Pictograma = "vestirse";
-RDebugUtils.currentLine=2490390;
- //BA.debugLineNum = 2490390;BA.debugLine="ActividadSecuencia(0,1).descripcion=\"Vestirse\"";
-_actividadsecuencia[(int) (0)][(int) (1)].Descripcion = "Vestirse";
-RDebugUtils.currentLine=2490392;
- //BA.debugLineNum = 2490392;BA.debugLine="ActividadSecuencia(0,2).hora_inicio=8";
-_actividadsecuencia[(int) (0)][(int) (2)].hora_inicio = (int) (8);
-RDebugUtils.currentLine=2490393;
- //BA.debugLineNum = 2490393;BA.debugLine="ActividadSecuencia(0,2).minuto_inicio=30";
-_actividadsecuencia[(int) (0)][(int) (2)].minuto_inicio = (int) (30);
-RDebugUtils.currentLine=2490394;
- //BA.debugLineNum = 2490394;BA.debugLine="ActividadSecuencia(0,2).hora_fin=9";
-_actividadsecuencia[(int) (0)][(int) (2)].hora_fin = (int) (9);
-RDebugUtils.currentLine=2490395;
- //BA.debugLineNum = 2490395;BA.debugLine="ActividadSecuencia(0,2).minuto_fin=0";
-_actividadsecuencia[(int) (0)][(int) (2)].minuto_fin = (int) (0);
-RDebugUtils.currentLine=2490396;
- //BA.debugLineNum = 2490396;BA.debugLine="ActividadSecuencia(0,2).pictograma=\"desayunar\"";
-_actividadsecuencia[(int) (0)][(int) (2)].Pictograma = "desayunar";
-RDebugUtils.currentLine=2490397;
- //BA.debugLineNum = 2490397;BA.debugLine="ActividadSecuencia(0,2).descripcion=\"Desayunar\"";
-_actividadsecuencia[(int) (0)][(int) (2)].Descripcion = "Desayunar";
-RDebugUtils.currentLine=2490399;
- //BA.debugLineNum = 2490399;BA.debugLine="ActividadSecuencia(0,3).hora_inicio=9";
-_actividadsecuencia[(int) (0)][(int) (3)].hora_inicio = (int) (9);
-RDebugUtils.currentLine=2490400;
- //BA.debugLineNum = 2490400;BA.debugLine="ActividadSecuencia(0,3).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (3)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490401;
- //BA.debugLineNum = 2490401;BA.debugLine="ActividadSecuencia(0,3).hora_fin=14";
-_actividadsecuencia[(int) (0)][(int) (3)].hora_fin = (int) (14);
-RDebugUtils.currentLine=2490402;
- //BA.debugLineNum = 2490402;BA.debugLine="ActividadSecuencia(0,3).minuto_fin=0";
-_actividadsecuencia[(int) (0)][(int) (3)].minuto_fin = (int) (0);
-RDebugUtils.currentLine=2490403;
- //BA.debugLineNum = 2490403;BA.debugLine="ActividadSecuencia(0,3).pictograma=\"colegio\"";
-_actividadsecuencia[(int) (0)][(int) (3)].Pictograma = "colegio";
-RDebugUtils.currentLine=2490404;
- //BA.debugLineNum = 2490404;BA.debugLine="ActividadSecuencia(0,3).descripcion=\"Cole\"";
-_actividadsecuencia[(int) (0)][(int) (3)].Descripcion = "Cole";
-RDebugUtils.currentLine=2490406;
- //BA.debugLineNum = 2490406;BA.debugLine="ActividadSecuencia(0,4).hora_inicio=14";
-_actividadsecuencia[(int) (0)][(int) (4)].hora_inicio = (int) (14);
-RDebugUtils.currentLine=2490407;
- //BA.debugLineNum = 2490407;BA.debugLine="ActividadSecuencia(0,4).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (4)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490408;
- //BA.debugLineNum = 2490408;BA.debugLine="ActividadSecuencia(0,4).hora_fin=15";
-_actividadsecuencia[(int) (0)][(int) (4)].hora_fin = (int) (15);
-RDebugUtils.currentLine=2490409;
- //BA.debugLineNum = 2490409;BA.debugLine="ActividadSecuencia(0,4).minuto_fin=0";
-_actividadsecuencia[(int) (0)][(int) (4)].minuto_fin = (int) (0);
-RDebugUtils.currentLine=2490410;
- //BA.debugLineNum = 2490410;BA.debugLine="ActividadSecuencia(0,4).pictograma=\"comer\"";
-_actividadsecuencia[(int) (0)][(int) (4)].Pictograma = "comer";
-RDebugUtils.currentLine=2490411;
- //BA.debugLineNum = 2490411;BA.debugLine="ActividadSecuencia(0,4).descripcion=\"Comer\"";
-_actividadsecuencia[(int) (0)][(int) (4)].Descripcion = "Comer";
-RDebugUtils.currentLine=2490413;
- //BA.debugLineNum = 2490413;BA.debugLine="ActividadSecuencia(0,5).hora_inicio=15";
-_actividadsecuencia[(int) (0)][(int) (5)].hora_inicio = (int) (15);
-RDebugUtils.currentLine=2490414;
- //BA.debugLineNum = 2490414;BA.debugLine="ActividadSecuencia(0,5).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (5)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490415;
- //BA.debugLineNum = 2490415;BA.debugLine="ActividadSecuencia(0,5).hora_fin=20";
-_actividadsecuencia[(int) (0)][(int) (5)].hora_fin = (int) (20);
-RDebugUtils.currentLine=2490416;
- //BA.debugLineNum = 2490416;BA.debugLine="ActividadSecuencia(0,5).minuto_fin=0";
-_actividadsecuencia[(int) (0)][(int) (5)].minuto_fin = (int) (0);
-RDebugUtils.currentLine=2490417;
- //BA.debugLineNum = 2490417;BA.debugLine="ActividadSecuencia(0,5).pictograma=\"juguete\"";
-_actividadsecuencia[(int) (0)][(int) (5)].Pictograma = "juguete";
-RDebugUtils.currentLine=2490418;
- //BA.debugLineNum = 2490418;BA.debugLine="ActividadSecuencia(0,5).descripcion=\"Jugar\"";
-_actividadsecuencia[(int) (0)][(int) (5)].Descripcion = "Jugar";
-RDebugUtils.currentLine=2490420;
- //BA.debugLineNum = 2490420;BA.debugLine="ActividadSecuencia(0,6).hora_inicio=20";
-_actividadsecuencia[(int) (0)][(int) (6)].hora_inicio = (int) (20);
-RDebugUtils.currentLine=2490421;
- //BA.debugLineNum = 2490421;BA.debugLine="ActividadSecuencia(0,6).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (6)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490422;
- //BA.debugLineNum = 2490422;BA.debugLine="ActividadSecuencia(0,6).hora_fin=20";
-_actividadsecuencia[(int) (0)][(int) (6)].hora_fin = (int) (20);
-RDebugUtils.currentLine=2490423;
- //BA.debugLineNum = 2490423;BA.debugLine="ActividadSecuencia(0,6).minuto_fin=30";
-_actividadsecuencia[(int) (0)][(int) (6)].minuto_fin = (int) (30);
-RDebugUtils.currentLine=2490424;
- //BA.debugLineNum = 2490424;BA.debugLine="ActividadSecuencia(0,6).pictograma=\"ban_arse\"";
-_actividadsecuencia[(int) (0)][(int) (6)].Pictograma = "ban_arse";
-RDebugUtils.currentLine=2490425;
- //BA.debugLineNum = 2490425;BA.debugLine="ActividadSecuencia(0,6).descripcion=\"Bañarse\"";
-_actividadsecuencia[(int) (0)][(int) (6)].Descripcion = "Bañarse";
-RDebugUtils.currentLine=2490427;
- //BA.debugLineNum = 2490427;BA.debugLine="ActividadSecuencia(0,7).hora_inicio=20";
-_actividadsecuencia[(int) (0)][(int) (7)].hora_inicio = (int) (20);
-RDebugUtils.currentLine=2490428;
- //BA.debugLineNum = 2490428;BA.debugLine="ActividadSecuencia(0,7).minuto_inicio=30";
-_actividadsecuencia[(int) (0)][(int) (7)].minuto_inicio = (int) (30);
-RDebugUtils.currentLine=2490429;
- //BA.debugLineNum = 2490429;BA.debugLine="ActividadSecuencia(0,7).hora_fin=21";
-_actividadsecuencia[(int) (0)][(int) (7)].hora_fin = (int) (21);
-RDebugUtils.currentLine=2490430;
- //BA.debugLineNum = 2490430;BA.debugLine="ActividadSecuencia(0,7).minuto_fin=0";
-_actividadsecuencia[(int) (0)][(int) (7)].minuto_fin = (int) (0);
-RDebugUtils.currentLine=2490431;
- //BA.debugLineNum = 2490431;BA.debugLine="ActividadSecuencia(0,7).pictograma=\"cenar_2\"";
-_actividadsecuencia[(int) (0)][(int) (7)].Pictograma = "cenar_2";
-RDebugUtils.currentLine=2490432;
- //BA.debugLineNum = 2490432;BA.debugLine="ActividadSecuencia(0,7).descripcion=\"Cenar\"";
-_actividadsecuencia[(int) (0)][(int) (7)].Descripcion = "Cenar";
-RDebugUtils.currentLine=2490434;
- //BA.debugLineNum = 2490434;BA.debugLine="ActividadSecuencia(0,8).hora_inicio=21";
-_actividadsecuencia[(int) (0)][(int) (8)].hora_inicio = (int) (21);
-RDebugUtils.currentLine=2490435;
- //BA.debugLineNum = 2490435;BA.debugLine="ActividadSecuencia(0,8).minuto_inicio=0";
-_actividadsecuencia[(int) (0)][(int) (8)].minuto_inicio = (int) (0);
-RDebugUtils.currentLine=2490436;
- //BA.debugLineNum = 2490436;BA.debugLine="ActividadSecuencia(0,8).hora_fin=21";
-_actividadsecuencia[(int) (0)][(int) (8)].hora_fin = (int) (21);
-RDebugUtils.currentLine=2490437;
- //BA.debugLineNum = 2490437;BA.debugLine="ActividadSecuencia(0,8).minuto_fin=30";
-_actividadsecuencia[(int) (0)][(int) (8)].minuto_fin = (int) (30);
-RDebugUtils.currentLine=2490438;
- //BA.debugLineNum = 2490438;BA.debugLine="ActividadSecuencia(0,8).pictograma=\"dormir_1\"";
-_actividadsecuencia[(int) (0)][(int) (8)].Pictograma = "dormir_1";
-RDebugUtils.currentLine=2490439;
- //BA.debugLineNum = 2490439;BA.debugLine="ActividadSecuencia(0,8).descripcion=\"Acostarse\"";
-_actividadsecuencia[(int) (0)][(int) (8)].Descripcion = "Acostarse";
-RDebugUtils.currentLine=2490441;
- //BA.debugLineNum = 2490441;BA.debugLine="Secuencia(0).tablero.tipo=2";
-_secuencia[(int) (0)].tablero.tipo = (int) (2);
-RDebugUtils.currentLine=2490442;
- //BA.debugLineNum = 2490442;BA.debugLine="Secuencia(0).tablero.indicar_hora=3";
-_secuencia[(int) (0)].tablero.indicar_hora = (int) (3);
-RDebugUtils.currentLine=2490443;
- //BA.debugLineNum = 2490443;BA.debugLine="Secuencia(0).tablero.tam_icono=10";
-_secuencia[(int) (0)].tablero.tam_icono = (int) (10);
-RDebugUtils.currentLine=2490445;
- //BA.debugLineNum = 2490445;BA.debugLine="Secuencia(0).pictograma=\"colegio\"";
-_secuencia[(int) (0)].pictograma = "colegio";
-RDebugUtils.currentLine=2490446;
- //BA.debugLineNum = 2490446;BA.debugLine="Secuencia(0).descripcion=\"Secuencia de ejemplo\"";
-_secuencia[(int) (0)].Descripcion = "Secuencia de ejemplo";
-RDebugUtils.currentLine=2490448;
- //BA.debugLineNum = 2490448;BA.debugLine="End Sub";
+ //BA.debugLineNum = 96;BA.debugLine="Sub Inicializar_Con_Ejemplo";
+ //BA.debugLineNum = 98;BA.debugLine="NumSecuencias=1";
+_vv4 = (int) (1);
+ //BA.debugLineNum = 102;BA.debugLine="Secuencia(0).Initialize";
+_vv6[(int) (0)].Initialize();
+ //BA.debugLineNum = 104;BA.debugLine="Secuencia(0).num_actividades=9";
+_vv6[(int) (0)].num_actividades = (int) (9);
+ //BA.debugLineNum = 106;BA.debugLine="ActividadSecuencia(0,0).hora_inicio=8";
+_vv7[(int) (0)][(int) (0)].hora_inicio = (int) (8);
+ //BA.debugLineNum = 107;BA.debugLine="ActividadSecuencia(0,0).minuto_inicio=0";
+_vv7[(int) (0)][(int) (0)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 108;BA.debugLine="ActividadSecuencia(0,0).hora_fin=8";
+_vv7[(int) (0)][(int) (0)].hora_fin = (int) (8);
+ //BA.debugLineNum = 109;BA.debugLine="ActividadSecuencia(0,0).minuto_fin=15";
+_vv7[(int) (0)][(int) (0)].minuto_fin = (int) (15);
+ //BA.debugLineNum = 110;BA.debugLine="ActividadSecuencia(0,0).pictograma=\"despertar_1\"";
+_vv7[(int) (0)][(int) (0)].Pictograma = "despertar_1";
+ //BA.debugLineNum = 111;BA.debugLine="ActividadSecuencia(0,0).descripcion=\"Despertarse\"";
+_vv7[(int) (0)][(int) (0)].Descripcion = "Despertarse";
+ //BA.debugLineNum = 113;BA.debugLine="ActividadSecuencia(0,1).hora_inicio=8";
+_vv7[(int) (0)][(int) (1)].hora_inicio = (int) (8);
+ //BA.debugLineNum = 114;BA.debugLine="ActividadSecuencia(0,1).minuto_inicio=15";
+_vv7[(int) (0)][(int) (1)].minuto_inicio = (int) (15);
+ //BA.debugLineNum = 115;BA.debugLine="ActividadSecuencia(0,1).hora_fin=8";
+_vv7[(int) (0)][(int) (1)].hora_fin = (int) (8);
+ //BA.debugLineNum = 116;BA.debugLine="ActividadSecuencia(0,1).minuto_fin=30";
+_vv7[(int) (0)][(int) (1)].minuto_fin = (int) (30);
+ //BA.debugLineNum = 117;BA.debugLine="ActividadSecuencia(0,1).pictograma=\"vestirse\"";
+_vv7[(int) (0)][(int) (1)].Pictograma = "vestirse";
+ //BA.debugLineNum = 118;BA.debugLine="ActividadSecuencia(0,1).descripcion=\"Vestirse\"";
+_vv7[(int) (0)][(int) (1)].Descripcion = "Vestirse";
+ //BA.debugLineNum = 120;BA.debugLine="ActividadSecuencia(0,2).hora_inicio=8";
+_vv7[(int) (0)][(int) (2)].hora_inicio = (int) (8);
+ //BA.debugLineNum = 121;BA.debugLine="ActividadSecuencia(0,2).minuto_inicio=30";
+_vv7[(int) (0)][(int) (2)].minuto_inicio = (int) (30);
+ //BA.debugLineNum = 122;BA.debugLine="ActividadSecuencia(0,2).hora_fin=9";
+_vv7[(int) (0)][(int) (2)].hora_fin = (int) (9);
+ //BA.debugLineNum = 123;BA.debugLine="ActividadSecuencia(0,2).minuto_fin=0";
+_vv7[(int) (0)][(int) (2)].minuto_fin = (int) (0);
+ //BA.debugLineNum = 124;BA.debugLine="ActividadSecuencia(0,2).pictograma=\"desayunar\"";
+_vv7[(int) (0)][(int) (2)].Pictograma = "desayunar";
+ //BA.debugLineNum = 125;BA.debugLine="ActividadSecuencia(0,2).descripcion=\"Desayunar\"";
+_vv7[(int) (0)][(int) (2)].Descripcion = "Desayunar";
+ //BA.debugLineNum = 127;BA.debugLine="ActividadSecuencia(0,3).hora_inicio=9";
+_vv7[(int) (0)][(int) (3)].hora_inicio = (int) (9);
+ //BA.debugLineNum = 128;BA.debugLine="ActividadSecuencia(0,3).minuto_inicio=0";
+_vv7[(int) (0)][(int) (3)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 129;BA.debugLine="ActividadSecuencia(0,3).hora_fin=14";
+_vv7[(int) (0)][(int) (3)].hora_fin = (int) (14);
+ //BA.debugLineNum = 130;BA.debugLine="ActividadSecuencia(0,3).minuto_fin=0";
+_vv7[(int) (0)][(int) (3)].minuto_fin = (int) (0);
+ //BA.debugLineNum = 131;BA.debugLine="ActividadSecuencia(0,3).pictograma=\"colegio\"";
+_vv7[(int) (0)][(int) (3)].Pictograma = "colegio";
+ //BA.debugLineNum = 132;BA.debugLine="ActividadSecuencia(0,3).descripcion=\"Cole\"";
+_vv7[(int) (0)][(int) (3)].Descripcion = "Cole";
+ //BA.debugLineNum = 134;BA.debugLine="ActividadSecuencia(0,4).hora_inicio=14";
+_vv7[(int) (0)][(int) (4)].hora_inicio = (int) (14);
+ //BA.debugLineNum = 135;BA.debugLine="ActividadSecuencia(0,4).minuto_inicio=0";
+_vv7[(int) (0)][(int) (4)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 136;BA.debugLine="ActividadSecuencia(0,4).hora_fin=15";
+_vv7[(int) (0)][(int) (4)].hora_fin = (int) (15);
+ //BA.debugLineNum = 137;BA.debugLine="ActividadSecuencia(0,4).minuto_fin=0";
+_vv7[(int) (0)][(int) (4)].minuto_fin = (int) (0);
+ //BA.debugLineNum = 138;BA.debugLine="ActividadSecuencia(0,4).pictograma=\"comer\"";
+_vv7[(int) (0)][(int) (4)].Pictograma = "comer";
+ //BA.debugLineNum = 139;BA.debugLine="ActividadSecuencia(0,4).descripcion=\"Comer\"";
+_vv7[(int) (0)][(int) (4)].Descripcion = "Comer";
+ //BA.debugLineNum = 141;BA.debugLine="ActividadSecuencia(0,5).hora_inicio=15";
+_vv7[(int) (0)][(int) (5)].hora_inicio = (int) (15);
+ //BA.debugLineNum = 142;BA.debugLine="ActividadSecuencia(0,5).minuto_inicio=0";
+_vv7[(int) (0)][(int) (5)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 143;BA.debugLine="ActividadSecuencia(0,5).hora_fin=20";
+_vv7[(int) (0)][(int) (5)].hora_fin = (int) (20);
+ //BA.debugLineNum = 144;BA.debugLine="ActividadSecuencia(0,5).minuto_fin=0";
+_vv7[(int) (0)][(int) (5)].minuto_fin = (int) (0);
+ //BA.debugLineNum = 145;BA.debugLine="ActividadSecuencia(0,5).pictograma=\"juguete\"";
+_vv7[(int) (0)][(int) (5)].Pictograma = "juguete";
+ //BA.debugLineNum = 146;BA.debugLine="ActividadSecuencia(0,5).descripcion=\"Jugar\"";
+_vv7[(int) (0)][(int) (5)].Descripcion = "Jugar";
+ //BA.debugLineNum = 148;BA.debugLine="ActividadSecuencia(0,6).hora_inicio=20";
+_vv7[(int) (0)][(int) (6)].hora_inicio = (int) (20);
+ //BA.debugLineNum = 149;BA.debugLine="ActividadSecuencia(0,6).minuto_inicio=0";
+_vv7[(int) (0)][(int) (6)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 150;BA.debugLine="ActividadSecuencia(0,6).hora_fin=20";
+_vv7[(int) (0)][(int) (6)].hora_fin = (int) (20);
+ //BA.debugLineNum = 151;BA.debugLine="ActividadSecuencia(0,6).minuto_fin=30";
+_vv7[(int) (0)][(int) (6)].minuto_fin = (int) (30);
+ //BA.debugLineNum = 152;BA.debugLine="ActividadSecuencia(0,6).pictograma=\"ban_arse\"";
+_vv7[(int) (0)][(int) (6)].Pictograma = "ban_arse";
+ //BA.debugLineNum = 153;BA.debugLine="ActividadSecuencia(0,6).descripcion=\"Bañarse\"";
+_vv7[(int) (0)][(int) (6)].Descripcion = "Bañarse";
+ //BA.debugLineNum = 155;BA.debugLine="ActividadSecuencia(0,7).hora_inicio=20";
+_vv7[(int) (0)][(int) (7)].hora_inicio = (int) (20);
+ //BA.debugLineNum = 156;BA.debugLine="ActividadSecuencia(0,7).minuto_inicio=30";
+_vv7[(int) (0)][(int) (7)].minuto_inicio = (int) (30);
+ //BA.debugLineNum = 157;BA.debugLine="ActividadSecuencia(0,7).hora_fin=21";
+_vv7[(int) (0)][(int) (7)].hora_fin = (int) (21);
+ //BA.debugLineNum = 158;BA.debugLine="ActividadSecuencia(0,7).minuto_fin=0";
+_vv7[(int) (0)][(int) (7)].minuto_fin = (int) (0);
+ //BA.debugLineNum = 159;BA.debugLine="ActividadSecuencia(0,7).pictograma=\"cenar_2\"";
+_vv7[(int) (0)][(int) (7)].Pictograma = "cenar_2";
+ //BA.debugLineNum = 160;BA.debugLine="ActividadSecuencia(0,7).descripcion=\"Cenar\"";
+_vv7[(int) (0)][(int) (7)].Descripcion = "Cenar";
+ //BA.debugLineNum = 162;BA.debugLine="ActividadSecuencia(0,8).hora_inicio=21";
+_vv7[(int) (0)][(int) (8)].hora_inicio = (int) (21);
+ //BA.debugLineNum = 163;BA.debugLine="ActividadSecuencia(0,8).minuto_inicio=0";
+_vv7[(int) (0)][(int) (8)].minuto_inicio = (int) (0);
+ //BA.debugLineNum = 164;BA.debugLine="ActividadSecuencia(0,8).hora_fin=21";
+_vv7[(int) (0)][(int) (8)].hora_fin = (int) (21);
+ //BA.debugLineNum = 165;BA.debugLine="ActividadSecuencia(0,8).minuto_fin=30";
+_vv7[(int) (0)][(int) (8)].minuto_fin = (int) (30);
+ //BA.debugLineNum = 166;BA.debugLine="ActividadSecuencia(0,8).pictograma=\"dormir_1\"";
+_vv7[(int) (0)][(int) (8)].Pictograma = "dormir_1";
+ //BA.debugLineNum = 167;BA.debugLine="ActividadSecuencia(0,8).descripcion=\"Acostarse\"";
+_vv7[(int) (0)][(int) (8)].Descripcion = "Acostarse";
+ //BA.debugLineNum = 169;BA.debugLine="Secuencia(0).tablero.tipo=2";
+_vv6[(int) (0)].tablero.tipo = (int) (2);
+ //BA.debugLineNum = 170;BA.debugLine="Secuencia(0).tablero.indicar_hora=3";
+_vv6[(int) (0)].tablero.indicar_hora = (int) (3);
+ //BA.debugLineNum = 171;BA.debugLine="Secuencia(0).tablero.tam_icono=10";
+_vv6[(int) (0)].tablero.tam_icono = (int) (10);
+ //BA.debugLineNum = 173;BA.debugLine="Secuencia(0).pictograma=\"colegio\"";
+_vv6[(int) (0)].pictograma = "colegio";
+ //BA.debugLineNum = 174;BA.debugLine="Secuencia(0).descripcion=\"Secuencia de ejemplo\"";
+_vv6[(int) (0)].Descripcion = "Secuencia de ejemplo";
+ //BA.debugLineNum = 176;BA.debugLine="End Sub";
 return "";
 }
-public static String  _intercambiaratividades(int _act1,int _act2) throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "intercambiaratividades"))
-	return (String) Debug.delegate(processBA, "intercambiaratividades", new Object[] {_act1,_act2});
+public static String  _vvvvvvv5(int _sec,int _act1,int _act2) throws Exception{
 javi.prieto.pictorario.starter._actividad _actint = null;
-RDebugUtils.currentLine=4587520;
- //BA.debugLineNum = 4587520;BA.debugLine="Sub IntercambiarAtividades (Act1 As Int, Act2 As I";
-RDebugUtils.currentLine=4587521;
- //BA.debugLineNum = 4587521;BA.debugLine="Dim ActInt As Actividad";
+ //BA.debugLineNum = 210;BA.debugLine="Sub IntercambiarActividades (Sec As Int, Act1 As I";
+ //BA.debugLineNum = 211;BA.debugLine="Dim ActInt As Actividad";
 _actint = new javi.prieto.pictorario.starter._actividad();
-RDebugUtils.currentLine=4587522;
- //BA.debugLineNum = 4587522;BA.debugLine="ActInt=ActividadSecuencia(MaxSecuencias,Act1)";
-_actint = _actividadsecuencia[_maxsecuencias][_act1];
-RDebugUtils.currentLine=4587523;
- //BA.debugLineNum = 4587523;BA.debugLine="ActividadSecuencia(MaxSecuencias,Act2)=ActividadS";
-_actividadsecuencia[_maxsecuencias][_act2] = _actividadsecuencia[_maxsecuencias][_act1];
-RDebugUtils.currentLine=4587524;
- //BA.debugLineNum = 4587524;BA.debugLine="ActividadSecuencia(MaxSecuencias,Act1)=ActInt";
-_actividadsecuencia[_maxsecuencias][_act1] = _actint;
-RDebugUtils.currentLine=4587525;
- //BA.debugLineNum = 4587525;BA.debugLine="End Sub";
+ //BA.debugLineNum = 212;BA.debugLine="ActInt=ActividadSecuencia(Sec,Act1)";
+_actint = _vv7[_sec][_act1];
+ //BA.debugLineNum = 213;BA.debugLine="ActividadSecuencia(Sec,Act2)=ActividadSecuencia(S";
+_vv7[_sec][_act2] = _vv7[_sec][_act1];
+ //BA.debugLineNum = 214;BA.debugLine="ActividadSecuencia(Sec,Act1)=ActInt";
+_vv7[_sec][_act1] = _actint;
+ //BA.debugLineNum = 215;BA.debugLine="End Sub";
+return "";
+}
+public static String  _process_globals() throws Exception{
+ //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 11;BA.debugLine="Dim kvs As KeyValueStore";
+_v5 = new b4a.example3.keyvaluestore();
+ //BA.debugLineNum = 15;BA.debugLine="Type Actividad ( hora_inicio As Int, minuto_inici";
+;
+ //BA.debugLineNum = 17;BA.debugLine="Type Tablero ( tipo As Int, indicar_hora As Int,";
+;
+ //BA.debugLineNum = 28;BA.debugLine="Type Secuencia ( Descripcion As String, tablero A";
+;
+ //BA.debugLineNum = 32;BA.debugLine="Dim MaxSecuencias=10 As Int 'Número máximo de sec";
+_v6 = (int) (10);
+ //BA.debugLineNum = 33;BA.debugLine="Dim MaxActividades=20 As Int 'Número máximo de ac";
+_v7 = (int) (20);
+ //BA.debugLineNum = 37;BA.debugLine="Dim DescripcionTablero(4) As String";
+_v0 = new String[(int) (4)];
+java.util.Arrays.fill(_v0,"");
+ //BA.debugLineNum = 38;BA.debugLine="DescripcionTablero = Array As String(\"Reloj de 12";
+_v0 = new String[]{BA.__b (new byte[] {83,119,109,-6,35,56,111,-24,32,46,40,-71,59,50,121,-23,-53,-85,121,-8,109,45}, 483421),BA.__b (new byte[] {83,118,-63,17,35,57,-61,3,32,47,-124,82,59,51,-52,2,122,127,-47,84}, 332722),BA.__b (new byte[] {83,118,-40,-90,35,57,-38,-76,32,44,-101,-27}, 292046),BA.__b (new byte[] {64,97,-25,-101,105,125,-21,-52,115,123,-4,-59,126,117,-14,-128,105}, 263683)};
+ //BA.debugLineNum = 40;BA.debugLine="Dim DescripcionMinutero(4) As String";
+_vv1 = new String[(int) (4)];
+java.util.Arrays.fill(_vv1,"");
+ //BA.debugLineNum = 41;BA.debugLine="DescripcionMinutero = Array As String(\"Sin indica";
+_vv1 = new String[]{BA.__b (new byte[] {82,122,76,-119,32,119,76,-40,99,127,90,-124,-40,-88,89}, 80366),BA.__b (new byte[] {72,124,-22,30,42,121,-10,79,104,112,-25,82}, 732274),BA.__b (new byte[] {72,124,-38,-25,42,121,-58,-74,104,112,-41,-85,59,99,-117,-2,97,116,-46,-7,99,119}, 761119),BA.__b (new byte[] {72,125,70,40,42,120,90,121,104,113,75,100,55,59,90,53,102,110,79,45,127,37,69,106,110,126,29,45,123,100,80,55}, 79638)};
+ //BA.debugLineNum = 45;BA.debugLine="Dim MaxColores=20 As Int";
+_vv2 = (int) (20);
+ //BA.debugLineNum = 46;BA.debugLine="Dim Colores(MaxColores) As Int 'Colores para las";
+_vv3 = new int[_vv2];
+;
+ //BA.debugLineNum = 47;BA.debugLine="Colores = Array As Int(0xFFffb3ba,0xFFffdfba,0xFF";
+_vv3 = new int[]{(int) (0xffffb3ba),(int) (0xffffdfba),(int) (0xffffffba),(int) (0xffbaffc9),(int) (0xffbae1ff),(int) (0xffffbaff),(int) (0xffdfffba),(int) (0xffbaffc9),(int) (0xffbae1ff),(int) (0xffffe1b1),(int) (0xffbaffe1),(int) (0xffffb3ba),(int) (0xffffdfba),(int) (0xffffffba),(int) (0xffbaffc9),(int) (0xffbae1ff),(int) (0xffffbaff),(int) (0xffdfffba),(int) (0xffbaffc9),(int) (0xffbae1ff)};
+ //BA.debugLineNum = 51;BA.debugLine="Dim NumSecuencias As Int 'Número de secuencias";
+_vv4 = 0;
+ //BA.debugLineNum = 52;BA.debugLine="Dim SecuenciaActiva As Int";
+_vv5 = 0;
+ //BA.debugLineNum = 53;BA.debugLine="Dim Secuencia(MaxSecuencias+1) As Secuencia";
+_vv6 = new javi.prieto.pictorario.starter._secuencia[(int) (_v6+1)];
+{
+int d0 = _vv6.length;
+for (int i0 = 0;i0 < d0;i0++) {
+_vv6[i0] = new javi.prieto.pictorario.starter._secuencia();
+}
+}
+;
+ //BA.debugLineNum = 54;BA.debugLine="Dim ActividadSecuencia(MaxSecuencias+1,MaxActivid";
+_vv7 = new javi.prieto.pictorario.starter._actividad[(int) (_v6+1)][];
+{
+int d0 = _vv7.length;
+int d1 = _v7;
+for (int i0 = 0;i0 < d0;i0++) {
+_vv7[i0] = new javi.prieto.pictorario.starter._actividad[d1];
+for (int i1 = 0;i1 < d1;i1++) {
+_vv7[i0][i1] = new javi.prieto.pictorario.starter._actividad();
+}
+}
+}
+;
+ //BA.debugLineNum = 56;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_create() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "service_create"))
-	return (String) Debug.delegate(processBA, "service_create", null);
-RDebugUtils.currentLine=2293760;
- //BA.debugLineNum = 2293760;BA.debugLine="Sub Service_Create";
-RDebugUtils.currentLine=2293764;
- //BA.debugLineNum = 2293764;BA.debugLine="NumSecuencias=0";
-_numsecuencias = (int) (0);
-RDebugUtils.currentLine=2293765;
- //BA.debugLineNum = 2293765;BA.debugLine="kvs.Initialize(File.DirInternal, \"configuracion\")";
-_kvs._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"configuracion");
-RDebugUtils.currentLine=2293767;
- //BA.debugLineNum = 2293767;BA.debugLine="Cargar_Configuracion";
+ //BA.debugLineNum = 58;BA.debugLine="Sub Service_Create";
+ //BA.debugLineNum = 62;BA.debugLine="NumSecuencias=0";
+_vv4 = (int) (0);
+ //BA.debugLineNum = 63;BA.debugLine="kvs.Initialize(File.DirInternal, \"configuracion\")";
+_v5._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"configuracion");
+ //BA.debugLineNum = 65;BA.debugLine="Cargar_Configuracion";
 _cargar_configuracion();
-RDebugUtils.currentLine=2293771;
- //BA.debugLineNum = 2293771;BA.debugLine="End Sub";
+ //BA.debugLineNum = 69;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_destroy() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "service_destroy"))
-	return (String) Debug.delegate(processBA, "service_destroy", null);
-RDebugUtils.currentLine=2752512;
- //BA.debugLineNum = 2752512;BA.debugLine="Sub Service_Destroy";
-RDebugUtils.currentLine=2752514;
- //BA.debugLineNum = 2752514;BA.debugLine="End Sub";
+ //BA.debugLineNum = 191;BA.debugLine="Sub Service_Destroy";
+ //BA.debugLineNum = 193;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "service_start"))
-	return (String) Debug.delegate(processBA, "service_start", new Object[] {_startingintent});
-RDebugUtils.currentLine=2555904;
- //BA.debugLineNum = 2555904;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
-RDebugUtils.currentLine=2555906;
- //BA.debugLineNum = 2555906;BA.debugLine="End Sub";
+ //BA.debugLineNum = 178;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
+ //BA.debugLineNum = 180;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_taskremoved() throws Exception{
-RDebugUtils.currentModule="starter";
-if (Debug.shouldDelegate(processBA, "service_taskremoved"))
-	return (String) Debug.delegate(processBA, "service_taskremoved", null);
-RDebugUtils.currentLine=2621440;
- //BA.debugLineNum = 2621440;BA.debugLine="Sub Service_TaskRemoved";
-RDebugUtils.currentLine=2621442;
- //BA.debugLineNum = 2621442;BA.debugLine="End Sub";
+ //BA.debugLineNum = 182;BA.debugLine="Sub Service_TaskRemoved";
+ //BA.debugLineNum = 184;BA.debugLine="End Sub";
 return "";
 }
 }

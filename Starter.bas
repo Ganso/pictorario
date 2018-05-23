@@ -213,9 +213,9 @@ Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
 	Next
 End Sub
 
-Sub IntercambiarAtividades (Act1 As Int, Act2 As Int)
+Sub IntercambiarActividades (Sec As Int, Act1 As Int, Act2 As Int)
 	Dim ActInt As Actividad
-	ActInt=ActividadSecuencia(MaxSecuencias,Act1)
-	ActividadSecuencia(MaxSecuencias,Act2)=ActividadSecuencia(MaxSecuencias,Act1)
-	ActividadSecuencia(MaxSecuencias,Act1)=ActInt
+	ActInt=ActividadSecuencia(Sec,Act1)
+	ActividadSecuencia(Sec,Act2)=ActividadSecuencia(Sec,Act1)
+	ActividadSecuencia(Sec,Act1)=ActInt
 End Sub

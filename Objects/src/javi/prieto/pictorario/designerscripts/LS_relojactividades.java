@@ -28,6 +28,10 @@ views.get("cambiarvista").vw.setWidth((int)((35d / 100 * width)));
 views.get("cambiarvista").vw.setHeight((int)((10d / 100 * width)));
 views.get("cambiarvista").vw.setTop((int)((10d * scale)));
 views.get("cambiarvista").vw.setLeft((int)((100d / 100 * width)-(views.get("cambiarvista").vw.getWidth())-(10d * scale)));
+views.get("volver").vw.setWidth((int)((66d / 100 * width)));
+views.get("volver").vw.setHeight((int)((60d * scale)));
+views.get("volver").vw.setTop((int)((views.get("paneldescripcion").vw.getTop())-(views.get("volver").vw.getHeight())-(10d * scale)));
+views.get("volver").vw.setLeft((int)((50d / 100 * width)-(views.get("volver").vw.getWidth())/2d));
 
 }
 }
