@@ -72,5 +72,6 @@ Sub Pictogramas_Click
 End Sub
 
 Sub Logotipo_Click
-	
+	Dim p As PhoneIntents
+	StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
 End Sub

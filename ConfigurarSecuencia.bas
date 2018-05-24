@@ -70,7 +70,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	If (Starter.SecuenciaActiva==Starter.MaxSecuencias) Then 'Si es nueva, inicializamos
 		Starter.Secuencia(Starter.MaxSecuencias).num_actividades=0
-		Starter.Secuencia(Starter.MaxSecuencias).descripcion="Nombre de la nueva secuencia"
+		Starter.Secuencia(Starter.MaxSecuencias).descripcion="Pulsa aquí para poner un nombre de secuencia"
 		Starter.Secuencia(Starter.MaxSecuencias).pictograma="reloj_6"
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=3
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=20

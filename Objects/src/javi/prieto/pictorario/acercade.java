@@ -386,8 +386,13 @@ mostCurrent._textoautor = new anywheresoftware.b4a.objects.WebViewWrapper();
 return "";
 }
 public static String  _logotipo_click() throws Exception{
+anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
  //BA.debugLineNum = 68;BA.debugLine="Sub Logotipo_Click";
- //BA.debugLineNum = 70;BA.debugLine="End Sub";
+ //BA.debugLineNum = 69;BA.debugLine="Dim p As PhoneIntents";
+_p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
+ //BA.debugLineNum = 70;BA.debugLine="StartActivity(p.OpenBrowser(\"http://blog.ganso.or";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario")));
+ //BA.debugLineNum = 71;BA.debugLine="End Sub";
 return "";
 }
 public static String  _pictogramas_click() throws Exception{

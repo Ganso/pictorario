@@ -116,49 +116,50 @@ File200=ponerse ropa_1.png
 File201=ponerse ropa_2.png
 File202=Portada.bal
 File203=potito.png
-File204=pueblo.png
-File205=rayuela.png
-File206=reloj_6.png
-File207=RelojActividades.bal
-File208=restaurante.png
-File209=restaurante_1.png
+File204=pregunta.png
+File205=pueblo.png
+File206=rayuela.png
+File207=reloj_6.png
+File208=RelojActividades.bal
+File209=restaurante.png
 File21=comer_1.png
-File210=restaurante_2.png
-File211=restaurante_3.png
-File212=saltar a la comba.png
-File213=saltar a la comba_1.png
-File214=saltar a la comba_2.png
-File215=secarse.png
-File216=secarse_1.png
-File217=secarse_2.png
-File218=siesta.png
-File219=siesta_1.png
+File210=restaurante_1.png
+File211=restaurante_2.png
+File212=restaurante_3.png
+File213=saltar a la comba.png
+File214=saltar a la comba_1.png
+File215=saltar a la comba_2.png
+File216=secarse.png
+File217=secarse_1.png
+File218=secarse_2.png
+File219=siesta.png
 File22=comida.png
-File220=tele.png
-File221=tele_1.png
-File222=ti@teres.png
-File223=tijeras escolares.png
-File224=tijeras.png
-File225=toboga@n.png
-File226=toboga@n_1.png
-File227=tomar el sol.png
-File228=tomar el sol_1.png
-File229=tomar el sol_2.png
+File220=siesta_1.png
+File221=tele.png
+File222=tele_1.png
+File223=ti@teres.png
+File224=tijeras escolares.png
+File225=tijeras.png
+File226=toboga@n.png
+File227=toboga@n_1.png
+File228=tomar el sol.png
+File229=tomar el sol_1.png
 File23=comprar.png
-File230=trabajar_en_el_ordenador.png
-File231=trabajos manuales_1.png
-File232=trabajos manuales_2.png
-File233=ver la tele_3.png
-File234=ver la tele_4.png
-File235=ver la tele_5.png
-File236=ver la tele_6.png
-File237=ver la tele_7.png
-File238=vestirse.png
-File239=vestirse_1.png
+File230=tomar el sol_2.png
+File231=trabajar_en_el_ordenador.png
+File232=trabajos manuales_1.png
+File233=trabajos manuales_2.png
+File234=ver la tele_3.png
+File235=ver la tele_4.png
+File236=ver la tele_5.png
+File237=ver la tele_6.png
+File238=ver la tele_7.png
+File239=vestirse.png
 File24=comprar_2.png
-File240=videojuego.png
-File241=videojuego_1.png
-File242=zoo.png
+File240=vestirse_1.png
+File241=videojuego.png
+File242=videojuego_1.png
+File243=zoo.png
 File25=comprar_3.png
 File26=computador.png
 File27=computador_1.png
@@ -361,8 +362,8 @@ FileGroup203=Default Group\Pictogramas
 FileGroup204=Default Group\Pictogramas
 FileGroup205=Default Group\Pictogramas
 FileGroup206=Default Group\Pictogramas
-FileGroup207=Default Group
-FileGroup208=Default Group\Pictogramas
+FileGroup207=Default Group\Pictogramas
+FileGroup208=Default Group
 FileGroup209=Default Group\Pictogramas
 FileGroup21=Default Group\Pictogramas
 FileGroup210=Default Group\Pictogramas
@@ -387,8 +388,8 @@ FileGroup227=Default Group\Pictogramas
 FileGroup228=Default Group\Pictogramas
 FileGroup229=Default Group\Pictogramas
 FileGroup23=Default Group\Pictogramas
-FileGroup230=Default Group
-FileGroup231=Default Group\Pictogramas
+FileGroup230=Default Group\Pictogramas
+FileGroup231=Default Group
 FileGroup232=Default Group\Pictogramas
 FileGroup233=Default Group\Pictogramas
 FileGroup234=Default Group\Pictogramas
@@ -401,6 +402,7 @@ FileGroup24=Default Group\Pictogramas
 FileGroup240=Default Group\Pictogramas
 FileGroup241=Default Group\Pictogramas
 FileGroup242=Default Group\Pictogramas
+FileGroup243=Default Group\Pictogramas
 FileGroup25=Default Group\Pictogramas
 FileGroup26=Default Group\Pictogramas
 FileGroup27=Default Group\Pictogramas
@@ -494,15 +496,15 @@ Module1=ConfigurarSecuencia
 Module2=Starter
 Module3=Visualizacion
 Module4=AcercaDe
-NumberOfFiles=242
+NumberOfFiles=243
 NumberOfLibraries=4
 NumberOfModules=4
 Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 1
-	#VersionName: 
+	#VersionCode: 2
+	#VersionName: Beta 2
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
@@ -535,8 +537,17 @@ Sub Globals
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-	'Do not forget to load the layout file created with the visual designer. For example:
+	Dim resultado As Int
+	Dim p As PhoneIntents
+	
 	DibujarPortada
+	
+	If FirstTime==True Then
+		resultado=Msgbox2("Pictorario es una aplicación en fase beta, y puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Bienvenido a Pictorario","Web del proyecto","","Continuar",Null)
+		If resultado==DialogResponse.POSITIVE Then
+			StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
+		End If
+	End If
 End Sub
 
 Sub DibujarPortada

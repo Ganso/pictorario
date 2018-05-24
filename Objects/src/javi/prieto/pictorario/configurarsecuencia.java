@@ -375,7 +375,7 @@ if ((mostCurrent._vvv2._vv5==mostCurrent._vvv2._v6)) {
  //BA.debugLineNum = 66;BA.debugLine="Starter.Secuencia(Starter.MaxSecuencias).num_act";
 mostCurrent._vvv2._vv6[mostCurrent._vvv2._v6].num_actividades = (int) (0);
  //BA.debugLineNum = 67;BA.debugLine="Starter.Secuencia(Starter.MaxSecuencias).descrip";
-mostCurrent._vvv2._vv6[mostCurrent._vvv2._v6].Descripcion = "Nombre de la nueva secuencia";
+mostCurrent._vvv2._vv6[mostCurrent._vvv2._v6].Descripcion = "Pulsa aquí para poner un nombre de secuencia";
  //BA.debugLineNum = 68;BA.debugLine="Starter.Secuencia(Starter.MaxSecuencias).pictogr";
 mostCurrent._vvv2._vv6[mostCurrent._vvv2._v6].pictograma = "reloj_6";
  //BA.debugLineNum = 69;BA.debugLine="Starter.Secuencia(Starter.MaxSecuencias).tablero";
