@@ -373,11 +373,62 @@ Sub ConfigHoraInicioAct_Click
 	If Resultado=DialogResponse.POSITIVE Then
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio=DialogoTiempo.Hour
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio=DialogoTiempo.Minute
-		'Activity.Invalidate
+		If OrdenarActividades==True Then
+			Msgbox("Se ha colocado la actividad en su posición correcta.","Actividades reorganizadas")
+		End If
 		DibujarConfigurarSecuencia
 	End If
 End Sub
 
+Sub OrdenarActividades As Boolean
+	Dim i,j As Int
+	Dim hm_1,hm_2 As Int
+	Dim ActInt As Actividad
+	Dim IntercambioRealizado As Boolean
+	
+	IntercambioRealizado=False
+	
+	'Ordena las actividades por hora de inicio siguiendo el método de la burbuja
+	For i=1 To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-1
+		For j=0 To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-2
+			hm_1=Starter.ActividadSecuencia(Starter.MaxSecuencias,j).hora_inicio*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,j).minuto_inicio
+			hm_2=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).hora_inicio*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).minuto_inicio
+			If hm_1>hm_2 Then
+				ActInt=Starter.ActividadSecuencia(Starter.MaxSecuencias,j)
+				Starter.ActividadSecuencia(Starter.MaxSecuencias,j)=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)
+				Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)=ActInt
+				IntercambioRealizado=True
+			End If
+		Next
+	Next
+
+	'Si ha habido intercambios, compueba que no se hayan generado solapes
+	If IntercambioRealizado==True Then
+		QuitarSolapes
+	End If
+
+	Return IntercambioRealizado
+End Sub
+
+Sub QuitarSolapes As Boolean
+	Dim hm_1,hm_2 As Int
+	Dim j As Int
+	Dim resultado As Boolean
+
+	resultado=False
+	'Comprueba que la hora de fin de una actividad no sea mayor a la de inicio de la siguiente
+	For j=0 To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-2
+		hm_1=Starter.ActividadSecuencia(Starter.MaxSecuencias,j).hora_fin*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,j).minuto_fin
+		hm_2=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).hora_inicio*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).minuto_inicio
+		If hm_1>hm_2 Then 'Si es así, las iguala
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,j).hora_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).hora_inicio
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,j).minuto_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).minuto_inicio
+			resultado=True
+		End If
+	Next
+
+	Return resultado
+End Sub
 
 Sub ConfigHoraFinalAct_Click
 	Dim DialogoTiempo As TimeDialog
@@ -394,9 +445,17 @@ Sub ConfigHoraFinalAct_Click
 	Resultado=DialogoTiempo.Show("Indica la hora final de la actividad","Hora final","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then
-		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin=DialogoTiempo.Hour
-		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin=DialogoTiempo.Minute
-		DibujarConfigurarSecuencia
+		If DialogoTiempo.Hour*60+DialogoTiempo.Minute<Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio Then
+			'Se ha intentado poner una hora final anterior a la incial
+			Msgbox("La hora de finalización de una actividad no puede ser anterior a la de inicio.","Hora inválida")
+		Else
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin=DialogoTiempo.Hour
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin=DialogoTiempo.Minute
+			If QuitarSolapes==True Then
+				Msgbox("Se ha corregido la hora final de la actividad para evitar solapes.","Hora final corregida")
+			End If
+			DibujarConfigurarSecuencia
+		End If
 	End If
 End Sub
 
@@ -480,6 +539,11 @@ Sub BotonAnadirActividad_Click
 	If Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin>59 Then
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin-60
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).hora_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).hora_fin+1
+	End If
+	'...pero sin pasarse de las 23:59
+	If Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).hora_fin*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin>(23*60+59) Then
+		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).hora_fin=23
+		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin=59
 	End If
 	
 	Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).Pictograma="jugar"

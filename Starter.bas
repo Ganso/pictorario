@@ -11,6 +11,13 @@ Version=7.8
 
 Sub Process_Globals
 
+	Dim CambiosVersion As String
+	CambiosVersion= _
+	"- Se mantienen las actividades ordenadas automáticamente."&CRLF&CRLF& _
+	"- Se comprueba que una actividad no se solape con la siguiente, y otros tipos de problema con la asignación de horas."&CRLF&CRLF& _
+	"- Cuando se actualiza la aplicación, se muestran las novedades."&CRLF&CRLF& _
+	"- Correcciones menores en el interfaz para hacerlo más homogéneo."
+
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 
@@ -58,6 +65,7 @@ Sub Process_Globals
 	Dim SecuenciaActiva As Int
 	Dim Secuencia(MaxSecuencias+1) As Secuencia
 	Dim ActividadSecuencia(MaxSecuencias+1,MaxActividades) As Actividad 'Array bidimensional de actividades
+	Dim VersionInstalada As Int
 
 End Sub
 
@@ -69,6 +77,7 @@ Sub Service_Create
 	kvs.Initialize(File.DirInternal, "configuracion")
 	
 	Cargar_Configuracion
+
 	'Inicializar_Con_Ejemplo
 	'Guardar_Configuracion
 	
@@ -82,6 +91,7 @@ Sub Guardar_Configuracion
 			kvs.Put("ActividadSecuencia."&i&"."&j, ActividadSecuencia(i,j))
 		Next
 	Next
+	kvs.Put("VersionInstalada", Application.VersionCode)
 End Sub
 
 Sub Cargar_Configuracion
@@ -97,6 +107,8 @@ Sub Cargar_Configuracion
 			Next
 		Next
 	End If
+	VersionInstalada=kvs.GetDefault("VersionInstalada",-1)
+	Log("Versión instalada: "&VersionInstalada)
 End Sub
 
 Sub Inicializar_Con_Ejemplo
@@ -211,11 +223,4 @@ Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
 	For i=0 To Secuencia(Seq1).num_actividades-1
 		ActividadSecuencia(Seq2,i)=ActividadSecuencia(Seq1,i)
 	Next
-End Sub
-
-Sub IntercambiarActividades (Sec As Int, Act1 As Int, Act2 As Int)
-	Dim ActInt As Actividad
-	ActInt=ActividadSecuencia(Sec,Act1)
-	ActividadSecuencia(Sec,Act2)=ActividadSecuencia(Sec,Act1)
-	ActividadSecuencia(Sec,Act1)=ActInt
 End Sub

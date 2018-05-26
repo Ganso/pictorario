@@ -333,10 +333,10 @@ public anywheresoftware.b4a.objects.LabelWrapper _pictorario = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _programador = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoarasaac = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoautor = null;
-public javi.prieto.pictorario.main _vvvvvvv4 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvv3 = null;
-public javi.prieto.pictorario.starter _vvv2 = null;
-public javi.prieto.pictorario.visualizacion _vvv4 = null;
+public javi.prieto.pictorario.main _vvvvv0 = null;
+public javi.prieto.pictorario.visualizacion _vvv6 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvv5 = null;
+public javi.prieto.pictorario.starter _vvv3 = null;
 
 public static void initializeProcessGlobals() {
              try {

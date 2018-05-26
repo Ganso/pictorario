@@ -492,9 +492,9 @@ Library2=phone
 Library3=keyvaluestore2
 Library4=dialogs
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo.Light")~\n~~\n~
-Module1=ConfigurarSecuencia
-Module2=Starter
-Module3=Visualizacion
+Module1=Visualizacion
+Module2=ConfigurarSecuencia
+Module3=Starter
 Module4=AcercaDe
 NumberOfFiles=243
 NumberOfLibraries=4
@@ -503,12 +503,13 @@ Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 2
-	#VersionName: Beta 2
-	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#VersionCode: 3
+	#VersionName: Beta 3
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
+
+'IMPORTANTE: Al actualizar de versión, inidicar siempre los cambios en Starter.CambiosVersion
 
 #Region  Activity Attributes 
 	#FullScreen: True
@@ -543,9 +544,14 @@ Sub Activity_Create(FirstTime As Boolean)
 	DibujarPortada
 	
 	If FirstTime==True Then
-		resultado=Msgbox2("Pictorario es una aplicación en fase beta, y puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Bienvenido a Pictorario","Web del proyecto","","Continuar",Null)
-		If resultado==DialogResponse.POSITIVE Then
-			StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
+		If (Starter.VersionInstalada<>-1 And Starter.VersionInstalada<>Application.VersionCode) Then 'Si se ha actualizado la versión
+			Msgbox("Novedades de la versión "&Application.VersionName&":"&CRLF&CRLF&Starter.CambiosVersion,"APLICACIÓN ACTUALIZADA")
+			CallSub(Starter,"Guardar_Configuracion")
+		Else 'Si no, muestra el aviso estándar
+			resultado=Msgbox2("Pictorario es una aplicación en fase de pruebas, y por tanto puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Beta pública de Pictorario","Web del proyecto","","Continuar",Null)
+			If resultado==DialogResponse.POSITIVE Then
+				StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
+			End If
 		End If
 	End If
 End Sub
@@ -584,14 +590,18 @@ Sub DibujarPortada
 	BotonCrear.TextSize=20
 	BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonCrear.TextColor=Colors.Black
-	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-10dip,80dip)
+	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-10dip,60dip)
+	
+	If Starter.NumSecuencias==Starter.MaxSecuencias Then
+		BotonCrear.Enabled=False 'Si llegamos al máximo de secuencias, no podemos crear más
+	End If
 
 	BotonAcercaDe.Initialize("BotonAcercaDe")
 	BotonAcercaDe.Text="Acerca de Pictorario"
 	BotonAcercaDe.TextSize=20
 	BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonAcercaDe.TextColor=Colors.Black
-	PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90dip*(Starter.NumSecuencias+1)-10dip,100%X-10dip,80dip)
+	PanelScroll.Panel.AddView(BotonAcercaDe,5dip,90dip*(Starter.NumSecuencias+1)-30dip,100%X-10dip,60dip)
 	
 	PanelScroll.Panel.Height=90dip*(Starter.NumSecuencias+1)+100dip
 	
