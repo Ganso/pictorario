@@ -64,8 +64,24 @@ views.get("textoarasaac").vw.setTop((int)((views.get("pictogramas").vw.getTop())
 views.get("textoarasaac").vw.setLeft((int)((views.get("pictogramas").vw.getLeft() + views.get("pictogramas").vw.getWidth())));
 //BA.debugLineNum = 29;BA.debugLine="TextoArasaac.Width=100%X-TextoArasaac.Left-10dip"[AcercaDe/General script]
 views.get("textoarasaac").vw.setWidth((int)((100d / 100 * width)-(views.get("textoarasaac").vw.getLeft())-(10d * scale)));
-//BA.debugLineNum = 30;BA.debugLine="TextoArasaac.Height=Volver.Top-Pictogramas.Top"[AcercaDe/General script]
-views.get("textoarasaac").vw.setHeight((int)((views.get("volver").vw.getTop())-(views.get("pictogramas").vw.getTop())));
+//BA.debugLineNum = 30;BA.debugLine="TextoArasaac.Height=140dip"[AcercaDe/General script]
+views.get("textoarasaac").vw.setHeight((int)((140d * scale)));
+//BA.debugLineNum = 31;BA.debugLine="ParaTeo.Top=TextoArasaac.Top+TextoArasaac.Height"[AcercaDe/General script]
+views.get("parateo").vw.setTop((int)((views.get("textoarasaac").vw.getTop())+(views.get("textoarasaac").vw.getHeight())));
+//BA.debugLineNum = 32;BA.debugLine="ParaTeo.Height=Volver.Top-ParaTeo.Top"[AcercaDe/General script]
+views.get("parateo").vw.setHeight((int)((views.get("volver").vw.getTop())-(views.get("parateo").vw.getTop())));
+//BA.debugLineNum = 33;BA.debugLine="ParaTeo.Left=0"[AcercaDe/General script]
+views.get("parateo").vw.setLeft((int)(0d));
+//BA.debugLineNum = 34;BA.debugLine="ParaTeo.Width=100%X"[AcercaDe/General script]
+views.get("parateo").vw.setWidth((int)((100d / 100 * width)));
+//BA.debugLineNum = 35;BA.debugLine="Versión.Top=0"[AcercaDe/General script]
+views.get("versión").vw.setTop((int)(0d));
+//BA.debugLineNum = 36;BA.debugLine="Versión.Width=80dip"[AcercaDe/General script]
+views.get("versión").vw.setWidth((int)((80d * scale)));
+//BA.debugLineNum = 37;BA.debugLine="Versión.Height=40dip"[AcercaDe/General script]
+views.get("versión").vw.setHeight((int)((40d * scale)));
+//BA.debugLineNum = 38;BA.debugLine="Versión.Left=100%X-Versión.Width"[AcercaDe/General script]
+views.get("versión").vw.setLeft((int)((100d / 100 * width)-(views.get("versión").vw.getWidth())));
 
 }
 }

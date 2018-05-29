@@ -13,10 +13,11 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Se mantienen las actividades ordenadas automáticamente."&CRLF&CRLF& _
-	"- Se comprueba que una actividad no se solape con la siguiente, y otros tipos de problema con la asignación de horas."&CRLF&CRLF& _
-	"- Cuando se actualiza la aplicación, se muestran las novedades."&CRLF&CRLF& _
-	"- Correcciones menores en el interfaz para hacerlo más homogéneo."
+	"- Cambiado el tema de Holo a Material (se nota especialmente en la selección de horas)."&CRLF&CRLF& _
+	"- Corregidos varios errores con la asignación de horas y el aviso de novedades de versión."&CRLF&CRLF& _
+	"- Al hacer click en una etiqueta, si está el valor por defecto se vacía para escribir texto nuevo."&CRLF&CRLF& _
+	"- En todas las pantallas se permite ir hacia atrás con el botón de la barra de navegación, o con un botón específico en pantalla."&CRLF&CRLF& _
+	"- Mejorada la pantalla de 'Acerca de'."
 
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
@@ -77,9 +78,6 @@ Sub Service_Create
 	kvs.Initialize(File.DirInternal, "configuracion")
 	
 	Cargar_Configuracion
-
-	'Inicializar_Con_Ejemplo
-	'Guardar_Configuracion
 	
 End Sub
 
@@ -108,7 +106,6 @@ Sub Cargar_Configuracion
 		Next
 	End If
 	VersionInstalada=kvs.GetDefault("VersionInstalada",-1)
-	Log("Versión instalada: "&VersionInstalada)
 End Sub
 
 Sub Inicializar_Con_Ejemplo
@@ -185,8 +182,8 @@ Sub Inicializar_Con_Ejemplo
 	ActividadSecuencia(0,8).descripcion="Acostarse"
 
 	Secuencia(0).tablero.tipo=2
-	Secuencia(0).tablero.indicar_hora=3
-	Secuencia(0).tablero.tam_icono=10
+	Secuencia(0).tablero.indicar_hora=1
+	Secuencia(0).tablero.tam_icono=14
 	
 	Secuencia(0).pictograma="colegio"
 	Secuencia(0).descripcion="Secuencia de ejemplo"

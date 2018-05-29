@@ -26,6 +26,8 @@ Sub Globals
 	Private Programador As ImageView
 	Private TextoArasaac As WebView
 	Private TextoAutor As WebView
+	Private ParaTeo As Label
+	Private Versión As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -45,6 +47,11 @@ Sub Activity_Create(FirstTime As Boolean)
 	"<strong>Propiedad</strong>: Gobierno de Aragón<br />"& _
 	"<em>Pulsar icono para web</em><br />"& _
 	"</center></body></html>")
+	
+	ParaTeo.Typeface=Typeface.LoadFromAssets("GreatVibes-Regular.ttf")
+	
+	Versión.Text=Application.VersionName
+	
 End Sub
 
 Sub Activity_Resume

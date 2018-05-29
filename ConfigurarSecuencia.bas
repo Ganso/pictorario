@@ -29,21 +29,21 @@ Sub Globals
 	
 	Dim EtiquetaInicial As Label
 	Dim ConfigDescripcion As EditText
-	Dim ConfigPictograma As Button
+	Dim ConfigPictograma As Label
 	Dim EtiqTipoTablero As Label
-	Dim ConfigTipoTablero As Button
+	Dim ConfigTipoTablero As Label
 	Dim EtiqIndicarHora As Label
-	Dim ConfigIndicarHora As Button
+	Dim ConfigIndicarHora As Label
 	Dim EtiqTamIcono As Label
 	Dim ConfigTamIcono As SeekBar
 	
 	Dim EtiqActividades As Label
 	
 	Dim ConfigDescripcionAct(Starter.MaxActividades) As EditText
-	Dim ConfigHoraInicioAct(Starter.MaxActividades) As Button
-	Dim ConfigHoraFinalAct(Starter.MaxActividades) As Button
-	Dim ConfigPictogramaAct(Starter.MaxActividades) As Button
-	Dim ConfigOpcionesAct(Starter.MaxActividades) As Button
+	Dim ConfigHoraInicioAct(Starter.MaxActividades) As Label
+	Dim ConfigHoraFinalAct(Starter.MaxActividades) As Label
+	Dim ConfigPictogramaAct(Starter.MaxActividades) As Label
+	Dim ConfigOpcionesAct(Starter.MaxActividades) As Label
 
 	Dim BotonAnadirActividad As Button
 	Dim BotonAceptar As Button	
@@ -54,10 +54,14 @@ Sub Globals
 	''' LISTA DE PICTOGRAMAS
 
 	Dim ListaPictogramas As ListView
+	Dim ListaPictogramasVisible As Boolean
 	
 	Dim PictogramaEditado As Int
 		'-1 si editando el de la secuencia
 		'>=0 si editando el de una actividad
+
+	Dim DescripcionSecuenciaPorDefecto="Pulsa aquí para poner un nombre de secuencia" As String
+	Dim DescripcionActividadPorDefecto="Nombre de la nueva actividad" As String
 
 End Sub
 
@@ -70,7 +74,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	If (Starter.SecuenciaActiva==Starter.MaxSecuencias) Then 'Si es nueva, inicializamos
 		Starter.Secuencia(Starter.MaxSecuencias).num_actividades=0
-		Starter.Secuencia(Starter.MaxSecuencias).descripcion="Pulsa aquí para poner un nombre de secuencia"
+		Starter.Secuencia(Starter.MaxSecuencias).descripcion=DescripcionSecuenciaPorDefecto
 		Starter.Secuencia(Starter.MaxSecuencias).pictograma="reloj_6"
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=3
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=20
@@ -135,6 +139,7 @@ Sub DibujarConfigurarSecuencia
 	ConfigTipoTablero.TextColor=Colors.Black
 	ConfigTipoTablero.TextSize=16
 	ConfigTipoTablero.Color=ColorDeFondo
+	ConfigTipoTablero.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	ParametrosSecuencia.Panel.AddView(ConfigTipoTablero,SeparacionHorizontal+SeparacionCasillas,ConfigDescripcion.Top+ConfigDescripcion.Height+SeparacionCasillas,100%X-SeparacionHorizontal-2*SeparacionCasillas,TamCasilla)
 
 	EtiqIndicarHora.Initialize("EtiqIndicarHora")
@@ -149,6 +154,7 @@ Sub DibujarConfigurarSecuencia
 	ConfigIndicarHora.TextColor=Colors.Black
 	ConfigIndicarHora.TextSize=16
 	ConfigIndicarHora.Color=ColorDeFondo
+	ConfigIndicarHora.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	ParametrosSecuencia.Panel.AddView(ConfigIndicarHora,SeparacionHorizontal+SeparacionCasillas,ConfigTipoTablero.Top+ConfigTipoTablero.Height+SeparacionCasillas,100%X-SeparacionHorizontal-2*SeparacionCasillas,TamCasilla)
 
 	EtiqTamIcono.Initialize("EtiqTamIcono")
@@ -240,7 +246,7 @@ Sub DibujarConfigurarSecuencia
 	BotonAceptar.TextSize=16
 	BotonAceptar.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonAceptar.TextColor=Colors.Black
-	ParametrosSecuencia.Panel.AddView(BotonAceptar,SeparacionCasillas,BotonAnadirActividad.Top+BotonAnadirActividad.Height+SeparacionCasillas,50%X-2*SeparacionCasillas,TamCasilla)
+	ParametrosSecuencia.Panel.AddView(BotonAceptar,SeparacionCasillas,BotonAnadirActividad.Top+BotonAnadirActividad.Height,50%X-2*SeparacionCasillas,TamCasilla)
 
 	If Starter.Secuencia(Starter.MaxSecuencias).num_actividades==0 Then
 		BotonAceptar.Enabled=False
@@ -270,7 +276,7 @@ Sub ConfigTipoTablero_Click
 	TiposTablero.Initialize
 	TiposTablero.AddAll(Starter.DescripcionTablero)
 	
-	resultado=InputList(TiposTablero,"Tipo de secuencia",Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo)
+	resultado=InputList(TiposTablero,"Tipo de tablero",Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo)
 	If (resultado>=0) Then
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=resultado
 		DibujarConfigurarSecuencia
@@ -298,7 +304,11 @@ Sub ConfigTamIcono_ValueChanged (Valor As Int, Cambio As Boolean)
 End Sub
 
 Sub BotonCancelar_Click 
-	If Msgbox2("Se perderán todos los cambios realizados."&CRLF&CRLF&"¿Está seguro de que desea cancelar?","Cancelar cambios","Sí","","No",Null)==DialogResponse.POSITIVE Then
+	SalidaConfigurarSecuencia
+End Sub
+
+Sub SalidaConfigurarSecuencia
+	If Msgbox2("Se perderán todos los cambios realizados."&CRLF&CRLF&"¿Está seguro de que desea salir sin guardarlos?","Cancelar cambios","Sí","","No",Null)==DialogResponse.POSITIVE Then
 		Activity.Finish
 	End If
 End Sub	
@@ -325,17 +335,19 @@ End Sub
 Sub ConfigPictograma_Click
 	PictogramaEditado=-1
 	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
+	ListaPictogramasVisible=True
 End Sub
 
 Sub ConfigPictogramaAct_Click
-	Dim BotonPulsado As Button
+	Dim BotonPulsado As Label
 	BotonPulsado=Sender
 	PictogramaEditado=BotonPulsado.Tag
 	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
+	ListaPictogramasVisible=True
 End Sub
 
 Sub ConfigOpcionesAct_Click
-	Dim BotonPulsado As Button
+	Dim BotonPulsado As Label
 	Dim Act As Int
 	Dim Opciones As List
 	Dim resultado As Int
@@ -343,7 +355,7 @@ Sub ConfigOpcionesAct_Click
 	BotonPulsado=Sender
 	Act=BotonPulsado.Tag
 	
-	Opciones.Initialize2(Array As String("Borrar secuencia","CANCELAR"))
+	Opciones.Initialize2(Array As String("Borrar actividad","CANCELAR"))
 	resultado=InputList(Opciones,"Acción",-1)
 
 	If resultado=0 Then
@@ -358,7 +370,7 @@ End Sub
 
 Sub ConfigHoraInicioAct_Click
 	Dim DialogoTiempo As TimeDialog
-	Dim BotonPulsado As Button
+	Dim BotonPulsado As Label
 	Dim Resultado As Int
 	Dim Act As Int
 
@@ -367,16 +379,21 @@ Sub ConfigHoraInicioAct_Click
 
 	DialogoTiempo.Hour=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio
 	DialogoTiempo.Minute=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio
-	DialogoTiempo.Is24Hours=True
+	DialogoTiempo.Is24Hours=False
 	Resultado=DialogoTiempo.Show("Indica la hora inicial de la actividad","Hora inicial","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then
-		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio=DialogoTiempo.Hour
-		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio=DialogoTiempo.Minute
-		If OrdenarActividades==True Then
-			Msgbox("Se ha colocado la actividad en su posición correcta.","Actividades reorganizadas")
+		If DialogoTiempo.Hour*60+DialogoTiempo.Minute>Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin Then
+		'Se ha intentado poner una hora inicial posterior a la final
+		Msgbox("La hora de inicio de una actividad no puede ser posterior a la de finalización.","Hora inválida")
+		Else
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio=DialogoTiempo.Hour
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio=DialogoTiempo.Minute
+			If OrdenarActividades==True Then
+				Msgbox("Se ha colocado la actividad en su posición correcta.","Actividades reorganizadas")
+			End If
+			DibujarConfigurarSecuencia
 		End If
-		DibujarConfigurarSecuencia
 	End If
 End Sub
 
@@ -402,10 +419,8 @@ Sub OrdenarActividades As Boolean
 		Next
 	Next
 
-	'Si ha habido intercambios, compueba que no se hayan generado solapes
-	If IntercambioRealizado==True Then
-		QuitarSolapes
-	End If
+	'Después de los cambios, comprobamos que no se hayan generado solapes
+	QuitarSolapes
 
 	Return IntercambioRealizado
 End Sub
@@ -432,7 +447,7 @@ End Sub
 
 Sub ConfigHoraFinalAct_Click
 	Dim DialogoTiempo As TimeDialog
-	Dim BotonPulsado As Button
+	Dim BotonPulsado As Label
 	Dim Resultado As Int
 	Dim Act As Int
 
@@ -441,7 +456,7 @@ Sub ConfigHoraFinalAct_Click
 
 	DialogoTiempo.Hour=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin
 	DialogoTiempo.Minute=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin
-	DialogoTiempo.Is24Hours=True
+	DialogoTiempo.Is24Hours=False
 	Resultado=DialogoTiempo.Show("Indica la hora final de la actividad","Hora final","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then
@@ -461,6 +476,7 @@ End Sub
 
 Sub ListaPictogramas_ItemClick (Position As Int, Value As Object)
 	ListaPictogramas.RemoveView
+	ListaPictogramasVisible=False
 	If PictogramaEditado==-1 Then
 		Starter.Secuencia(Starter.MaxSecuencias).pictograma=Value
 	Else
@@ -501,12 +517,30 @@ Sub Inicializar_Lista_Pictogramas
 				ListaPictogramas.AddTwoLinesAndBitmap(file2,"",Bitmap1)
 			End If
 		Next
-
+		ListaPictogramasVisible=False
+		
 		ProgressDialogHide
 
 	End If
+	
 
 End Sub
+
+Sub ConfigDescripcionAct_FocusChanged (TieneFoco As Boolean)
+	Dim BotonPulsado As EditText
+	Dim Act As Int
+
+	If TieneFoco==True Then
+		BotonPulsado=Sender
+		Act=BotonPulsado.Tag
+		If ConfigDescripcionAct(Act).Text==DescripcionActividadPorDefecto Then
+			ConfigDescripcionAct(Act).Text=""
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).Descripcion=""
+			Activity.Invalidate
+		End If
+	End If
+End Sub
+
 
 Sub ConfigDescripcionAct_TextChanged (Old As String, New As String)
 	Dim BotonPulsado As EditText
@@ -523,8 +557,16 @@ Sub ConfigDescripcion_TextChanged (Old As String, New As String)
 	Starter.Secuencia(Starter.MaxSecuencias).descripcion=New
 End Sub
 
+Sub ConfigDescripcion_FocusChanged (TieneFoco As Boolean)
+	If TieneFoco==True And ConfigDescripcion.Text==DescripcionSecuenciaPorDefecto Then
+		ConfigDescripcion.Text=""
+		Starter.Secuencia(Starter.MaxSecuencias).descripcion=""
+		Activity.Invalidate
+	End If
+End Sub
+
 Sub BotonAnadirActividad_Click
-	Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).Descripcion="Nueva actividad"
+	Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).Descripcion=DescripcionActividadPorDefecto
 	'Pone como hora de incio la final de la actividad anterior
 	If (Starter.Secuencia(Starter.MaxSecuencias).num_actividades>0) Then
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).hora_inicio=Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades-1).hora_fin
@@ -552,8 +594,13 @@ Sub BotonAnadirActividad_Click
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean
-	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás no salimos de la actividad. Solo cerramos la lista de pictogramas si está abierta
-		ListaPictogramas.RemoveView
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		If ListaPictogramasVisible==True Then 'Si está abierta la lista de pictogramas, la cierra
+			ListaPictogramas.RemoveView
+			ListaPictogramasVisible=False
+		Else 'Si esá cerrada, llama a la rutina de salida
+			SalidaConfigurarSecuencia
+		End If
 	End If
 	Return True
 End Sub

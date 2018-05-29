@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="javi.prieto.pictorario"
-	android:versionCode="3"
-	android:versionName="Beta 3"
+	android:versionCode="4"
+	android:versionName="Beta 4"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>
@@ -15,7 +15,7 @@
 	<application
 		android:icon="@drawable/icon"
 		android:label="Pictorario"
-		android:theme="@android:style/Theme.Holo.Light">
+		android:theme="@android:style/Theme.Material.Light">
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"

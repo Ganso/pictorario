@@ -333,7 +333,9 @@ public anywheresoftware.b4a.objects.LabelWrapper _pictorario = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _programador = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoarasaac = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoautor = null;
-public javi.prieto.pictorario.main _vvvvv0 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _parateo = null;
+public anywheresoftware.b4a.objects.LabelWrapper _versión = null;
+public javi.prieto.pictorario.main _vvvvvv1 = null;
 public javi.prieto.pictorario.visualizacion _vvv6 = null;
 public javi.prieto.pictorario.configurarsecuencia _vvv5 = null;
 public javi.prieto.pictorario.starter _vvv3 = null;
@@ -346,24 +348,28 @@ public static void initializeProcessGlobals() {
             }
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 25;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 27;BA.debugLine="Activity.LoadLayout(\"AcercaDe\")";
+ //BA.debugLineNum = 27;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 29;BA.debugLine="Activity.LoadLayout(\"AcercaDe\")";
 mostCurrent._activity.LoadLayout("AcercaDe",mostCurrent.activityBA);
- //BA.debugLineNum = 29;BA.debugLine="TextoAutor.LoadHtml(\"<html><body><center>\"& _ 	\"<";
+ //BA.debugLineNum = 31;BA.debugLine="TextoAutor.LoadHtml(\"<html><body><center>\"& _ 	\"<";
 mostCurrent._textoautor.LoadHtml("<html><body><center>"+"<strong>Aplicación</strong>: Javier Prieto Martínez (www.ganso.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"<em>Pulsar icono para web</em><br />"+"</center></body></html>");
- //BA.debugLineNum = 35;BA.debugLine="TextoArasaac.LoadHtml(\"<html><body><center>\"& _";
+ //BA.debugLineNum = 37;BA.debugLine="TextoArasaac.LoadHtml(\"<html><body><center>\"& _";
 mostCurrent._textoarasaac.LoadHtml("<html><body><center>"+"<strong>Pictogramas</strong>: Sergio Palao<br />"+"<strong>Procedencia</strong>: ARASAAC (www.arasaac.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"<strong>Propiedad</strong>: Gobierno de Aragón<br />"+"<em>Pulsar icono para web</em><br />"+"</center></body></html>");
- //BA.debugLineNum = 42;BA.debugLine="End Sub";
+ //BA.debugLineNum = 45;BA.debugLine="ParaTeo.Typeface=Typeface.LoadFromAssets(\"GreatVi";
+mostCurrent._parateo.setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.LoadFromAssets("GreatVibes-Regular.ttf"));
+ //BA.debugLineNum = 47;BA.debugLine="Versión.Text=Application.VersionName";
+mostCurrent._versión.setText(BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.Application.getVersionName()));
+ //BA.debugLineNum = 49;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 48;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 50;BA.debugLine="End Sub";
+ //BA.debugLineNum = 55;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 57;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 44;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 46;BA.debugLine="End Sub";
+ //BA.debugLineNum = 51;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 53;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -382,27 +388,31 @@ mostCurrent._programador = new anywheresoftware.b4a.objects.ImageViewWrapper();
 mostCurrent._textoarasaac = new anywheresoftware.b4a.objects.WebViewWrapper();
  //BA.debugLineNum = 22;BA.debugLine="Private TextoAutor As WebView";
 mostCurrent._textoautor = new anywheresoftware.b4a.objects.WebViewWrapper();
- //BA.debugLineNum = 23;BA.debugLine="End Sub";
+ //BA.debugLineNum = 23;BA.debugLine="Private ParaTeo As Label";
+mostCurrent._parateo = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 24;BA.debugLine="Private Versión As Label";
+mostCurrent._versión = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 25;BA.debugLine="End Sub";
 return "";
 }
 public static String  _logotipo_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 68;BA.debugLine="Sub Logotipo_Click";
- //BA.debugLineNum = 69;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 75;BA.debugLine="Sub Logotipo_Click";
+ //BA.debugLineNum = 76;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 70;BA.debugLine="StartActivity(p.OpenBrowser(\"http://blog.ganso.or";
+ //BA.debugLineNum = 77;BA.debugLine="StartActivity(p.OpenBrowser(\"http://blog.ganso.or";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario")));
- //BA.debugLineNum = 71;BA.debugLine="End Sub";
+ //BA.debugLineNum = 78;BA.debugLine="End Sub";
 return "";
 }
 public static String  _pictogramas_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 63;BA.debugLine="Sub Pictogramas_Click";
- //BA.debugLineNum = 64;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 70;BA.debugLine="Sub Pictogramas_Click";
+ //BA.debugLineNum = 71;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 65;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.arasaac.o";
+ //BA.debugLineNum = 72;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.arasaac.o";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://www.arasaac.org")));
- //BA.debugLineNum = 66;BA.debugLine="End Sub";
+ //BA.debugLineNum = 73;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
@@ -412,19 +422,19 @@ return "";
 }
 public static String  _programador_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 58;BA.debugLine="Sub Programador_Click";
- //BA.debugLineNum = 59;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 65;BA.debugLine="Sub Programador_Click";
+ //BA.debugLineNum = 66;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 60;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.ganso.org";
+ //BA.debugLineNum = 67;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.ganso.org";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://www.ganso.org")));
- //BA.debugLineNum = 61;BA.debugLine="End Sub";
+ //BA.debugLineNum = 68;BA.debugLine="End Sub";
 return "";
 }
 public static String  _volver_click() throws Exception{
- //BA.debugLineNum = 53;BA.debugLine="Sub Volver_Click";
- //BA.debugLineNum = 55;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 60;BA.debugLine="Sub Volver_Click";
+ //BA.debugLineNum = 62;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 56;BA.debugLine="End Sub";
+ //BA.debugLineNum = 63;BA.debugLine="End Sub";
 return "";
 }
 }
