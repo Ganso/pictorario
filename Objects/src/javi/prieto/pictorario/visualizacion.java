@@ -326,25 +326,30 @@ public class visualizacion extends Activity implements B4AActivity{
     }
 
 public anywheresoftware.b4a.keywords.Common __c = null;
+public static anywheresoftware.b4a.objects.Timer _vvv2 = null;
 public anywheresoftware.b4a.objects.PanelWrapper _paneldescripcion = null;
 public anywheresoftware.b4a.objects.PanelWrapper _panelreloj = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _imagenpictograma = null;
 public anywheresoftware.b4a.objects.PanelWrapper _fondopictograma = null;
 public anywheresoftware.b4a.objects.LabelWrapper _textopictograma = null;
-public anywheresoftware.b4a.objects.drawable.CanvasWrapper _vvvvv3 = null;
-public static float _vvvvv1 = 0f;
-public static float _vvvvv2 = 0f;
-public static float _vvvvv4 = 0f;
-public static int _vvvvv7 = 0;
-public static int _vvvvv0 = 0;
-public anywheresoftware.b4a.objects.ButtonWrapper[] _vvvvv6 = null;
+public anywheresoftware.b4a.objects.PanelWrapper _panelagujas = null;
+public anywheresoftware.b4a.objects.drawable.CanvasWrapper _vvvvvvvvvv2 = null;
+public anywheresoftware.b4a.objects.drawable.CanvasWrapper _vvvvvvvvvv5 = null;
+public static float _vvvvvvvvv5 = 0f;
+public static float _vvvvvvvvv6 = 0f;
+public static float _vvvvvvvvvv3 = 0f;
+public static int _vvvvvvvvvv6 = 0;
+public static int _vvvvvvvvvv7 = 0;
+public anywheresoftware.b4a.objects.ButtonWrapper[] _vvvvvvvvv2 = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _cambiarvista = null;
 public anywheresoftware.b4a.objects.LabelWrapper _descripcionpictograma = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _volver = null;
-public javi.prieto.pictorario.main _vvvvvv1 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvv5 = null;
-public javi.prieto.pictorario.starter _vvv3 = null;
-public javi.prieto.pictorario.acercade _vvv4 = null;
+public static float[] _vvvvvvvvv7 = null;
+public static float[] _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.main _vvvvvvvv6 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvv6 = null;
+public javi.prieto.pictorario.starter _vvv4 = null;
+public javi.prieto.pictorario.acercade _vvv5 = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -353,66 +358,72 @@ public static void initializeProcessGlobals() {
                 throw new RuntimeException(e);
             }
 }
+public static String  _vvvvvvvv7(int _i) throws Exception{
+ //BA.debugLineNum = 388;BA.debugLine="Sub ActivarBoton(i As Int)";
+ //BA.debugLineNum = 389;BA.debugLine="ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets";
+mostCurrent._imagenpictograma.setBitmap((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].Pictograma+".png").getObject()));
+ //BA.debugLineNum = 390;BA.debugLine="TextoPictograma.Text=Starter.ActividadSecuencia(S";
+mostCurrent._textopictograma.setText(BA.ObjectToCharSequence(mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].Descripcion.toUpperCase()));
+ //BA.debugLineNum = 391;BA.debugLine="DescripcionPictograma.Text=\"De \"&Hora24a12(Starte";
+mostCurrent._descripcionpictograma.setText(BA.ObjectToCharSequence("De "+BA.NumberToString(_vvvvvvvv0(mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].hora_inicio))+_vvvvvvvvv1(mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].minuto_inicio)+" a "+BA.NumberToString(_vvvvvvvv0(mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].hora_fin))+_vvvvvvvvv1(mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_i].minuto_fin)));
+ //BA.debugLineNum = 392;BA.debugLine="FondoPictograma.Color=Starter.Colores(i)";
+mostCurrent._fondopictograma.setColor(mostCurrent._vvv4._vv4[_i]);
+ //BA.debugLineNum = 393;BA.debugLine="Boton(i).BringToFront()";
+mostCurrent._vvvvvvvvv2[_i].BringToFront();
+ //BA.debugLineNum = 394;BA.debugLine="End Sub";
+return "";
+}
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 36;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 38;BA.debugLine="Activity.LoadLayout(\"RelojActividades\")";
-mostCurrent._activity.LoadLayout("RelojActividades",mostCurrent.activityBA);
- //BA.debugLineNum = 39;BA.debugLine="DibujarTablero";
-_vvvv5();
- //BA.debugLineNum = 41;BA.debugLine="End Sub";
+ //BA.debugLineNum = 45;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 47;BA.debugLine="Activity.LoadLayout(\"VisualizarSecuencia\")";
+mostCurrent._activity.LoadLayout("VisualizarSecuencia",mostCurrent.activityBA);
+ //BA.debugLineNum = 48;BA.debugLine="DibujarTablero";
+_vvvvvvvvv3();
+ //BA.debugLineNum = 49;BA.debugLine="Temporizador.Initialize(\"Temporizador\",1000)";
+_vvv2.Initialize(processBA,"Temporizador",(long) (1000));
+ //BA.debugLineNum = 50;BA.debugLine="Temporizador.Enabled=True";
+_vvv2.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 52;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 307;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 309;BA.debugLine="End Sub";
+ //BA.debugLineNum = 339;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 341;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 303;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 305;BA.debugLine="End Sub";
+ //BA.debugLineNum = 335;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 337;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botonactividad_click() throws Exception{
 anywheresoftware.b4a.objects.ButtonWrapper _botonpulsado = null;
-javi.prieto.pictorario.starter._actividad _actividadpulsada = null;
- //BA.debugLineNum = 291;BA.debugLine="Sub BotonActividad_click";
- //BA.debugLineNum = 292;BA.debugLine="Dim BotonPulsado As Button";
+ //BA.debugLineNum = 329;BA.debugLine="Sub BotonActividad_click";
+ //BA.debugLineNum = 330;BA.debugLine="Dim BotonPulsado As Button";
 _botonpulsado = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 293;BA.debugLine="BotonPulsado=Sender";
+ //BA.debugLineNum = 331;BA.debugLine="BotonPulsado=Sender";
 _botonpulsado.setObject((android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
- //BA.debugLineNum = 294;BA.debugLine="Dim ActividadPulsada As Actividad";
-_actividadpulsada = new javi.prieto.pictorario.starter._actividad();
- //BA.debugLineNum = 295;BA.debugLine="ActividadPulsada=Starter.ActividadSecuencia(Start";
-_actividadpulsada = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][(int)(BA.ObjectToNumber(_botonpulsado.getTag()))];
- //BA.debugLineNum = 296;BA.debugLine="ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets";
-mostCurrent._imagenpictograma.setBitmap((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][(int)(BA.ObjectToNumber(_botonpulsado.getTag()))].Pictograma+".png").getObject()));
- //BA.debugLineNum = 297;BA.debugLine="TextoPictograma.Text=ActividadPulsada.descripcion";
-mostCurrent._textopictograma.setText(BA.ObjectToCharSequence(_actividadpulsada.Descripcion.toUpperCase()));
- //BA.debugLineNum = 298;BA.debugLine="DescripcionPictograma.Text=\"De \"&Hora24a12(Activi";
-mostCurrent._descripcionpictograma.setText(BA.ObjectToCharSequence("De "+BA.NumberToString(_vvvv6(_actividadpulsada.hora_inicio))+_vvvv7(_actividadpulsada.minuto_inicio)+" a "+BA.NumberToString(_vvvv6(_actividadpulsada.hora_fin))+_vvvv7(_actividadpulsada.minuto_fin)));
- //BA.debugLineNum = 299;BA.debugLine="FondoPictograma.Color=Starter.Colores(BotonPulsad";
-mostCurrent._fondopictograma.setColor(mostCurrent._vvv3._vv4[(int)(BA.ObjectToNumber(_botonpulsado.getTag()))]);
- //BA.debugLineNum = 300;BA.debugLine="BotonPulsado.BringToFront()";
-_botonpulsado.BringToFront();
- //BA.debugLineNum = 301;BA.debugLine="End Sub";
+ //BA.debugLineNum = 332;BA.debugLine="ActivarBoton(BotonPulsado.Tag)";
+_vvvvvvvv7((int)(BA.ObjectToNumber(_botonpulsado.getTag())));
+ //BA.debugLineNum = 333;BA.debugLine="End Sub";
 return "";
 }
 public static String  _cambiarvista_click() throws Exception{
- //BA.debugLineNum = 316;BA.debugLine="Sub CambiarVista_Click";
- //BA.debugLineNum = 317;BA.debugLine="Starter.Secuencia(Starter.SecuenciaActiva).tabler";
-mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo = (int) (((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo)+1)%4);
- //BA.debugLineNum = 318;BA.debugLine="Activity.RemoveAllViews";
+ //BA.debugLineNum = 348;BA.debugLine="Sub CambiarVista_Click";
+ //BA.debugLineNum = 349;BA.debugLine="Starter.Secuencia(Starter.SecuenciaActiva).tabler";
+mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo = (int) (((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo)+1)%4);
+ //BA.debugLineNum = 350;BA.debugLine="Activity.RemoveAllViews";
 mostCurrent._activity.RemoveAllViews();
- //BA.debugLineNum = 319;BA.debugLine="Activity.Invalidate";
+ //BA.debugLineNum = 351;BA.debugLine="Activity.Invalidate";
 mostCurrent._activity.Invalidate();
- //BA.debugLineNum = 320;BA.debugLine="Activity.LoadLayout(\"RelojActividades\")";
-mostCurrent._activity.LoadLayout("RelojActividades",mostCurrent.activityBA);
- //BA.debugLineNum = 321;BA.debugLine="DibujarTablero";
-_vvvv5();
- //BA.debugLineNum = 322;BA.debugLine="End Sub";
+ //BA.debugLineNum = 352;BA.debugLine="Activity.LoadLayout(\"VisualizarSecuencia\")";
+mostCurrent._activity.LoadLayout("VisualizarSecuencia",mostCurrent.activityBA);
+ //BA.debugLineNum = 353;BA.debugLine="DibujarTablero";
+_vvvvvvvvv3();
+ //BA.debugLineNum = 354;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvv0(int _numactividad) throws Exception{
+public static String  _vvvvvvvvv4(int _numactividad) throws Exception{
 int _horainicio = 0;
 int _mininicio = 0;
 int _horafin = 0;
@@ -420,56 +431,65 @@ int _minfin = 0;
 float _horamitad = 0f;
 float _minutomitad = 0f;
 anywheresoftware.b4a.objects.drawable.CanvasWrapper.PathWrapper _recorte = null;
- //BA.debugLineNum = 168;BA.debugLine="Sub DibujarActividad(NumActividad As Int)";
- //BA.debugLineNum = 171;BA.debugLine="If ( Starter.Secuencia(Starter.SecuenciaActiva).t";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo>1 || (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==1 && mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_fin>11) || (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==0 && mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_inicio<12))) { 
- //BA.debugLineNum = 174;BA.debugLine="Dim HoraInicio=Starter.ActividadSecuencia(Starte";
-_horainicio = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_inicio;
- //BA.debugLineNum = 175;BA.debugLine="Dim MinInicio=Starter.ActividadSecuencia(Starter";
-_mininicio = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].minuto_inicio;
- //BA.debugLineNum = 176;BA.debugLine="Dim HoraFin=Starter.ActividadSecuencia(Starter.S";
-_horafin = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_fin;
- //BA.debugLineNum = 177;BA.debugLine="Dim MinFin=Starter.ActividadSecuencia(Starter.Se";
-_minfin = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].minuto_fin;
- //BA.debugLineNum = 178;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==0 && _horafin>11)) { 
- //BA.debugLineNum = 179;BA.debugLine="HoraFin=12";
+ //BA.debugLineNum = 200;BA.debugLine="Sub DibujarActividad(NumActividad As Int)";
+ //BA.debugLineNum = 203;BA.debugLine="If ( Starter.Secuencia(Starter.SecuenciaActiva).t";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo>1 || (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==1 && mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_fin>11) || (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==0 && mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_inicio<12))) { 
+ //BA.debugLineNum = 206;BA.debugLine="Dim HoraInicio=Starter.ActividadSecuencia(Starte";
+_horainicio = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_inicio;
+ //BA.debugLineNum = 207;BA.debugLine="Dim MinInicio=Starter.ActividadSecuencia(Starter";
+_mininicio = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].minuto_inicio;
+ //BA.debugLineNum = 208;BA.debugLine="Dim HoraFin=Starter.ActividadSecuencia(Starter.S";
+_horafin = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_fin;
+ //BA.debugLineNum = 209;BA.debugLine="Dim MinFin=Starter.ActividadSecuencia(Starter.Se";
+_minfin = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].minuto_fin;
+ //BA.debugLineNum = 210;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==0 && _horafin>11)) { 
+ //BA.debugLineNum = 211;BA.debugLine="HoraFin=12";
 _horafin = (int) (12);
- //BA.debugLineNum = 180;BA.debugLine="MinFin=0";
+ //BA.debugLineNum = 212;BA.debugLine="MinFin=0";
 _minfin = (int) (0);
- }else if((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==1 && _horainicio<12)) { 
- //BA.debugLineNum = 182;BA.debugLine="HoraInicio=12";
+ }else if((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==1 && _horainicio<12)) { 
+ //BA.debugLineNum = 214;BA.debugLine="HoraInicio=12";
 _horainicio = (int) (12);
- //BA.debugLineNum = 183;BA.debugLine="MinInicio=0";
+ //BA.debugLineNum = 215;BA.debugLine="MinInicio=0";
 _mininicio = (int) (0);
  };
- //BA.debugLineNum = 187;BA.debugLine="Dim HoraMitad=(HoraInicio+HoraFin)/2 As Float";
+ //BA.debugLineNum = 219;BA.debugLine="Dim HoraMitad=(HoraInicio+HoraFin)/2 As Float";
 _horamitad = (float) ((_horainicio+_horafin)/(double)2);
- //BA.debugLineNum = 188;BA.debugLine="Dim MinutoMitad=(MinInicio+MinFin)/2 As Float";
+ //BA.debugLineNum = 220;BA.debugLine="Dim MinutoMitad=(MinInicio+MinFin)/2 As Float";
 _minutomitad = (float) ((_mininicio+_minfin)/(double)2);
- //BA.debugLineNum = 191;BA.debugLine="Dim Recorte As Path";
+ //BA.debugLineNum = 223;BA.debugLine="Dim Recorte As Path";
 _recorte = new anywheresoftware.b4a.objects.drawable.CanvasWrapper.PathWrapper();
- //BA.debugLineNum = 192;BA.debugLine="Recorte.Initialize(CentroX,CentroY)";
-_recorte.Initialize(_vvvvv1,_vvvvv2);
- //BA.debugLineNum = 193;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraInicio,MinInici";
+ //BA.debugLineNum = 224;BA.debugLine="Recorte.Initialize(CentroX,CentroY)";
+_recorte.Initialize(_vvvvvvvvv5,_vvvvvvvvv6);
+ //BA.debugLineNum = 225;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraInicio,MinInici";
 _recorte.LineTo(_horaminuto_x((float) (_horainicio),(float) (_mininicio),(float) (1.5)),_horaminuto_y((float) (_horainicio),(float) (_mininicio),(float) (1.5)));
- //BA.debugLineNum = 194;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMit";
+ //BA.debugLineNum = 226;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMit";
 _recorte.LineTo(_horaminuto_x(_horamitad,_minutomitad,(float) (1.5)),_horaminuto_y(_horamitad,_minutomitad,(float) (1.5)));
- //BA.debugLineNum = 195;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,1.5)";
+ //BA.debugLineNum = 227;BA.debugLine="Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,1.5)";
 _recorte.LineTo(_horaminuto_x((float) (_horafin),(float) (_minfin),(float) (1.5)),_horaminuto_y((float) (_horafin),(float) (_minfin),(float) (1.5)));
- //BA.debugLineNum = 196;BA.debugLine="Recorte.LineTo(CentroX,CentroY)";
-_recorte.LineTo(_vvvvv1,_vvvvv2);
- //BA.debugLineNum = 199;BA.debugLine="Pantalla.ClipPath(Recorte)";
-mostCurrent._vvvvv3.ClipPath((android.graphics.Path)(_recorte.getObject()));
- //BA.debugLineNum = 200;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*0.7,St";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,(float) (_vvvvv4*0.7),mostCurrent._vvv3._vv4[_numactividad],anywheresoftware.b4a.keywords.Common.True,(float) (0));
- //BA.debugLineNum = 201;BA.debugLine="Pantalla.RemoveClip";
-mostCurrent._vvvvv3.RemoveClip();
+ //BA.debugLineNum = 228;BA.debugLine="Recorte.LineTo(CentroX,CentroY)";
+_recorte.LineTo(_vvvvvvvvv5,_vvvvvvvvv6);
+ //BA.debugLineNum = 230;BA.debugLine="AnguloInicio(NumActividad)=NormalizarAngulo(ATan";
+_vvvvvvvvv7[_numactividad] = _vvvvvvvvv0((float) (anywheresoftware.b4a.keywords.Common.ATan2D(_horaminuto_y((float) (_horainicio),(float) (_mininicio),(float) (1.5))-_vvvvvvvvv6,_horaminuto_x((float) (_horainicio),(float) (_mininicio),(float) (1.5))-_vvvvvvvvv5)%360));
+ //BA.debugLineNum = 231;BA.debugLine="AnguloFin(NumActividad)=NormalizarAngulo(ATan2D(";
+_vvvvvvvvvv1[_numactividad] = _vvvvvvvvv0((float) (anywheresoftware.b4a.keywords.Common.ATan2D(_horaminuto_y((float) (_horafin),(float) (_minfin),(float) (1.5))-_vvvvvvvvv6,_horaminuto_x((float) (_horafin),(float) (_minfin),(float) (1.5))-_vvvvvvvvv5)%360));
+ //BA.debugLineNum = 232;BA.debugLine="If AnguloFin(NumActividad)=0 Then";
+if (_vvvvvvvvvv1[_numactividad]==0) { 
+ //BA.debugLineNum = 233;BA.debugLine="AnguloFin(NumActividad)=360";
+_vvvvvvvvvv1[_numactividad] = (float) (360);
  };
- //BA.debugLineNum = 205;BA.debugLine="End Sub";
+ //BA.debugLineNum = 237;BA.debugLine="Pantalla.ClipPath(Recorte)";
+mostCurrent._vvvvvvvvvv2.ClipPath((android.graphics.Path)(_recorte.getObject()));
+ //BA.debugLineNum = 238;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*0.7,St";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvvv3*0.7),mostCurrent._vvv4._vv4[_numactividad],anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 239;BA.debugLine="Pantalla.RemoveClip";
+mostCurrent._vvvvvvvvvv2.RemoveClip();
+ };
+ //BA.debugLineNum = 243;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvv5(int _numactividad) throws Exception{
+public static String  _vvvvvvvvvv4(int _numactividad) throws Exception{
 int _horainicio = 0;
 int _mininicio = 0;
 int _horafin = 0;
@@ -480,129 +500,106 @@ float _distanciaboton = 0f;
 float _tamañoicono = 0f;
 float _botonx = 0f;
 float _botony = 0f;
- //BA.debugLineNum = 207;BA.debugLine="Sub DibujarBoton(NumActividad As Int)";
- //BA.debugLineNum = 210;BA.debugLine="If ( Starter.Secuencia(Starter.SecuenciaActiva).t";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo>1 || (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==1 && mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_fin>11) || (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==0 && mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_inicio<12))) { 
- //BA.debugLineNum = 213;BA.debugLine="Dim HoraInicio=Starter.ActividadSecuencia(Starte";
-_horainicio = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_inicio;
- //BA.debugLineNum = 214;BA.debugLine="Dim MinInicio=Starter.ActividadSecuencia(Starter";
-_mininicio = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].minuto_inicio;
- //BA.debugLineNum = 215;BA.debugLine="Dim HoraFin=Starter.ActividadSecuencia(Starter.S";
-_horafin = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].hora_fin;
- //BA.debugLineNum = 216;BA.debugLine="Dim MinFin=Starter.ActividadSecuencia(Starter.Se";
-_minfin = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].minuto_fin;
- //BA.debugLineNum = 217;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==0 && _horafin>11)) { 
- //BA.debugLineNum = 218;BA.debugLine="HoraFin=12";
+ //BA.debugLineNum = 245;BA.debugLine="Sub DibujarBoton(NumActividad As Int)";
+ //BA.debugLineNum = 248;BA.debugLine="If ( Starter.Secuencia(Starter.SecuenciaActiva).t";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo>1 || (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==1 && mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_fin>11) || (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==0 && mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_inicio<12))) { 
+ //BA.debugLineNum = 251;BA.debugLine="Dim HoraInicio=Starter.ActividadSecuencia(Starte";
+_horainicio = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_inicio;
+ //BA.debugLineNum = 252;BA.debugLine="Dim MinInicio=Starter.ActividadSecuencia(Starter";
+_mininicio = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].minuto_inicio;
+ //BA.debugLineNum = 253;BA.debugLine="Dim HoraFin=Starter.ActividadSecuencia(Starter.S";
+_horafin = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].hora_fin;
+ //BA.debugLineNum = 254;BA.debugLine="Dim MinFin=Starter.ActividadSecuencia(Starter.Se";
+_minfin = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].minuto_fin;
+ //BA.debugLineNum = 255;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==0 && _horafin>11)) { 
+ //BA.debugLineNum = 256;BA.debugLine="HoraFin=12";
 _horafin = (int) (12);
- //BA.debugLineNum = 219;BA.debugLine="MinFin=0";
+ //BA.debugLineNum = 257;BA.debugLine="MinFin=0";
 _minfin = (int) (0);
- }else if((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==1 && _horainicio<12)) { 
- //BA.debugLineNum = 221;BA.debugLine="HoraInicio=12";
+ }else if((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==1 && _horainicio<12)) { 
+ //BA.debugLineNum = 259;BA.debugLine="HoraInicio=12";
 _horainicio = (int) (12);
- //BA.debugLineNum = 222;BA.debugLine="MinInicio=0";
+ //BA.debugLineNum = 260;BA.debugLine="MinInicio=0";
 _mininicio = (int) (0);
  };
- //BA.debugLineNum = 226;BA.debugLine="Dim HoraMitad=(HoraInicio+HoraFin)/2 As Float";
+ //BA.debugLineNum = 264;BA.debugLine="Dim HoraMitad=(HoraInicio+HoraFin)/2 As Float";
 _horamitad = (float) ((_horainicio+_horafin)/(double)2);
- //BA.debugLineNum = 227;BA.debugLine="Dim MinutoMitad=(MinInicio+MinFin)/2 As Float";
+ //BA.debugLineNum = 265;BA.debugLine="Dim MinutoMitad=(MinInicio+MinFin)/2 As Float";
 _minutomitad = (float) ((_mininicio+_minfin)/(double)2);
- //BA.debugLineNum = 230;BA.debugLine="Boton(NumActividad).Initialize(\"BotonActividad\")";
-mostCurrent._vvvvv6[_numactividad].Initialize(mostCurrent.activityBA,"BotonActividad");
- //BA.debugLineNum = 231;BA.debugLine="Boton(NumActividad).Tag=NumActividad";
-mostCurrent._vvvvv6[_numactividad].setTag((Object)(_numactividad));
- //BA.debugLineNum = 232;BA.debugLine="Dim DistanciaBoton=0.5+0.1*(NumActividad Mod 3)";
-_distanciaboton = (float) (0.5+0.1*(_numactividad%3));
- //BA.debugLineNum = 233;BA.debugLine="Dim TamañoIcono=Starter.Secuencia(Starter.Secuen";
-_tamañoicono = (float) (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tam_icono*anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA));
- //BA.debugLineNum = 234;BA.debugLine="Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,Di";
+ //BA.debugLineNum = 268;BA.debugLine="Boton(NumActividad).Initialize(\"BotonActividad\")";
+mostCurrent._vvvvvvvvv2[_numactividad].Initialize(mostCurrent.activityBA,"BotonActividad");
+ //BA.debugLineNum = 269;BA.debugLine="Boton(NumActividad).Tag=NumActividad";
+mostCurrent._vvvvvvvvv2[_numactividad].setTag((Object)(_numactividad));
+ //BA.debugLineNum = 270;BA.debugLine="Dim DistanciaBoton=0.3+0.1*(NumActividad Mod 3)";
+_distanciaboton = (float) (0.3+0.1*(_numactividad%3));
+ //BA.debugLineNum = 271;BA.debugLine="Dim TamañoIcono=Starter.Secuencia(Starter.Secuen";
+_tamañoicono = (float) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tam_icono*anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (1),mostCurrent.activityBA));
+ //BA.debugLineNum = 272;BA.debugLine="Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,Di";
 _botonx = (float) (_horaminuto_x(_horamitad,_minutomitad,_distanciaboton)-_tamañoicono/(double)2);
- //BA.debugLineNum = 235;BA.debugLine="Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,Di";
+ //BA.debugLineNum = 273;BA.debugLine="Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,Di";
 _botony = (float) (_horaminuto_y(_horamitad,_minutomitad,_distanciaboton)-_tamañoicono/(double)2);
- //BA.debugLineNum = 239;BA.debugLine="Activity.AddView(Boton(NumActividad),BotonX,Boto";
-mostCurrent._activity.AddView((android.view.View)(mostCurrent._vvvvv6[_numactividad].getObject()),(int) (_botonx),(int) (_botony),(int) (_tamañoicono),(int) (_tamañoicono));
- //BA.debugLineNum = 240;BA.debugLine="Boton(NumActividad).SetBackgroundImage(LoadBitma";
-mostCurrent._vvvvv6[_numactividad].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][_numactividad].Pictograma+".png").getObject()));
+ //BA.debugLineNum = 277;BA.debugLine="Activity.AddView(Boton(NumActividad),BotonX,Boto";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._vvvvvvvvv2[_numactividad].getObject()),(int) (_botonx),(int) (_botony),(int) (_tamañoicono),(int) (_tamañoicono));
+ //BA.debugLineNum = 278;BA.debugLine="Boton(NumActividad).SetBackgroundImage(LoadBitma";
+mostCurrent._vvvvvvvvv2[_numactividad].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][_numactividad].Pictograma+".png").getObject()));
  };
- //BA.debugLineNum = 243;BA.debugLine="End Sub";
+ //BA.debugLineNum = 281;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvv5() throws Exception{
+public static String  _vvvvvvvvv3() throws Exception{
 anywheresoftware.b4a.objects.drawable.CanvasWrapper.PathWrapper _recorte = null;
 int _hora = 0;
 float _x = 0f;
 float _y = 0f;
 anywheresoftware.b4a.objects.LabelWrapper _numerohora = null;
 int _nactividad = 0;
-int _horaactual = 0;
-int _minutoactual = 0;
-int _segundoactual = 0;
-float _angulominuto = 0f;
-float _angulosegundo = 0f;
- //BA.debugLineNum = 43;BA.debugLine="Sub DibujarTablero()";
- //BA.debugLineNum = 45;BA.debugLine="CentroX=50%x";
-_vvvvv1 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (50),mostCurrent.activityBA));
- //BA.debugLineNum = 46;BA.debugLine="CentroY=60%x";
-_vvvvv2 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA));
- //BA.debugLineNum = 47;BA.debugLine="Radio=45%x";
-_vvvvv4 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (45),mostCurrent.activityBA));
- //BA.debugLineNum = 49;BA.debugLine="Pantalla.Initialize(PanelReloj)";
-mostCurrent._vvvvv3.Initialize((android.view.View)(mostCurrent._panelreloj.getObject()));
- //BA.debugLineNum = 52;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo<2) { 
- //BA.debugLineNum = 53;BA.debugLine="MinHora=1";
-_vvvvv7 = (int) (1);
- //BA.debugLineNum = 54;BA.debugLine="MaxHora=12";
-_vvvvv0 = (int) (12);
- }else if(mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==2) { 
- //BA.debugLineNum = 56;BA.debugLine="MinHora=1";
-_vvvvv7 = (int) (1);
- //BA.debugLineNum = 57;BA.debugLine="MaxHora=24";
-_vvvvv0 = (int) (24);
+ //BA.debugLineNum = 54;BA.debugLine="Sub DibujarTablero()";
+ //BA.debugLineNum = 56;BA.debugLine="CentroX=50%x";
+_vvvvvvvvv5 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (50),mostCurrent.activityBA));
+ //BA.debugLineNum = 57;BA.debugLine="CentroY=60%x";
+_vvvvvvvvv6 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (60),mostCurrent.activityBA));
+ //BA.debugLineNum = 58;BA.debugLine="Radio=45%x";
+_vvvvvvvvvv3 = (float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (45),mostCurrent.activityBA));
+ //BA.debugLineNum = 60;BA.debugLine="Pantalla.Initialize(PanelReloj)";
+mostCurrent._vvvvvvvvvv2.Initialize((android.view.View)(mostCurrent._panelreloj.getObject()));
+ //BA.debugLineNum = 61;BA.debugLine="PantallaAgujas.Initialize(PanelAgujas)";
+mostCurrent._vvvvvvvvvv5.Initialize((android.view.View)(mostCurrent._panelagujas.getObject()));
+ //BA.debugLineNum = 64;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo<2) { 
+ //BA.debugLineNum = 65;BA.debugLine="MinHora=1";
+_vvvvvvvvvv6 = (int) (1);
+ //BA.debugLineNum = 66;BA.debugLine="MaxHora=12";
+_vvvvvvvvvv7 = (int) (12);
+ }else if(mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==2) { 
+ //BA.debugLineNum = 68;BA.debugLine="MinHora=1";
+_vvvvvvvvvv6 = (int) (1);
+ //BA.debugLineNum = 69;BA.debugLine="MaxHora=24";
+_vvvvvvvvvv7 = (int) (24);
  }else {
- //BA.debugLineNum = 59;BA.debugLine="MinHora=Starter.ActividadSecuencia(Starter.Secue";
-_vvvvv7 = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][(int) (0)].hora_inicio;
- //BA.debugLineNum = 61;BA.debugLine="MaxHora=Starter.ActividadSecuencia(Starter.Secue";
-_vvvvv0 = mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][(int) (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].num_actividades-1)].hora_fin;
- //BA.debugLineNum = 62;BA.debugLine="If (Starter.ActividadSecuencia(Starter.Secuencia";
-if ((mostCurrent._vvv3._vv0[mostCurrent._vvv3._vv6][(int) (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].num_actividades-1)].minuto_fin!=0)) { 
- //BA.debugLineNum = 63;BA.debugLine="MaxHora=MaxHora+1";
-_vvvvv0 = (int) (_vvvvv0+1);
+ //BA.debugLineNum = 71;BA.debugLine="MinHora=Starter.ActividadSecuencia(Starter.Secue";
+_vvvvvvvvvv6 = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][(int) (0)].hora_inicio;
+ //BA.debugLineNum = 72;BA.debugLine="MaxHora=Starter.ActividadSecuencia(Starter.Secue";
+_vvvvvvvvvv7 = mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][(int) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].num_actividades-1)].hora_fin;
+ //BA.debugLineNum = 73;BA.debugLine="If (Starter.ActividadSecuencia(Starter.Secuencia";
+if ((mostCurrent._vvv4._vv0[mostCurrent._vvv4._vv6][(int) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].num_actividades-1)].minuto_fin!=0)) { 
+ //BA.debugLineNum = 74;BA.debugLine="MaxHora=MaxHora+1";
+_vvvvvvvvvv7 = (int) (_vvvvvvvvvv7+1);
  };
  };
- //BA.debugLineNum = 68;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo<3) { 
- //BA.debugLineNum = 70;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,C";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,(float) (_vvvvv4*1.05),anywheresoftware.b4a.keywords.Common.Colors.Gray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
- //BA.debugLineNum = 71;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,_vvvvv4,anywheresoftware.b4a.keywords.Common.Colors.White,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 79;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo<3) { 
+ //BA.debugLineNum = 81;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,C";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvvv3*1.05),anywheresoftware.b4a.keywords.Common.Colors.Gray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 82;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,_vvvvvvvvvv3,anywheresoftware.b4a.keywords.Common.Colors.White,anywheresoftware.b4a.keywords.Common.True,(float) (0));
  }else {
- //BA.debugLineNum = 73;BA.debugLine="Dim Recorte As Path";
+ //BA.debugLineNum = 84;BA.debugLine="Dim Recorte As Path";
 _recorte = new anywheresoftware.b4a.objects.drawable.CanvasWrapper.PathWrapper();
- //BA.debugLineNum = 75;BA.debugLine="Recorte.Initialize(CentroX,CentroY+3%Y)";
-_recorte.Initialize(_vvvvv1,(float) (_vvvvv2+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)));
- //BA.debugLineNum = 76;BA.debugLine="Recorte.LineTo( (CosD(114)*Radio*3)+CentroX, (Si";
-_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(114)*_vvvvv4*3)+_vvvvv1),(float) ((anywheresoftware.b4a.keywords.Common.SinD(114)*_vvvvv4*3)+_vvvvv2));
- //BA.debugLineNum = 77;BA.debugLine="Recorte.LineTo(0,100%Y)";
-_recorte.LineTo((float) (0),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
- //BA.debugLineNum = 78;BA.debugLine="Recorte.LineTo(0,0)";
-_recorte.LineTo((float) (0),(float) (0));
- //BA.debugLineNum = 79;BA.debugLine="Recorte.LineTo(100%X,0)";
-_recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (0));
- //BA.debugLineNum = 80;BA.debugLine="Recorte.LineTo(100%X,100%Y)";
-_recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
- //BA.debugLineNum = 81;BA.debugLine="Recorte.LineTo( (CosD(81)*Radio*3)+CentroX, (Sin";
-_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(81)*_vvvvv4*3)+_vvvvv1),(float) ((anywheresoftware.b4a.keywords.Common.SinD(81)*_vvvvv4)+_vvvvv2));
- //BA.debugLineNum = 82;BA.debugLine="Pantalla.ClipPath(Recorte)";
-mostCurrent._vvvvv3.ClipPath((android.graphics.Path)(_recorte.getObject()));
- //BA.debugLineNum = 83;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,C";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,(float) (_vvvvv4*1.05),anywheresoftware.b4a.keywords.Common.Colors.Gray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
- //BA.debugLineNum = 84;BA.debugLine="Pantalla.RemoveClip";
-mostCurrent._vvvvv3.RemoveClip();
- //BA.debugLineNum = 86;BA.debugLine="Recorte.Initialize(CentroX,CentroY)";
-_recorte.Initialize(_vvvvv1,_vvvvv2);
- //BA.debugLineNum = 87;BA.debugLine="Recorte.LineTo( (CosD(116)*Radio*3)+CentroX, (Si";
-_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(116)*_vvvvv4*3)+_vvvvv1),(float) ((anywheresoftware.b4a.keywords.Common.SinD(116)*_vvvvv4*3)+_vvvvv2));
+ //BA.debugLineNum = 86;BA.debugLine="Recorte.Initialize(CentroX,CentroY+3%Y)";
+_recorte.Initialize(_vvvvvvvvv5,(float) (_vvvvvvvvv6+anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (3),mostCurrent.activityBA)));
+ //BA.debugLineNum = 87;BA.debugLine="Recorte.LineTo( (CosD(114)*Radio*3)+CentroX, (Si";
+_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(114)*_vvvvvvvvvv3*3)+_vvvvvvvvv5),(float) ((anywheresoftware.b4a.keywords.Common.SinD(114)*_vvvvvvvvvv3*3)+_vvvvvvvvv6));
  //BA.debugLineNum = 88;BA.debugLine="Recorte.LineTo(0,100%Y)";
 _recorte.LineTo((float) (0),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
  //BA.debugLineNum = 89;BA.debugLine="Recorte.LineTo(0,0)";
@@ -611,262 +608,395 @@ _recorte.LineTo((float) (0),(float) (0));
 _recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (0));
  //BA.debugLineNum = 91;BA.debugLine="Recorte.LineTo(100%X,100%Y)";
 _recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
- //BA.debugLineNum = 92;BA.debugLine="Recorte.LineTo( (CosD(80)*Radio*3)+CentroX, (Sin";
-_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(80)*_vvvvv4*3)+_vvvvv1),(float) ((anywheresoftware.b4a.keywords.Common.SinD(80)*_vvvvv4)+_vvvvv2));
+ //BA.debugLineNum = 92;BA.debugLine="Recorte.LineTo( (CosD(81)*Radio*3)+CentroX, (Sin";
+_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(81)*_vvvvvvvvvv3*3)+_vvvvvvvvv5),(float) ((anywheresoftware.b4a.keywords.Common.SinD(81)*_vvvvvvvvvv3)+_vvvvvvvvv6));
  //BA.debugLineNum = 93;BA.debugLine="Pantalla.ClipPath(Recorte)";
-mostCurrent._vvvvv3.ClipPath((android.graphics.Path)(_recorte.getObject()));
- //BA.debugLineNum = 94;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,_vvvvv4,anywheresoftware.b4a.keywords.Common.Colors.White,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+mostCurrent._vvvvvvvvvv2.ClipPath((android.graphics.Path)(_recorte.getObject()));
+ //BA.debugLineNum = 94;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*1.05,C";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvvv3*1.05),anywheresoftware.b4a.keywords.Common.Colors.Gray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
  //BA.debugLineNum = 95;BA.debugLine="Pantalla.RemoveClip";
-mostCurrent._vvvvv3.RemoveClip();
+mostCurrent._vvvvvvvvvv2.RemoveClip();
+ //BA.debugLineNum = 97;BA.debugLine="Recorte.Initialize(CentroX,CentroY)";
+_recorte.Initialize(_vvvvvvvvv5,_vvvvvvvvv6);
+ //BA.debugLineNum = 98;BA.debugLine="Recorte.LineTo( (CosD(116)*Radio*3)+CentroX, (Si";
+_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(116)*_vvvvvvvvvv3*3)+_vvvvvvvvv5),(float) ((anywheresoftware.b4a.keywords.Common.SinD(116)*_vvvvvvvvvv3*3)+_vvvvvvvvv6));
+ //BA.debugLineNum = 99;BA.debugLine="Recorte.LineTo(0,100%Y)";
+_recorte.LineTo((float) (0),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
+ //BA.debugLineNum = 100;BA.debugLine="Recorte.LineTo(0,0)";
+_recorte.LineTo((float) (0),(float) (0));
+ //BA.debugLineNum = 101;BA.debugLine="Recorte.LineTo(100%X,0)";
+_recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (0));
+ //BA.debugLineNum = 102;BA.debugLine="Recorte.LineTo(100%X,100%Y)";
+_recorte.LineTo((float) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)),(float) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)));
+ //BA.debugLineNum = 103;BA.debugLine="Recorte.LineTo( (CosD(80)*Radio*3)+CentroX, (Sin";
+_recorte.LineTo((float) ((anywheresoftware.b4a.keywords.Common.CosD(80)*_vvvvvvvvvv3*3)+_vvvvvvvvv5),(float) ((anywheresoftware.b4a.keywords.Common.SinD(80)*_vvvvvvvvvv3)+_vvvvvvvvv6));
+ //BA.debugLineNum = 104;BA.debugLine="Pantalla.ClipPath(Recorte)";
+mostCurrent._vvvvvvvvvv2.ClipPath((android.graphics.Path)(_recorte.getObject()));
+ //BA.debugLineNum = 105;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio,Colors";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,_vvvvvvvvvv3,anywheresoftware.b4a.keywords.Common.Colors.White,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 106;BA.debugLine="Pantalla.RemoveClip";
+mostCurrent._vvvvvvvvvv2.RemoveClip();
  };
- //BA.debugLineNum = 98;BA.debugLine="For Hora=MinHora To MaxHora Step 1";
+ //BA.debugLineNum = 109;BA.debugLine="For Hora=MinHora To MaxHora Step 1";
 {
-final int step44 = (int) (1);
-final int limit44 = _vvvvv0;
-_hora = _vvvvv7 ;
-for (;(step44 > 0 && _hora <= limit44) || (step44 < 0 && _hora >= limit44) ;_hora = ((int)(0 + _hora + step44))  ) {
- //BA.debugLineNum = 100;BA.debugLine="Dim X=HoraMinuto_X(Hora,0,0.95) As Float";
+final int step45 = (int) (1);
+final int limit45 = _vvvvvvvvvv7;
+_hora = _vvvvvvvvvv6 ;
+for (;(step45 > 0 && _hora <= limit45) || (step45 < 0 && _hora >= limit45) ;_hora = ((int)(0 + _hora + step45))  ) {
+ //BA.debugLineNum = 111;BA.debugLine="Dim X=HoraMinuto_X(Hora,0,0.95) As Float";
 _x = _horaminuto_x((float) (_hora),(float) (0),(float) (0.95));
- //BA.debugLineNum = 101;BA.debugLine="Dim Y=HoraMinuto_Y(Hora,0,0.95) As Float";
+ //BA.debugLineNum = 112;BA.debugLine="Dim Y=HoraMinuto_Y(Hora,0,0.95) As Float";
 _y = _horaminuto_y((float) (_hora),(float) (0),(float) (0.95));
- //BA.debugLineNum = 103;BA.debugLine="Pantalla.DrawCircle(X,Y,Radio*0.02,Colors.LightG";
-mostCurrent._vvvvv3.DrawCircle(_x,_y,(float) (_vvvvv4*0.02),anywheresoftware.b4a.keywords.Common.Colors.LightGray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
- //BA.debugLineNum = 104;BA.debugLine="Dim X=HoraMinuto_X(Hora,0,0.85) As Float";
+ //BA.debugLineNum = 114;BA.debugLine="Pantalla.DrawCircle(X,Y,Radio*0.02,Colors.LightG";
+mostCurrent._vvvvvvvvvv2.DrawCircle(_x,_y,(float) (_vvvvvvvvvv3*0.02),anywheresoftware.b4a.keywords.Common.Colors.LightGray,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 115;BA.debugLine="Dim X=HoraMinuto_X(Hora,0,0.85) As Float";
 _x = _horaminuto_x((float) (_hora),(float) (0),(float) (0.85));
- //BA.debugLineNum = 105;BA.debugLine="Dim Y=HoraMinuto_Y(Hora,0,0.85) As Float";
+ //BA.debugLineNum = 116;BA.debugLine="Dim Y=HoraMinuto_Y(Hora,0,0.85) As Float";
 _y = _horaminuto_y((float) (_hora),(float) (0),(float) (0.85));
- //BA.debugLineNum = 106;BA.debugLine="Dim NumeroHora As Label";
+ //BA.debugLineNum = 117;BA.debugLine="Dim NumeroHora As Label";
 _numerohora = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 107;BA.debugLine="NumeroHora.Initialize(\"\")";
+ //BA.debugLineNum = 118;BA.debugLine="NumeroHora.Initialize(\"\")";
 _numerohora.Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 108;BA.debugLine="NumeroHora.Text=(Hora) Mod 24";
+ //BA.debugLineNum = 119;BA.debugLine="NumeroHora.Text=(Hora) Mod 24";
 _numerohora.setText(BA.ObjectToCharSequence((_hora)%24));
- //BA.debugLineNum = 109;BA.debugLine="NumeroHora.TextColor=Colors.DarkGray";
+ //BA.debugLineNum = 120;BA.debugLine="NumeroHora.TextColor=Colors.DarkGray";
 _numerohora.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.DarkGray);
- //BA.debugLineNum = 110;BA.debugLine="NumeroHora.Gravity=Gravity.CENTER";
+ //BA.debugLineNum = 121;BA.debugLine="NumeroHora.Gravity=Gravity.CENTER";
 _numerohora.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
- //BA.debugLineNum = 111;BA.debugLine="NumeroHora.TextSize=15";
+ //BA.debugLineNum = 122;BA.debugLine="NumeroHora.TextSize=15";
 _numerohora.setTextSize((float) (15));
- //BA.debugLineNum = 112;BA.debugLine="Activity.AddView(NumeroHora,X-15dip,Y-15dip,30di";
+ //BA.debugLineNum = 123;BA.debugLine="Activity.AddView(NumeroHora,X-15dip,Y-15dip,30di";
 mostCurrent._activity.AddView((android.view.View)(_numerohora.getObject()),(int) (_x-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (15))),(int) (_y-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (15))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30)));
  }
 };
- //BA.debugLineNum = 115;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==1) { 
- //BA.debugLineNum = 116;BA.debugLine="MinHora=MinHora+12";
-_vvvvv7 = (int) (_vvvvv7+12);
- //BA.debugLineNum = 117;BA.debugLine="MaxHora=MaxHora+12";
-_vvvvv0 = (int) (_vvvvv0+12);
- };
- //BA.debugLineNum = 121;BA.debugLine="For NActividad=0 To Starter.Secuencia(Starter.Sec";
-{
-final int step62 = (int) (1);
-final int limit62 = (int) (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].num_actividades-1);
-_nactividad = (int) (0) ;
-for (;(step62 > 0 && _nactividad <= limit62) || (step62 < 0 && _nactividad >= limit62) ;_nactividad = ((int)(0 + _nactividad + step62))  ) {
- //BA.debugLineNum = 122;BA.debugLine="DibujarActividad(NActividad)";
-_vvvv0(_nactividad);
- }
-};
- //BA.debugLineNum = 126;BA.debugLine="For NActividad=0 To Starter.Secuencia(Starter.Sec";
-{
-final int step65 = (int) (1);
-final int limit65 = (int) (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].num_actividades-1);
-_nactividad = (int) (0) ;
-for (;(step65 > 0 && _nactividad <= limit65) || (step65 < 0 && _nactividad >= limit65) ;_nactividad = ((int)(0 + _nactividad + step65))  ) {
- //BA.debugLineNum = 127;BA.debugLine="DibujarBoton(NActividad)";
-_vvvvv5(_nactividad);
- }
-};
- //BA.debugLineNum = 131;BA.debugLine="Dim HoraActual=DateTime.GetHour(DateTime.Now) As";
-_horaactual = anywheresoftware.b4a.keywords.Common.DateTime.GetHour(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 132;BA.debugLine="Dim MinutoActual=DateTime.GetMinute(DateTime.Now)";
-_minutoactual = anywheresoftware.b4a.keywords.Common.DateTime.GetMinute(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 133;BA.debugLine="Dim SegundoActual=DateTime.GetSecond(DateTime.Now";
-_segundoactual = anywheresoftware.b4a.keywords.Common.DateTime.GetSecond(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 134;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).ta";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.indicar_hora>0 && _horaactual>=_vvvvv7 && _horaactual<_vvvvv0)) { 
- //BA.debugLineNum = 135;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==3 || mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.indicar_hora==1)) { 
- //BA.debugLineNum = 136;BA.debugLine="Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(";
-mostCurrent._vvvvv3.DrawLine(_vvvvv1,_vvvvv2,_horaminuto_x((float) (_horaactual),(float) (_minutoactual),(float) (0.8)),_horaminuto_y((float) (_horaactual),(float) (_minutoactual),(float) (0.8)),anywheresoftware.b4a.keywords.Common.Colors.Red,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (8))));
- }else {
- //BA.debugLineNum = 138;BA.debugLine="Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(";
-mostCurrent._vvvvv3.DrawLine(_vvvvv1,_vvvvv2,_horaminuto_x((float) (_horaactual),(float) (_minutoactual),(float) (0.6)),_horaminuto_y((float) (_horaactual),(float) (_minutoactual),(float) (0.6)),anywheresoftware.b4a.keywords.Common.Colors.DarkGray,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (8))));
- //BA.debugLineNum = 139;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.indicar_hora>1)) { 
- //BA.debugLineNum = 140;BA.debugLine="Dim AnguloMinuto=270+(MinutoActual*6) As Float";
-_angulominuto = (float) (270+(_minutoactual*6));
- //BA.debugLineNum = 141;BA.debugLine="Pantalla.DrawLine(CentroX,CentroY,CentroX+CosD";
-mostCurrent._vvvvv3.DrawLine(_vvvvv1,_vvvvv2,(float) (_vvvvv1+anywheresoftware.b4a.keywords.Common.CosD(_angulominuto)*_vvvvv4*0.8),(float) (_vvvvv2+anywheresoftware.b4a.keywords.Common.SinD(_angulominuto)*_vvvvv4*0.75),anywheresoftware.b4a.keywords.Common.Colors.DarkGray,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (6))));
- //BA.debugLineNum = 142;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva)";
-if ((mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.indicar_hora>2)) { 
- //BA.debugLineNum = 143;BA.debugLine="Dim AnguloSegundo=270+(SegundoActual*6) As Fl";
-_angulosegundo = (float) (270+(_segundoactual*6));
- //BA.debugLineNum = 144;BA.debugLine="Pantalla.DrawLine(CentroX,CentroY,CentroX+Cos";
-mostCurrent._vvvvv3.DrawLine(_vvvvv1,_vvvvv2,(float) (_vvvvv1+anywheresoftware.b4a.keywords.Common.CosD(_angulosegundo)*_vvvvv4*0.9),(float) (_vvvvv2+anywheresoftware.b4a.keywords.Common.SinD(_angulosegundo)*_vvvvv4*0.9),anywheresoftware.b4a.keywords.Common.Colors.Red,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (4))));
- };
- };
- };
- };
- //BA.debugLineNum = 151;BA.debugLine="Pantalla.DrawCircle(CentroX,CentroY,Radio*0.1,Col";
-mostCurrent._vvvvv3.DrawCircle(_vvvvv1,_vvvvv2,(float) (_vvvvv4*0.1),anywheresoftware.b4a.keywords.Common.Colors.Black,anywheresoftware.b4a.keywords.Common.True,(float) (0));
- //BA.debugLineNum = 155;BA.debugLine="Select Starter.Secuencia(Starter.SecuenciaActiva)";
-switch (BA.switchObjectToInt(mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo,(int) (0),(int) (1),(int) (2),(int) (3))) {
+ //BA.debugLineNum = 127;BA.debugLine="Select Starter.Secuencia(Starter.SecuenciaActiva)";
+switch (BA.switchObjectToInt(mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo,(int) (0),(int) (1),(int) (2))) {
 case 0: {
- //BA.debugLineNum = 157;BA.debugLine="CambiarVista.Text=\"Mañana\"";
+ //BA.debugLineNum = 129;BA.debugLine="MinHora=0";
+_vvvvvvvvvv6 = (int) (0);
+ //BA.debugLineNum = 130;BA.debugLine="MaxHora=11";
+_vvvvvvvvvv7 = (int) (11);
+ break; }
+case 1: {
+ //BA.debugLineNum = 132;BA.debugLine="MinHora=12";
+_vvvvvvvvvv6 = (int) (12);
+ //BA.debugLineNum = 133;BA.debugLine="MaxHora=23";
+_vvvvvvvvvv7 = (int) (23);
+ break; }
+case 2: {
+ //BA.debugLineNum = 135;BA.debugLine="MinHora=0";
+_vvvvvvvvvv6 = (int) (0);
+ //BA.debugLineNum = 136;BA.debugLine="MaxHora=23";
+_vvvvvvvvvv7 = (int) (23);
+ break; }
+}
+;
+ //BA.debugLineNum = 140;BA.debugLine="For NActividad=0 To Starter.MaxActividades-1";
+{
+final int step70 = 1;
+final int limit70 = (int) (mostCurrent._vvv4._v0-1);
+_nactividad = (int) (0) ;
+for (;(step70 > 0 && _nactividad <= limit70) || (step70 < 0 && _nactividad >= limit70) ;_nactividad = ((int)(0 + _nactividad + step70))  ) {
+ //BA.debugLineNum = 141;BA.debugLine="AnguloInicio(NActividad)=-1";
+_vvvvvvvvv7[_nactividad] = (float) (-1);
+ //BA.debugLineNum = 142;BA.debugLine="AnguloFin(NActividad)=-1";
+_vvvvvvvvvv1[_nactividad] = (float) (-1);
+ }
+};
+ //BA.debugLineNum = 146;BA.debugLine="For NActividad=0 To Starter.Secuencia(Starter.Sec";
+{
+final int step74 = (int) (1);
+final int limit74 = (int) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].num_actividades-1);
+_nactividad = (int) (0) ;
+for (;(step74 > 0 && _nactividad <= limit74) || (step74 < 0 && _nactividad >= limit74) ;_nactividad = ((int)(0 + _nactividad + step74))  ) {
+ //BA.debugLineNum = 147;BA.debugLine="DibujarActividad(NActividad)";
+_vvvvvvvvv4(_nactividad);
+ }
+};
+ //BA.debugLineNum = 151;BA.debugLine="For NActividad=0 To Starter.Secuencia(Starter.Sec";
+{
+final int step77 = (int) (1);
+final int limit77 = (int) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].num_actividades-1);
+_nactividad = (int) (0) ;
+for (;(step77 > 0 && _nactividad <= limit77) || (step77 < 0 && _nactividad >= limit77) ;_nactividad = ((int)(0 + _nactividad + step77))  ) {
+ //BA.debugLineNum = 152;BA.debugLine="DibujarBoton(NActividad)";
+_vvvvvvvvvv4(_nactividad);
+ }
+};
+ //BA.debugLineNum = 156;BA.debugLine="Select Starter.Secuencia(Starter.SecuenciaActiva)";
+switch (BA.switchObjectToInt(mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo,(int) (0),(int) (1),(int) (2),(int) (3))) {
+case 0: {
+ //BA.debugLineNum = 158;BA.debugLine="CambiarVista.Text=\"Mañana\"";
 mostCurrent._cambiarvista.setText(BA.ObjectToCharSequence("Mañana"));
  break; }
 case 1: {
- //BA.debugLineNum = 159;BA.debugLine="CambiarVista.Text=\"Tarde\"";
+ //BA.debugLineNum = 160;BA.debugLine="CambiarVista.Text=\"Tarde\"";
 mostCurrent._cambiarvista.setText(BA.ObjectToCharSequence("Tarde"));
  break; }
 case 2: {
- //BA.debugLineNum = 161;BA.debugLine="CambiarVista.Text=\"Día\"";
+ //BA.debugLineNum = 162;BA.debugLine="CambiarVista.Text=\"Día\"";
 mostCurrent._cambiarvista.setText(BA.ObjectToCharSequence("Día"));
  break; }
 case 3: {
- //BA.debugLineNum = 163;BA.debugLine="CambiarVista.Text=\"Secuencia\"";
+ //BA.debugLineNum = 164;BA.debugLine="CambiarVista.Text=\"Secuencia\"";
 mostCurrent._cambiarvista.setText(BA.ObjectToCharSequence("Secuencia"));
  break; }
 }
 ;
- //BA.debugLineNum = 166;BA.debugLine="End Sub";
+ //BA.debugLineNum = 167;BA.debugLine="DibujasAgujas";
+_vvvvvvvvvv0();
+ //BA.debugLineNum = 169;BA.debugLine="End Sub";
+return "";
+}
+public static String  _vvvvvvvvvv0() throws Exception{
+anywheresoftware.b4a.objects.drawable.CanvasWrapper.RectWrapper _rectangulovacio = null;
+int _horaactual = 0;
+int _minutoactual = 0;
+int _segundoactual = 0;
+float _angulominuto = 0f;
+float _angulosegundo = 0f;
+ //BA.debugLineNum = 171;BA.debugLine="Sub DibujasAgujas";
+ //BA.debugLineNum = 172;BA.debugLine="Dim RectanguloVacio As Rect";
+_rectangulovacio = new anywheresoftware.b4a.objects.drawable.CanvasWrapper.RectWrapper();
+ //BA.debugLineNum = 173;BA.debugLine="Dim HoraActual=DateTime.GetHour(DateTime.Now) As";
+_horaactual = anywheresoftware.b4a.keywords.Common.DateTime.GetHour(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
+ //BA.debugLineNum = 174;BA.debugLine="Dim MinutoActual=DateTime.GetMinute(DateTime.Now)";
+_minutoactual = anywheresoftware.b4a.keywords.Common.DateTime.GetMinute(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
+ //BA.debugLineNum = 175;BA.debugLine="Dim SegundoActual=DateTime.GetSecond(DateTime.Now";
+_segundoactual = anywheresoftware.b4a.keywords.Common.DateTime.GetSecond(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
+ //BA.debugLineNum = 177;BA.debugLine="RectanguloVacio.Initialize(0,0,PanelAgujas.Width,";
+_rectangulovacio.Initialize((int) (0),(int) (0),mostCurrent._panelagujas.getWidth(),mostCurrent._panelagujas.getHeight());
+ //BA.debugLineNum = 178;BA.debugLine="PantallaAgujas.DrawRect(RectanguloVacio, Colors.T";
+mostCurrent._vvvvvvvvvv5.DrawRect((android.graphics.Rect)(_rectangulovacio.getObject()),anywheresoftware.b4a.keywords.Common.Colors.Transparent,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 180;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).ta";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.indicar_hora>0 && _horaactual>=_vvvvvvvvvv6 && _horaactual<_vvvvvvvvvv7)) { 
+ //BA.debugLineNum = 181;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).t";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==3 || mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.indicar_hora==1)) { 
+ //BA.debugLineNum = 182;BA.debugLine="PantallaAgujas.DrawLine(CentroX,CentroY,HoraMin";
+mostCurrent._vvvvvvvvvv5.DrawLine(_vvvvvvvvv5,_vvvvvvvvv6,_horaminuto_x((float) (_horaactual),(float) (_minutoactual),(float) (0.8)),_horaminuto_y((float) (_horaactual),(float) (_minutoactual),(float) (0.8)),anywheresoftware.b4a.keywords.Common.Colors.Red,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (8))));
+ }else {
+ //BA.debugLineNum = 184;BA.debugLine="PantallaAgujas.DrawLine(CentroX,CentroY,HoraMin";
+mostCurrent._vvvvvvvvvv5.DrawLine(_vvvvvvvvv5,_vvvvvvvvv6,_horaminuto_x((float) (_horaactual),(float) (_minutoactual),(float) (0.6)),_horaminuto_y((float) (_horaactual),(float) (_minutoactual),(float) (0.6)),anywheresoftware.b4a.keywords.Common.Colors.DarkGray,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (8))));
+ //BA.debugLineNum = 185;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva).";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.indicar_hora>1)) { 
+ //BA.debugLineNum = 186;BA.debugLine="Dim AnguloMinuto=270+(MinutoActual*6) As Float";
+_angulominuto = (float) (270+(_minutoactual*6));
+ //BA.debugLineNum = 187;BA.debugLine="PantallaAgujas.DrawLine(CentroX,CentroY,Centro";
+mostCurrent._vvvvvvvvvv5.DrawLine(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvv5+anywheresoftware.b4a.keywords.Common.CosD(_angulominuto)*_vvvvvvvvvv3*0.8),(float) (_vvvvvvvvv6+anywheresoftware.b4a.keywords.Common.SinD(_angulominuto)*_vvvvvvvvvv3*0.75),anywheresoftware.b4a.keywords.Common.Colors.DarkGray,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (6))));
+ //BA.debugLineNum = 188;BA.debugLine="If (Starter.Secuencia(Starter.SecuenciaActiva)";
+if ((mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.indicar_hora>2)) { 
+ //BA.debugLineNum = 189;BA.debugLine="Dim AnguloSegundo=270+(SegundoActual*6) As Fl";
+_angulosegundo = (float) (270+(_segundoactual*6));
+ //BA.debugLineNum = 190;BA.debugLine="PantallaAgujas.DrawLine(CentroX,CentroY,Centr";
+mostCurrent._vvvvvvvvvv5.DrawLine(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvv5+anywheresoftware.b4a.keywords.Common.CosD(_angulosegundo)*_vvvvvvvvvv3*0.9),(float) (_vvvvvvvvv6+anywheresoftware.b4a.keywords.Common.SinD(_angulosegundo)*_vvvvvvvvvv3*0.9),anywheresoftware.b4a.keywords.Common.Colors.Red,(float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (4))));
+ };
+ };
+ };
+ };
+ //BA.debugLineNum = 197;BA.debugLine="PantallaAgujas.DrawCircle(CentroX,CentroY,Radio*0";
+mostCurrent._vvvvvvvvvv5.DrawCircle(_vvvvvvvvv5,_vvvvvvvvv6,(float) (_vvvvvvvvvv3*0.1),anywheresoftware.b4a.keywords.Common.Colors.Black,anywheresoftware.b4a.keywords.Common.True,(float) (0));
+ //BA.debugLineNum = 198;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
- //BA.debugLineNum = 11;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 15;BA.debugLine="Private PanelDescripcion As Panel";
+ //BA.debugLineNum = 13;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 17;BA.debugLine="Private PanelDescripcion As Panel";
 mostCurrent._paneldescripcion = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 16;BA.debugLine="Private PanelReloj As Panel";
+ //BA.debugLineNum = 18;BA.debugLine="Private PanelReloj As Panel";
 mostCurrent._panelreloj = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 17;BA.debugLine="Private ImagenPictograma As ImageView";
+ //BA.debugLineNum = 19;BA.debugLine="Private ImagenPictograma As ImageView";
 mostCurrent._imagenpictograma = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 18;BA.debugLine="Private FondoPictograma As Panel";
+ //BA.debugLineNum = 20;BA.debugLine="Private FondoPictograma As Panel";
 mostCurrent._fondopictograma = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 19;BA.debugLine="Private TextoPictograma As Label";
+ //BA.debugLineNum = 21;BA.debugLine="Private TextoPictograma As Label";
 mostCurrent._textopictograma = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 21;BA.debugLine="Dim Pantalla As Canvas 'Región donde se dibuja el";
-mostCurrent._vvvvv3 = new anywheresoftware.b4a.objects.drawable.CanvasWrapper();
- //BA.debugLineNum = 24;BA.debugLine="Dim CentroX, CentroY, Radio As Float";
-_vvvvv1 = 0f;
-_vvvvv2 = 0f;
-_vvvvv4 = 0f;
- //BA.debugLineNum = 25;BA.debugLine="Dim MinHora,MaxHora As Int";
-_vvvvv7 = 0;
-_vvvvv0 = 0;
- //BA.debugLineNum = 28;BA.debugLine="Dim Boton(Starter.MaxActividades) As Button";
-mostCurrent._vvvvv6 = new anywheresoftware.b4a.objects.ButtonWrapper[mostCurrent._vvv3._v0];
+ //BA.debugLineNum = 22;BA.debugLine="Private PanelAgujas As Panel";
+mostCurrent._panelagujas = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 24;BA.debugLine="Dim Pantalla As Canvas 'Región donde se dibuja la";
+mostCurrent._vvvvvvvvvv2 = new anywheresoftware.b4a.objects.drawable.CanvasWrapper();
+ //BA.debugLineNum = 25;BA.debugLine="Dim PantallaAgujas As Canvas";
+mostCurrent._vvvvvvvvvv5 = new anywheresoftware.b4a.objects.drawable.CanvasWrapper();
+ //BA.debugLineNum = 28;BA.debugLine="Dim CentroX, CentroY, Radio As Float";
+_vvvvvvvvv5 = 0f;
+_vvvvvvvvv6 = 0f;
+_vvvvvvvvvv3 = 0f;
+ //BA.debugLineNum = 29;BA.debugLine="Dim MinHora,MaxHora As Int";
+_vvvvvvvvvv6 = 0;
+_vvvvvvvvvv7 = 0;
+ //BA.debugLineNum = 32;BA.debugLine="Dim Boton(Starter.MaxActividades) As Button";
+mostCurrent._vvvvvvvvv2 = new anywheresoftware.b4a.objects.ButtonWrapper[mostCurrent._vvv4._v0];
 {
-int d0 = mostCurrent._vvvvv6.length;
+int d0 = mostCurrent._vvvvvvvvv2.length;
 for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvv6[i0] = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvv2[i0] = new anywheresoftware.b4a.objects.ButtonWrapper();
 }
 }
 ;
- //BA.debugLineNum = 30;BA.debugLine="Private CambiarVista As Button";
+ //BA.debugLineNum = 34;BA.debugLine="Private CambiarVista As Button";
 mostCurrent._cambiarvista = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 31;BA.debugLine="Private DescripcionPictograma As Label";
+ //BA.debugLineNum = 35;BA.debugLine="Private DescripcionPictograma As Label";
 mostCurrent._descripcionpictograma = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 33;BA.debugLine="Private Volver As Button";
+ //BA.debugLineNum = 37;BA.debugLine="Private Volver As Button";
 mostCurrent._volver = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 34;BA.debugLine="End Sub";
+ //BA.debugLineNum = 40;BA.debugLine="Dim AnguloInicio(Starter.MaxActividades) As Float";
+_vvvvvvvvv7 = new float[mostCurrent._vvv4._v0];
+;
+ //BA.debugLineNum = 41;BA.debugLine="Dim AnguloFin(Starter.MaxActividades) As Float";
+_vvvvvvvvvv1 = new float[mostCurrent._vvv4._v0];
+;
+ //BA.debugLineNum = 43;BA.debugLine="End Sub";
 return "";
 }
-public static int  _vvvv6(int _hora24) throws Exception{
- //BA.debugLineNum = 271;BA.debugLine="Sub Hora24a12 (Hora24 As Int) As Int";
- //BA.debugLineNum = 272;BA.debugLine="If (Hora24>11) Then";
+public static int  _vvvvvvvv0(int _hora24) throws Exception{
+ //BA.debugLineNum = 309;BA.debugLine="Sub Hora24a12 (Hora24 As Int) As Int";
+ //BA.debugLineNum = 310;BA.debugLine="If (Hora24>11) Then";
 if ((_hora24>11)) { 
- //BA.debugLineNum = 273;BA.debugLine="Return Hora24-12";
+ //BA.debugLineNum = 311;BA.debugLine="Return Hora24-12";
 if (true) return (int) (_hora24-12);
  }else {
- //BA.debugLineNum = 275;BA.debugLine="Return Hora24";
+ //BA.debugLineNum = 313;BA.debugLine="Return Hora24";
 if (true) return _hora24;
  };
- //BA.debugLineNum = 277;BA.debugLine="End Sub";
+ //BA.debugLineNum = 315;BA.debugLine="End Sub";
 return 0;
 }
 public static float  _horaminuto_x(float _hora,float _minuto,float _distancia) throws Exception{
 float _angulo = 0f;
- //BA.debugLineNum = 245;BA.debugLine="Sub HoraMinuto_X(Hora As Float,Minuto As Float,Dis";
- //BA.debugLineNum = 246;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==3) { 
- //BA.debugLineNum = 247;BA.debugLine="Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(Max";
-_angulo = (float) (120+(_hora+_minuto/(double)60-_vvvvv7)*300/(double)(_vvvvv0-_vvvvv7));
- //BA.debugLineNum = 248;BA.debugLine="Return (CosD(Angulo)*Radio*Distancia)+CentroX";
-if (true) return (float) ((anywheresoftware.b4a.keywords.Common.CosD(_angulo)*_vvvvv4*_distancia)+_vvvvv1);
+ //BA.debugLineNum = 283;BA.debugLine="Sub HoraMinuto_X(Hora As Float,Minuto As Float,Dis";
+ //BA.debugLineNum = 284;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==3) { 
+ //BA.debugLineNum = 285;BA.debugLine="Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(Max";
+_angulo = (float) (120+(_hora+_minuto/(double)60-_vvvvvvvvvv6)*300/(double)(_vvvvvvvvvv7-_vvvvvvvvvv6));
+ //BA.debugLineNum = 286;BA.debugLine="Return (CosD(Angulo)*Radio*Distancia)+CentroX";
+if (true) return (float) ((anywheresoftware.b4a.keywords.Common.CosD(_angulo)*_vvvvvvvvvv3*_distancia)+_vvvvvvvvv5);
  }else {
- //BA.debugLineNum = 250;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).ta";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==2) { 
- //BA.debugLineNum = 251;BA.debugLine="Hora=Hora/2";
+ //BA.debugLineNum = 288;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).ta";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==2) { 
+ //BA.debugLineNum = 289;BA.debugLine="Hora=Hora/2";
 _hora = (float) (_hora/(double)2);
- //BA.debugLineNum = 252;BA.debugLine="Minuto=Minuto/2";
+ //BA.debugLineNum = 290;BA.debugLine="Minuto=Minuto/2";
 _minuto = (float) (_minuto/(double)2);
  };
- //BA.debugLineNum = 254;BA.debugLine="Return (CosD((Hora+Minuto/60)*(360/12)+270)*Radi";
-if (true) return (float) ((anywheresoftware.b4a.keywords.Common.CosD((_hora+_minuto/(double)60)*(360/(double)12)+270)*_vvvvv4*_distancia)+_vvvvv1);
+ //BA.debugLineNum = 292;BA.debugLine="Return (CosD((Hora+Minuto/60)*(360/12)+270)*Radi";
+if (true) return (float) ((anywheresoftware.b4a.keywords.Common.CosD((_hora+_minuto/(double)60)*(360/(double)12)+270)*_vvvvvvvvvv3*_distancia)+_vvvvvvvvv5);
  };
- //BA.debugLineNum = 256;BA.debugLine="End Sub";
+ //BA.debugLineNum = 294;BA.debugLine="End Sub";
 return 0f;
 }
 public static float  _horaminuto_y(float _hora,float _minuto,float _distancia) throws Exception{
 float _angulo = 0f;
- //BA.debugLineNum = 258;BA.debugLine="Sub HoraMinuto_Y(Hora As Float,Minuto As Float,Dis";
- //BA.debugLineNum = 259;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==3) { 
- //BA.debugLineNum = 260;BA.debugLine="Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(Max";
-_angulo = (float) (120+(_hora+_minuto/(double)60-_vvvvv7)*300/(double)(_vvvvv0-_vvvvv7));
- //BA.debugLineNum = 261;BA.debugLine="Return (SinD(Angulo)*Radio*Distancia)+CentroY";
-if (true) return (float) ((anywheresoftware.b4a.keywords.Common.SinD(_angulo)*_vvvvv4*_distancia)+_vvvvv2);
+ //BA.debugLineNum = 296;BA.debugLine="Sub HoraMinuto_Y(Hora As Float,Minuto As Float,Dis";
+ //BA.debugLineNum = 297;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).tab";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==3) { 
+ //BA.debugLineNum = 298;BA.debugLine="Dim Angulo=120+(Hora+Minuto/60-MinHora)*300/(Max";
+_angulo = (float) (120+(_hora+_minuto/(double)60-_vvvvvvvvvv6)*300/(double)(_vvvvvvvvvv7-_vvvvvvvvvv6));
+ //BA.debugLineNum = 299;BA.debugLine="Return (SinD(Angulo)*Radio*Distancia)+CentroY";
+if (true) return (float) ((anywheresoftware.b4a.keywords.Common.SinD(_angulo)*_vvvvvvvvvv3*_distancia)+_vvvvvvvvv6);
  }else {
- //BA.debugLineNum = 263;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).ta";
-if (mostCurrent._vvv3._vv7[mostCurrent._vvv3._vv6].tablero.tipo==2) { 
- //BA.debugLineNum = 264;BA.debugLine="Hora=Hora/2";
+ //BA.debugLineNum = 301;BA.debugLine="If Starter.Secuencia(Starter.SecuenciaActiva).ta";
+if (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].tablero.tipo==2) { 
+ //BA.debugLineNum = 302;BA.debugLine="Hora=Hora/2";
 _hora = (float) (_hora/(double)2);
- //BA.debugLineNum = 265;BA.debugLine="Minuto=Minuto/2";
+ //BA.debugLineNum = 303;BA.debugLine="Minuto=Minuto/2";
 _minuto = (float) (_minuto/(double)2);
  };
- //BA.debugLineNum = 267;BA.debugLine="Return (SinD((Hora+Minuto/60)*(360/12)+270)*Radi";
-if (true) return (float) ((anywheresoftware.b4a.keywords.Common.SinD((_hora+_minuto/(double)60)*(360/(double)12)+270)*_vvvvv4*_distancia)+_vvvvv2);
+ //BA.debugLineNum = 305;BA.debugLine="Return (SinD((Hora+Minuto/60)*(360/12)+270)*Radi";
+if (true) return (float) ((anywheresoftware.b4a.keywords.Common.SinD((_hora+_minuto/(double)60)*(360/(double)12)+270)*_vvvvvvvvvv3*_distancia)+_vvvvvvvvv6);
  };
- //BA.debugLineNum = 269;BA.debugLine="End Sub";
+ //BA.debugLineNum = 307;BA.debugLine="End Sub";
 return 0f;
 }
-public static String  _vvvv7(int _minuto) throws Exception{
- //BA.debugLineNum = 279;BA.debugLine="Sub MinutoLegible (Minuto As Int) As String";
- //BA.debugLineNum = 280;BA.debugLine="If (Minuto==0) Then";
+public static String  _vvvvvvvvv1(int _minuto) throws Exception{
+ //BA.debugLineNum = 317;BA.debugLine="Sub MinutoLegible (Minuto As Int) As String";
+ //BA.debugLineNum = 318;BA.debugLine="If (Minuto==0) Then";
 if ((_minuto==0)) { 
- //BA.debugLineNum = 281;BA.debugLine="Return \"\"";
+ //BA.debugLineNum = 319;BA.debugLine="Return \"\"";
 if (true) return "";
  }else if((_minuto==15)) { 
- //BA.debugLineNum = 283;BA.debugLine="Return \" y cuarto\"";
+ //BA.debugLineNum = 321;BA.debugLine="Return \" y cuarto\"";
 if (true) return " y cuarto";
  }else if((_minuto==30)) { 
- //BA.debugLineNum = 285;BA.debugLine="Return \" y media\"";
+ //BA.debugLineNum = 323;BA.debugLine="Return \" y media\"";
 if (true) return " y media";
  }else {
- //BA.debugLineNum = 287;BA.debugLine="Return \":\"&NumberFormat(Minuto,2,0)";
+ //BA.debugLineNum = 325;BA.debugLine="Return \":\"&NumberFormat(Minuto,2,0)";
 if (true) return ":"+anywheresoftware.b4a.keywords.Common.NumberFormat(_minuto,(int) (2),(int) (0));
  };
- //BA.debugLineNum = 289;BA.debugLine="End Sub";
+ //BA.debugLineNum = 327;BA.debugLine="End Sub";
 return "";
 }
+public static float  _vvvvvvvvv0(float _angulo) throws Exception{
+ //BA.debugLineNum = 379;BA.debugLine="Sub NormalizarAngulo(Angulo As Float) As Float";
+ //BA.debugLineNum = 380;BA.debugLine="Angulo=Angulo+90 'Pone el 0 arriba";
+_angulo = (float) (_angulo+90);
+ //BA.debugLineNum = 381;BA.debugLine="If Angulo<0 Then";
+if (_angulo<0) { 
+ //BA.debugLineNum = 382;BA.debugLine="Return Angulo+360";
+if (true) return (float) (_angulo+360);
+ }else {
+ //BA.debugLineNum = 384;BA.debugLine="Return Angulo";
+if (true) return _angulo;
+ };
+ //BA.debugLineNum = 386;BA.debugLine="End Sub";
+return 0f;
+}
+public static boolean  _panelagujas_touch(int _accion,float _x,float _y) throws Exception{
+float _angulo = 0f;
+int _i = 0;
+ //BA.debugLineNum = 365;BA.debugLine="Sub PanelAgujas_Touch(Accion As Int, x As Float, y";
+ //BA.debugLineNum = 366;BA.debugLine="Dim Angulo As Float";
+_angulo = 0f;
+ //BA.debugLineNum = 367;BA.debugLine="Dim i As Int";
+_i = 0;
+ //BA.debugLineNum = 368;BA.debugLine="If Accion = Activity.ACTION_DOWN Then";
+if (_accion==mostCurrent._activity.ACTION_DOWN) { 
+ //BA.debugLineNum = 369;BA.debugLine="Angulo=NormalizarAngulo(ATan2D(y-CentroY,x-Centr";
+_angulo = _vvvvvvvvv0((float) (anywheresoftware.b4a.keywords.Common.ATan2D(_y-_vvvvvvvvv6,_x-_vvvvvvvvv5)));
+ //BA.debugLineNum = 370;BA.debugLine="For i=0 To Starter.Secuencia(Starter.SecuenciaAc";
+{
+final int step5 = 1;
+final int limit5 = (int) (mostCurrent._vvv4._vv7[mostCurrent._vvv4._vv6].num_actividades-1);
+_i = (int) (0) ;
+for (;(step5 > 0 && _i <= limit5) || (step5 < 0 && _i >= limit5) ;_i = ((int)(0 + _i + step5))  ) {
+ //BA.debugLineNum = 371;BA.debugLine="If Angulo>=AnguloInicio(i) And Angulo<=AnguloFi";
+if (_angulo>=_vvvvvvvvv7[_i] && _angulo<=_vvvvvvvvvv1[_i]) { 
+ //BA.debugLineNum = 372;BA.debugLine="ActivarBoton(i)";
+_vvvvvvvv7(_i);
+ };
+ }
+};
+ };
+ //BA.debugLineNum = 376;BA.debugLine="Return True";
+if (true) return anywheresoftware.b4a.keywords.Common.True;
+ //BA.debugLineNum = 377;BA.debugLine="End Sub";
+return false;
+}
 public static String  _panelreloj_touch(int _action,float _x,float _y) throws Exception{
- //BA.debugLineNum = 312;BA.debugLine="Sub PanelReloj_Touch (Action As Int, X As Float, Y";
- //BA.debugLineNum = 314;BA.debugLine="End Sub";
+ //BA.debugLineNum = 344;BA.debugLine="Sub PanelReloj_Touch (Action As Int, X As Float, Y";
+ //BA.debugLineNum = 346;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 9;BA.debugLine="End Sub";
+ //BA.debugLineNum = 9;BA.debugLine="Dim Temporizador As Timer";
+_vvv2 = new anywheresoftware.b4a.objects.Timer();
+ //BA.debugLineNum = 11;BA.debugLine="End Sub";
+return "";
+}
+public static String  _temporizador_tick() throws Exception{
+ //BA.debugLineNum = 360;BA.debugLine="Sub Temporizador_Tick";
+ //BA.debugLineNum = 361;BA.debugLine="DibujasAgujas";
+_vvvvvvvvvv0();
+ //BA.debugLineNum = 362;BA.debugLine="Activity.Invalidate";
+mostCurrent._activity.Invalidate();
+ //BA.debugLineNum = 363;BA.debugLine="End Sub";
 return "";
 }
 public static String  _volver_click() throws Exception{
- //BA.debugLineNum = 324;BA.debugLine="Sub Volver_Click";
- //BA.debugLineNum = 325;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 356;BA.debugLine="Sub Volver_Click";
+ //BA.debugLineNum = 357;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 326;BA.debugLine="End Sub";
+ //BA.debugLineNum = 358;BA.debugLine="End Sub";
 return "";
 }
 }

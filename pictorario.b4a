@@ -121,45 +121,45 @@ File205=pregunta.png
 File206=pueblo.png
 File207=rayuela.png
 File208=reloj_6.png
-File209=RelojActividades.bal
+File209=restaurante.png
 File21=comer_1.png
-File210=restaurante.png
-File211=restaurante_1.png
-File212=restaurante_2.png
-File213=restaurante_3.png
-File214=saltar a la comba.png
-File215=saltar a la comba_1.png
-File216=saltar a la comba_2.png
-File217=secarse.png
-File218=secarse_1.png
-File219=secarse_2.png
+File210=restaurante_1.png
+File211=restaurante_2.png
+File212=restaurante_3.png
+File213=saltar a la comba.png
+File214=saltar a la comba_1.png
+File215=saltar a la comba_2.png
+File216=secarse.png
+File217=secarse_1.png
+File218=secarse_2.png
+File219=siesta.png
 File22=comida.png
-File220=siesta.png
-File221=siesta_1.png
-File222=tele.png
-File223=tele_1.png
-File224=ti@teres.png
-File225=tijeras escolares.png
-File226=tijeras.png
-File227=toboga@n.png
-File228=toboga@n_1.png
-File229=tomar el sol.png
+File220=siesta_1.png
+File221=tele.png
+File222=tele_1.png
+File223=ti@teres.png
+File224=tijeras escolares.png
+File225=tijeras.png
+File226=toboga@n.png
+File227=toboga@n_1.png
+File228=tomar el sol.png
+File229=tomar el sol_1.png
 File23=comprar.png
-File230=tomar el sol_1.png
-File231=tomar el sol_2.png
-File232=trabajar_en_el_ordenador.png
-File233=trabajos manuales_1.png
-File234=trabajos manuales_2.png
-File235=ver la tele_3.png
-File236=ver la tele_4.png
-File237=ver la tele_5.png
-File238=ver la tele_6.png
-File239=ver la tele_7.png
+File230=tomar el sol_2.png
+File231=trabajar_en_el_ordenador.png
+File232=trabajos manuales_1.png
+File233=trabajos manuales_2.png
+File234=ver la tele_3.png
+File235=ver la tele_4.png
+File236=ver la tele_5.png
+File237=ver la tele_6.png
+File238=ver la tele_7.png
+File239=vestirse.png
 File24=comprar_2.png
-File240=vestirse.png
-File241=vestirse_1.png
-File242=videojuego.png
-File243=videojuego_1.png
+File240=vestirse_1.png
+File241=videojuego.png
+File242=videojuego_1.png
+File243=VisualizarSecuencia.bal
 File244=zoo.png
 File25=comprar_3.png
 File26=computador.png
@@ -365,7 +365,7 @@ FileGroup205=Default Group\Pictogramas
 FileGroup206=Default Group\Pictogramas
 FileGroup207=Default Group\Pictogramas
 FileGroup208=Default Group\Pictogramas
-FileGroup209=Default Group
+FileGroup209=Default Group\Pictogramas
 FileGroup21=Default Group\Pictogramas
 FileGroup210=Default Group\Pictogramas
 FileGroup211=Default Group\Pictogramas
@@ -390,8 +390,8 @@ FileGroup228=Default Group\Pictogramas
 FileGroup229=Default Group\Pictogramas
 FileGroup23=Default Group\Pictogramas
 FileGroup230=Default Group\Pictogramas
-FileGroup231=Default Group\Pictogramas
-FileGroup232=Default Group
+FileGroup231=Default Group
+FileGroup232=Default Group\Pictogramas
 FileGroup233=Default Group\Pictogramas
 FileGroup234=Default Group\Pictogramas
 FileGroup235=Default Group\Pictogramas
@@ -403,7 +403,7 @@ FileGroup24=Default Group\Pictogramas
 FileGroup240=Default Group\Pictogramas
 FileGroup241=Default Group\Pictogramas
 FileGroup242=Default Group\Pictogramas
-FileGroup243=Default Group\Pictogramas
+FileGroup243=Default Group
 FileGroup244=Default Group\Pictogramas
 FileGroup25=Default Group\Pictogramas
 FileGroup26=Default Group\Pictogramas
@@ -493,20 +493,21 @@ Library1=core
 Library2=phone
 Library3=keyvaluestore2
 Library4=dialogs
+Library5=ime
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~
-Module1=Visualizacion
-Module2=ConfigurarSecuencia
-Module3=Starter
+Module1=ConfigurarSecuencia
+Module2=Starter
+Module3=Visualizacion
 Module4=AcercaDe
 NumberOfFiles=244
-NumberOfLibraries=4
+NumberOfLibraries=5
 NumberOfModules=4
 Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 4
-	#VersionName: Beta 4
+	#VersionCode: 5
+	#VersionName: Beta 5
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
@@ -521,7 +522,6 @@ Version=8
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
-
 End Sub
 
 Sub Globals
@@ -538,6 +538,7 @@ Sub Globals
 	
 	Private PanelScroll As ScrollView
 	Private Pictorario As Label
+
 	
 End Sub
 
@@ -550,6 +551,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	'Si se ha actualizado la versión, muestra las novedades y guarda el cambio de versión
 	If (Starter.VersionInstalada<>-1 And Starter.VersionInstalada<>Application.VersionCode) Then
 		Msgbox2("Novedades de la versión "&Application.VersionName&":"&CRLF&CRLF&Starter.CambiosVersion,"APLICACIÓN ACTUALIZADA","Continuar","","",Null)
+		Starter.VersionInstalada=Application.VersionCode
 		CallSub(Starter,"Guardar_Configuracion")
 	Else 'Si no, muestra el aviso estándar, solo en el primer arranque
 		If FirstTime==True Then

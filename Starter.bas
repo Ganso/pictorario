@@ -13,11 +13,10 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Cambiado el tema de Holo a Material (se nota especialmente en la selección de horas)."&CRLF&CRLF& _
-	"- Corregidos varios errores con la asignación de horas y el aviso de novedades de versión."&CRLF&CRLF& _
-	"- Al hacer click en una etiqueta, si está el valor por defecto se vacía para escribir texto nuevo."&CRLF&CRLF& _
-	"- En todas las pantallas se permite ir hacia atrás con el botón de la barra de navegación, o con un botón específico en pantalla."&CRLF&CRLF& _
-	"- Mejorada la pantalla de 'Acerca de'."
+	"- Las agujas del reloj se mueven en tiempo real."&CRLF&CRLF& _
+	"- En el modo de visualización, se puede seleccionar la actividad pulsando sobre cualquier parte del reloj (no solo el pictograma)."&CRLF&CRLF& _
+	"- Al seleccionar pictogramas se cierra automáticamente el teclado si estaba abierto."&CRLF&CRLF& _
+	"- Varias mejoras visuales y correcciones de bugs."
 
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
@@ -181,8 +180,8 @@ Sub Inicializar_Con_Ejemplo
 	ActividadSecuencia(0,8).pictograma="dormir_1"
 	ActividadSecuencia(0,8).descripcion="Acostarse"
 
-	Secuencia(0).tablero.tipo=2
-	Secuencia(0).tablero.indicar_hora=1
+	Secuencia(0).tablero.tipo=3
+	Secuencia(0).tablero.indicar_hora=3
 	Secuencia(0).tablero.tam_icono=14
 	
 	Secuencia(0).pictograma="colegio"

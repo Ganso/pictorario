@@ -12,6 +12,8 @@ Version=7.8
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
+	Dim Temporizador As Timer
+	
 End Sub
 
 Sub Globals
@@ -23,8 +25,10 @@ Sub Globals
 	Private ImagenPictograma As ImageView
 	Private FondoPictograma As Panel
 	Private TextoPictograma As Label
-
-	Dim Pantalla As Canvas 'Región donde se dibuja el reloj
+	Private PanelAgujas As Panel
+	
+	Dim Pantalla As Canvas 'Región donde se dibuja la visualización
+	Dim PantallaAgujas As Canvas
 	
 	'Posiciones del Reloj
 	Dim CentroX, CentroY, Radio As Float
@@ -37,12 +41,19 @@ Sub Globals
 	Private DescripcionPictograma As Label
 	
 	Private Volver As Button
+	
+	'Ángulo de inicio y fin de cada actividad
+	Dim AnguloInicio(Starter.MaxActividades) As Float
+	Dim AnguloFin(Starter.MaxActividades) As Float
+
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 
-	Activity.LoadLayout("RelojActividades")
+	Activity.LoadLayout("VisualizarSecuencia")
 	DibujarTablero
+	Temporizador.Initialize("Temporizador",1000)
+	Temporizador.Enabled=True
 	
 End Sub
 
@@ -53,6 +64,7 @@ Sub DibujarTablero()
 	Radio=45%x
 	
 	Pantalla.Initialize(PanelReloj)
+	PantallaAgujas.Initialize(PanelAgujas)
 
 	'Horas a representar
 	If Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo<2 Then 'Reloj 12h
@@ -63,7 +75,6 @@ Sub DibujarTablero()
 		MaxHora=24
 	Else 'Arco
 		MinHora=Starter.ActividadSecuencia(Starter.SecuenciaActiva,0).hora_inicio
-		'MaxHora=Starter.ActividadSecuencia(Starter.SecuenciaActiva,Starter.NumActividades(Starter.SecuenciaActiva)-1).hora_fin
 		MaxHora=Starter.ActividadSecuencia(Starter.SecuenciaActiva,Starter.Secuencia(Starter.SecuenciaActiva).num_actividades-1).hora_fin
 		If (Starter.ActividadSecuencia(Starter.SecuenciaActiva,Starter.Secuencia(Starter.SecuenciaActiva).num_actividades-1).minuto_fin<>0) Then
 			MaxHora=MaxHora+1
@@ -118,10 +129,24 @@ Sub DibujarTablero()
 		Activity.AddView(NumeroHora,X-15dip,Y-15dip,30dip,30dip)
 	Next
 
-	If Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=1 Then 'Si es 12h PM, pasamos a 12 a 24
-		MinHora=MinHora+12
-		MaxHora=MaxHora+12
-	End If
+	'Ponemos las horas reales con las que vamos a comparar la actual para saber si dibujar o no las manecillas
+	Select Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo
+		Case 0
+			MinHora=0
+			MaxHora=11
+		Case 1
+			MinHora=12
+			MaxHora=23
+		Case 2
+			MinHora=0
+			MaxHora=23
+	End Select
+	
+	'Inicializa los valores de los ángulos
+	For NActividad=0 To Starter.MaxActividades-1
+		AnguloInicio(NActividad)=-1
+		AnguloFin(NActividad)=-1
+	Next
 	
 	'Actividades
 	For NActividad=0 To Starter.Secuencia(Starter.SecuenciaActiva).num_actividades-1 Step 1
@@ -133,31 +158,7 @@ Sub DibujarTablero()
 		DibujarBoton(NActividad)
 	Next
 	
-	'Aguja
-	Dim HoraActual=DateTime.GetHour(DateTime.Now) As Int
-	Dim MinutoActual=DateTime.GetMinute(DateTime.Now) As Int
-	Dim SegundoActual=DateTime.GetSecond(DateTime.Now) As Int
-	If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 And HoraActual>=MinHora And HoraActual<MaxHora) Then
-		If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=3 Or Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora==1) Then
-			Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.8),HoraMinuto_Y(HoraActual,MinutoActual,0.8),Colors.Red,8dip)
-		Else
-			Pantalla.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.6),HoraMinuto_Y(HoraActual,MinutoActual,0.6),Colors.DarkGray,8dip)
-			If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>1) Then
-				Dim AnguloMinuto=270+(MinutoActual*6) As Float
-				Pantalla.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloMinuto)*Radio*0.8,CentroY+SinD(AnguloMinuto)*Radio*0.75,Colors.DarkGray,6dip)
-				If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>2) Then
-					Dim AnguloSegundo=270+(SegundoActual*6) As Float
-					Pantalla.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloSegundo)*Radio*0.9,CentroY+SinD(AnguloSegundo)*Radio*0.9,Colors.Red,4dip)
-				End If
-			End If
-		End If
-	End If
-	
-	'Punto Central
-	Pantalla.DrawCircle(CentroX,CentroY,Radio*0.1,Colors.Black,True,0)
-
 	'Indica modo de visualización
-	'CambiarVista.Text=Starter.TableroSecuencia(Starter.SecuenciaActiva).tipo
 	Select Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo
 		Case 0
 			CambiarVista.Text="Mañana"
@@ -169,6 +170,37 @@ Sub DibujarTablero()
 			CambiarVista.Text="Secuencia"
 	End Select
 			
+	DibujasAgujas
+			
+End Sub
+
+Sub DibujasAgujas
+	Dim RectanguloVacio As Rect
+	Dim HoraActual=DateTime.GetHour(DateTime.Now) As Int
+	Dim MinutoActual=DateTime.GetMinute(DateTime.Now) As Int
+	Dim SegundoActual=DateTime.GetSecond(DateTime.Now) As Int
+	
+	RectanguloVacio.Initialize(0,0,PanelAgujas.Width,PanelAgujas.Height)
+	PantallaAgujas.DrawRect(RectanguloVacio, Colors.Transparent, True, 0)
+	
+	If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 And HoraActual>=MinHora And HoraActual<MaxHora) Then
+		If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=3 Or Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora==1) Then
+			PantallaAgujas.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.8),HoraMinuto_Y(HoraActual,MinutoActual,0.8),Colors.Red,8dip)
+		Else
+			PantallaAgujas.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.6),HoraMinuto_Y(HoraActual,MinutoActual,0.6),Colors.DarkGray,8dip)
+			If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>1) Then
+				Dim AnguloMinuto=270+(MinutoActual*6) As Float
+				PantallaAgujas.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloMinuto)*Radio*0.8,CentroY+SinD(AnguloMinuto)*Radio*0.75,Colors.DarkGray,6dip)
+				If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>2) Then
+					Dim AnguloSegundo=270+(SegundoActual*6) As Float
+					PantallaAgujas.DrawLine(CentroX,CentroY,CentroX+CosD(AnguloSegundo)*Radio*0.9,CentroY+SinD(AnguloSegundo)*Radio*0.9,Colors.Red,4dip)
+				End If
+			End If
+		End If
+	End If
+	
+	'Punto Central
+	PantallaAgujas.DrawCircle(CentroX,CentroY,Radio*0.1,Colors.Black,True,0)
 End Sub
 
 Sub DibujarActividad(NumActividad As Int)
@@ -200,6 +232,12 @@ Sub DibujarActividad(NumActividad As Int)
 		Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMitad,1.5), HoraMinuto_Y(HoraMitad,MinutoMitad,1.5))
 		Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,1.5) , HoraMinuto_Y(HoraFin,MinFin,1.5) )
 		Recorte.LineTo(CentroX,CentroY)
+		'Anota los ángulos iniciales y finales de la actividad para despues identificar toques
+		AnguloInicio(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraInicio,MinInicio,1.5)-CentroY,HoraMinuto_X(HoraInicio,MinInicio,1.5)-CentroX) Mod 360)
+		AnguloFin(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraFin,MinFin,1.5)-CentroY,HoraMinuto_X(HoraFin,MinFin,1.5)-CentroX) Mod 360)
+		If AnguloFin(NumActividad)=0 Then
+			AnguloFin(NumActividad)=360
+		End If
 		
 		'Arco de circunferencia
 		Pantalla.ClipPath(Recorte)
@@ -235,7 +273,7 @@ Sub DibujarBoton(NumActividad As Int)
 		'Botón
 		Boton(NumActividad).Initialize("BotonActividad")
 		Boton(NumActividad).Tag=NumActividad
-		Dim DistanciaBoton=0.5+0.1*(NumActividad Mod 3) As Float 'Varía la distancia al centro en grupos de tres
+		Dim DistanciaBoton=0.3+0.1*(NumActividad Mod 3) As Float 'Varía la distancia al centro en grupos de tres
 		Dim TamañoIcono=Starter.Secuencia(Starter.SecuenciaActiva).tablero.tam_icono*1%X As Float
 		Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
 		Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
@@ -297,13 +335,7 @@ End Sub
 Sub BotonActividad_click
 	Dim BotonPulsado As Button
 	BotonPulsado=Sender
-	Dim ActividadPulsada As Actividad
-	ActividadPulsada=Starter.ActividadSecuencia(Starter.SecuenciaActiva,BotonPulsado.Tag)
-	ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets,Starter.ActividadSecuencia(Starter.SecuenciaActiva,BotonPulsado.Tag).pictograma & ".png")
-	TextoPictograma.Text=ActividadPulsada.descripcion.ToUpperCase
-	DescripcionPictograma.Text="De "&Hora24a12(ActividadPulsada.hora_inicio)&MinutoLegible(ActividadPulsada.minuto_inicio)&" a "&Hora24a12(ActividadPulsada.hora_fin)&MinutoLegible(ActividadPulsada.minuto_fin)
-	FondoPictograma.Color=Starter.Colores(BotonPulsado.Tag)
-	BotonPulsado.BringToFront()
+	ActivarBoton(BotonPulsado.Tag)
 End Sub
 
 Sub Activity_Resume
@@ -323,10 +355,46 @@ Sub CambiarVista_Click
 	Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
 	Activity.RemoveAllViews
 	Activity.Invalidate
-	Activity.LoadLayout("RelojActividades")
+	Activity.LoadLayout("VisualizarSecuencia")
 	DibujarTablero
 End Sub
 
 Sub Volver_Click
 	Activity.Finish
+End Sub
+
+Sub Temporizador_Tick
+	DibujasAgujas	
+	Activity.Invalidate
+End Sub
+
+Sub PanelAgujas_Touch(Accion As Int, x As Float, y As Float) As Boolean
+	Dim Angulo As Float
+	Dim i As Int
+	If Accion = Activity.ACTION_DOWN Then
+		Angulo=NormalizarAngulo(ATan2D(y-CentroY,x-CentroX))
+		For i=0 To Starter.Secuencia(Starter.SecuenciaActiva).num_actividades-1
+			If Angulo>=AnguloInicio(i) And Angulo<=AnguloFin(i) Then
+				ActivarBoton(i)
+			End If
+		Next
+	End If
+	Return True
+End Sub
+
+Sub NormalizarAngulo(Angulo As Float) As Float
+	Angulo=Angulo+90 'Pone el 0 arriba
+	If Angulo<0 Then
+		Return Angulo+360
+	Else
+		Return Angulo
+	End If
+End Sub
+
+Sub ActivarBoton(i As Int)
+	ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets,Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).pictograma & ".png")
+	TextoPictograma.Text=Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).descripcion.ToUpperCase
+	DescripcionPictograma.Text="De "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_inicio)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_inicio)&" a "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_fin)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_fin)
+	FondoPictograma.Color=Starter.Colores(i)
+	Boton(i).BringToFront()
 End Sub

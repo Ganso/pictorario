@@ -78,7 +78,7 @@ Sub Activity_Create(FirstTime As Boolean)
 		Starter.Secuencia(Starter.MaxSecuencias).pictograma="reloj_6"
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=3
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=20
-		Starter.Secuencia(Starter.MaxSecuencias).tablero.indicar_hora=0
+		Starter.Secuencia(Starter.MaxSecuencias).tablero.indicar_hora=1
 	Else
 		CallSub3(Starter,"CopiarSecuencias",Starter.SecuenciaActiva,Starter.MaxSecuencias) 'Si no, copiamos
 	End If
@@ -333,6 +333,9 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 Sub ConfigPictograma_Click
+	Dim im As IME
+	im.Initialize("")
+	im.HideKeyboard
 	PictogramaEditado=-1
 	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
 	ListaPictogramasVisible=True
@@ -340,6 +343,9 @@ End Sub
 
 Sub ConfigPictogramaAct_Click
 	Dim BotonPulsado As Label
+	Dim im As IME
+	im.Initialize("")
+	im.HideKeyboard
 	BotonPulsado=Sender
 	PictogramaEditado=BotonPulsado.Tag
 	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
@@ -383,17 +389,18 @@ Sub ConfigHoraInicioAct_Click
 	Resultado=DialogoTiempo.Show("Indica la hora inicial de la actividad","Hora inicial","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then
-		If DialogoTiempo.Hour*60+DialogoTiempo.Minute>Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin Then
-		'Se ha intentado poner una hora inicial posterior a la final
-		Msgbox("La hora de inicio de una actividad no puede ser posterior a la de finalización.","Hora inválida")
-		Else
-			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio=DialogoTiempo.Hour
-			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio=DialogoTiempo.Minute
-			If OrdenarActividades==True Then
-				Msgbox("Se ha colocado la actividad en su posición correcta.","Actividades reorganizadas")
-			End If
-			DibujarConfigurarSecuencia
+		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio=DialogoTiempo.Hour
+		Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio=DialogoTiempo.Minute
+		If DialogoTiempo.Hour*60+DialogoTiempo.Minute>Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin*60+Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin Then			
+			'Se ha intentado poner una hora inicial posterior a la final
+			'Se pone como hora de fin la misma de inicio
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio
 		End If
+		If OrdenarActividades==True Then
+			Msgbox("Se ha colocado la actividad en su posición correcta.","Actividades reorganizadas")
+		End If
+		DibujarConfigurarSecuencia
 	End If
 End Sub
 

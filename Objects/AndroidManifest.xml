@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="javi.prieto.pictorario"
-	android:versionCode="4"
-	android:versionName="Beta 4"
+	android:versionCode="5"
+	android:versionName="Beta 5"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>
@@ -31,13 +31,6 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".visualizacion"
-			android:label="Pictorario"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
 			android:name=".configurarsecuencia"
 			android:label="Pictorario"
 			android:screenOrientation="portrait">
@@ -46,6 +39,13 @@
 		</service>
 		<receiver android:name=".starter$starter_BR">
 		</receiver>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".visualizacion"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"

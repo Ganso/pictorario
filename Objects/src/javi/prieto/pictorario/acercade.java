@@ -335,10 +335,10 @@ public anywheresoftware.b4a.objects.WebViewWrapper _textoarasaac = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoautor = null;
 public anywheresoftware.b4a.objects.LabelWrapper _parateo = null;
 public anywheresoftware.b4a.objects.LabelWrapper _versión = null;
-public javi.prieto.pictorario.main _vvvvvv1 = null;
-public javi.prieto.pictorario.visualizacion _vvv6 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvv5 = null;
-public javi.prieto.pictorario.starter _vvv3 = null;
+public javi.prieto.pictorario.main _vvvvvvvv6 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvv6 = null;
+public javi.prieto.pictorario.starter _vvv4 = null;
+public javi.prieto.pictorario.visualizacion _vvv7 = null;
 
 public static void initializeProcessGlobals() {
              try {
