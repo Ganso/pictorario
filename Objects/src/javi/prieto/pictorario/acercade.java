@@ -300,11 +300,14 @@ public class acercade extends Activity implements B4AActivity{
     		this.activity = new WeakReference<Activity>(activity);
     	}
 		public void run() {
-			if (mostCurrent == null || mostCurrent != activity.get())
+            acercade mc = mostCurrent;
+			if (mc == null || mc != activity.get())
 				return;
 			processBA.setActivityPaused(false);
             BA.LogInfo("** Activity (acercade) Resume **");
-		    processBA.raiseEvent(mostCurrent._activity, "activity_resume", (Object[])null);
+            if (mc != mostCurrent)
+                return;
+		    processBA.raiseEvent(mc._activity, "activity_resume", (Object[])null);
 		}
     }
 	@Override
@@ -335,10 +338,14 @@ public anywheresoftware.b4a.objects.WebViewWrapper _textoarasaac = null;
 public anywheresoftware.b4a.objects.WebViewWrapper _textoautor = null;
 public anywheresoftware.b4a.objects.LabelWrapper _parateo = null;
 public anywheresoftware.b4a.objects.LabelWrapper _versión = null;
-public javi.prieto.pictorario.main _vvvvvvvv6 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvv6 = null;
-public javi.prieto.pictorario.starter _vvv4 = null;
-public javi.prieto.pictorario.visualizacion _vvv7 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _reinciarconfiguracion = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vervideo = null;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _vvvvv1 = null;
+public javi.prieto.pictorario.main _vvvvv4 = null;
+public javi.prieto.pictorario.starter _vvv7 = null;
+public javi.prieto.pictorario.visualizacion _vvvv2 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvv1 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvv2 = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -348,19 +355,76 @@ public static void initializeProcessGlobals() {
             }
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 27;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 29;BA.debugLine="Activity.LoadLayout(\"AcercaDe\")";
+ //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 31;BA.debugLine="Activity.LoadLayout(\"AcercaDe\")";
 mostCurrent._activity.LoadLayout("AcercaDe",mostCurrent.activityBA);
- //BA.debugLineNum = 31;BA.debugLine="TextoAutor.LoadHtml(\"<html><body><center>\"& _ 	\"<";
-mostCurrent._textoautor.LoadHtml("<html><body><center>"+"<strong>Aplicación</strong>: Javier Prieto Martínez (www.ganso.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"<em>Pulsar icono para web</em><br />"+"</center></body></html>");
- //BA.debugLineNum = 37;BA.debugLine="TextoArasaac.LoadHtml(\"<html><body><center>\"& _";
-mostCurrent._textoarasaac.LoadHtml("<html><body><center>"+"<strong>Pictogramas</strong>: Sergio Palao<br />"+"<strong>Procedencia</strong>: ARASAAC (www.arasaac.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"<strong>Propiedad</strong>: Gobierno de Aragón<br />"+"<em>Pulsar icono para web</em><br />"+"</center></body></html>");
+ //BA.debugLineNum = 33;BA.debugLine="TextoAutor.LoadHtml(\"<html><body><center>\"& _ 	\"<";
+mostCurrent._textoautor.LoadHtml("<html><body><center>"+"<strong>Aplicación</strong>: Javier Prieto Martínez (www.ganso.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"</center></body></html>");
+ //BA.debugLineNum = 38;BA.debugLine="TextoArasaac.LoadHtml(\"<html><body><center>\"& _";
+mostCurrent._textoarasaac.LoadHtml("<html><body><center>"+"<strong>Pictogramas</strong>: Sergio Palao<br />"+"<strong>Procedencia</strong>: ARASAAC (www.arasaac.org)<br />"+"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"+"<strong>Propiedad</strong>: Gobierno de Aragón<br />"+"</center></body></html>");
  //BA.debugLineNum = 45;BA.debugLine="ParaTeo.Typeface=Typeface.LoadFromAssets(\"GreatVi";
 mostCurrent._parateo.setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.LoadFromAssets("GreatVibes-Regular.ttf"));
  //BA.debugLineNum = 47;BA.debugLine="Versión.Text=Application.VersionName";
 mostCurrent._versión.setText(BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.Application.getVersionName()));
  //BA.debugLineNum = 49;BA.debugLine="End Sub";
 return "";
+}
+public static void  _activity_keypress(int _keycode) throws Exception{
+ResumableSub_Activity_KeyPress rsub = new ResumableSub_Activity_KeyPress(null,_keycode);
+rsub.resume(processBA, null);
+}
+public static class ResumableSub_Activity_KeyPress extends BA.ResumableSub {
+public ResumableSub_Activity_KeyPress(javi.prieto.pictorario.acercade parent,int _keycode) {
+this.parent = parent;
+this._keycode = _keycode;
+}
+javi.prieto.pictorario.acercade parent;
+int _keycode;
+
+@Override
+public void resume(BA ba, Object[] result) throws Exception{
+
+    while (true) {
+        switch (state) {
+            case -1:
+return;
+
+case 0:
+//C
+this.state = 1;
+ //BA.debugLineNum = 95;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsa";
+if (true) break;
+
+case 1:
+//if
+this.state = 4;
+if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
+this.state = 3;
+}if (true) break;
+
+case 3:
+//C
+this.state = 4;
+ //BA.debugLineNum = 96;BA.debugLine="Sleep(0) 'No hace nada";
+anywheresoftware.b4a.keywords.Common.Sleep(mostCurrent.activityBA,this,(int) (0));
+this.state = 5;
+return;
+case 5:
+//C
+this.state = 4;
+;
+ if (true) break;
+
+case 4:
+//C
+this.state = -1;
+;
+ //BA.debugLineNum = 98;BA.debugLine="End Sub";
+if (true) break;
+
+            }
+        }
+    }
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
  //BA.debugLineNum = 55;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
@@ -392,27 +456,31 @@ mostCurrent._textoautor = new anywheresoftware.b4a.objects.WebViewWrapper();
 mostCurrent._parateo = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 24;BA.debugLine="Private Versión As Label";
 mostCurrent._versión = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 25;BA.debugLine="End Sub";
+ //BA.debugLineNum = 25;BA.debugLine="Private ReinciarConfiguracion As Button";
+mostCurrent._reinciarconfiguracion = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 26;BA.debugLine="Private VerVideo As Button";
+mostCurrent._vervideo = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 27;BA.debugLine="End Sub";
 return "";
 }
 public static String  _logotipo_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 75;BA.debugLine="Sub Logotipo_Click";
- //BA.debugLineNum = 76;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 74;BA.debugLine="Sub Logotipo_Click";
+ //BA.debugLineNum = 75;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 77;BA.debugLine="StartActivity(p.OpenBrowser(\"http://blog.ganso.or";
+ //BA.debugLineNum = 76;BA.debugLine="StartActivity(p.OpenBrowser(\"http://blog.ganso.or";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario")));
- //BA.debugLineNum = 78;BA.debugLine="End Sub";
+ //BA.debugLineNum = 77;BA.debugLine="End Sub";
 return "";
 }
 public static String  _pictogramas_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 70;BA.debugLine="Sub Pictogramas_Click";
- //BA.debugLineNum = 71;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 69;BA.debugLine="Sub Pictogramas_Click";
+ //BA.debugLineNum = 70;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 72;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.arasaac.o";
+ //BA.debugLineNum = 71;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.arasaac.o";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://www.arasaac.org")));
- //BA.debugLineNum = 73;BA.debugLine="End Sub";
+ //BA.debugLineNum = 72;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
@@ -422,19 +490,45 @@ return "";
 }
 public static String  _programador_click() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
- //BA.debugLineNum = 65;BA.debugLine="Sub Programador_Click";
- //BA.debugLineNum = 66;BA.debugLine="Dim p As PhoneIntents";
+ //BA.debugLineNum = 64;BA.debugLine="Sub Programador_Click";
+ //BA.debugLineNum = 65;BA.debugLine="Dim p As PhoneIntents";
 _p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
- //BA.debugLineNum = 67;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.ganso.org";
+ //BA.debugLineNum = 66;BA.debugLine="StartActivity(p.OpenBrowser(\"http://www.ganso.org";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("http://www.ganso.org")));
- //BA.debugLineNum = 68;BA.debugLine="End Sub";
+ //BA.debugLineNum = 67;BA.debugLine="End Sub";
+return "";
+}
+public static String  _reinciarconfiguracion_click() throws Exception{
+ //BA.debugLineNum = 84;BA.debugLine="Sub ReinciarConfiguracion_Click";
+ //BA.debugLineNum = 85;BA.debugLine="If Msgbox2(\"Se borrarán todas las secuencias crea";
+if (anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Se borrarán todas las secuencias creadas y se dejará solo la de ejemplo."+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+"¿Está seguro de que desea hacer esto?"),BA.ObjectToCharSequence("Borrar todas las secuencias"),"Sí","","No",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA)==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
+ //BA.debugLineNum = 87;BA.debugLine="CallSub(Starter,\"Inicializar_Con_Ejemplo\")";
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvv7.getObject()),"Inicializar_Con_Ejemplo");
+ //BA.debugLineNum = 88;BA.debugLine="CallSub(Starter,\"BorrarPictogramas\")";
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvv7.getObject()),"BorrarPictogramas");
+ //BA.debugLineNum = 89;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvv7.getObject()),"Guardar_Configuracion");
+ //BA.debugLineNum = 90;BA.debugLine="Activity.Finish";
+mostCurrent._activity.Finish();
+ };
+ //BA.debugLineNum = 92;BA.debugLine="End Sub";
+return "";
+}
+public static String  _vervideo_click() throws Exception{
+anywheresoftware.b4a.phone.Phone.PhoneIntents _p = null;
+ //BA.debugLineNum = 79;BA.debugLine="Sub VerVideo_Click";
+ //BA.debugLineNum = 80;BA.debugLine="Dim p As PhoneIntents";
+_p = new anywheresoftware.b4a.phone.Phone.PhoneIntents();
+ //BA.debugLineNum = 81;BA.debugLine="StartActivity(p.OpenBrowser(\"https://www.youtube.";
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(_p.OpenBrowser("https://www.youtube.com/watch?v=tgmtNNFmMcs")));
+ //BA.debugLineNum = 82;BA.debugLine="End Sub";
 return "";
 }
 public static String  _volver_click() throws Exception{
  //BA.debugLineNum = 60;BA.debugLine="Sub Volver_Click";
- //BA.debugLineNum = 62;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 61;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 63;BA.debugLine="End Sub";
+ //BA.debugLineNum = 62;BA.debugLine="End Sub";
 return "";
 }
 }

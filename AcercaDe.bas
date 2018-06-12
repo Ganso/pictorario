@@ -28,6 +28,8 @@ Sub Globals
 	Private TextoAutor As WebView
 	Private ParaTeo As Label
 	Private Versión As Label
+	Private ReinciarConfiguracion As Button
+	Private VerVideo As Button
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -37,7 +39,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	TextoAutor.LoadHtml("<html><body><center>"& _
 	"<strong>Aplicación</strong>: Javier Prieto Martínez (www.ganso.org)<br />"& _
 	"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"& _
-	"<em>Pulsar icono para web</em><br />"& _
 	"</center></body></html>")
 
 	TextoArasaac.LoadHtml("<html><body><center>"& _
@@ -45,7 +46,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	"<strong>Procedencia</strong>: ARASAAC (www.arasaac.org)<br />"& _
 	"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"& _
 	"<strong>Propiedad</strong>: Gobierno de Aragón<br />"& _
-	"<em>Pulsar icono para web</em><br />"& _
 	"</center></body></html>")
 	
 	ParaTeo.Typeface=Typeface.LoadFromAssets("GreatVibes-Regular.ttf")
@@ -64,7 +64,6 @@ End Sub
 
 
 Sub Volver_Click
-	'Activity.LoadLayout("Portada")
 	Activity.Finish
 End Sub
 
@@ -81,4 +80,25 @@ End Sub
 Sub Logotipo_Click
 	Dim p As PhoneIntents
 	StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
+End Sub
+
+Sub VerVideo_Click
+	Dim p As PhoneIntents
+	StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=tgmtNNFmMcs"))
+End Sub
+
+Sub ReinciarConfiguracion_Click
+	If Msgbox2("Se borrarán todas las secuencias creadas y se dejará solo la de ejemplo."&CRLF&CRLF& _
+		"¿Está seguro de que desea hacer esto?","Borrar todas las secuencias","Sí","","No",Null)==DialogResponse.POSITIVE Then
+		CallSub(Starter,"Inicializar_Con_Ejemplo")
+		CallSub(Starter,"BorrarPictogramas")
+		CallSub(Starter,"Guardar_Configuracion")
+		Activity.Finish
+	End If
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) 
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		Sleep(0) 'No hace nada
+	End If
 End Sub

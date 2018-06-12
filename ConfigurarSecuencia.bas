@@ -10,15 +10,9 @@ Version=8
 #End Region
 
 Sub Process_Globals
-	'These global variables will be declared once when the application starts.
-	'These variables can be accessed from all modules.
-
 End Sub
 
 Sub Globals
-	'These global variables will be redeclared each time the activity is created.
-	'These variables can only be accessed from this module.
-
 	Dim SeparacionHorizontal=25%X As Int  'Separación horizontal entre casillas
 	Dim TamCasilla=60dip As Int 'Tamaño vertical de las casillas de configuración
 	Dim SeparacionCasillas=5dip As Int 'Separación vertical entre casillas
@@ -53,8 +47,8 @@ Sub Globals
 	
 	''' LISTA DE PICTOGRAMAS
 
-	Dim ListaPictogramas As ListView
-	Dim ListaPictogramasVisible As Boolean
+'	Dim ListaPictogramas As ListView
+'	Dim ListaPictogramasVisible As Boolean
 	
 	Dim PictogramaEditado As Int
 		'-1 si editando el de la secuencia
@@ -75,7 +69,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	If (Starter.SecuenciaActiva==Starter.MaxSecuencias) Then 'Si es nueva, inicializamos
 		Starter.Secuencia(Starter.MaxSecuencias).num_actividades=0
 		Starter.Secuencia(Starter.MaxSecuencias).descripcion=DescripcionSecuenciaPorDefecto
-		Starter.Secuencia(Starter.MaxSecuencias).pictograma="reloj_6"
+		Starter.Secuencia(Starter.MaxSecuencias).pictograma=7229
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=3
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=20
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.indicar_hora=1
@@ -84,7 +78,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	End If
 	
 	DibujarConfigurarSecuencia
-	Inicializar_Lista_Pictogramas
+	'Inicializar_Lista_Pictogramas
 
 End Sub
 	
@@ -115,7 +109,7 @@ Sub DibujarConfigurarSecuencia
 	ParametrosSecuencia.Panel.AddView(EtiquetaInicial,0,0,100%X,80dip)
 	
 	ConfigPictograma.Initialize("ConfigPictograma")
-	ConfigPictograma.SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.Secuencia(Starter.MaxSecuencias).pictograma&".png"))
+	ConfigPictograma.SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.Secuencia(Starter.MaxSecuencias).pictograma&".png"))
 	ParametrosSecuencia.Panel.AddView(ConfigPictograma,100%X-TamCasilla-SeparacionCasillas,EtiquetaInicial.Top+EtiquetaInicial.Height+SeparacionCasillas,TamCasilla,TamCasilla)
 
 	ConfigDescripcion.Initialize("ConfigDescripcion")
@@ -192,7 +186,7 @@ Sub DibujarConfigurarSecuencia
 	
 		ConfigPictogramaAct(Act).Initialize("ConfigPictogramaAct")
 		ConfigPictogramaAct(Act).Tag=Act
-		ConfigPictogramaAct(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).Pictograma&".png"))
+		ConfigPictogramaAct(Act).SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).Pictograma&".png"))
 		ParametrosSecuencia.Panel.AddView(ConfigPictogramaAct(Act),100%X-TamCasilla-SeparacionCasillas,InicioVertical,TamCasilla,TamCasilla)
 
 		ConfigDescripcionAct(Act).Initialize("ConfigDescripcionAct")
@@ -309,6 +303,7 @@ End Sub
 
 Sub SalidaConfigurarSecuencia
 	If Msgbox2("Se perderán todos los cambios realizados."&CRLF&CRLF&"¿Está seguro de que desea salir sin guardarlos?","Cancelar cambios","Sí","","No",Null)==DialogResponse.POSITIVE Then
+		StartActivity(Main)
 		Activity.Finish
 	End If
 End Sub	
@@ -321,6 +316,7 @@ Sub BotonAceptar_Click
 		CallSub3(Starter,"CopiarSecuencias",Starter.MaxSecuencias,Starter.SecuenciaActiva) 'Si no, volvemos a copiar
 	End If
 	CallSub(Starter,"Guardar_Configuracion")
+	StartActivity(Main)
 	Activity.Finish
 End Sub
 	
@@ -337,8 +333,7 @@ Sub ConfigPictograma_Click
 	im.Initialize("")
 	im.HideKeyboard
 	PictogramaEditado=-1
-	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
-	ListaPictogramasVisible=True
+	StartActivity(SeleccionPictogramas)
 End Sub
 
 Sub ConfigPictogramaAct_Click
@@ -348,8 +343,7 @@ Sub ConfigPictogramaAct_Click
 	im.HideKeyboard
 	BotonPulsado=Sender
 	PictogramaEditado=BotonPulsado.Tag
-	Activity.AddView(ListaPictogramas, 5dip, 5dip, 100%X-10dip, 100%Y-10dip)
-	ListaPictogramasVisible=True
+	StartActivity(SeleccionPictogramas)
 End Sub
 
 Sub ConfigOpcionesAct_Click
@@ -481,68 +475,64 @@ Sub ConfigHoraFinalAct_Click
 	End If
 End Sub
 
-Sub ListaPictogramas_ItemClick (Position As Int, Value As Object)
-	ListaPictogramas.RemoveView
-	ListaPictogramasVisible=False
-	If PictogramaEditado==-1 Then
-		Starter.Secuencia(Starter.MaxSecuencias).pictograma=Value
-	Else
-		Starter.ActividadSecuencia(Starter.MaxSecuencias,PictogramaEditado).Pictograma=Value
-	End If
-	DibujarConfigurarSecuencia
-End Sub
-
-Sub Inicializar_Lista_Pictogramas
-	Dim fileList As List
-	Dim file1 As String
-	Dim file2 As String
-	Dim n As Int
-
-	If ListaPictogramas.IsInitialized=False Then
-
-		ProgressDialogShow("Inicializando lista de pictogramas")
-
-		ListaPictogramas.Initialize("ListaPictogramas")
-		ListaPictogramas.Color=Colors.LightGray
-		ListaPictogramas.TwoLinesAndBitmap.Label.TextColor=Colors.Black
-		ListaPictogramas.TwoLinesAndBitmap.SecondLabel.Visible=False
-		ListaPictogramas.TwoLinesAndBitmap.ImageView.Width=50dip
-		ListaPictogramas.TwoLinesAndBitmap.ImageView.Height=50dip
-		ListaPictogramas.Padding=Array As Int(5dip,5dip,5dip,5dip)
-		ListaPictogramas.FastScrollEnabled = True
-
-		fileList = File.ListFiles(File.DirAssets)
-		fileList.Sort(True)
-
-		For n = 0 To fileList.Size-1
-			Sleep(0)
-			file1 = fileList.Get(n)
-			If file1.Contains(".png") Then
-				file2=file1.Replace(".png","")
-				Dim Bitmap1 As Bitmap
-				Bitmap1.InitializeSample(File.DirAssets, file1, 50dip, 50dip)
-				ListaPictogramas.AddTwoLinesAndBitmap(file2,"",Bitmap1)
-			End If
-		Next
-		ListaPictogramasVisible=False
-		
-		ProgressDialogHide
-
-	End If
-	
-
-End Sub
+'Sub Inicializar_Lista_Pictogramas
+'	Dim fileList As List
+'	Dim file1 As String
+'	Dim file2 As String
+'	Dim n As Int
+'
+'	If ListaPictogramas.IsInitialized=False Then
+'
+'		ProgressDialogShow("Inicializando lista de pictogramas")
+'
+'		ListaPictogramas.Initialize("ListaPictogramas")
+'		ListaPictogramas.Color=Colors.LightGray
+'		ListaPictogramas.TwoLinesAndBitmap.Label.TextColor=Colors.Black
+'		ListaPictogramas.TwoLinesAndBitmap.SecondLabel.Visible=False
+'		ListaPictogramas.TwoLinesAndBitmap.ImageView.Width=50dip
+'		ListaPictogramas.TwoLinesAndBitmap.ImageView.Height=50dip
+'		ListaPictogramas.Padding=Array As Int(5dip,5dip,5dip,5dip)
+'		ListaPictogramas.FastScrollEnabled = True
+'
+'		fileList = File.ListFiles(File.DirAssets)
+'		fileList.Sort(True)
+'
+'		For n = 0 To fileList.Size-1
+'			Sleep(0)
+'			file1 = fileList.Get(n)
+'			If file1.Contains(".png") Then
+'				file2=file1.Replace(".png","")
+'				Dim Bitmap1 As Bitmap
+'				Bitmap1.InitializeSample(File.DirAssets, file1, 50dip, 50dip)
+'				ListaPictogramas.AddTwoLinesAndBitmap(file2,"",Bitmap1)
+'			End If
+'		Next
+'		ListaPictogramasVisible=False
+'		
+'		ProgressDialogHide
+'
+'	End If
+'	
+'
+'End Sub
 
 Sub ConfigDescripcionAct_FocusChanged (TieneFoco As Boolean)
 	Dim BotonPulsado As EditText
 	Dim Act As Int
 
+	BotonPulsado=Sender
+	Act=BotonPulsado.Tag
+		
 	If TieneFoco==True Then
-		BotonPulsado=Sender
-		Act=BotonPulsado.Tag
 		If ConfigDescripcionAct(Act).Text==DescripcionActividadPorDefecto Then
 			ConfigDescripcionAct(Act).Text=""
 			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).Descripcion=""
+			Activity.Invalidate
+		End If
+	Else
+		If ConfigDescripcionAct(Act).Text=="" Then
+			ConfigDescripcionAct(Act).Text=DescripcionActividadPorDefecto
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).Descripcion=DescripcionActividadPorDefecto
 			Activity.Invalidate
 		End If
 	End If
@@ -570,6 +560,11 @@ Sub ConfigDescripcion_FocusChanged (TieneFoco As Boolean)
 		Starter.Secuencia(Starter.MaxSecuencias).descripcion=""
 		Activity.Invalidate
 	End If
+	If TieneFoco==False And ConfigDescripcion.Text=="" Then
+		ConfigDescripcion.Text=DescripcionSecuenciaPorDefecto
+		Starter.Secuencia(Starter.MaxSecuencias).descripcion=DescripcionSecuenciaPorDefecto
+		Activity.Invalidate
+	End If
 End Sub
 
 Sub BotonAnadirActividad_Click
@@ -595,19 +590,24 @@ Sub BotonAnadirActividad_Click
 		Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).minuto_fin=59
 	End If
 	
-	Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).Pictograma="jugar"
+	Starter.ActividadSecuencia(Starter.MaxSecuencias,Starter.Secuencia(Starter.MaxSecuencias).num_actividades).Pictograma=9813
 	Starter.Secuencia(Starter.MaxSecuencias).num_actividades=Starter.Secuencia(Starter.MaxSecuencias).num_actividades+1
 	DibujarConfigurarSecuencia
 End Sub
 
-Sub Activity_KeyPress (KeyCode As Int) As Boolean
-	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
-		If ListaPictogramasVisible==True Then 'Si está abierta la lista de pictogramas, la cierra
-			ListaPictogramas.RemoveView
-			ListaPictogramasVisible=False
-		Else 'Si esá cerrada, llama a la rutina de salida
-			SalidaConfigurarSecuencia
+Sub PictogramaElegido(Id As Int)
+	If Id<>-1 Then 'Si no se ha pulsado en "Cancelar"
+		If PictogramaEditado==-1 Then 'Pictograma de la secuencia
+			Starter.Secuencia(Starter.MaxSecuencias).pictograma=Id
+		Else 'Pictograma de una actividad
+			Starter.ActividadSecuencia(Starter.MaxSecuencias,PictogramaEditado).Pictograma=Id
 		End If
+		DibujarConfigurarSecuencia
 	End If
-	Return True
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int)
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		Sleep(0) 'No hace nada
+	End If
 End Sub

@@ -10,16 +10,10 @@ Version=7.8
 #End Region
 
 Sub Process_Globals
-	'These global variables will be declared once when the application starts.
-	'These variables can be accessed from all modules.
 	Dim Temporizador As Timer
-	
 End Sub
 
 Sub Globals
-	'These global variables will be redeclared each time the activity is created.
-	'These variables can only be accessed from this module.
-
 	Private PanelDescripcion As Panel
 	Private PanelReloj As Panel
 	Private ImagenPictograma As ImageView
@@ -46,6 +40,11 @@ Sub Globals
 	Dim AnguloInicio(Starter.MaxActividades) As Float
 	Dim AnguloFin(Starter.MaxActividades) As Float
 
+	'Reloj, y horas actuales
+	Private RelojDigital As Label
+	Dim HoraActual As Int
+	Dim MinutoActual As Int
+	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -161,13 +160,13 @@ Sub DibujarTablero()
 	'Indica modo de visualización
 	Select Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo
 		Case 0
-			CambiarVista.Text="Mañana"
+			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"manana.png"))
 		Case 1
-			CambiarVista.Text="Tarde"
+			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"tarde.png"))
 		Case 2
-			CambiarVista.Text="Día"
+			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"dia.png"))
 		Case 3
-			CambiarVista.Text="Secuencia"
+			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"fila.png"))
 	End Select
 			
 	DibujasAgujas
@@ -176,9 +175,10 @@ End Sub
 
 Sub DibujasAgujas
 	Dim RectanguloVacio As Rect
-	Dim HoraActual=DateTime.GetHour(DateTime.Now) As Int
-	Dim MinutoActual=DateTime.GetMinute(DateTime.Now) As Int
 	Dim SegundoActual=DateTime.GetSecond(DateTime.Now) As Int
+	
+	HoraActual=DateTime.GetHour(DateTime.Now)
+	MinutoActual=DateTime.GetMinute(DateTime.Now)
 	
 	RectanguloVacio.Initialize(0,0,PanelAgujas.Width,PanelAgujas.Height)
 	PantallaAgujas.DrawRect(RectanguloVacio, Colors.Transparent, True, 0)
@@ -277,11 +277,19 @@ Sub DibujarBoton(NumActividad As Int)
 		Dim TamañoIcono=Starter.Secuencia(Starter.SecuenciaActiva).tablero.tam_icono*1%X As Float
 		Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
 		Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
-		'Dim BordeBoton As Rect
-		'BordeBoton.Initialize(BotonX-1dip,BotonY-1dip,BotonX+TamañoIcono+2dip,BotonY+TamañoIcono+2dip)
-		'Pantalla.DrawRect(BordeBoton,Colors.Black,True,0)
+		Dim BordeBoton As Rect
+		BordeBoton.Initialize(BotonX-1dip,BotonY-1dip,BotonX+TamañoIcono+2dip,BotonY+TamañoIcono+2dip)
+		Pantalla.DrawRect(BordeBoton,0x80FFFFFF,True,0)
 		Activity.AddView(Boton(NumActividad),BotonX,BotonY,TamañoIcono,TamañoIcono)
-		Boton(NumActividad).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.ActividadSecuencia(Starter.SecuenciaActiva,NumActividad).pictograma&".png"))
+		Boton(NumActividad).SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.SecuenciaActiva,NumActividad).pictograma&".png"))
+		
+		'Si la actividad transcurre en la hora actual, la activa
+		HoraActual=DateTime.GetHour(DateTime.Now)
+		MinutoActual=DateTime.GetMinute(DateTime.Now)
+		If (  HoraActual*60+MinutoActual>HoraInicio*60+MinInicio And HoraActual*60+MinutoActual<HoraFin*60+MinFin) Then
+			ActivarBoton(NumActividad)
+		End If
+		
 	End If
 
 End Sub
@@ -354,6 +362,7 @@ End Sub
 Sub CambiarVista_Click
 	Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
 	Activity.RemoveAllViews
+	MsgboxAsync("Cambiado tipo de tablero.",Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
 	Activity.Invalidate
 	Activity.LoadLayout("VisualizarSecuencia")
 	DibujarTablero
@@ -364,7 +373,10 @@ Sub Volver_Click
 End Sub
 
 Sub Temporizador_Tick
-	DibujasAgujas	
+	DibujasAgujas
+	If Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 Then
+		RelojDigital.Text=NumberFormat(HoraActual,2,0)&":"&NumberFormat(MinutoActual,2,0)
+	End If
 	Activity.Invalidate
 End Sub
 
@@ -392,9 +404,15 @@ Sub NormalizarAngulo(Angulo As Float) As Float
 End Sub
 
 Sub ActivarBoton(i As Int)
-	ImagenPictograma.Bitmap=LoadBitmap(File.DirAssets,Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).pictograma & ".png")
+	ImagenPictograma.Bitmap=LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).pictograma & ".png")
 	TextoPictograma.Text=Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).descripcion.ToUpperCase
 	DescripcionPictograma.Text="De "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_inicio)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_inicio)&" a "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_fin)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_fin)
 	FondoPictograma.Color=Starter.Colores(i)
 	Boton(i).BringToFront()
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int)
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		Sleep(0) 'No hace nada
+	End If
 End Sub

@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="javi.prieto.pictorario"
-	android:versionCode="5"
-	android:versionName="Beta 5"
+	android:versionCode="6"
+	android:versionName="Beta 6"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>
@@ -12,6 +12,8 @@
 	    android:smallScreens="true" 
 	    android:anyDensity="true"/>
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<application
 		android:icon="@drawable/icon"
 		android:label="Pictorario"
@@ -28,13 +30,6 @@
 			</intent-filter>
 			
 		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".configurarsecuencia"
-			android:label="Pictorario"
-			android:screenOrientation="portrait">
-		</activity>
 		<service android:name=".starter">
 		</service>
 		<receiver android:name=".starter$starter_BR">
@@ -49,9 +44,27 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
+			android:name=".configurarsecuencia"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".seleccionpictogramas"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
 			android:name=".acercade"
 			android:label="Pictorario"
 			android:screenOrientation="portrait">
 		</activity>
+		<service android:name="anywheresoftware.b4a.samples.httputils2.httputils2service">
+		</service>
+		<receiver android:name="anywheresoftware.b4a.samples.httputils2.httputils2service$httputils2service_BR">
+		</receiver>
 	</application>
 </manifest>

@@ -1,492 +1,58 @@
 ﻿Build1=Default,javi.prieto.pictorario
-File1=AcercaDe.bal
-File10=clase_4.png
-File100=hacer caca_1.png
-File101=hacer caca_2.png
-File102=hacer caca_3.png
-File103=hacer caca_4.png
-File104=hacer la cama.png
-File105=hacer la cama_1.png
-File106=hacer pis.png
-File107=hacer pis_1.png
-File108=hamburguesa y patatas fritas.png
-File109=hamburguesa.png
-File11=clase_5.png
-File110=hospital.png
-File111=hospital_1.png
-File112=instrumentos.png
-File113=juego de mesa.png
-File114=juego de mesa_1.png
-File115=juego de palmas.png
-File116=jugar a la videoconsola.png
-File117=jugar al corro.png
-File118=jugar al corro_1.png
-File119=jugar al fu@tbol.png
-File12=clase_6.png
-File120=jugar al fu@tbol_1.png
-File121=jugar al fu@tbol_2.png
-File122=jugar con el tablet.png
-File123=jugar.png
-File124=jugar_1.png
-File125=jugar_2.png
-File126=jugar_3.png
-File127=juguete.png
-File128=lavar el pelo.png
-File129=lavar el pelo_1.png
-File13=clase_7.png
-File130=lavar el pelo_2.png
-File131=lavar la cara.png
-File132=lavar la cara_1.png
-File133=lavar la cara_2.png
-File134=lavar la ropa.png
-File135=lavar las manos.png
-File136=lavar las manos_1.png
-File137=lavar los dientes.png
-File138=lavar los dientes_1.png
-File139=lavar los dientes_2.png
-File14=clase_8.png
-File140=levantarse de la cama.png
-File141=levantarse de la cama_1.png
-File142=logotipo.png
-File143=me@dico.png
-File144=me@dico_1.png
-File145=medicarse_2.png
-File146=medicarse_3.png
-File147=medicarse_4.png
-File148=medicina.png
-File149=medicina_1.png
-File15=clase_9.png
-File150=merendar.png
-File151=merendar_1.png
-File152=merendar_2.png
-File153=mo@vil.png
-File154=montar en bici.png
-File155=montar en bici_1.png
-File156=muffin.png
-File157=muffin_1.png
-File158=museo.png
-File159=museo_1.png
-File16=coche.png
-File160=noche.png
-File161=noche_1.png
-File162=parchi@s.png
-File163=parque tema@tico.png
-File164=parque.png
-File165=pasear al perro.png
-File166=pasear al perro_1.png
-File167=pasear al perro_2.png
-File168=pasear en bicicleta.png
-File169=pasear en bicicleta_1.png
-File17=coche_1.png
-File170=pasear_3.png
-File171=pasear_5.png
-File172=pasear_6.png
-File173=pastel.png
-File174=patines de hielo.png
-File175=patines_2.png
-File176=patines_3.png
-File177=patinete.png
-File178=pediatra.png
-File179=pediatra_1.png
-File18=colegio.png
-File180=pediatra_2.png
-File181=pegamento.png
-File182=peli@cula.png
-File183=pelota de fu@tbol.png
-File184=pelota.png
-File185=peluche.png
-File186=picnic.png
-File187=picnic_1.png
-File188=pictogramas.png
-File189=pintar.png
-File19=colegio_1.png
-File190=pintar_1.png
-File191=pintar_5.png
-File192=pintar_7.png
-File193=pinturas de cera.png
-File194=pinturas de colores.png
-File195=pinturas de colores_1.png
-File196=piscina cubierta.png
-File197=piscina de bolas.png
-File198=piscina.png
-File199=piso.png
-File2=ban_arse.png
-File20=comer.png
-File200=pizza.png
-File201=ponerse ropa_1.png
-File202=ponerse ropa_2.png
-File203=Portada.bal
-File204=potito.png
-File205=pregunta.png
-File206=pueblo.png
-File207=rayuela.png
-File208=reloj_6.png
-File209=restaurante.png
-File21=comer_1.png
-File210=restaurante_1.png
-File211=restaurante_2.png
-File212=restaurante_3.png
-File213=saltar a la comba.png
-File214=saltar a la comba_1.png
-File215=saltar a la comba_2.png
-File216=secarse.png
-File217=secarse_1.png
-File218=secarse_2.png
-File219=siesta.png
-File22=comida.png
-File220=siesta_1.png
-File221=tele.png
-File222=tele_1.png
-File223=ti@teres.png
-File224=tijeras escolares.png
-File225=tijeras.png
-File226=toboga@n.png
-File227=toboga@n_1.png
-File228=tomar el sol.png
-File229=tomar el sol_1.png
-File23=comprar.png
-File230=tomar el sol_2.png
-File231=trabajar_en_el_ordenador.png
-File232=trabajos manuales_1.png
-File233=trabajos manuales_2.png
-File234=ver la tele_3.png
-File235=ver la tele_4.png
-File236=ver la tele_5.png
-File237=ver la tele_6.png
-File238=ver la tele_7.png
-File239=vestirse.png
-File24=comprar_2.png
-File240=vestirse_1.png
-File241=videojuego.png
-File242=videojuego_1.png
-File243=VisualizarSecuencia.bal
-File244=zoo.png
-File25=comprar_3.png
-File26=computador.png
-File27=computador_1.png
-File28=computador_2.png
-File29=conductor.png
-File3=cenar_2.png
-File30=conductor_1.png
-File31=conductora.png
-File32=ConfigurarSecuencia.bal
-File33=correr.png
-File34=correr_1.png
-File35=correr_2.png
-File36=cortar el cesped.png
-File37=cortar el cesped_1.png
-File38=corte de pelo.png
-File39=corte de pelo_1.png
-File4=cepillar los dientes.png
-File40=corte de pelo_2.png
-File41=cumplean_os.png
-File42=cumplean_os_10.png
-File43=cumplean_os_11.png
-File44=cumplean_os_3.png
-File45=cumplean_os_5.png
-File46=cumplean_os_8.png
-File47=desayunar.png
-File48=desayunar_1.png
-File49=desayunar_2.png
-File5=cepillar los dientes_1.png
-File50=desayuno.png
-File51=desnudarse_1.png
-File52=desnudarse_2.png
-File53=desnudarse_3.png
-File54=desnudarse_4.png
-File55=despertar.png
-File56=despertar_1.png
-File57=despertar_2.png
-File58=dibujos animados.png
-File59=discoteca.png
-File6=clase.png
-File60=domicilio.png
-File61=domicilio_1.png
-File62=donut.png
-File63=dormir_1.png
-File64=dormir_2.png
-File65=dormir_3.png
-File66=duchar.png
-File67=duchar_1.png
-File68=duchar_2.png
-File69=engranaje.png
-File7=clase_1.png
-File70=equitacio@n.png
-File71=equitacio@n_1.png
-File72=equitacio@n_2.png
-File73=escuchar mu@sica.png
-File74=esqui@.png
-File75=esqui@_1.png
-File76=estudiar.png
-File77=estudiar_1.png
-File78=excursin.png
-File79=excursio@n_1.png
-File8=clase_2.png
-File80=excursio@n_2.png
-File81=excursionista.png
-File82=fiesta.png
-File83=fiesta_1.png
-File84=fiesta_2.png
-File85=fiesta_3.png
-File86=fotografi@a.png
-File87=fotografiar.png
-File88=fotografiar_1.png
-File89=fregar.png
-File9=clase_3.png
-File90=fregar_1.png
-File91=fregar_2.png
-File92=gimnasia.png
-File93=gimnasia_19.png
-File94=gimnasia_2.png
-File95=gimnasia_21.png
-File96=gimnasio.png
-File97=gimnasio_1.png
-File98=GreatVibes-Regular.ttf
-File99=hacer caca.png
-FileGroup1=Default Group
-FileGroup10=Default Group\Pictogramas
-FileGroup100=Default Group\Pictogramas
-FileGroup101=Default Group\Pictogramas
-FileGroup102=Default Group\Pictogramas
-FileGroup103=Default Group\Pictogramas
-FileGroup104=Default Group\Pictogramas
-FileGroup105=Default Group\Pictogramas
-FileGroup106=Default Group\Pictogramas
-FileGroup107=Default Group\Pictogramas
-FileGroup108=Default Group\Pictogramas
-FileGroup109=Default Group\Pictogramas
-FileGroup11=Default Group\Pictogramas
-FileGroup110=Default Group\Pictogramas
-FileGroup111=Default Group\Pictogramas
-FileGroup112=Default Group\Pictogramas
-FileGroup113=Default Group\Pictogramas
-FileGroup114=Default Group\Pictogramas
-FileGroup115=Default Group\Pictogramas
-FileGroup116=Default Group\Pictogramas
-FileGroup117=Default Group\Pictogramas
-FileGroup118=Default Group\Pictogramas
-FileGroup119=Default Group\Pictogramas
-FileGroup12=Default Group\Pictogramas
-FileGroup120=Default Group\Pictogramas
-FileGroup121=Default Group\Pictogramas
-FileGroup122=Default Group\Pictogramas
-FileGroup123=Default Group\Pictogramas
-FileGroup124=Default Group\Pictogramas
-FileGroup125=Default Group\Pictogramas
-FileGroup126=Default Group\Pictogramas
-FileGroup127=Default Group\Pictogramas
-FileGroup128=Default Group\Pictogramas
-FileGroup129=Default Group\Pictogramas
-FileGroup13=Default Group\Pictogramas
-FileGroup130=Default Group\Pictogramas
-FileGroup131=Default Group\Pictogramas
-FileGroup132=Default Group\Pictogramas
-FileGroup133=Default Group\Pictogramas
-FileGroup134=Default Group\Pictogramas
-FileGroup135=Default Group\Pictogramas
-FileGroup136=Default Group\Pictogramas
-FileGroup137=Default Group\Pictogramas
-FileGroup138=Default Group\Pictogramas
-FileGroup139=Default Group\Pictogramas
-FileGroup14=Default Group\Pictogramas
-FileGroup140=Default Group\Pictogramas
-FileGroup141=Default Group\Pictogramas
-FileGroup142=Default Group
-FileGroup143=Default Group\Pictogramas
-FileGroup144=Default Group\Pictogramas
-FileGroup145=Default Group\Pictogramas
-FileGroup146=Default Group\Pictogramas
-FileGroup147=Default Group\Pictogramas
-FileGroup148=Default Group\Pictogramas
-FileGroup149=Default Group\Pictogramas
-FileGroup15=Default Group\Pictogramas
-FileGroup150=Default Group\Pictogramas
-FileGroup151=Default Group\Pictogramas
-FileGroup152=Default Group\Pictogramas
-FileGroup153=Default Group\Pictogramas
-FileGroup154=Default Group\Pictogramas
-FileGroup155=Default Group\Pictogramas
-FileGroup156=Default Group\Pictogramas
-FileGroup157=Default Group\Pictogramas
-FileGroup158=Default Group\Pictogramas
-FileGroup159=Default Group\Pictogramas
-FileGroup16=Default Group\Pictogramas
-FileGroup160=Default Group\Pictogramas
-FileGroup161=Default Group\Pictogramas
-FileGroup162=Default Group\Pictogramas
-FileGroup163=Default Group\Pictogramas
-FileGroup164=Default Group\Pictogramas
-FileGroup165=Default Group\Pictogramas
-FileGroup166=Default Group\Pictogramas
-FileGroup167=Default Group\Pictogramas
-FileGroup168=Default Group\Pictogramas
-FileGroup169=Default Group\Pictogramas
-FileGroup17=Default Group\Pictogramas
-FileGroup170=Default Group\Pictogramas
-FileGroup171=Default Group\Pictogramas
-FileGroup172=Default Group\Pictogramas
-FileGroup173=Default Group\Pictogramas
-FileGroup174=Default Group\Pictogramas
-FileGroup175=Default Group\Pictogramas
-FileGroup176=Default Group\Pictogramas
-FileGroup177=Default Group\Pictogramas
-FileGroup178=Default Group\Pictogramas
-FileGroup179=Default Group\Pictogramas
-FileGroup18=Default Group\Pictogramas
-FileGroup180=Default Group\Pictogramas
-FileGroup181=Default Group\Pictogramas
-FileGroup182=Default Group\Pictogramas
-FileGroup183=Default Group\Pictogramas
-FileGroup184=Default Group\Pictogramas
-FileGroup185=Default Group\Pictogramas
-FileGroup186=Default Group\Pictogramas
-FileGroup187=Default Group\Pictogramas
-FileGroup188=Default Group
-FileGroup189=Default Group\Pictogramas
-FileGroup19=Default Group\Pictogramas
-FileGroup190=Default Group\Pictogramas
-FileGroup191=Default Group\Pictogramas
-FileGroup192=Default Group\Pictogramas
-FileGroup193=Default Group\Pictogramas
-FileGroup194=Default Group\Pictogramas
-FileGroup195=Default Group\Pictogramas
-FileGroup196=Default Group\Pictogramas
-FileGroup197=Default Group\Pictogramas
-FileGroup198=Default Group\Pictogramas
-FileGroup199=Default Group\Pictogramas
-FileGroup2=Default Group\Pictogramas
-FileGroup20=Default Group\Pictogramas
-FileGroup200=Default Group\Pictogramas
-FileGroup201=Default Group\Pictogramas
-FileGroup202=Default Group\Pictogramas
-FileGroup203=Default Group
-FileGroup204=Default Group\Pictogramas
-FileGroup205=Default Group\Pictogramas
-FileGroup206=Default Group\Pictogramas
-FileGroup207=Default Group\Pictogramas
-FileGroup208=Default Group\Pictogramas
-FileGroup209=Default Group\Pictogramas
-FileGroup21=Default Group\Pictogramas
-FileGroup210=Default Group\Pictogramas
-FileGroup211=Default Group\Pictogramas
-FileGroup212=Default Group\Pictogramas
-FileGroup213=Default Group\Pictogramas
-FileGroup214=Default Group\Pictogramas
-FileGroup215=Default Group\Pictogramas
-FileGroup216=Default Group\Pictogramas
-FileGroup217=Default Group\Pictogramas
-FileGroup218=Default Group\Pictogramas
-FileGroup219=Default Group\Pictogramas
-FileGroup22=Default Group\Pictogramas
-FileGroup220=Default Group\Pictogramas
-FileGroup221=Default Group\Pictogramas
-FileGroup222=Default Group\Pictogramas
-FileGroup223=Default Group\Pictogramas
-FileGroup224=Default Group\Pictogramas
-FileGroup225=Default Group\Pictogramas
-FileGroup226=Default Group\Pictogramas
-FileGroup227=Default Group\Pictogramas
-FileGroup228=Default Group\Pictogramas
-FileGroup229=Default Group\Pictogramas
-FileGroup23=Default Group\Pictogramas
-FileGroup230=Default Group\Pictogramas
-FileGroup231=Default Group
-FileGroup232=Default Group\Pictogramas
-FileGroup233=Default Group\Pictogramas
-FileGroup234=Default Group\Pictogramas
-FileGroup235=Default Group\Pictogramas
-FileGroup236=Default Group\Pictogramas
-FileGroup237=Default Group\Pictogramas
-FileGroup238=Default Group\Pictogramas
-FileGroup239=Default Group\Pictogramas
-FileGroup24=Default Group\Pictogramas
-FileGroup240=Default Group\Pictogramas
-FileGroup241=Default Group\Pictogramas
-FileGroup242=Default Group\Pictogramas
-FileGroup243=Default Group
-FileGroup244=Default Group\Pictogramas
-FileGroup25=Default Group\Pictogramas
-FileGroup26=Default Group\Pictogramas
-FileGroup27=Default Group\Pictogramas
-FileGroup28=Default Group\Pictogramas
-FileGroup29=Default Group\Pictogramas
-FileGroup3=Default Group\Pictogramas
-FileGroup30=Default Group\Pictogramas
-FileGroup31=Default Group\Pictogramas
-FileGroup32=Default Group
-FileGroup33=Default Group\Pictogramas
-FileGroup34=Default Group\Pictogramas
-FileGroup35=Default Group\Pictogramas
-FileGroup36=Default Group\Pictogramas
-FileGroup37=Default Group\Pictogramas
-FileGroup38=Default Group\Pictogramas
-FileGroup39=Default Group\Pictogramas
-FileGroup4=Default Group\Pictogramas
-FileGroup40=Default Group\Pictogramas
-FileGroup41=Default Group\Pictogramas
-FileGroup42=Default Group\Pictogramas
-FileGroup43=Default Group\Pictogramas
-FileGroup44=Default Group\Pictogramas
-FileGroup45=Default Group\Pictogramas
-FileGroup46=Default Group\Pictogramas
-FileGroup47=Default Group\Pictogramas
-FileGroup48=Default Group\Pictogramas
-FileGroup49=Default Group\Pictogramas
-FileGroup5=Default Group\Pictogramas
-FileGroup50=Default Group\Pictogramas
-FileGroup51=Default Group\Pictogramas
-FileGroup52=Default Group\Pictogramas
-FileGroup53=Default Group\Pictogramas
-FileGroup54=Default Group\Pictogramas
-FileGroup55=Default Group\Pictogramas
-FileGroup56=Default Group\Pictogramas
-FileGroup57=Default Group\Pictogramas
-FileGroup58=Default Group\Pictogramas
-FileGroup59=Default Group\Pictogramas
-FileGroup6=Default Group\Pictogramas
-FileGroup60=Default Group\Pictogramas
-FileGroup61=Default Group\Pictogramas
-FileGroup62=Default Group\Pictogramas
-FileGroup63=Default Group\Pictogramas
-FileGroup64=Default Group\Pictogramas
-FileGroup65=Default Group\Pictogramas
-FileGroup66=Default Group\Pictogramas
-FileGroup67=Default Group\Pictogramas
-FileGroup68=Default Group\Pictogramas
-FileGroup69=Default Group
-FileGroup7=Default Group\Pictogramas
-FileGroup70=Default Group\Pictogramas
-FileGroup71=Default Group\Pictogramas
-FileGroup72=Default Group\Pictogramas
-FileGroup73=Default Group\Pictogramas
-FileGroup74=Default Group\Pictogramas
-FileGroup75=Default Group\Pictogramas
-FileGroup76=Default Group\Pictogramas
-FileGroup77=Default Group\Pictogramas
-FileGroup78=Default Group\Pictogramas
-FileGroup79=Default Group\Pictogramas
-FileGroup8=Default Group\Pictogramas
-FileGroup80=Default Group\Pictogramas
-FileGroup81=Default Group\Pictogramas
-FileGroup82=Default Group\Pictogramas
-FileGroup83=Default Group\Pictogramas
-FileGroup84=Default Group\Pictogramas
-FileGroup85=Default Group\Pictogramas
-FileGroup86=Default Group\Pictogramas
-FileGroup87=Default Group\Pictogramas
-FileGroup88=Default Group\Pictogramas
-FileGroup89=Default Group\Pictogramas
-FileGroup9=Default Group\Pictogramas
-FileGroup90=Default Group\Pictogramas
-FileGroup91=Default Group\Pictogramas
-FileGroup92=Default Group\Pictogramas
-FileGroup93=Default Group\Pictogramas
-FileGroup94=Default Group\Pictogramas
-FileGroup95=Default Group\Pictogramas
-FileGroup96=Default Group\Pictogramas
-FileGroup97=Default Group\Pictogramas
-FileGroup98=Default Group
-FileGroup99=Default Group\Pictogramas
+File1=2271.png
+File10=32556.png
+File11=7229.png
+File12=9813.png
+File13=AcercaDe.bal
+File14=buscar.png
+File15=ConfigurarSecuencia.bal
+File16=dia.png
+File17=engranaje.png
+File18=fila.png
+File19=GreatVibes-Regular.ttf
+File2=2369.png
+File20=logotipo.png
+File21=manana.png
+File22=pictogramas.png
+File23=Portada.bal
+File24=SeleccionarPictograma.bal
+File25=tarde.png
+File26=trabajar_en_el_ordenador.png
+File27=VisualizarSecuencia.bal
+File3=26799.png
+File4=2781.png
+File5=28206.png
+File6=28667.png
+File7=28675.png
+File8=3082.png
+File9=31857.png
+FileGroup1=PictogramasPorDefecto
+FileGroup10=PictogramasPorDefecto
+FileGroup11=PictogramasPorDefecto
+FileGroup12=PictogramasPorDefecto
+FileGroup13=Default Group
+FileGroup14=Default Group
+FileGroup15=Default Group
+FileGroup16=Default Group
+FileGroup17=Default Group
+FileGroup18=Default Group
+FileGroup19=Default Group
+FileGroup2=PictogramasPorDefecto
+FileGroup20=Default Group
+FileGroup21=Default Group
+FileGroup22=Default Group
+FileGroup23=Default Group
+FileGroup24=Default Group
+FileGroup25=Default Group
+FileGroup26=Default Group
+FileGroup27=Default Group
+FileGroup3=PictogramasPorDefecto
+FileGroup4=PictogramasPorDefecto
+FileGroup5=PictogramasPorDefecto
+FileGroup6=PictogramasPorDefecto
+FileGroup7=PictogramasPorDefecto
+FileGroup8=PictogramasPorDefecto
+FileGroup9=PictogramasPorDefecto
 Group=Default Group
 IconFile=
 Library1=core
@@ -494,20 +60,24 @@ Library2=phone
 Library3=keyvaluestore2
 Library4=dialogs
 Library5=ime
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~
-Module1=ConfigurarSecuencia
-Module2=Starter
-Module3=Visualizacion
-Module4=AcercaDe
-NumberOfFiles=244
-NumberOfLibraries=5
-NumberOfModules=4
-Version=8
+Library6=json
+Library7=stringutils
+Library8=okhttputils2
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
+Module1=Starter
+Module2=Visualizacion
+Module3=ConfigurarSecuencia
+Module4=SeleccionPictogramas
+Module5=AcercaDe
+NumberOfFiles=27
+NumberOfLibraries=8
+NumberOfModules=5
+Version=8.3
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 5
-	#VersionName: Beta 5
+	#VersionCode: 6
+	#VersionName: Beta 6
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
@@ -539,27 +109,40 @@ Sub Globals
 	Private PanelScroll As ScrollView
 	Private Pictorario As Label
 
-	
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Dim resultado As Int
-	Dim p As PhoneIntents
+	'Dim p As PhoneIntents
 	
 	DibujarPortada
+
+	'Aviso por el cambio en el archivado de Pictogramas desde la Beta5 a la Beta6 (con el tiempo se podrá quitar)
+	If (Starter.DetectadaVersionAntigua==True) Then
+		resultado=Msgbox2( _
+			"Se han hecho cambios en la aplicación que han podido afectar a las secuencias ya creadas."&CRLF&CRLF& _
+			"Se recomienda comenzar con una configuración limpia."&CRLF&CRLF& _
+			"Disculpe las molestias." _
+			,"Actualización de datos","Reestablecer configuración (RECOMENDADO)","","Importar datos anteriores",Null)
+		If resultado==DialogResponse.POSITIVE Then
+			CallSub(Starter,"Inicializar_Con_Ejemplo")
+			CallSub(Starter,"BorrarPictogramas")
+			CallSub(Starter,"Guardar_Configuracion")
+		End If
+	End If
 	
 	'Si se ha actualizado la versión, muestra las novedades y guarda el cambio de versión
 	If (Starter.VersionInstalada<>-1 And Starter.VersionInstalada<>Application.VersionCode) Then
 		Msgbox2("Novedades de la versión "&Application.VersionName&":"&CRLF&CRLF&Starter.CambiosVersion,"APLICACIÓN ACTUALIZADA","Continuar","","",Null)
 		Starter.VersionInstalada=Application.VersionCode
 		CallSub(Starter,"Guardar_Configuracion")
-	Else 'Si no, muestra el aviso estándar, solo en el primer arranque
-		If FirstTime==True Then
-			resultado=Msgbox2("Pictorario es una aplicación en fase de pruebas, y por tanto puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Beta pública de Pictorario","Web del proyecto","","Continuar",Null)
-			If resultado==DialogResponse.POSITIVE Then
-				StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
-			End If
-		End If
+'	Else 'Si no, muestra el aviso estándar, solo en el primer arranque
+'		If FirstTime==True Then
+'			resultado=Msgbox2("Pictorario es una aplicación en fase de pruebas, y por tanto puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Beta pública de Pictorario","Web del proyecto","","Continuar",Null)
+'			If resultado==DialogResponse.POSITIVE Then
+'				StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
+'			End If
+'		End If
 	End If
 End Sub
 
@@ -574,7 +157,7 @@ Sub DibujarPortada
 		PictogramaSecuencia(Act).Initialize("BotonPictograma")
 		PictogramaSecuencia(Act).Tag=Act
 		PictogramaSecuencia(Act).Color=Colors.Transparent
-		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,Starter.Secuencia(Act).pictograma&".png"))
+		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.Secuencia(Act).pictograma&".png"))
 		PanelScroll.Panel.AddView(PictogramaSecuencia(Act),10dip,10dip+90dip*Act,80dip,80dip)
 		
 		EtiquetaSecuencia(Act).Initialize("TextoSecuencia")
@@ -628,7 +211,7 @@ Sub BotonEditar_click
 	
 	BotonPulsado=Sender
 	Starter.SecuenciaActiva=BotonPulsado.Tag
-	Opciones.Initialize2(Array As String("Editar secuencia","Borrar secuencia","CANCELAR"))
+	Opciones.Initialize2(Array As String("Editar secuencia","Borrar secuencia","Duplicar secuencia","CANCELAR"))
 	resultado=InputList(Opciones,"Acción",-1)
 	Select resultado
 		Case 0
@@ -641,6 +224,18 @@ Sub BotonEditar_click
 				Next
 				'Reduce en uno el total, guarda el resultado, y recarga la portada
 				Starter.NumSecuencias=Starter.NumSecuencias-1
+				CallSub(Starter,"Guardar_Configuracion")
+				DibujarPortada
+			End If
+		Case 2
+			If Starter.NumSecuencias==Starter.MaxSecuencias Then
+				Msgbox("No es posible: Se ha alcanzado el máximo de secuencias soportadas por la aplicación.","Error al duplicar secuencia")
+			Else
+				'Creamos una secuencia igual al final, añadiendo "(copia)" a la descripción
+				CallSub3(Starter,"CopiarSecuencias",Starter.SecuenciaActiva,Starter.NumSecuencias)
+				Starter.Secuencia(Starter.NumSecuencias).Descripcion=Starter.Secuencia(Starter.NumSecuencias).Descripcion&" (copia)"
+				'Aumenta en uno el total, guarda el resultado, y recarga la portada
+				Starter.NumSecuencias=Starter.NumSecuencias+1
 				CallSub(Starter,"Guardar_Configuracion")
 				DibujarPortada
 			End If
@@ -669,7 +264,6 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-
 Sub VerSecuencias_Click
 	Starter.SecuenciaActiva=1
 	StartActivity(Visualizacion)
@@ -686,4 +280,11 @@ End Sub
 
 Sub BotonSalir_Click
 	Activity.Finish
+End Sub
+
+
+Sub Activity_KeyPress (KeyCode As Int)
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		Sleep(0) 'No hace nada
+	End If
 End Sub
