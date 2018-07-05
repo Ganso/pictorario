@@ -10,14 +10,9 @@ Version=7.8
 #End Region
 
 Sub Process_Globals
-	'These global variables will be declared once when the application starts.
-	'These variables can be accessed from all modules.
-
 End Sub
 
 Sub Globals
-	'These global variables will be redeclared each time the activity is created.
-	'These variables can only be accessed from this module.
 
 	Private Volver As Button
 	Private Logotipo As ImageView
@@ -84,7 +79,7 @@ End Sub
 
 Sub VerVideo_Click
 	Dim p As PhoneIntents
-	StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=tgmtNNFmMcs"))
+	StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=cjTAGguz5H0"))
 End Sub
 
 Sub ReinciarConfiguracion_Click

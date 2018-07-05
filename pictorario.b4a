@@ -76,8 +76,8 @@ Version=8.3
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 6
-	#VersionName: Beta 6
+	#VersionCode: 7
+	#VersionName: Beta 7
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
@@ -90,13 +90,9 @@ Version=8.3
 #End Region
 
 Sub Process_Globals
-	'These global variables will be declared once when the application starts.
-	'These variables can be accessed from all modules.
 End Sub
 
 Sub Globals
-	'These global variables will be redeclared each time the activity is created.
-	'These variables can only be accessed from this module.
 
 	Dim PictogramaSecuencia(Starter.MaxSecuencias) As Label
 	Dim EditarSecuencia(Starter.MaxSecuencias) As Label
@@ -113,7 +109,6 @@ End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Dim resultado As Int
-	'Dim p As PhoneIntents
 	
 	DibujarPortada
 
@@ -136,13 +131,6 @@ Sub Activity_Create(FirstTime As Boolean)
 		Msgbox2("Novedades de la versión "&Application.VersionName&":"&CRLF&CRLF&Starter.CambiosVersion,"APLICACIÓN ACTUALIZADA","Continuar","","",Null)
 		Starter.VersionInstalada=Application.VersionCode
 		CallSub(Starter,"Guardar_Configuracion")
-'	Else 'Si no, muestra el aviso estándar, solo en el primer arranque
-'		If FirstTime==True Then
-'			resultado=Msgbox2("Pictorario es una aplicación en fase de pruebas, y por tanto puede haber errores y funciones sin desarrollar."&CRLF&CRLF&"Visita la web del proyecto para ver un vídeo de introducción y para saber cómo ponerte en contacto con el autor."&CRLF&CRLF&"Se agradece cualquier aportación."&CRLF&CRLF&"¡Gracias!","Beta pública de Pictorario","Web del proyecto","","Continuar",Null)
-'			If resultado==DialogResponse.POSITIVE Then
-'				StartActivity(p.OpenBrowser("http://blog.ganso.org/proyectos/pictorario"))
-'			End If
-'		End If
 	End If
 End Sub
 
@@ -281,7 +269,6 @@ End Sub
 Sub BotonSalir_Click
 	Activity.Finish
 End Sub
-
 
 Sub Activity_KeyPress (KeyCode As Int)
 	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...

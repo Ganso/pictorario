@@ -183,7 +183,7 @@ Sub DibujasAgujas
 	RectanguloVacio.Initialize(0,0,PanelAgujas.Width,PanelAgujas.Height)
 	PantallaAgujas.DrawRect(RectanguloVacio, Colors.Transparent, True, 0)
 	
-	If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 And HoraActual>=MinHora And HoraActual<MaxHora) Then
+	If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 And HoraActual>=MinHora And HoraActual<=MaxHora) Then
 		If (Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=3 Or Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora==1) Then
 			PantallaAgujas.DrawLine(CentroX,CentroY,HoraMinuto_X(HoraActual,MinutoActual,0.8),HoraMinuto_Y(HoraActual,MinutoActual,0.8),Colors.Red,8dip)
 		Else
@@ -227,14 +227,15 @@ Sub DibujarActividad(NumActividad As Int)
 		
 		'Triángulo de recorte
 		Dim Recorte As Path
+		Dim DistanciaADibujar=2 As Float 'Distancia a la que se dibuja el triángulo de recorte (el doble que el círculo del reloj)
 		Recorte.Initialize(CentroX,CentroY)
-		Recorte.LineTo( HoraMinuto_X(HoraInicio,MinInicio,1.5) , HoraMinuto_Y(HoraInicio,MinInicio,1.5) )
-		Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMitad,1.5), HoraMinuto_Y(HoraMitad,MinutoMitad,1.5))
-		Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,1.5) , HoraMinuto_Y(HoraFin,MinFin,1.5) )
+		Recorte.LineTo( HoraMinuto_X(HoraInicio,MinInicio,DistanciaADibujar) , HoraMinuto_Y(HoraInicio,MinInicio,DistanciaADibujar) )
+		Recorte.LineTo( HoraMinuto_X(HoraMitad,MinutoMitad,DistanciaADibujar), HoraMinuto_Y(HoraMitad,MinutoMitad,DistanciaADibujar))
+		Recorte.LineTo( HoraMinuto_X(HoraFin,MinFin,DistanciaADibujar) , HoraMinuto_Y(HoraFin,MinFin,DistanciaADibujar) )
 		Recorte.LineTo(CentroX,CentroY)
 		'Anota los ángulos iniciales y finales de la actividad para despues identificar toques
-		AnguloInicio(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraInicio,MinInicio,1.5)-CentroY,HoraMinuto_X(HoraInicio,MinInicio,1.5)-CentroX) Mod 360)
-		AnguloFin(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraFin,MinFin,1.5)-CentroY,HoraMinuto_X(HoraFin,MinFin,1.5)-CentroX) Mod 360)
+		AnguloInicio(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraInicio,MinInicio,DistanciaADibujar)-CentroY,HoraMinuto_X(HoraInicio,MinInicio,DistanciaADibujar)-CentroX) Mod 360)
+		AnguloFin(NumActividad)=NormalizarAngulo(ATan2D(HoraMinuto_Y(HoraFin,MinFin,DistanciaADibujar)-CentroY,HoraMinuto_X(HoraFin,MinFin,DistanciaADibujar)-CentroX) Mod 360)
 		If AnguloFin(NumActividad)=0 Then
 			AnguloFin(NumActividad)=360
 		End If
@@ -321,7 +322,9 @@ Sub HoraMinuto_Y(Hora As Float,Minuto As Float,Distancia As Float) As Float
 End Sub
 
 Sub Hora24a12 (Hora24 As Int) As Int
-	If (Hora24>11) Then
+	If (Hora24==0 Or Hora24==12) Then
+		Return 12
+	Else If (Hora24>11) Then
 		Return Hora24-12
 	Else
 		Return Hora24
@@ -362,7 +365,7 @@ End Sub
 Sub CambiarVista_Click
 	Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
 	Activity.RemoveAllViews
-	MsgboxAsync("Cambiado tipo de tablero.",Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
+	MsgboxAsync("Tipo de tablero: "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
 	Activity.Invalidate
 	Activity.LoadLayout("VisualizarSecuencia")
 	DibujarTablero
@@ -375,7 +378,7 @@ End Sub
 Sub Temporizador_Tick
 	DibujasAgujas
 	If Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 Then
-		RelojDigital.Text=NumberFormat(HoraActual,2,0)&":"&NumberFormat(MinutoActual,2,0)
+		RelojDigital.Text=NumberFormat(Hora24a12(HoraActual),2,0)&":"&NumberFormat(MinutoActual,2,0)
 	End If
 	Activity.Invalidate
 End Sub

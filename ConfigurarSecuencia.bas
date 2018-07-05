@@ -45,11 +45,6 @@ Sub Globals
 	
 	Dim Inicializando As Boolean
 	
-	''' LISTA DE PICTOGRAMAS
-
-'	Dim ListaPictogramas As ListView
-'	Dim ListaPictogramasVisible As Boolean
-	
 	Dim PictogramaEditado As Int
 		'-1 si editando el de la secuencia
 		'>=0 si editando el de una actividad
@@ -78,7 +73,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	End If
 	
 	DibujarConfigurarSecuencia
-	'Inicializar_Lista_Pictogramas
 
 End Sub
 	
@@ -474,47 +468,6 @@ Sub ConfigHoraFinalAct_Click
 		End If
 	End If
 End Sub
-
-'Sub Inicializar_Lista_Pictogramas
-'	Dim fileList As List
-'	Dim file1 As String
-'	Dim file2 As String
-'	Dim n As Int
-'
-'	If ListaPictogramas.IsInitialized=False Then
-'
-'		ProgressDialogShow("Inicializando lista de pictogramas")
-'
-'		ListaPictogramas.Initialize("ListaPictogramas")
-'		ListaPictogramas.Color=Colors.LightGray
-'		ListaPictogramas.TwoLinesAndBitmap.Label.TextColor=Colors.Black
-'		ListaPictogramas.TwoLinesAndBitmap.SecondLabel.Visible=False
-'		ListaPictogramas.TwoLinesAndBitmap.ImageView.Width=50dip
-'		ListaPictogramas.TwoLinesAndBitmap.ImageView.Height=50dip
-'		ListaPictogramas.Padding=Array As Int(5dip,5dip,5dip,5dip)
-'		ListaPictogramas.FastScrollEnabled = True
-'
-'		fileList = File.ListFiles(File.DirAssets)
-'		fileList.Sort(True)
-'
-'		For n = 0 To fileList.Size-1
-'			Sleep(0)
-'			file1 = fileList.Get(n)
-'			If file1.Contains(".png") Then
-'				file2=file1.Replace(".png","")
-'				Dim Bitmap1 As Bitmap
-'				Bitmap1.InitializeSample(File.DirAssets, file1, 50dip, 50dip)
-'				ListaPictogramas.AddTwoLinesAndBitmap(file2,"",Bitmap1)
-'			End If
-'		Next
-'		ListaPictogramasVisible=False
-'		
-'		ProgressDialogHide
-'
-'	End If
-'	
-'
-'End Sub
 
 Sub ConfigDescripcionAct_FocusChanged (TieneFoco As Boolean)
 	Dim BotonPulsado As EditText

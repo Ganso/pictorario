@@ -13,16 +13,9 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Cambiado completamente el sistema de selección y almacenamiento de pictogramas."&CRLF&CRLF& _
-	"- Debido a este cambio, los pictogramas no se importan correctamente de la versión anterior (¡disculpas!)."&CRLF&CRLF& _
-	"- Se añade un reloj digital en la parte de arriba."&CRLF&CRLF& _
-	"- Se señala inicialmente la actividad que corresponde a la hora actual."&CRLF&CRLF& _
-	"- Se pueden duplicar actividades."&CRLF&CRLF& _
-	"- Las secuencias de ejemplo son ahora tres, de diversos tipos."&CRLF&CRLF& _
-	"- Desde la pantalla de Acerca De se puede reinciar la configuración o lanzar el vídeo de ejemplo."&CRLF&CRLF& _
-	"- Se elimina el aviso de versión beta al inicio."&CRLF&CRLF& _
-	"- Inhabilitada la tecla de volver atrás en todas las pantallas, ya que daba lugar a problemas."&CRLF&CRLF& _
-	"- Más mejoras visuales (transparencias en la visualización de iconos, pictograma para tipo de secuencia) y correcciones de bugs."
+	"- Actualizada la dirección del vídeo de ejemplo."&CRLF&CRLF& _
+	"- Limpieza del código fuente y del repositorio de GitHub."&CRLF&CRLF& _
+	"- Ligeros ajustes en la visualización de horas y en el dibujo de sectores para las actividades."
 
 	Dim kvs As KeyValueStore
 
@@ -73,14 +66,17 @@ Sub Process_Globals
 
 	''' VALORES POR DEFECTo
 	
-	Dim IdPictogramaPorDefecto="7229" As Int 'Reloj
-	Dim DirPictogramas As String
+	Dim IdPictogramaPorDefecto As Int 'Imagen por defecto para nuevas secuencias
+	Dim DirPictogramas As String 'Directorio de trabajo
+	Dim PictogramasIniciales(12) As Int 'Listado de pictogramas a precargar en la primera ejecución
 
 End Sub
 
 Sub Service_Create
 	NumSecuencias=0
 	DirPictogramas=File.Combine(File.DirInternal,"/pictogramas")
+	IdPictogramaPorDefecto="7229" 'El pictograma por defecto es el reloj
+	PictogramasIniciales = Array As Int (31857,2781,28667,3082,28206,9813,2271,28675,2369,7229,26799,32556)
 	kvs.Initialize(File.DirInternal, "configuracion")
 	
 	Cargar_Configuracion
@@ -327,10 +323,8 @@ Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
 End Sub
 
 Sub CopiarPictogramasIniciales 'Copia los pictogramas necesarios para ejecutar la actividad de ejemplo
-	Dim i,PictogramasIniciales(12) As Int
+	Dim i As Int
 	Dim NombreFich As String
-
-	PictogramasIniciales = Array As Int (31857,2781,28667,3082,28206,9813,2271,28675,2369,7229,26799,32556)
 	
 	'Comprueba que exista el directorio de pictogramas
 	If File.IsDirectory(File.DirInternal, "pictogramas") == False Then
