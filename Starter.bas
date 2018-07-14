@@ -4,6 +4,9 @@ ModulesStructureVersion=1
 Type=Service
 Version=7.8
 @EndOfDesignText@
+' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
+
 #Region  Service Attributes 
 	#StartAtBoot: False
 	#ExcludeFromLibrary: True

@@ -74,6 +74,9 @@ NumberOfLibraries=8
 NumberOfModules=5
 Version=8.3
 @EndOfDesignText@
+' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
+
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
 	#VersionCode: 7
@@ -82,7 +85,7 @@ Version=8.3
 	#CanInstallToExternalStorage: False
 #End Region
 
-'IMPORTANTE: Al actualizar de versión, inidicar siempre los cambios en Starter.CambiosVersion
+'IMPORTANTE: Al actualizar de versión, indicar siempre los cambios en Starter.CambiosVersion
 
 #Region  Activity Attributes 
 	#FullScreen: True
@@ -250,11 +253,6 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
-End Sub
-
-Sub VerSecuencias_Click
-	Starter.SecuenciaActiva=1
-	StartActivity(Visualizacion)
 End Sub
 
 Sub BotonAcercaDe_Click
