@@ -1,4 +1,4 @@
-# pictorario
+# Pictorario
 
 Aplicación móvil de horario con pictogramas, disponible en Google Play: https://play.google.com/store/apps/details?id=javi.prieto.pictorario.
 
