@@ -16,9 +16,10 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Actualizada la dirección del vídeo de ejemplo."&CRLF&CRLF& _
-	"- Limpieza del código fuente y del repositorio de GitHub."&CRLF&CRLF& _
-	"- Ligeros ajustes en la visualización de horas y en el dibujo de sectores para las actividades."
+	"- Soporte de ALERTAS y NOTIFICACIONES."&CRLF&"Para activarlo, utilizar la nueva opción ""Activar alarmas"" dentro de la configuración de secuencias."&CRLF&CRLF& _
+	"- La aplicación ya no está en fase beta."&CRLF&CRLF& _
+	"- La hora en el reloj digital se indica con más claridad."&CRLF&CRLF& _
+	"- Optimizaciones, mejoras en la estabilidad y en la gestión de horas en las actividades."
 
 	Dim kvs As KeyValueStore
 
@@ -37,7 +38,12 @@ Sub Process_Globals
 	' Indicar Hora 3: Hora, minuto y segundos
 	' Tamaño de icono: Porcentaje del ancho de pantalla que ocupa el icono (valor medio, 10)
 	
-	Type Secuencia ( Descripcion As String, tablero As Tablero, pictograma As String, num_actividades As Int )
+	Type Secuencia ( Descripcion As String, tablero As Tablero, pictograma As String, num_actividades As Int, notificaciones As Boolean )
+	
+	''' ACTIVIDAD CORRESPONDIENTE A LA PRÓXIMA ALARMA
+	
+	Dim ProximaAlarmaSeq As Int
+	Dim ProximaAlarmaAct As Int
 	
 	''' VALORES MÁXIMOS
 	
@@ -87,6 +93,7 @@ Sub Service_Create
 End Sub
 
 Sub Guardar_Configuracion
+	CalcularProximaAlarma
 	Dim i,j As Int
 	kvs.Put("NumSecuencias", NumSecuencias)
 	For i=0 To NumSecuencias-1
@@ -122,6 +129,7 @@ Sub Cargar_Configuracion
 		Next
 	End If
 	VersionInstalada=kvs.GetDefault("VersionInstalada",-1)
+	CalcularProximaAlarma
 End Sub
 
 Sub Inicializar_Con_Ejemplo
@@ -136,7 +144,8 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(0).tablero.indicar_hora=1
 	Secuencia(0).tablero.tam_icono=14
 	Secuencia(0).pictograma=26799
-	Secuencia(0).descripcion="Ejemplo de día completo"
+	Secuencia(0).notificaciones=False
+	Secuencia(0).descripcion="Día lectivo completo"
 	
 	ActividadSecuencia(0,0).hora_inicio=8
 	ActividadSecuencia(0,0).minuto_inicio=0
@@ -209,6 +218,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(1).tablero.indicar_hora=3
 	Secuencia(1).tablero.tam_icono=17
 	Secuencia(1).pictograma=9813
+	Secuencia(1).notificaciones=False
 	Secuencia(1).descripcion="Tarde después del cole"
 	
 	ActividadSecuencia(1,0).hora_inicio=15
@@ -261,6 +271,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(2).tablero.indicar_hora=0
 	Secuencia(2).tablero.tam_icono=17
 	Secuencia(2).pictograma=3082
+	Secuencia(2).notificaciones=False
 	Secuencia(2).descripcion="Antes de ir al cole"
 	
 	ActividadSecuencia(2,0).hora_inicio=8
@@ -294,7 +305,7 @@ Sub Inicializar_Con_Ejemplo
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
-
+	CancelScheduledService(Avisos)
 End Sub
 
 Sub Service_TaskRemoved
@@ -320,6 +331,7 @@ Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
 	Secuencia(Seq2).tablero.tipo=Secuencia(Seq1).tablero.tipo
 	Secuencia(Seq2).tablero.tam_icono=Secuencia(Seq1).tablero.tam_icono
 	Secuencia(Seq2).tablero.indicar_hora=Secuencia(Seq1).tablero.indicar_hora
+	Secuencia(Seq2).notificaciones=Secuencia(Seq1).notificaciones
 	For i=0 To Secuencia(Seq1).num_actividades-1
 		ActividadSecuencia(Seq2,i)=ActividadSecuencia(Seq1,i)
 	Next
@@ -357,4 +369,76 @@ Sub BorrarPictogramas 'Borra todos los pictogramas descargados
 	
 	'Vuelve a copiar los iniciales
 	CopiarPictogramasIniciales
+End Sub
+
+Sub CalcularProximaAlarma
+	'Log( DateTime.Time(DateTime.Now) & ": Inicio de CalcularProximaAlarma")
+	
+	Dim i,j As Int
+	Dim Hora=25*60 As Int
+	Dim Minuto=0 As Int
+	Dim HoraAct,MinutoAct As Int
+	Dim n As Notification
+		
+	ProximaAlarmaAct=-1
+	ProximaAlarmaSeq=-1
+	
+	For i=0 To NumSecuencias-1
+		If Secuencia(i).notificaciones==True Then
+			For j=0 To Secuencia(i).num_actividades-1
+				HoraAct=ActividadSecuencia(i,j).hora_inicio
+				MinutoAct=ActividadSecuencia(i,j).minuto_inicio
+				' Si es anterior a la actual, se suma un día
+				If (HoraAct*60+MinutoAct)<=( DateTime.GetHour(DateTime.Now)*60+DateTime.GetMinute(DateTime.Now)) Then
+					HoraAct=HoraAct+24
+				End If
+					If (HoraAct*60+MinutoAct < Hora*60+Minuto) Then
+						ProximaAlarmaSeq=i
+						ProximaAlarmaAct=j
+						Hora=HoraAct
+						Minuto=MinutoAct
+				End If
+			Next
+		End If
+	Next
+	
+	CancelScheduledService(Avisos)
+	n.Cancel(1)
+		
+	If ProximaAlarmaSeq>=0 Then
+		'Se ha encontrado una alarma
+		Dim EsManana=False As Boolean
+		If Hora>=24 Then
+			EsManana=True
+			Hora=Hora-24
+		End If
+
+		Dim TextoManana="" As String
+		Dim HoraEjecucion=DateUtils.SetDateAndTime(DateTime.GetYear(DateTime.Now), DateTime.GetMonth(DateTime.Now),DateTime.GetDayOfMonth(DateTime.Now),Hora,Minuto,0) As Long
+		If EsManana==True Then
+			Dim p As Period
+			p.Days = 1
+			HoraEjecucion = DateUtils.AddPeriod(HoraEjecucion, p)
+			TextoManana=" (mañana)"
+		End If
+		
+		n.Initialize2(n.IMPORTANCE_LOW)
+		n.OnGoingEvent = False
+		n.Sound = False
+		n.Vibrate = False
+		n.Light = True
+		n.Icon = "iconw"
+		n.SetInfo("Próxima actividad en Pictorario" ,Hora&":"&NumberFormat(Minuto,2,0)&TextoManana&": "&Secuencia(ProximaAlarmaSeq).Descripcion&" ➞ "&ActividadSecuencia(ProximaAlarmaSeq,ProximaAlarmaAct).Descripcion, Main)
+		n.Notify(1)
+
+		'Service.AutomaticForegroundNotification=n
+		'Service.AutomaticForegroundMode = Service.AUTOMATIC_FOREGROUND_ALWAYS
+		
+		StartServiceAtExact(Avisos,HoraEjecucion,True)
+		'Log("Preparando activación automática en: "&DateUtils.TicksToString(HoraEjecucion))
+		
+	End If
+
+	'Log( DateTime.Time(DateTime.Now) & ": Fin de CalcularProximaAlarma")
+	
 End Sub

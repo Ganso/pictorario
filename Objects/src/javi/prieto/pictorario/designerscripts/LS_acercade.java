@@ -98,14 +98,14 @@ views.get("parateo").vw.setHeight((int)((views.get("vervideo").vw.getTop())-(vie
 views.get("parateo").vw.setLeft((int)(0d));
 //BA.debugLineNum = 46;BA.debugLine="ParaTeo.Width=100%X"[AcercaDe/General script]
 views.get("parateo").vw.setWidth((int)((100d / 100 * width)));
-//BA.debugLineNum = 47;BA.debugLine="Versión.Top=0"[AcercaDe/General script]
-views.get("versión").vw.setTop((int)(0d));
-//BA.debugLineNum = 48;BA.debugLine="Versión.Width=80dip"[AcercaDe/General script]
-views.get("versión").vw.setWidth((int)((80d * scale)));
-//BA.debugLineNum = 49;BA.debugLine="Versión.Height=40dip"[AcercaDe/General script]
-views.get("versión").vw.setHeight((int)((40d * scale)));
-//BA.debugLineNum = 50;BA.debugLine="Versión.Left=100%X-Versión.Width"[AcercaDe/General script]
-views.get("versión").vw.setLeft((int)((100d / 100 * width)-(views.get("versión").vw.getWidth())));
+//BA.debugLineNum = 47;BA.debugLine="VersionApp.Top=0"[AcercaDe/General script]
+views.get("versionapp").vw.setTop((int)(0d));
+//BA.debugLineNum = 48;BA.debugLine="VersionApp.Width=80dip"[AcercaDe/General script]
+views.get("versionapp").vw.setWidth((int)((80d * scale)));
+//BA.debugLineNum = 49;BA.debugLine="VersionApp.Height=40dip"[AcercaDe/General script]
+views.get("versionapp").vw.setHeight((int)((40d * scale)));
+//BA.debugLineNum = 50;BA.debugLine="VersionApp.Left=100%X-VersionApp.Width"[AcercaDe/General script]
+views.get("versionapp").vw.setLeft((int)((100d / 100 * width)-(views.get("versionapp").vw.getWidth())));
 
 }
 }

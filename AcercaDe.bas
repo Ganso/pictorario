@@ -16,7 +16,6 @@ Sub Process_Globals
 End Sub
 
 Sub Globals
-
 	Private Volver As Button
 	Private Logotipo As ImageView
 	Private Pictogramas As ImageView
@@ -25,7 +24,7 @@ Sub Globals
 	Private TextoArasaac As WebView
 	Private TextoAutor As WebView
 	Private ParaTeo As Label
-	Private Versión As Label
+	Private VersionApp As Label
 	Private ReinciarConfiguracion As Button
 	Private VerVideo As Button
 End Sub
@@ -48,7 +47,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	ParaTeo.Typeface=Typeface.LoadFromAssets("GreatVibes-Regular.ttf")
 	
-	Versión.Text=Application.VersionName
+	VersionApp.Text=Application.VersionName
 	
 End Sub
 
@@ -82,7 +81,8 @@ End Sub
 
 Sub VerVideo_Click
 	Dim p As PhoneIntents
-	StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=cjTAGguz5H0"))
+	'StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=cjTAGguz5H0"))
+	StartActivity(p.OpenBrowser("http://Bit.ly/VideoPictorario"))
 End Sub
 
 Sub ReinciarConfiguracion_Click
@@ -93,6 +93,10 @@ Sub ReinciarConfiguracion_Click
 		CallSub(Starter,"Guardar_Configuracion")
 		Activity.Finish
 	End If
+End Sub
+
+Sub VersionApp_Click
+	Msgbox2("Novedades de la versión:"&CRLF&CRLF&Starter.CambiosVersion,"Versión "&Application.VersionName,"Continuar","","",Null)
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) 

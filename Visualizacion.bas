@@ -290,7 +290,7 @@ Sub DibujarBoton(NumActividad As Int)
 		'Si la actividad transcurre en la hora actual, la activa
 		HoraActual=DateTime.GetHour(DateTime.Now)
 		MinutoActual=DateTime.GetMinute(DateTime.Now)
-		If (  HoraActual*60+MinutoActual>HoraInicio*60+MinInicio And HoraActual*60+MinutoActual<HoraFin*60+MinFin) Then
+		If (  HoraActual*60+MinutoActual>=HoraInicio*60+MinInicio And HoraActual*60+MinutoActual<HoraFin*60+MinFin) Then
 			ActivarBoton(NumActividad)
 		End If
 		
@@ -368,7 +368,8 @@ End Sub
 Sub CambiarVista_Click
 	Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
 	Activity.RemoveAllViews
-	MsgboxAsync("Tipo de tablero: "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
+	'MsgboxAsync("Tipo de tablero: "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
+	ToastMessageShow("Cambiado tipo de tablero a "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),True)
 	Activity.Invalidate
 	Activity.LoadLayout("VisualizarSecuencia")
 	DibujarTablero
@@ -382,6 +383,15 @@ Sub Temporizador_Tick
 	DibujasAgujas
 	If Starter.Secuencia(Starter.SecuenciaActiva).tablero.indicar_hora>0 Then
 		RelojDigital.Text=NumberFormat(Hora24a12(HoraActual),2,0)&":"&NumberFormat(MinutoActual,2,0)
+		If HoraActual=0 Then
+			RelojDigital.Text=RelojDigital.Text&" de la noche"
+		Else If HoraActual==12 Then
+			RelojDigital.Text=RelojDigital.Text&" del mediodía"
+		Else If (HoraActual>12) Then
+			RelojDigital.Text=RelojDigital.Text&" p.m."
+		Else
+			RelojDigital.Text=RelojDigital.Text&" a.m."
+		End If
 	End If
 	Activity.Invalidate
 End Sub
@@ -415,6 +425,37 @@ Sub ActivarBoton(i As Int)
 	DescripcionPictograma.Text="De "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_inicio)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_inicio)&" a "&Hora24a12(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).hora_fin)&MinutoLegible(Starter.ActividadSecuencia(Starter.SecuenciaActiva,i).minuto_fin)
 	FondoPictograma.Color=Starter.Colores(i)
 	Boton(i).BringToFront()
+End Sub
+
+Sub AvisoActividad
+	'Log( DateTime.Time(DateTime.Now) & ": Iniciando aviso de actividad")
+	
+	Dim Vibracion As PhoneVibrate
+	Vibracion.Vibrate(1000)
+	Dim Sonido As RingtoneManager
+	Sonido.Play(Sonido.GetDefault(Sonido.TYPE_NOTIFICATION))
+	
+	Dim Texto=Starter.Secuencia(Starter.ProximaAlarmaSeq).Descripcion&" ➞ "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Descripcion As String
+	
+	Dim n As Notification
+	n.Initialize2(n.IMPORTANCE_HIGH)
+	n.OnGoingEvent = False
+	n.Sound = True
+	n.Vibrate = True
+	n.Light = True
+	n.Insistent = True
+	n.AutoCancel = True
+	n.Icon = "iconw"
+	n.SetInfo("AVISO DE INICIO DE ACTIVIDAD" ,Texto, "")
+	n.Notify(2)
+	Msgbox2(Texto,"Aviso de inicio de actividad","Aceptar","","",LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).pictograma&".png"))
+	'Wait For Msgbox_Result (Resultado As Int)
+	n.Cancel(2)
+	
+	'Log( DateTime.Time(DateTime.Now) & ": Llamando a CalcularProximaAlarma")
+	CallSub(Starter,"CalcularProximaAlarma")
+	'Log( DateTime.Time(DateTime.Now) & ": Fin de aviso de actividad")
+	
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int)

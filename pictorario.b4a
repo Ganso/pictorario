@@ -63,27 +63,32 @@ Library5=ime
 Library6=json
 Library7=stringutils
 Library8=okhttputils2
+Library9=dateutils
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
-Module1=Starter
-Module2=Visualizacion
-Module3=ConfigurarSecuencia
-Module4=SeleccionPictogramas
-Module5=AcercaDe
+Module1=Visualizacion
+Module2=ConfigurarSecuencia
+Module3=SeleccionPictogramas
+Module4=AcercaDe
+Module5=ArranqueAutomatico
+Module6=Avisos
+Module7=Starter
 NumberOfFiles=27
-NumberOfLibraries=8
-NumberOfModules=5
-Version=8.3
+NumberOfLibraries=9
+NumberOfModules=7
+Version=8.5
 @EndOfDesignText@
 ' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
 
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 7
-	#VersionName: Beta 7
+	#VersionCode: 100
+	#VersionName: 1.00
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
+
+'#BridgeLogger: True
 
 'IMPORTANTE: Al actualizar de versión, indicar siempre los cambios en Starter.CambiosVersion
 
@@ -100,6 +105,9 @@ Sub Globals
 	Dim PictogramaSecuencia(Starter.MaxSecuencias) As Label
 	Dim EditarSecuencia(Starter.MaxSecuencias) As Label
 	Dim EtiquetaSecuencia(Starter.MaxActividades) As Label
+	
+	Dim ProximaAlarma As Label
+	Dim ProximaAlarmaPict As Label
 	
 	Dim BotonAcercaDe As Button
 	Dim BotonCrear As Button
@@ -166,12 +174,34 @@ Sub DibujarPortada
 
 	Next
 
+	If Starter.ProximaAlarmaSeq>=0 Then 'Si hay una próxima alarma definida
+		ProximaAlarmaPict.Initialize("ProximaAlarmaPict")
+		ProximaAlarmaPict.SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Pictograma&".png"))
+		PanelScroll.Panel.AddView(ProximaAlarmaPict,100%X-80dip,90dip*Starter.NumSecuencias,60dip,60dip)
+		
+		ProximaAlarma.Initialize("ProximaAlarma")
+		Dim TextoManana="" As String
+		If (Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio*60+Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio) < (DateTime.GetHour(DateTime.Now)*60+DateTime.GetMinute(DateTime.Now)) Then
+			TextoManana="mañana "
+		End If
+		ProximaAlarma.Text="Próxima alarma "&TextoManana&"a las "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio&":"&NumberFormat(Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio,2,0)&CRLF&Starter.Secuencia(Starter.ProximaAlarmaSeq).Descripcion&" ➞ "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Descripcion
+		ProximaAlarma.TextColor=Colors.Black
+		ProximaAlarma.TextSize=16
+		ProximaAlarma.Typeface=Typeface.CreateNew(Typeface.DEFAULT, Typeface.STYLE_ITALIC)
+		ProximaAlarma.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.RIGHT)
+		PanelScroll.Panel.AddView(ProximaAlarma,10dip,ProximaAlarmaPict.Top,100%X-100dip,80dip)
+	End If
+
 	BotonCrear.Initialize("BotonCrear")
 	BotonCrear.Text="Crear Secuencia"
 	BotonCrear.TextSize=20
 	BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 	BotonCrear.TextColor=Colors.Black
-	PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-10dip,60dip)
+	If Starter.ProximaAlarmaSeq>=0 Then
+		PanelScroll.Panel.AddView(BotonCrear,5dip,ProximaAlarma.Top+ProximaAlarma.Height+10dip,100%X-10dip,60dip)
+	Else
+		PanelScroll.Panel.AddView(BotonCrear,5dip,90dip*Starter.NumSecuencias,100%X-10dip,60dip)
+	End If
 	
 	If Starter.NumSecuencias==Starter.MaxSecuencias Then
 		BotonCrear.Enabled=False 'Si llegamos al máximo de secuencias, no podemos crear más
@@ -266,6 +296,16 @@ End Sub
 
 Sub BotonSalir_Click
 	Activity.Finish
+End Sub
+
+Sub ProximaAlarma_Click
+	Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq
+	StartActivity(ConfigurarSecuencia)
+End Sub
+
+Sub ProximaAlarmaPict_Click
+	Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq
+	StartActivity(ConfigurarSecuencia)
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int)
