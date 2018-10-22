@@ -1,6 +1,7 @@
-# pictorario
+# Pictorario
 
-Aplicación móvil de horario con pictogramas
+Aplicación móvil de horario con pictogramas, disponible en Google Play: https://play.google.com/store/apps/details?id=javi.prieto.pictorario.
+
 Pictorario es una aplicación móvil para crear y visualizar horarios con pictogramas, especialmente diseñada para facilitar la gestión de su agenda a niños con Trastorno del Espectro Autista, pero también para todos los niños en general que puedan requerir un apoyo gráfico para visualizar fácilmente sus tareas.
 
 Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja.
