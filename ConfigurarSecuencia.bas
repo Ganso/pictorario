@@ -330,6 +330,9 @@ Sub ConfigNotificaciones_Click
 	Dim Casilla As CheckBox
 	Casilla=Sender
 	Starter.Secuencia(Starter.MaxSecuencias).notificaciones=Casilla.Checked
+	If Casilla.Checked==True And Starter.AlarmasActivadas==False Then
+		ToastMessageShow("Para que se lance la notificación a la hora indicada es necesario activar las alarmas en la configuración.",True)
+	End If
 End Sub
 
 Sub ConfigIndicarHora_Click
@@ -414,13 +417,50 @@ Sub ConfigOpcionesAct_Click
 	resultado=InputList(Opciones,"Acción",-1)
 
 	If resultado=0 Then
-		For nAct=Act To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-2
+		For nAct=Act To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-1
 			'CallSub3(Starter,"IntercambiarActividades",Starter.MaxSecuencias,nAct,nAct+1)
-			Starter.ActividadSecuencia(Starter.MaxSecuencias,nAct)=Starter.ActividadSecuencia(Starter.MaxSecuencias,nAct+1)
+			'Starter.ActividadSecuencia(Starter.MaxSecuencias,nAct)=Starter.ActividadSecuencia(Starter.MaxSecuencias,nAct+1)
+			CopiarActividad(Starter.MaxSecuencias,nAct+1,Starter.MaxSecuencias,nAct)
 		Next
 		Starter.Secuencia(Starter.MaxSecuencias).num_actividades=Starter.Secuencia(Starter.MaxSecuencias).num_actividades-1
 	End If
 	DibujarConfigurarSecuencia
+End Sub
+
+Sub CopiarActividad(Seq1 As Int, Act1 As Int, Seq2 As Int, Act2 As Int)
+	'Copia la actividad Seq1:Act1 sobre Seq2:Act2
+	Starter.ActividadSecuencia(Seq2,Act2).Descripcion=Starter.ActividadSecuencia(Seq1,Act1).Descripcion
+	Starter.ActividadSecuencia(Seq2,Act2).hora_fin=Starter.ActividadSecuencia(Seq1,Act1).hora_fin
+	Starter.ActividadSecuencia(Seq2,Act2).hora_inicio=Starter.ActividadSecuencia(Seq1,Act1).hora_inicio
+	Starter.ActividadSecuencia(Seq2,Act2).minuto_fin=Starter.ActividadSecuencia(Seq1,Act1).minuto_fin
+	Starter.ActividadSecuencia(Seq2,Act2).minuto_inicio=Starter.ActividadSecuencia(Seq1,Act1).minuto_inicio
+	Starter.ActividadSecuencia(Seq2,Act2).Pictograma=Starter.ActividadSecuencia(Seq1,Act1).Pictograma
+End Sub
+
+Sub IntercambiarActividades(Seq1 As Int,Act1 As Int,Seq2 As Int,Act2 As Int)
+	Dim hora_inicio,minuto_inicio,hora_fin,minuto_fin As Int
+	Dim Descripcion,Pictograma As String
+	
+	Descripcion=Starter.ActividadSecuencia(Seq1,Act1).Descripcion
+	hora_fin=Starter.ActividadSecuencia(Seq1,Act1).hora_fin
+	hora_inicio=Starter.ActividadSecuencia(Seq1,Act1).hora_inicio
+	minuto_fin=Starter.ActividadSecuencia(Seq1,Act1).minuto_fin
+	minuto_inicio=Starter.ActividadSecuencia(Seq1,Act1).minuto_inicio
+	Pictograma=Starter.ActividadSecuencia(Seq1,Act1).Pictograma
+
+	Starter.ActividadSecuencia(Seq1,Act1).Descripcion=Starter.ActividadSecuencia(Seq2,Act2).Descripcion
+	Starter.ActividadSecuencia(Seq1,Act1).hora_fin=Starter.ActividadSecuencia(Seq2,Act2).hora_fin
+	Starter.ActividadSecuencia(Seq1,Act1).hora_inicio=Starter.ActividadSecuencia(Seq2,Act2).hora_inicio
+	Starter.ActividadSecuencia(Seq1,Act1).minuto_fin=Starter.ActividadSecuencia(Seq2,Act2).minuto_fin
+	Starter.ActividadSecuencia(Seq1,Act1).minuto_inicio=Starter.ActividadSecuencia(Seq2,Act2).minuto_inicio
+	Starter.ActividadSecuencia(Seq1,Act1).Pictograma=Starter.ActividadSecuencia(Seq2,Act2).Pictograma
+	
+	Starter.ActividadSecuencia(Seq2,Act2).Descripcion=Descripcion
+	Starter.ActividadSecuencia(Seq2,Act2).hora_fin=hora_fin
+	Starter.ActividadSecuencia(Seq2,Act2).hora_inicio=hora_inicio
+	Starter.ActividadSecuencia(Seq2,Act2).minuto_fin=minuto_fin
+	Starter.ActividadSecuencia(Seq2,Act2).minuto_inicio=minuto_inicio
+	Starter.ActividadSecuencia(Seq2,Act2).Pictograma=Pictograma
 End Sub
 
 Sub ConfigHoraInicioAct_Click
@@ -459,7 +499,6 @@ End Sub
 
 Sub OrdenarActividades As Boolean
 	Dim i,j As Int
-	Dim ActInt As Actividad
 	Dim IntercambioRealizado As Boolean
 	
 	IntercambioRealizado=False
@@ -468,9 +507,11 @@ Sub OrdenarActividades As Boolean
 	For i=1 To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-1
 		For j=0 To Starter.Secuencia(Starter.MaxSecuencias).num_actividades-2
 			If ComparaHoras( Starter.ActividadSecuencia(Starter.MaxSecuencias,j).hora_inicio, Starter.ActividadSecuencia(Starter.MaxSecuencias,j).minuto_inicio, Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).hora_inicio, Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1).minuto_inicio ) > 0 Then
-				ActInt=Starter.ActividadSecuencia(Starter.MaxSecuencias,j)
-				Starter.ActividadSecuencia(Starter.MaxSecuencias,j)=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)
-				Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)=ActInt
+				IntercambiarActividades(Starter.MaxSecuencias,j,Starter.MaxSecuencias,j+1)
+				'ActInt=Starter.ActividadSecuencia(Starter.MaxSecuencias,j)
+				'Starter.ActividadSecuencia(Starter.MaxSecuencias,j)=Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)
+				'CopiarActividad(Starter.MaxSecuencias,j+1,Starter.MaxSecuencias,j)
+				'Starter.ActividadSecuencia(Starter.MaxSecuencias,j+1)=ActInt
 				IntercambioRealizado=True
 			End If
 		Next

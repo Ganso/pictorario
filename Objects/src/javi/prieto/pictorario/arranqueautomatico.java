@@ -125,15 +125,16 @@ public class arranqueautomatico extends  android.app.Service{
 	public android.os.IBinder onBind(android.content.Intent intent) {
 		return null;
 	}public anywheresoftware.b4a.keywords.Common __c = null;
-public anywheresoftware.b4a.samples.httputils2.httputils2service _vvvvv6 = null;
-public b4a.example.dateutils _vvvvv7 = null;
-public javi.prieto.pictorario.main _vvvvvvvv7 = null;
-public javi.prieto.pictorario.visualizacion _vvvv5 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvv4 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvv0 = null;
-public javi.prieto.pictorario.acercade _vvvv3 = null;
-public javi.prieto.pictorario.avisos _vvvvvv2 = null;
-public javi.prieto.pictorario.starter _vvvv2 = null;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _vvvvvv4 = null;
+public b4a.example.dateutils _vvvvvv5 = null;
+public javi.prieto.pictorario.main _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.visualizacion _vvvvv1 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvv0 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvv6 = null;
+public javi.prieto.pictorario.acercade _vvvv5 = null;
+public javi.prieto.pictorario.configuracion _vvvv7 = null;
+public javi.prieto.pictorario.avisos _vvvvvv0 = null;
+public javi.prieto.pictorario.starter _vvvv4 = null;
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 9;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 13;BA.debugLine="End Sub";
@@ -152,7 +153,7 @@ return "";
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
  //BA.debugLineNum = 19;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
  //BA.debugLineNum = 20;BA.debugLine="CallSub(Starter,\"Cargar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv2.getObject()),"Cargar_Configuracion");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Cargar_Configuracion");
  //BA.debugLineNum = 21;BA.debugLine="Service.StopAutomaticForeground 'Call this when t";
 mostCurrent._service.StopAutomaticForeground();
  //BA.debugLineNum = 22;BA.debugLine="End Sub";

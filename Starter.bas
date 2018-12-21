@@ -16,10 +16,9 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Soporte de ALERTAS y NOTIFICACIONES."&CRLF&"Para activarlo, utilizar la nueva opción ""Activar alarmas"" dentro de la configuración de secuencias."&CRLF&CRLF& _
-	"- La aplicación ya no está en fase beta."&CRLF&CRLF& _
-	"- La hora en el reloj digital se indica con más claridad."&CRLF&CRLF& _
-	"- Optimizaciones, mejoras en la estabilidad y en la gestión de horas en las actividades."
+	"- [ACTUALIZADO] Corregido un fallo al borrar actividades y después añadir otras nuevas (gracias a Celso Alpizar por el reporte)"&CRLF&CRLF& _
+	"- Nuevas opciones de configuración:"&CRLF&"* Proteger la configuración y el cambio de pantalla"&CRLF&"* Activar o desactivar todas las alertas con un click"&CRLF&CRLF& _
+	"- Cambios en la visualización:"&CRLF&"* Mejorados los colores"&CRLF&"* Eliminado el fondo de los iconos"
 
 	Dim kvs As KeyValueStore
 
@@ -62,7 +61,8 @@ Sub Process_Globals
 	
 	Dim MaxColores=20 As Int
 	Dim Colores(MaxColores) As Int 'Colores para las áreas
-	Colores = Array As Int(0xFFffb3ba,0xFFffdfba,0xFFffffba,0xFFbaffc9,0xFFbae1ff,0xFFffbaff,0xFFdfffba,0xFFbaffc9,0xFFbae1ff,0xFFffe1b1,0xFFbaffe1,0xFFffb3ba,0xFFffdfba,0xFFffffba,0xFFbaffc9,0xFFbae1ff,0xFFffbaff,0xFFdfffba,0xFFbaffc9,0xFFbae1ff)
+	'Colores = Array As Int(0xFFffb3ba,0xFFffdfba,0xFFffffba,0xFFbaffc9,0xFFbae1ff,0xFFffbaff,0xFFdfffba,0xFFbaffc9,0xFFbae1ff,0xFFffe1b1,0xFFbaffe1,0xFFffb3ba,0xFFffdfba,0xFFffffba,0xFFbaffc9,0xFFbae1ff,0xFFffbaff,0xFFdfffba,0xFFbaffc9,0xFFbae1ff)
+	Colores = Array As Int(0xff8dd3c7,0xffffffb3,0xffbebada,0xfffb8072,0xff80b1d3,0xfffdb462,0xffb3de69,0xfffccde5,0xffd9d9d9,0xffbc80bd,0xffccebc5,0xffa6cee3,0xff1f78b4,0xffb2df8a,0xff33a02c,0xfffb9a99,0xffe31a1c,0xfffdbf6f,0xffff7f00)
 
 	''' CONFIGURACIÓN
 
@@ -72,6 +72,8 @@ Sub Process_Globals
 	Dim ActividadSecuencia(MaxSecuencias+1,MaxActividades) As Actividad 'Array bidimensional de actividades
 	Dim VersionInstalada As Int
 	Dim DetectadaVersionAntigua As Boolean
+	Dim AlarmasActivadas=True As Boolean
+	Dim AplicacionProtegida=False As Boolean
 
 	''' VALORES POR DEFECTo
 	
@@ -103,6 +105,8 @@ Sub Guardar_Configuracion
 		Next
 	Next
 	kvs.Put("VersionInstalada", Application.VersionCode)
+	kvs.Put("AlarmasActivadas", AlarmasActivadas)
+	kvs.Put("AplicacionProtegida", AplicacionProtegida)
 End Sub
 
 Sub Cargar_Configuracion
@@ -129,6 +133,8 @@ Sub Cargar_Configuracion
 		Next
 	End If
 	VersionInstalada=kvs.GetDefault("VersionInstalada",-1)
+	AlarmasActivadas=kvs.GetDefault("AlarmasActivadas",True)
+	AplicacionProtegida=kvs.GetDefault("AplicacionProtegida",False)
 	CalcularProximaAlarma
 End Sub
 
@@ -333,9 +339,21 @@ Sub CopiarSecuencias (Seq1 As Int, Seq2 As Int)
 	Secuencia(Seq2).tablero.indicar_hora=Secuencia(Seq1).tablero.indicar_hora
 	Secuencia(Seq2).notificaciones=Secuencia(Seq1).notificaciones
 	For i=0 To Secuencia(Seq1).num_actividades-1
-		ActividadSecuencia(Seq2,i)=ActividadSecuencia(Seq1,i)
+		CopiarActividad(Seq1,i,Seq2,i)
+		'ActividadSecuencia(Seq2,i)=ActividadSecuencia(Seq1,i)
 	Next
 End Sub
+
+Sub CopiarActividad(Seq1 As Int, Act1 As Int, Seq2 As Int, Act2 As Int)
+	'Copia la actividad Seq1:Act1 sobre Seq2:Act2
+	ActividadSecuencia(Seq2,Act2).Descripcion=ActividadSecuencia(Seq1,Act1).Descripcion
+	ActividadSecuencia(Seq2,Act2).hora_fin=ActividadSecuencia(Seq1,Act1).hora_fin
+	ActividadSecuencia(Seq2,Act2).hora_inicio=ActividadSecuencia(Seq1,Act1).hora_inicio
+	ActividadSecuencia(Seq2,Act2).minuto_fin=ActividadSecuencia(Seq1,Act1).minuto_fin
+	ActividadSecuencia(Seq2,Act2).minuto_inicio=ActividadSecuencia(Seq1,Act1).minuto_inicio
+	ActividadSecuencia(Seq2,Act2).Pictograma=ActividadSecuencia(Seq1,Act1).Pictograma
+End Sub
+
 
 Sub CopiarPictogramasIniciales 'Copia los pictogramas necesarios para ejecutar la actividad de ejemplo
 	Dim i As Int
@@ -384,7 +402,7 @@ Sub CalcularProximaAlarma
 	ProximaAlarmaSeq=-1
 	
 	For i=0 To NumSecuencias-1
-		If Secuencia(i).notificaciones==True Then
+		If Secuencia(i).notificaciones==True And AlarmasActivadas==True Then
 			For j=0 To Secuencia(i).num_actividades-1
 				HoraAct=ActividadSecuencia(i,j).hora_inicio
 				MinutoAct=ActividadSecuencia(i,j).minuto_inicio

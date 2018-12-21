@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="javi.prieto.pictorario"
-	android:versionCode="100"
-	android:versionName="1.00"
+	android:versionCode="102"
+	android:versionName="1.02"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>
@@ -58,6 +58,13 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".acercade"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".configuracion"
 			android:label="Pictorario"
 			android:screenOrientation="portrait">
 		</activity>

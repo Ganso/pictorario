@@ -48,6 +48,8 @@ Sub Globals
 	Dim HoraActual As Int
 	Dim MinutoActual As Int
 	
+	'Candado
+	Dim ContadorCandado=0 As Int
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -161,16 +163,22 @@ Sub DibujarTablero()
 	Next
 	
 	'Indica modo de visualización
-	Select Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo
-		Case 0
-			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"manana.png"))
-		Case 1
-			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"tarde.png"))
-		Case 2
-			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"dia.png"))
-		Case 3
-			CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"fila.png"))
-	End Select
+	If ( Starter.AplicacionProtegida==True ) Then
+		' Visualización protegida: Cambia botones por candado
+		CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"candado.png"))
+		Volver.Visible=False		
+	Else
+		Select Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo
+			Case 0
+				CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"manana.png"))
+			Case 1
+				CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"tarde.png"))
+			Case 2
+				CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"dia.png"))
+			Case 3
+				CambiarVista.SetBackgroundImage(LoadBitmap(File.DirAssets,"fila.png"))
+		End Select
+	End If
 			
 	DibujasAgujas
 			
@@ -281,9 +289,9 @@ Sub DibujarBoton(NumActividad As Int)
 		Dim TamañoIcono=Starter.Secuencia(Starter.SecuenciaActiva).tablero.tam_icono*1%X As Float
 		Dim BotonX=HoraMinuto_X(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
 		Dim BotonY=HoraMinuto_Y(HoraMitad,MinutoMitad,DistanciaBoton)-TamañoIcono/2 As Float
-		Dim BordeBoton As Rect
-		BordeBoton.Initialize(BotonX-1dip,BotonY-1dip,BotonX+TamañoIcono+2dip,BotonY+TamañoIcono+2dip)
-		Pantalla.DrawRect(BordeBoton,0x80FFFFFF,True,0)
+		'Dim BordeBoton As Rect
+		'BordeBoton.Initialize(BotonX-1dip,BotonY-1dip,BotonX+TamañoIcono+2dip,BotonY+TamañoIcono+2dip)
+		'Pantalla.DrawRect(BordeBoton,0x80FFFFFF,True,0)
 		Activity.AddView(Boton(NumActividad),BotonX,BotonY,TamañoIcono,TamañoIcono)
 		Boton(NumActividad).SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.SecuenciaActiva,NumActividad).pictograma&".png"))
 		
@@ -366,13 +374,29 @@ Sub PanelReloj_Touch (Action As Int, X As Float, Y As Float)
 End Sub
 
 Sub CambiarVista_Click
-	Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
-	Activity.RemoveAllViews
-	'MsgboxAsync("Tipo de tablero: "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
-	ToastMessageShow("Cambiado tipo de tablero a "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),True)
-	Activity.Invalidate
-	Activity.LoadLayout("VisualizarSecuencia")
-	DibujarTablero
+	If Starter.AplicacionProtegida==True Then
+		' Con la configuración protegida, el botón actúa como candado
+		Dim Vibracion As PhoneVibrate
+		Vibracion.Vibrate(100)
+		ContadorCandado=ContadorCandado+1
+	Else
+		Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo=((Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo)+1) Mod 4
+		Activity.RemoveAllViews
+		'MsgboxAsync("Tipo de tablero: "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo))
+		ToastMessageShow("Cambiado tipo de tablero a "&Starter.DescripcionTablero(Starter.Secuencia(Starter.SecuenciaActiva).tablero.tipo),True)
+		Activity.Invalidate
+		Activity.LoadLayout("VisualizarSecuencia")
+		DibujarTablero
+	End If
+End Sub
+
+Sub CambiarVista_LongClick
+	If ( Starter.AplicacionProtegida==True And ContadorCandado>0 ) Then
+		Dim Vibracion As PhoneVibrate
+		Vibracion.Vibrate(300)
+		Activity.Finish
+	End If
+	ContadorCandado=0
 End Sub
 
 Sub Volver_Click
