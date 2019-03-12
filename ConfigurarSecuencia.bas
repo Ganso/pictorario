@@ -71,7 +71,7 @@ Sub Activity_Create(FirstTime As Boolean)
 		Starter.Secuencia(Starter.MaxSecuencias).descripcion=DescripcionSecuenciaPorDefecto
 		Starter.Secuencia(Starter.MaxSecuencias).pictograma=7229
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.tipo=3
-		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=20
+		Starter.Secuencia(Starter.MaxSecuencias).tablero.tam_icono=0
 		Starter.Secuencia(Starter.MaxSecuencias).tablero.indicar_hora=1
 	Else
 		CallSub3(Starter,"CopiarSecuencias",Starter.SecuenciaActiva,Starter.MaxSecuencias) 'Si no, copiamos
@@ -79,6 +79,25 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	DibujarConfigurarSecuencia
 
+End Sub
+
+Sub EscribirHora(Hora As Int, Minutos As Int) As String
+	Dim Salida As String
+	Dim HoraModificada As Int
+	If (Starter.Formato24h==False And Hora>11) Then
+		HoraModificada=Hora-12
+	Else
+		HoraModificada=Hora
+	End If
+	Salida=NumberFormat(HoraModificada,2,0)&":"&NumberFormat(Minutos,2,0)
+	If Starter.Formato24h==False Then
+		If Hora<12 Then
+			Salida=Salida&" a.m."
+		Else
+			Salida=Salida&" p.m."
+		End If
+	End If
+	Return Salida
 End Sub
 
 Sub MinutosDia(Hora As Int, Minutos As Int) As Int
@@ -249,7 +268,8 @@ Sub DibujarConfigurarSecuencia
 
 		ConfigHoraInicioAct(Act).Initialize("ConfigHoraInicioAct")
 		ConfigHoraInicioAct(Act).Tag=Act
-		ConfigHoraInicioAct(Act).Text="Desde"&CRLF&NumberFormat(Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio,2,0)&":"&NumberFormat(Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio,2,0)
+		ConfigHoraInicioAct(Act).Text="Desde"&CRLF&EscribirHora( Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio, Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio )
+		
 		ConfigHoraInicioAct(Act).TextColor=Colors.Black
 		ConfigHoraInicioAct(Act).TextSize=16
 		ConfigHoraInicioAct(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
@@ -258,7 +278,7 @@ Sub DibujarConfigurarSecuencia
 
 		ConfigHoraFinalAct(Act).Initialize("ConfigHoraFinalAct")
 		ConfigHoraFinalAct(Act).Tag=Act
-		ConfigHoraFinalAct(Act).Text="Hasta"&CRLF&NumberFormat(Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin,2,0)&":"&NumberFormat(Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin,2,0)
+		ConfigHoraFinalAct(Act).Text="Desde"&CRLF&EscribirHora( Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin, Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin )
 		ConfigHoraFinalAct(Act).TextColor=Colors.Black
 		ConfigHoraFinalAct(Act).TextSize=16
 		ConfigHoraFinalAct(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
@@ -474,7 +494,7 @@ Sub ConfigHoraInicioAct_Click
 
 	DialogoTiempo.Hour=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_inicio
 	DialogoTiempo.Minute=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_inicio
-	DialogoTiempo.Is24Hours=False
+	DialogoTiempo.Is24Hours=Starter.Formato24h
 	Resultado=DialogoTiempo.Show("Indica la hora inicial de la actividad","Hora inicial","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then
@@ -552,7 +572,7 @@ Sub ConfigHoraFinalAct_Click
 
 	DialogoTiempo.Hour=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin
 	DialogoTiempo.Minute=Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin
-	DialogoTiempo.Is24Hours=False
+	DialogoTiempo.Is24Hours=Starter.Formato24h
 	Resultado=DialogoTiempo.Show("Indica la hora final de la actividad","Hora final","Aceptar","Cancelar","",Null)
 
 	If Resultado=DialogResponse.POSITIVE Then

@@ -21,31 +21,27 @@ Sub Globals
 	Private Pictogramas As ImageView
 	Private Pictorario As Label
 	Private Programador As ImageView
-	Private TextoArasaac As WebView
-	Private TextoAutor As WebView
+	Private TextoArasaac As Label
+	Private TextoAutor As Label
 	Private ParaTeo As Label
 	Private VersionApp As Label
-	Private ReinciarConfiguracion As Button
 	Private VerVideo As Button
+	Private PulsaLosIconos As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
+	Dim cs1,cs2 As CSBuilder
+
 	Activity.LoadLayout("AcercaDe")
 	
-	TextoAutor.LoadHtml("<html><body><center>"& _
-	"<strong>Aplicación</strong>: Javier Prieto Martínez (www.ganso.org)<br />"& _
-	"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"& _
-	"</center></body></html>")
-
-	TextoArasaac.LoadHtml("<html><body><center>"& _
-	"<strong>Pictogramas</strong>: Sergio Palao<br />"& _
-	"<strong>Procedencia</strong>: ARASAAC (www.arasaac.org)<br />"& _
-	"<strong>Licencia</strong>: CC (BY-NC-SA)<br />"& _
-	"<strong>Propiedad</strong>: Gobierno de Aragón<br />"& _
-	"</center></body></html>")
+	TextoAutor.Text=cs1.Initialize.Bold.Append("Aplicación: ").Pop.Append("Javier Prieto Martínez (www.ganso.org)").Append(CRLF).Bold.Append("Licencia: ").Pop.Append("CC (BY-NC-SA)")
+	 
+	TextoArasaac.Text=cs2.Initialize.Bold.Append("Pictogramas: ").Pop.Append("Sergio Palao").Append(CRLF).Bold.Append("Procedencia: ").Pop.Append("ARASAAC (www.arasaac.org)").Append(CRLF).Bold.Append("Licencia: ").Pop.Append("CC (BY-NC-SA)").Append(CRLF).Bold.Append("Propiedad: ").Pop.Append("Gobierno de Aragón")
 	
-	ParaTeo.Typeface=Typeface.LoadFromAssets("GreatVibes-Regular.ttf")
-	
+'	Dim GreatVives As Typeface
+'	GreatVives=Typeface.LoadFromAssets("GreatVibes-Regular.ttf")
+'	ParaTeo.Typeface=GreatVives
+		
 	VersionApp.Text=Application.VersionName
 	
 End Sub
@@ -82,16 +78,6 @@ Sub VerVideo_Click
 	Dim p As PhoneIntents
 	'StartActivity(p.OpenBrowser("https://www.youtube.com/watch?v=cjTAGguz5H0"))
 	StartActivity(p.OpenBrowser("http://Bit.ly/VideoPictorario"))
-End Sub
-
-Sub ReinciarConfiguracion_Click
-	If Msgbox2("Se borrarán todas las secuencias creadas y se dejará solo la de ejemplo."&CRLF&CRLF& _
-		"¿Está seguro de que desea hacer esto?","Borrar todas las secuencias","Sí","","No",Null)==DialogResponse.POSITIVE Then
-		CallSub(Starter,"Inicializar_Con_Ejemplo")
-		CallSub(Starter,"BorrarPictogramas")
-		CallSub(Starter,"Guardar_Configuracion")
-		Activity.Finish
-	End If
 End Sub
 
 Sub VersionApp_Click

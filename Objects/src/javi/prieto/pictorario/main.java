@@ -329,36 +329,37 @@ public class main extends Activity implements B4AActivity{
     }
 
 public anywheresoftware.b4a.keywords.Common __c = null;
-public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvv2 = null;
-public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvv4 = null;
-public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvv3 = null;
-public anywheresoftware.b4a.objects.LabelWrapper _vvvvv6 = null;
-public anywheresoftware.b4a.objects.LabelWrapper _vvvvv5 = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _vvvvv0 = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _vvvvv7 = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvv2 = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvv1 = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvv3 = null;
+public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvv7 = null;
+public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvvv1 = null;
+public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvv0 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _vvvvvvvvvvv3 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _vvvvvvvvvvv2 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvvvvvvv6 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvvvvvvv4 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvvvvvvv7 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvvvvvvv5 = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _vvvvvvvvvvv0 = null;
 public anywheresoftware.b4a.objects.ScrollViewWrapper _panelscroll = null;
 public anywheresoftware.b4a.objects.LabelWrapper _pictorario = null;
-public static int _vvvv6 = 0;
-public anywheresoftware.b4a.samples.httputils2.httputils2service _vvvvvv4 = null;
-public b4a.example.dateutils _vvvvvv5 = null;
-public javi.prieto.pictorario.visualizacion _vvvvv1 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvv0 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvvv6 = null;
-public javi.prieto.pictorario.acercade _vvvv5 = null;
-public javi.prieto.pictorario.configuracion _vvvv7 = null;
-public javi.prieto.pictorario.arranqueautomatico _vvvvvv7 = null;
-public javi.prieto.pictorario.avisos _vvvvvv0 = null;
-public javi.prieto.pictorario.starter _vvvv4 = null;
+public static int _vvvvvvvvvv6 = 0;
+public b4a.example.dateutils _vvvvvvvvv1 = null;
+public b4a.example.versione06 _vvvvvvvvv2 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvv4 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.acercade _vvvvvvvvv7 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvv0 = null;
+public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.avisos _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.starter _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
 
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
 vis = vis | (main.mostCurrent != null);
-vis = vis | (visualizacion.mostCurrent != null);
 vis = vis | (configurarsecuencia.mostCurrent != null);
 vis = vis | (seleccionpictogramas.mostCurrent != null);
+vis = vis | (visualizacion.mostCurrent != null);
 vis = vis | (acercade.mostCurrent != null);
 vis = vis | (configuracion.mostCurrent != null);
 return vis;}
@@ -368,29 +369,29 @@ int _resultado = 0;
  //BA.debugLineNum = 48;BA.debugLine="Dim resultado As Int";
 _resultado = 0;
  //BA.debugLineNum = 50;BA.debugLine="DibujarPortada";
-_vvvv3();
+_vvvvvvvvvv5();
  //BA.debugLineNum = 53;BA.debugLine="If (Starter.DetectadaVersionAntigua==True) Then";
-if ((mostCurrent._vvvv4._vvv5==anywheresoftware.b4a.keywords.Common.True)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv5==anywheresoftware.b4a.keywords.Common.True)) { 
  //BA.debugLineNum = 54;BA.debugLine="resultado=Msgbox2( _ 			\"Se han hecho cambios en";
 _resultado = anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Se han hecho cambios en la aplicación que han podido afectar a las secuencias ya creadas."+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+"Se recomienda comenzar con una configuración limpia."+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+"Disculpe las molestias."),BA.ObjectToCharSequence("Actualización de datos"),"Reestablecer configuración (RECOMENDADO)","","Importar datos anteriores",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
  //BA.debugLineNum = 59;BA.debugLine="If resultado==DialogResponse.POSITIVE Then";
 if (_resultado==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
  //BA.debugLineNum = 60;BA.debugLine="CallSub(Starter,\"Inicializar_Con_Ejemplo\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Inicializar_Con_Ejemplo");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Inicializar_Con_Ejemplo");
  //BA.debugLineNum = 61;BA.debugLine="CallSub(Starter,\"BorrarPictogramas\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"BorrarPictogramas");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"BorrarPictogramas");
  //BA.debugLineNum = 62;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Guardar_Configuracion");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Guardar_Configuracion");
  };
  };
  //BA.debugLineNum = 67;BA.debugLine="If (Starter.VersionInstalada<>-1 And Starter.Vers";
-if ((mostCurrent._vvvv4._vvv4!=-1 && mostCurrent._vvvv4._vvv4!=anywheresoftware.b4a.keywords.Common.Application.getVersionCode())) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv4!=-1 && mostCurrent._vvvvvvvvvv3._vvv4!=anywheresoftware.b4a.keywords.Common.Application.getVersionCode())) { 
  //BA.debugLineNum = 68;BA.debugLine="Msgbox2(\"Novedades de la versión \"&Application.V";
-anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Novedades de la versión "+anywheresoftware.b4a.keywords.Common.Application.getVersionName()+":"+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvv4._v6),BA.ObjectToCharSequence("APLICACIÓN ACTUALIZADA"),"Continuar","","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Novedades de la versión "+anywheresoftware.b4a.keywords.Common.Application.getVersionName()+":"+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvvvvvvvv3._v6),BA.ObjectToCharSequence("APLICACIÓN ACTUALIZADA"),"Continuar","","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
  //BA.debugLineNum = 69;BA.debugLine="Starter.VersionInstalada=Application.VersionCode";
-mostCurrent._vvvv4._vvv4 = anywheresoftware.b4a.keywords.Common.Application.getVersionCode();
+mostCurrent._vvvvvvvvvv3._vvv4 = anywheresoftware.b4a.keywords.Common.Application.getVersionCode();
  //BA.debugLineNum = 70;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Guardar_Configuracion");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Guardar_Configuracion");
  };
  //BA.debugLineNum = 72;BA.debugLine="End Sub";
 return "";
@@ -418,7 +419,7 @@ return;
 case 0:
 //C
 this.state = 1;
- //BA.debugLineNum = 283;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsa";
+ //BA.debugLineNum = 284;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsa";
 if (true) break;
 
 case 1:
@@ -431,7 +432,7 @@ this.state = 3;
 case 3:
 //C
 this.state = 4;
- //BA.debugLineNum = 284;BA.debugLine="Sleep(0) 'No hace nada";
+ //BA.debugLineNum = 285;BA.debugLine="Sleep(0) 'No hace nada";
 anywheresoftware.b4a.keywords.Common.Sleep(mostCurrent.activityBA,this,(int) (0));
 this.state = 5;
 return;
@@ -445,7 +446,7 @@ case 4:
 //C
 this.state = -1;
 ;
- //BA.debugLineNum = 286;BA.debugLine="End Sub";
+ //BA.debugLineNum = 287;BA.debugLine="End Sub";
 if (true) break;
 
             }
@@ -460,14 +461,14 @@ return "";
 public static String  _activity_resume() throws Exception{
  //BA.debugLineNum = 226;BA.debugLine="Sub Activity_Resume";
  //BA.debugLineNum = 227;BA.debugLine="DibujarPortada";
-_vvvv3();
+_vvvvvvvvvv5();
  //BA.debugLineNum = 228;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botonacercade_click() throws Exception{
  //BA.debugLineNum = 238;BA.debugLine="Sub BotonAcercaDe_Click";
  //BA.debugLineNum = 239;BA.debugLine="StartActivity(AcercaDe)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv5.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv7.getObject()));
  //BA.debugLineNum = 240;BA.debugLine="End Sub";
 return "";
 }
@@ -479,7 +480,7 @@ _vibracion = new anywheresoftware.b4a.phone.Phone.PhoneVibrate();
  //BA.debugLineNum = 267;BA.debugLine="Vibracion.Vibrate(100)";
 _vibracion.Vibrate(processBA,(long) (100));
  //BA.debugLineNum = 268;BA.debugLine="ContadorCandado=ContadorCandado+1";
-_vvvv6 = (int) (_vvvv6+1);
+_vvvvvvvvvv6 = (int) (_vvvvvvvvvv6+1);
  //BA.debugLineNum = 269;BA.debugLine="End Sub";
 return "";
 }
@@ -487,36 +488,38 @@ public static String  _botoncandado_longclick() throws Exception{
 anywheresoftware.b4a.phone.Phone.PhoneVibrate _vibracion = null;
  //BA.debugLineNum = 271;BA.debugLine="Sub BotonCandado_LongClick";
  //BA.debugLineNum = 272;BA.debugLine="If ( ContadorCandado>0 ) Then";
-if ((_vvvv6>0)) { 
+if ((_vvvvvvvvvv6>0)) { 
  //BA.debugLineNum = 273;BA.debugLine="Dim Vibracion As PhoneVibrate";
 _vibracion = new anywheresoftware.b4a.phone.Phone.PhoneVibrate();
  //BA.debugLineNum = 274;BA.debugLine="Vibracion.Vibrate(300)";
 _vibracion.Vibrate(processBA,(long) (300));
  //BA.debugLineNum = 275;BA.debugLine="Starter.AplicacionProtegida=False";
-mostCurrent._vvvv4._vvv7 = anywheresoftware.b4a.keywords.Common.False;
+mostCurrent._vvvvvvvvvv3._vvv7 = anywheresoftware.b4a.keywords.Common.False;
  //BA.debugLineNum = 276;BA.debugLine="Msgbox(\"Se puede reactivar desde el menú de conf";
 anywheresoftware.b4a.keywords.Common.Msgbox(BA.ObjectToCharSequence("Se puede reactivar desde el menú de configuración."),BA.ObjectToCharSequence("Protección desactivada"),mostCurrent.activityBA);
- //BA.debugLineNum = 277;BA.debugLine="DibujarPortada";
-_vvvv3();
+ //BA.debugLineNum = 277;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Guardar_Configuracion");
+ //BA.debugLineNum = 278;BA.debugLine="DibujarPortada";
+_vvvvvvvvvv5();
  };
- //BA.debugLineNum = 279;BA.debugLine="ContadorCandado=0";
-_vvvv6 = (int) (0);
- //BA.debugLineNum = 280;BA.debugLine="End Sub";
+ //BA.debugLineNum = 280;BA.debugLine="ContadorCandado=0";
+_vvvvvvvvvv6 = (int) (0);
+ //BA.debugLineNum = 281;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botonconfiguracion_click() throws Exception{
  //BA.debugLineNum = 234;BA.debugLine="Sub BotonConfiguracion_Click";
  //BA.debugLineNum = 235;BA.debugLine="StartActivity(Configuracion)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv7.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv0.getObject()));
  //BA.debugLineNum = 236;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botoncrear_click() throws Exception{
  //BA.debugLineNum = 242;BA.debugLine="Sub BotonCrear_Click";
  //BA.debugLineNum = 243;BA.debugLine="Starter.SecuenciaActiva=Starter.MaxSecuencias";
-mostCurrent._vvvv4._vvv1 = mostCurrent._vvvv4._vv2;
+mostCurrent._vvvvvvvvvv3._vvv1 = mostCurrent._vvvvvvvvvv3._vv2;
  //BA.debugLineNum = 244;BA.debugLine="StartActivity(ConfigurarSecuencia)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv0.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv4.getObject()));
  //BA.debugLineNum = 245;BA.debugLine="End Sub";
 return "";
 }
@@ -535,7 +538,7 @@ _resultado = 0;
  //BA.debugLineNum = 179;BA.debugLine="BotonPulsado=Sender";
 _botonpulsado.setObject((android.widget.TextView)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
  //BA.debugLineNum = 180;BA.debugLine="Starter.SecuenciaActiva=BotonPulsado.Tag";
-mostCurrent._vvvv4._vvv1 = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
+mostCurrent._vvvvvvvvvv3._vvv1 = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
  //BA.debugLineNum = 181;BA.debugLine="Opciones.Initialize2(Array As String(\"Editar secu";
 _opciones.Initialize2(anywheresoftware.b4a.keywords.Common.ArrayToList(new String[]{"Editar secuencia","Borrar secuencia","Duplicar secuencia","CANCELAR"}));
  //BA.debugLineNum = 182;BA.debugLine="resultado=InputList(Opciones,\"Acción\",-1)";
@@ -544,45 +547,45 @@ _resultado = anywheresoftware.b4a.keywords.Common.InputList(_opciones,BA.ObjectT
 switch (_resultado) {
 case 0: {
  //BA.debugLineNum = 185;BA.debugLine="StartActivity(ConfigurarSecuencia)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv0.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv4.getObject()));
  break; }
 case 1: {
  //BA.debugLineNum = 187;BA.debugLine="If Msgbox2(\"¿Está seguro de que quiere borrar l";
-if (anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("¿Está seguro de que quiere borrar la secuencia \""+mostCurrent._vvvv4._vvv2[mostCurrent._vvvv4._vvv1].Descripcion+"\"?"),BA.ObjectToCharSequence("Borrar secuencia"),"Sí","","No",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA)==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
+if (anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("¿Está seguro de que quiere borrar la secuencia \""+mostCurrent._vvvvvvvvvv3._vvv2[mostCurrent._vvvvvvvvvv3._vvv1].Descripcion+"\"?"),BA.ObjectToCharSequence("Borrar secuencia"),"Sí","","No",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA)==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
  //BA.debugLineNum = 188;BA.debugLine="For Sec=Starter.SecuenciaActiva To Starter.Num";
 {
 final int step13 = 1;
-final int limit13 = (int) (mostCurrent._vvvv4._vv0-2);
-_sec = mostCurrent._vvvv4._vvv1 ;
+final int limit13 = (int) (mostCurrent._vvvvvvvvvv3._vv0-2);
+_sec = mostCurrent._vvvvvvvvvv3._vvv1 ;
 for (;_sec <= limit13 ;_sec = _sec + step13 ) {
  //BA.debugLineNum = 190;BA.debugLine="CallSub3(Starter,\"CopiarSecuencias\",Sec+1,Sec";
-anywheresoftware.b4a.keywords.Common.CallSubNew3(processBA,(Object)(mostCurrent._vvvv4.getObject()),"CopiarSecuencias",(Object)(_sec+1),(Object)(_sec));
+anywheresoftware.b4a.keywords.Common.CallSubNew3(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"CopiarSecuencias",(Object)(_sec+1),(Object)(_sec));
  }
 };
  //BA.debugLineNum = 193;BA.debugLine="Starter.NumSecuencias=Starter.NumSecuencias-1";
-mostCurrent._vvvv4._vv0 = (int) (mostCurrent._vvvv4._vv0-1);
+mostCurrent._vvvvvvvvvv3._vv0 = (int) (mostCurrent._vvvvvvvvvv3._vv0-1);
  //BA.debugLineNum = 194;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Guardar_Configuracion");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Guardar_Configuracion");
  //BA.debugLineNum = 195;BA.debugLine="DibujarPortada";
-_vvvv3();
+_vvvvvvvvvv5();
  };
  break; }
 case 2: {
  //BA.debugLineNum = 198;BA.debugLine="If Starter.NumSecuencias==Starter.MaxSecuencias";
-if (mostCurrent._vvvv4._vv0==mostCurrent._vvvv4._vv2) { 
+if (mostCurrent._vvvvvvvvvv3._vv0==mostCurrent._vvvvvvvvvv3._vv2) { 
  //BA.debugLineNum = 199;BA.debugLine="Msgbox(\"No es posible: Se ha alcanzado el máxi";
 anywheresoftware.b4a.keywords.Common.Msgbox(BA.ObjectToCharSequence("No es posible: Se ha alcanzado el máximo de secuencias soportadas por la aplicación."),BA.ObjectToCharSequence("Error al duplicar secuencia"),mostCurrent.activityBA);
  }else {
  //BA.debugLineNum = 202;BA.debugLine="CallSub3(Starter,\"CopiarSecuencias\",Starter.Se";
-anywheresoftware.b4a.keywords.Common.CallSubNew3(processBA,(Object)(mostCurrent._vvvv4.getObject()),"CopiarSecuencias",(Object)(mostCurrent._vvvv4._vvv1),(Object)(mostCurrent._vvvv4._vv0));
+anywheresoftware.b4a.keywords.Common.CallSubNew3(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"CopiarSecuencias",(Object)(mostCurrent._vvvvvvvvvv3._vvv1),(Object)(mostCurrent._vvvvvvvvvv3._vv0));
  //BA.debugLineNum = 203;BA.debugLine="Starter.Secuencia(Starter.NumSecuencias).Descr";
-mostCurrent._vvvv4._vvv2[mostCurrent._vvvv4._vv0].Descripcion = mostCurrent._vvvv4._vvv2[mostCurrent._vvvv4._vv0].Descripcion+" (copia)";
+mostCurrent._vvvvvvvvvv3._vvv2[mostCurrent._vvvvvvvvvv3._vv0].Descripcion = mostCurrent._vvvvvvvvvv3._vvv2[mostCurrent._vvvvvvvvvv3._vv0].Descripcion+" (copia)";
  //BA.debugLineNum = 205;BA.debugLine="Starter.NumSecuencias=Starter.NumSecuencias+1";
-mostCurrent._vvvv4._vv0 = (int) (mostCurrent._vvvv4._vv0+1);
+mostCurrent._vvvvvvvvvv3._vv0 = (int) (mostCurrent._vvvvvvvvvv3._vv0+1);
  //BA.debugLineNum = 206;BA.debugLine="CallSub(Starter,\"Guardar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvv4.getObject()),"Guardar_Configuracion");
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Guardar_Configuracion");
  //BA.debugLineNum = 207;BA.debugLine="DibujarPortada";
-_vvvv3();
+_vvvvvvvvvv5();
  };
  break; }
 }
@@ -598,9 +601,9 @@ _botonpulsado = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 214;BA.debugLine="BotonPulsado=Sender";
 _botonpulsado.setObject((android.widget.TextView)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
  //BA.debugLineNum = 215;BA.debugLine="Starter.SecuenciaActiva=BotonPulsado.Tag";
-mostCurrent._vvvv4._vvv1 = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
+mostCurrent._vvvvvvvvvv3._vvv1 = (int)(BA.ObjectToNumber(_botonpulsado.getTag()));
  //BA.debugLineNum = 216;BA.debugLine="StartActivity(Visualizacion)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvv1.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv6.getObject()));
  //BA.debugLineNum = 217;BA.debugLine="End Sub";
 return "";
 }
@@ -611,7 +614,7 @@ mostCurrent._activity.Finish();
  //BA.debugLineNum = 249;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvv3() throws Exception{
+public static String  _vvvvvvvvvv5() throws Exception{
 int _act = 0;
 int _ultimalinea = 0;
 String _textomanana = "";
@@ -627,148 +630,148 @@ _ultimalinea = (int) (0);
  //BA.debugLineNum = 82;BA.debugLine="For Act=0 To Starter.NumSecuencias-1";
 {
 final int step5 = 1;
-final int limit5 = (int) (mostCurrent._vvvv4._vv0-1);
+final int limit5 = (int) (mostCurrent._vvvvvvvvvv3._vv0-1);
 _act = (int) (0) ;
 for (;_act <= limit5 ;_act = _act + step5 ) {
  //BA.debugLineNum = 84;BA.debugLine="PictogramaSecuencia(Act).Initialize(\"BotonPictog";
-mostCurrent._vvvvv2[_act].Initialize(mostCurrent.activityBA,"BotonPictograma");
+mostCurrent._vvvvvvvvvv7[_act].Initialize(mostCurrent.activityBA,"BotonPictograma");
  //BA.debugLineNum = 85;BA.debugLine="PictogramaSecuencia(Act).Tag=Act";
-mostCurrent._vvvvv2[_act].setTag((Object)(_act));
+mostCurrent._vvvvvvvvvv7[_act].setTag((Object)(_act));
  //BA.debugLineNum = 86;BA.debugLine="PictogramaSecuencia(Act).Color=Colors.Transparen";
-mostCurrent._vvvvv2[_act].setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
+mostCurrent._vvvvvvvvvv7[_act].setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
  //BA.debugLineNum = 87;BA.debugLine="PictogramaSecuencia(Act).SetBackgroundImage(Load";
-mostCurrent._vvvvv2[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvv4._vvvv1,mostCurrent._vvvv4._vvv2[_act].pictograma+".png").getObject()));
+mostCurrent._vvvvvvvvvv7[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvvvvvvvv3._vvvv5,mostCurrent._vvvvvvvvvv3._vvv2[_act].pictograma+".png").getObject()));
  //BA.debugLineNum = 88;BA.debugLine="PanelScroll.Panel.AddView(PictogramaSecuencia(Ac";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv2[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvv7[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
  //BA.debugLineNum = 90;BA.debugLine="EtiquetaSecuencia(Act).Initialize(\"TextoSecuenci";
-mostCurrent._vvvvv3[_act].Initialize(mostCurrent.activityBA,"TextoSecuencia");
+mostCurrent._vvvvvvvvvv0[_act].Initialize(mostCurrent.activityBA,"TextoSecuencia");
  //BA.debugLineNum = 91;BA.debugLine="EtiquetaSecuencia(Act).Tag=Act";
-mostCurrent._vvvvv3[_act].setTag((Object)(_act));
+mostCurrent._vvvvvvvvvv0[_act].setTag((Object)(_act));
  //BA.debugLineNum = 92;BA.debugLine="EtiquetaSecuencia(Act).Text=Starter.Secuencia(Ac";
-mostCurrent._vvvvv3[_act].setText(BA.ObjectToCharSequence(mostCurrent._vvvv4._vvv2[_act].Descripcion));
+mostCurrent._vvvvvvvvvv0[_act].setText(BA.ObjectToCharSequence(mostCurrent._vvvvvvvvvv3._vvv2[_act].Descripcion));
  //BA.debugLineNum = 93;BA.debugLine="EtiquetaSecuencia(Act).TextColor=Colors.Black";
-mostCurrent._vvvvv3[_act].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+mostCurrent._vvvvvvvvvv0[_act].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 94;BA.debugLine="EtiquetaSecuencia(Act).TextSize=16";
-mostCurrent._vvvvv3[_act].setTextSize((float) (16));
+mostCurrent._vvvvvvvvvv0[_act].setTextSize((float) (16));
  //BA.debugLineNum = 95;BA.debugLine="EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CE";
-mostCurrent._vvvvv3[_act].setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.LEFT));
+mostCurrent._vvvvvvvvvv0[_act].setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.LEFT));
  //BA.debugLineNum = 96;BA.debugLine="PanelScroll.Panel.AddView(EtiquetaSecuencia(Act)";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv3[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (110)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (170))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvv0[_act].getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (110)),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (170))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
  //BA.debugLineNum = 98;BA.debugLine="If ( Starter.AplicacionProtegida==False ) Then";
-if ((mostCurrent._vvvv4._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
  //BA.debugLineNum = 99;BA.debugLine="EditarSecuencia(Act).Initialize(\"BotonEditar\")";
-mostCurrent._vvvvv4[_act].Initialize(mostCurrent.activityBA,"BotonEditar");
+mostCurrent._vvvvvvvvvvv1[_act].Initialize(mostCurrent.activityBA,"BotonEditar");
  //BA.debugLineNum = 100;BA.debugLine="EditarSecuencia(Act).Tag=Act";
-mostCurrent._vvvvv4[_act].setTag((Object)(_act));
+mostCurrent._vvvvvvvvvvv1[_act].setTag((Object)(_act));
  //BA.debugLineNum = 101;BA.debugLine="EditarSecuencia(Act).SetBackgroundImage(LoadBit";
-mostCurrent._vvvvv4[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"engranaje.png").getObject()));
+mostCurrent._vvvvvvvvvvv1[_act].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"engranaje.png").getObject()));
  //BA.debugLineNum = 102;BA.debugLine="PanelScroll.Panel.AddView(EditarSecuencia(Act),";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv4[_act].getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv1[_act].getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*_act),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
  };
  //BA.debugLineNum = 105;BA.debugLine="UltimaLinea=PictogramaSecuencia(Act).Top+Pictogr";
-_ultimalinea = (int) (mostCurrent._vvvvv2[_act].getTop()+mostCurrent._vvvvv2[_act].getHeight());
+_ultimalinea = (int) (mostCurrent._vvvvvvvvvv7[_act].getTop()+mostCurrent._vvvvvvvvvv7[_act].getHeight());
  }
 };
  //BA.debugLineNum = 108;BA.debugLine="If Starter.ProximaAlarmaSeq>=0 Then 'Si hay una p";
-if (mostCurrent._vvvv4._v0>=0) { 
+if (mostCurrent._vvvvvvvvvv3._v0>=0) { 
  //BA.debugLineNum = 109;BA.debugLine="ProximaAlarmaPict.Initialize(\"ProximaAlarmaPict\"";
-mostCurrent._vvvvv5.Initialize(mostCurrent.activityBA,"ProximaAlarmaPict");
+mostCurrent._vvvvvvvvvvv2.Initialize(mostCurrent.activityBA,"ProximaAlarmaPict");
  //BA.debugLineNum = 110;BA.debugLine="ProximaAlarmaPict.SetBackgroundImage(LoadBitmap(";
-mostCurrent._vvvvv5.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvv4._vvvv1,mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].Pictograma+".png").getObject()));
+mostCurrent._vvvvvvvvvvv2.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvvvvvvvv3._vvvv5,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].Pictograma+".png").getObject()));
  //BA.debugLineNum = 111;BA.debugLine="PanelScroll.Panel.AddView(ProximaAlarmaPict,100%";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv5.getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*mostCurrent._vvvv4._vv0),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv2.getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80))),(int) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (90))*mostCurrent._vvvvvvvvvv3._vv0),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
  //BA.debugLineNum = 113;BA.debugLine="ProximaAlarma.Initialize(\"ProximaAlarma\")";
-mostCurrent._vvvvv6.Initialize(mostCurrent.activityBA,"ProximaAlarma");
+mostCurrent._vvvvvvvvvvv3.Initialize(mostCurrent.activityBA,"ProximaAlarma");
  //BA.debugLineNum = 114;BA.debugLine="Dim TextoManana=\"\" As String";
 _textomanana = "";
  //BA.debugLineNum = 115;BA.debugLine="If (Starter.ActividadSecuencia(Starter.ProximaAl";
-if ((mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].hora_inicio*60+mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].minuto_inicio)<(anywheresoftware.b4a.keywords.Common.DateTime.GetHour(anywheresoftware.b4a.keywords.Common.DateTime.getNow())*60+anywheresoftware.b4a.keywords.Common.DateTime.GetMinute(anywheresoftware.b4a.keywords.Common.DateTime.getNow()))) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].hora_inicio*60+mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].minuto_inicio)<(anywheresoftware.b4a.keywords.Common.DateTime.GetHour(anywheresoftware.b4a.keywords.Common.DateTime.getNow())*60+anywheresoftware.b4a.keywords.Common.DateTime.GetMinute(anywheresoftware.b4a.keywords.Common.DateTime.getNow()))) { 
  //BA.debugLineNum = 116;BA.debugLine="TextoManana=\"mañana \"";
 _textomanana = "mañana ";
  };
  //BA.debugLineNum = 118;BA.debugLine="ProximaAlarma.Text=\"Próxima alarma \"&TextoManana";
-mostCurrent._vvvvv6.setText(BA.ObjectToCharSequence("Próxima alarma "+_textomanana+"a las "+BA.NumberToString(mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].hora_inicio)+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].minuto_inicio,(int) (2),(int) (0))+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvv4._vvv2[mostCurrent._vvvv4._v0].Descripcion+" ➞ "+mostCurrent._vvvv4._vvv3[mostCurrent._vvvv4._v0][mostCurrent._vvvv4._vv1].Descripcion));
+mostCurrent._vvvvvvvvvvv3.setText(BA.ObjectToCharSequence("Próxima alarma "+_textomanana+"a las "+BA.NumberToString(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].hora_inicio)+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].minuto_inicio,(int) (2),(int) (0))+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvvvvvvvv3._vvv2[mostCurrent._vvvvvvvvvv3._v0].Descripcion+" ➞ "+mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._v0][mostCurrent._vvvvvvvvvv3._vv1].Descripcion));
  //BA.debugLineNum = 119;BA.debugLine="ProximaAlarma.TextColor=Colors.Black";
-mostCurrent._vvvvv6.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+mostCurrent._vvvvvvvvvvv3.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 120;BA.debugLine="ProximaAlarma.TextSize=16";
-mostCurrent._vvvvv6.setTextSize((float) (16));
+mostCurrent._vvvvvvvvvvv3.setTextSize((float) (16));
  //BA.debugLineNum = 121;BA.debugLine="ProximaAlarma.Typeface=Typeface.CreateNew(Typefa";
-mostCurrent._vvvvv6.setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.CreateNew(anywheresoftware.b4a.keywords.Common.Typeface.DEFAULT,anywheresoftware.b4a.keywords.Common.Typeface.STYLE_ITALIC));
+mostCurrent._vvvvvvvvvvv3.setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.CreateNew(anywheresoftware.b4a.keywords.Common.Typeface.DEFAULT,anywheresoftware.b4a.keywords.Common.Typeface.STYLE_ITALIC));
  //BA.debugLineNum = 122;BA.debugLine="ProximaAlarma.Gravity=Bit.Or(Gravity.CENTER_VERT";
-mostCurrent._vvvvv6.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.RIGHT));
+mostCurrent._vvvvvvvvvvv3.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.RIGHT));
  //BA.debugLineNum = 123;BA.debugLine="PanelScroll.Panel.AddView(ProximaAlarma,10dip,Pr";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv6.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),mostCurrent._vvvvv5.getTop(),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (100))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv3.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),mostCurrent._vvvvvvvvvvv2.getTop(),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (100))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)));
  //BA.debugLineNum = 125;BA.debugLine="UltimaLinea=ProximaAlarma.Top+ProximaAlarma.Heig";
-_ultimalinea = (int) (mostCurrent._vvvvv6.getTop()+mostCurrent._vvvvv6.getHeight());
+_ultimalinea = (int) (mostCurrent._vvvvvvvvvvv3.getTop()+mostCurrent._vvvvvvvvvvv3.getHeight());
  };
  //BA.debugLineNum = 128;BA.debugLine="If ( Starter.AplicacionProtegida==False ) Then";
-if ((mostCurrent._vvvv4._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
  //BA.debugLineNum = 129;BA.debugLine="BotonCrear.Initialize(\"BotonCrear\")";
-mostCurrent._vvvvv7.Initialize(mostCurrent.activityBA,"BotonCrear");
+mostCurrent._vvvvvvvvvvv4.Initialize(mostCurrent.activityBA,"BotonCrear");
  //BA.debugLineNum = 130;BA.debugLine="BotonCrear.Text=\"Crear Secuencia\"";
-mostCurrent._vvvvv7.setText(BA.ObjectToCharSequence("Crear Secuencia"));
+mostCurrent._vvvvvvvvvvv4.setText(BA.ObjectToCharSequence("Crear Secuencia"));
  //BA.debugLineNum = 131;BA.debugLine="BotonCrear.TextSize=20";
-mostCurrent._vvvvv7.setTextSize((float) (20));
+mostCurrent._vvvvvvvvvvv4.setTextSize((float) (20));
  //BA.debugLineNum = 132;BA.debugLine="BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICA";
-mostCurrent._vvvvv7.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+mostCurrent._vvvvvvvvvvv4.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
  //BA.debugLineNum = 133;BA.debugLine="BotonCrear.TextColor=Colors.Black";
-mostCurrent._vvvvv7.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+mostCurrent._vvvvvvvvvvv4.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 134;BA.debugLine="PanelScroll.Panel.AddView(BotonCrear,5dip,Ultima";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv7.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (_ultimalinea+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv4.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (_ultimalinea+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30))),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
  //BA.debugLineNum = 136;BA.debugLine="If Starter.NumSecuencias==Starter.MaxSecuencias";
-if (mostCurrent._vvvv4._vv0==mostCurrent._vvvv4._vv2) { 
+if (mostCurrent._vvvvvvvvvv3._vv0==mostCurrent._vvvvvvvvvv3._vv2) { 
  //BA.debugLineNum = 137;BA.debugLine="BotonCrear.Enabled=False 'Si llegamos al máximo";
-mostCurrent._vvvvv7.setEnabled(anywheresoftware.b4a.keywords.Common.False);
+mostCurrent._vvvvvvvvvvv4.setEnabled(anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 140;BA.debugLine="BotonAcercaDe.Initialize(\"BotonAcercaDe\")";
-mostCurrent._vvvvv0.Initialize(mostCurrent.activityBA,"BotonAcercaDe");
- //BA.debugLineNum = 141;BA.debugLine="BotonAcercaDe.Text=\"Acerca de Pictorario\"";
-mostCurrent._vvvvv0.setText(BA.ObjectToCharSequence("Acerca de Pictorario"));
- //BA.debugLineNum = 142;BA.debugLine="BotonAcercaDe.TextSize=20";
-mostCurrent._vvvvv0.setTextSize((float) (20));
- //BA.debugLineNum = 143;BA.debugLine="BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERT";
-mostCurrent._vvvvv0.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
- //BA.debugLineNum = 144;BA.debugLine="BotonAcercaDe.TextColor=Colors.Black";
-mostCurrent._vvvvv0.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 145;BA.debugLine="PanelScroll.Panel.AddView(BotonAcercaDe,5dip,Bot";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvv0.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (mostCurrent._vvvvv7.getTop()+mostCurrent._vvvvv7.getHeight()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
- //BA.debugLineNum = 147;BA.debugLine="BotonConfiguracion.Initialize(\"BotonConfiguracio";
-mostCurrent._vvvvvv1.Initialize(mostCurrent.activityBA,"BotonConfiguracion");
- //BA.debugLineNum = 148;BA.debugLine="BotonConfiguracion.Text=\"Configuración\"";
-mostCurrent._vvvvvv1.setText(BA.ObjectToCharSequence("Configuración"));
- //BA.debugLineNum = 149;BA.debugLine="BotonConfiguracion.TextSize=20";
-mostCurrent._vvvvvv1.setTextSize((float) (20));
- //BA.debugLineNum = 150;BA.debugLine="BotonConfiguracion.Gravity=Bit.Or(Gravity.CENTER";
-mostCurrent._vvvvvv1.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
- //BA.debugLineNum = 151;BA.debugLine="BotonConfiguracion.TextColor=Colors.Black";
-mostCurrent._vvvvvv1.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 152;BA.debugLine="PanelScroll.Panel.AddView(BotonConfiguracion,5di";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvv1.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (mostCurrent._vvvvv0.getTop()+mostCurrent._vvvvv0.getHeight()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
- //BA.debugLineNum = 154;BA.debugLine="UltimaLinea=BotonConfiguracion.Top+BotonConfigur";
-_ultimalinea = (int) (mostCurrent._vvvvvv1.getTop()+mostCurrent._vvvvvv1.getHeight());
+ //BA.debugLineNum = 140;BA.debugLine="BotonConfiguracion.Initialize(\"BotonConfiguracio";
+mostCurrent._vvvvvvvvvvv5.Initialize(mostCurrent.activityBA,"BotonConfiguracion");
+ //BA.debugLineNum = 141;BA.debugLine="BotonConfiguracion.Text=\"Configuración\"";
+mostCurrent._vvvvvvvvvvv5.setText(BA.ObjectToCharSequence("Configuración"));
+ //BA.debugLineNum = 142;BA.debugLine="BotonConfiguracion.TextSize=20";
+mostCurrent._vvvvvvvvvvv5.setTextSize((float) (20));
+ //BA.debugLineNum = 143;BA.debugLine="BotonConfiguracion.Gravity=Bit.Or(Gravity.CENTER";
+mostCurrent._vvvvvvvvvvv5.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+ //BA.debugLineNum = 144;BA.debugLine="BotonConfiguracion.TextColor=Colors.Black";
+mostCurrent._vvvvvvvvvvv5.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 145;BA.debugLine="PanelScroll.Panel.AddView(BotonConfiguracion,5di";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv5.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (mostCurrent._vvvvvvvvvvv4.getTop()+mostCurrent._vvvvvvvvvvv4.getHeight()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
+ //BA.debugLineNum = 147;BA.debugLine="BotonAcercaDe.Initialize(\"BotonAcercaDe\")";
+mostCurrent._vvvvvvvvvvv6.Initialize(mostCurrent.activityBA,"BotonAcercaDe");
+ //BA.debugLineNum = 148;BA.debugLine="BotonAcercaDe.Text=\"Acerca de Pictorario\"";
+mostCurrent._vvvvvvvvvvv6.setText(BA.ObjectToCharSequence("Acerca de Pictorario"));
+ //BA.debugLineNum = 149;BA.debugLine="BotonAcercaDe.TextSize=20";
+mostCurrent._vvvvvvvvvvv6.setTextSize((float) (20));
+ //BA.debugLineNum = 150;BA.debugLine="BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERT";
+mostCurrent._vvvvvvvvvvv6.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+ //BA.debugLineNum = 151;BA.debugLine="BotonAcercaDe.TextColor=Colors.Black";
+mostCurrent._vvvvvvvvvvv6.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 152;BA.debugLine="PanelScroll.Panel.AddView(BotonAcercaDe,5dip,Bot";
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv6.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),(int) (mostCurrent._vvvvvvvvvvv5.getTop()+mostCurrent._vvvvvvvvvvv5.getHeight()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
+ //BA.debugLineNum = 154;BA.debugLine="UltimaLinea=BotonAcercaDe.Top+BotonConfiguracion";
+_ultimalinea = (int) (mostCurrent._vvvvvvvvvvv6.getTop()+mostCurrent._vvvvvvvvvvv5.getHeight());
  };
  //BA.debugLineNum = 157;BA.debugLine="BotonSalir.Initialize(\"BotonSalir\")";
-mostCurrent._vvvvvv2.Initialize(mostCurrent.activityBA,"BotonSalir");
+mostCurrent._vvvvvvvvvvv7.Initialize(mostCurrent.activityBA,"BotonSalir");
  //BA.debugLineNum = 158;BA.debugLine="BotonSalir.Text=\"Salir\"";
-mostCurrent._vvvvvv2.setText(BA.ObjectToCharSequence("Salir"));
+mostCurrent._vvvvvvvvvvv7.setText(BA.ObjectToCharSequence("Salir"));
  //BA.debugLineNum = 159;BA.debugLine="BotonSalir.TextSize=20";
-mostCurrent._vvvvvv2.setTextSize((float) (20));
+mostCurrent._vvvvvvvvvvv7.setTextSize((float) (20));
  //BA.debugLineNum = 160;BA.debugLine="BotonSalir.Gravity=Bit.Or(Gravity.CENTER_VERTICAL";
-mostCurrent._vvvvvv2.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
+mostCurrent._vvvvvvvvvvv7.setGravity(anywheresoftware.b4a.keywords.Common.Bit.Or(anywheresoftware.b4a.keywords.Common.Gravity.CENTER_VERTICAL,anywheresoftware.b4a.keywords.Common.Gravity.CENTER_HORIZONTAL));
  //BA.debugLineNum = 161;BA.debugLine="BotonSalir.TextColor=Colors.Black";
-mostCurrent._vvvvvv2.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+mostCurrent._vvvvvvvvvvv7.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 162;BA.debugLine="PanelScroll.Panel.AddView(BotonSalir,5dip,UltimaL";
-mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvv2.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),_ultimalinea,(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
+mostCurrent._panelscroll.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvv7.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5)),_ultimalinea,(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (60)));
  //BA.debugLineNum = 164;BA.debugLine="PanelScroll.Panel.Height=BotonSalir.Top+BotonSali";
-mostCurrent._panelscroll.getPanel().setHeight((int) (mostCurrent._vvvvvv2.getTop()+mostCurrent._vvvvvv2.getHeight()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5))));
+mostCurrent._panelscroll.getPanel().setHeight((int) (mostCurrent._vvvvvvvvvvv7.getTop()+mostCurrent._vvvvvvvvvvv7.getHeight()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5))));
  //BA.debugLineNum = 166;BA.debugLine="If ( Starter.AplicacionProtegida==True ) Then";
-if ((mostCurrent._vvvv4._vvv7==anywheresoftware.b4a.keywords.Common.True)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv7==anywheresoftware.b4a.keywords.Common.True)) { 
  //BA.debugLineNum = 167;BA.debugLine="BotonCandado.Initialize(\"BotonCandado\")";
-mostCurrent._vvvvvv3.Initialize(mostCurrent.activityBA,"BotonCandado");
+mostCurrent._vvvvvvvvvvv0.Initialize(mostCurrent.activityBA,"BotonCandado");
  //BA.debugLineNum = 168;BA.debugLine="BotonCandado.SetBackgroundImage(LoadBitmap(File.";
-mostCurrent._vvvvvv3.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"candado.png").getObject()));
+mostCurrent._vvvvvvvvvvv0.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"candado.png").getObject()));
  //BA.debugLineNum = 169;BA.debugLine="Activity.AddView(BotonCandado,100%X-50dip,100%Y-";
-mostCurrent._activity.AddView((android.view.View)(mostCurrent._vvvvvv3.getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))),(int) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._vvvvvvvvvvv0.getObject()),(int) (anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))),(int) (anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA)-anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (40)));
  };
  //BA.debugLineNum = 172;BA.debugLine="End Sub";
 return "";
@@ -776,52 +779,52 @@ return "";
 public static String  _globals() throws Exception{
  //BA.debugLineNum = 24;BA.debugLine="Sub Globals";
  //BA.debugLineNum = 26;BA.debugLine="Dim PictogramaSecuencia(Starter.MaxSecuencias) As";
-mostCurrent._vvvvv2 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvv4._vv2];
+mostCurrent._vvvvvvvvvv7 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv2];
 {
-int d0 = mostCurrent._vvvvv2.length;
+int d0 = mostCurrent._vvvvvvvvvv7.length;
 for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvv2[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._vvvvvvvvvv7[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
 }
 }
 ;
  //BA.debugLineNum = 27;BA.debugLine="Dim EditarSecuencia(Starter.MaxSecuencias) As Lab";
-mostCurrent._vvvvv4 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvv4._vv2];
+mostCurrent._vvvvvvvvvvv1 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv2];
 {
-int d0 = mostCurrent._vvvvv4.length;
+int d0 = mostCurrent._vvvvvvvvvvv1.length;
 for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvv4[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._vvvvvvvvvvv1[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
 }
 }
 ;
  //BA.debugLineNum = 28;BA.debugLine="Dim EtiquetaSecuencia(Starter.MaxActividades) As";
-mostCurrent._vvvvv3 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvv4._vv3];
+mostCurrent._vvvvvvvvvv0 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv3];
 {
-int d0 = mostCurrent._vvvvv3.length;
+int d0 = mostCurrent._vvvvvvvvvv0.length;
 for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvv3[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._vvvvvvvvvv0[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
 }
 }
 ;
  //BA.debugLineNum = 30;BA.debugLine="Dim ProximaAlarma As Label";
-mostCurrent._vvvvv6 = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._vvvvvvvvvvv3 = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 31;BA.debugLine="Dim ProximaAlarmaPict As Label";
-mostCurrent._vvvvv5 = new anywheresoftware.b4a.objects.LabelWrapper();
+mostCurrent._vvvvvvvvvvv2 = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 33;BA.debugLine="Dim BotonAcercaDe As Button";
-mostCurrent._vvvvv0 = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvv6 = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 34;BA.debugLine="Dim BotonCrear As Button";
-mostCurrent._vvvvv7 = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvv4 = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 35;BA.debugLine="Dim BotonSalir As Button";
-mostCurrent._vvvvvv2 = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvv7 = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 36;BA.debugLine="Dim BotonConfiguracion As Button";
-mostCurrent._vvvvvv1 = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvv5 = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 38;BA.debugLine="Dim BotonCandado As Button";
-mostCurrent._vvvvvv3 = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvv0 = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 40;BA.debugLine="Private PanelScroll As ScrollView";
 mostCurrent._panelscroll = new anywheresoftware.b4a.objects.ScrollViewWrapper();
  //BA.debugLineNum = 41;BA.debugLine="Private Pictorario As Label";
 mostCurrent._pictorario = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 43;BA.debugLine="Dim ContadorCandado=0 As Int";
-_vvvv6 = (int) (0);
+_vvvvvvvvvv6 = (int) (0);
  //BA.debugLineNum = 45;BA.debugLine="End Sub";
 return "";
 }
@@ -831,17 +834,18 @@ public static void initializeProcessGlobals() {
     if (main.processGlobalsRun == false) {
 	    main.processGlobalsRun = true;
 		try {
-		        anywheresoftware.b4a.samples.httputils2.httputils2service._process_globals();
-b4a.example.dateutils._process_globals();
+		        b4a.example.dateutils._process_globals();
+b4a.example.versione06._process_globals();
 main._process_globals();
-visualizacion._process_globals();
 configurarsecuencia._process_globals();
 seleccionpictogramas._process_globals();
+visualizacion._process_globals();
 acercade._process_globals();
 configuracion._process_globals();
 arranqueautomatico._process_globals();
 avisos._process_globals();
 starter._process_globals();
+httputils2service._process_globals();
 		
         } catch (Exception e) {
 			throw new RuntimeException(e);
@@ -855,11 +859,11 @@ return "";
 public static String  _proximaalarma_click() throws Exception{
  //BA.debugLineNum = 251;BA.debugLine="Sub ProximaAlarma_Click";
  //BA.debugLineNum = 252;BA.debugLine="If ( Starter.AplicacionProtegida==False ) Then";
-if ((mostCurrent._vvvv4._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
  //BA.debugLineNum = 253;BA.debugLine="Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq";
-mostCurrent._vvvv4._vvv1 = mostCurrent._vvvv4._v0;
+mostCurrent._vvvvvvvvvv3._vvv1 = mostCurrent._vvvvvvvvvv3._v0;
  //BA.debugLineNum = 254;BA.debugLine="StartActivity(ConfigurarSecuencia)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv0.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv4.getObject()));
  };
  //BA.debugLineNum = 256;BA.debugLine="End Sub";
 return "";
@@ -867,11 +871,11 @@ return "";
 public static String  _proximaalarmapict_click() throws Exception{
  //BA.debugLineNum = 258;BA.debugLine="Sub ProximaAlarmaPict_Click";
  //BA.debugLineNum = 259;BA.debugLine="If ( Starter.AplicacionProtegida==False ) Then";
-if ((mostCurrent._vvvv4._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
+if ((mostCurrent._vvvvvvvvvv3._vvv7==anywheresoftware.b4a.keywords.Common.False)) { 
  //BA.debugLineNum = 260;BA.debugLine="Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq";
-mostCurrent._vvvv4._vvv1 = mostCurrent._vvvv4._v0;
+mostCurrent._vvvvvvvvvv3._vvv1 = mostCurrent._vvvvvvvvvv3._v0;
  //BA.debugLineNum = 261;BA.debugLine="StartActivity(ConfigurarSecuencia)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvv0.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv4.getObject()));
  };
  //BA.debugLineNum = 263;BA.debugLine="End Sub";
 return "";
@@ -884,9 +888,9 @@ _etiquetapulsada = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 221;BA.debugLine="EtiquetaPulsada=Sender";
 _etiquetapulsada.setObject((android.widget.TextView)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
  //BA.debugLineNum = 222;BA.debugLine="Starter.SecuenciaActiva=EtiquetaPulsada.Tag";
-mostCurrent._vvvv4._vvv1 = (int)(BA.ObjectToNumber(_etiquetapulsada.getTag()));
+mostCurrent._vvvvvvvvvv3._vvv1 = (int)(BA.ObjectToNumber(_etiquetapulsada.getTag()));
  //BA.debugLineNum = 223;BA.debugLine="StartActivity(Visualizacion)";
-anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvv1.getObject()));
+anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._vvvvvvvvv6.getObject()));
  //BA.debugLineNum = 224;BA.debugLine="End Sub";
 return "";
 }

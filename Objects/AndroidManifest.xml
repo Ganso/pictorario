@@ -2,11 +2,11 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="javi.prieto.pictorario"
-	android:versionCode="102"
-	android:versionName="1.02"
+	android:versionCode="103"
+	android:versionName="1.03"
 	android:installLocation="internalOnly">
 	
-	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>
+	<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>
 	<supports-screens android:largeScreens="true" 
 	    android:normalScreens="true" 
 	    android:smallScreens="true" 
@@ -36,13 +36,6 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".visualizacion"
-			android:label="Pictorario"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
 			android:name=".configurarsecuencia"
 			android:label="Pictorario"
 			android:screenOrientation="portrait">
@@ -51,6 +44,13 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".seleccionpictogramas"
+			android:label="Pictorario"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".visualizacion"
 			android:label="Pictorario"
 			android:screenOrientation="portrait">
 		</activity>
@@ -83,9 +83,9 @@
 		</service>
 		<receiver android:name=".starter$starter_BR">
 		</receiver>
-		<service android:name="anywheresoftware.b4a.samples.httputils2.httputils2service">
+		<service android:name=".httputils2service">
 		</service>
-		<receiver android:name="anywheresoftware.b4a.samples.httputils2.httputils2service$httputils2service_BR">
+		<receiver android:name=".httputils2service$httputils2service_BR">
 		</receiver>
 	</application>
 </manifest>

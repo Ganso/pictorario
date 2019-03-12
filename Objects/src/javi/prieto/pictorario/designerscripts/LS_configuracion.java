@@ -15,34 +15,10 @@ _separador = BA.NumberToString((10d * scale));
 _altura = BA.NumberToString((60d * scale));
 views.get("titulo").vw.setWidth((int)((100d / 100 * width)));
 views.get("titulo").vw.setHeight((int)(2d*Double.parseDouble(_altura)));
-views.get("activaralarmaslabel").vw.setLeft((int)((10d * scale)));
-views.get("activaralarmaslabel").vw.setTop((int)((views.get("titulo").vw.getTop() + views.get("titulo").vw.getHeight())));
-views.get("activaralarmaslabel").vw.setHeight((int)(Double.parseDouble(_altura)));
-views.get("activaralarmaslabel").vw.setWidth((int)((100d / 100 * width)-2d*Double.parseDouble(_altura)-4d*Double.parseDouble(_separador)));
-views.get("activaralarmasicono").vw.setTop((int)((views.get("activaralarmaslabel").vw.getTop())));
-views.get("activaralarmasicono").vw.setLeft((int)((views.get("activaralarmaslabel").vw.getLeft() + views.get("activaralarmaslabel").vw.getWidth())+Double.parseDouble(_separador)));
-views.get("activaralarmasicono").vw.setWidth((int)(Double.parseDouble(_altura)));
-views.get("activaralarmasicono").vw.setHeight((int)(Double.parseDouble(_altura)));
-views.get("activaralarmascheck").vw.setTop((int)((views.get("activaralarmasicono").vw.getTop())));
-views.get("activaralarmascheck").vw.setLeft((int)((views.get("activaralarmasicono").vw.getLeft() + views.get("activaralarmasicono").vw.getWidth())+Double.parseDouble(_separador)));
-views.get("activaralarmascheck").vw.setWidth((int)(Double.parseDouble(_altura)));
-views.get("activaralarmascheck").vw.setHeight((int)(Double.parseDouble(_altura)));
-views.get("protegervisualizacionlabel").vw.setLeft((int)((views.get("activaralarmaslabel").vw.getLeft())));
-views.get("protegervisualizacionlabel").vw.setTop((int)((views.get("activaralarmaslabel").vw.getTop() + views.get("activaralarmaslabel").vw.getHeight())+Double.parseDouble(_separador)));
-views.get("protegervisualizacionlabel").vw.setHeight((int)((views.get("activaralarmaslabel").vw.getHeight())));
-views.get("protegervisualizacionlabel").vw.setWidth((int)((views.get("activaralarmaslabel").vw.getWidth())));
-views.get("protegervisualizacionicono").vw.setTop((int)((views.get("protegervisualizacionlabel").vw.getTop())));
-views.get("protegervisualizacionicono").vw.setLeft((int)((views.get("protegervisualizacionlabel").vw.getLeft() + views.get("protegervisualizacionlabel").vw.getWidth())+Double.parseDouble(_separador)));
-views.get("protegervisualizacionicono").vw.setWidth((int)(Double.parseDouble(_altura)));
-views.get("protegervisualizacionicono").vw.setHeight((int)(Double.parseDouble(_altura)));
-views.get("protegervisualizacioncheck").vw.setLeft((int)((views.get("protegervisualizacionicono").vw.getLeft() + views.get("protegervisualizacionicono").vw.getWidth())+Double.parseDouble(_separador)));
-views.get("protegervisualizacioncheck").vw.setTop((int)((views.get("protegervisualizacionlabel").vw.getTop())));
-views.get("protegervisualizacioncheck").vw.setHeight((int)((views.get("protegervisualizacionlabel").vw.getHeight())));
-views.get("protegervisualizacioncheck").vw.setWidth((int)(Double.parseDouble(_altura)));
-views.get("botonvolver").vw.setHeight((int)(Double.parseDouble(_altura)));
-views.get("botonvolver").vw.setTop((int)((100d / 100 * height)-Double.parseDouble(_altura)-Double.parseDouble(_separador)));
-views.get("botonvolver").vw.setLeft((int)(Double.parseDouble(_separador)));
-views.get("botonvolver").vw.setWidth((int)((100d / 100 * width)-2d*Double.parseDouble(_separador)));
+views.get("panelscroll").vw.setTop((int)((views.get("titulo").vw.getTop() + views.get("titulo").vw.getHeight())));
+views.get("panelscroll").vw.setLeft((int)(0d));
+views.get("panelscroll").vw.setWidth((int)((100d / 100 * width)));
+views.get("panelscroll").vw.setHeight((int)((100d / 100 * height)-(views.get("titulo").vw.getTop() + views.get("titulo").vw.getHeight())));
 
 }
 }

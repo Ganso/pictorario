@@ -16,9 +16,15 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- [ACTUALIZADO] Corregido un fallo al borrar actividades y después añadir otras nuevas (gracias a Celso Alpizar por el reporte)"&CRLF&CRLF& _
-	"- Nuevas opciones de configuración:"&CRLF&"* Proteger la configuración y el cambio de pantalla"&CRLF&"* Activar o desactivar todas las alertas con un click"&CRLF&CRLF& _
-	"- Cambios en la visualización:"&CRLF&"* Mejorados los colores"&CRLF&"* Eliminado el fondo de los iconos"
+	"- Cambios en la visualización de secuencias:"&CRLF& _
+	" * Se muestran todas las actividades de la Secuencia en la parte inferior."&CRLF& _
+	" * Se muestra el progreso dentro de la actividad actual."&CRLF& _
+	" * Se indica la actividad actual con un pictograma en el centro y una marca roja en el reloj."&CRLF&CRLF& _
+	"- Nuevas opciones de configuración:"&CRLF& _
+	"* Seleccionar colores para las agujas del reloj."&CRLF& _
+	"* Formato de 12h o 24h."&CRLF&CRLF& _
+	"- Por defecto el tamaño de icono es 0, para hacer más limpia la visualización."&CRLF&CRLF& _
+	"- Optimizada la pantalla de ""Acerca de"". La opción de ""Reiniciar configuración"" se mueve al apartado de configuración."
 
 	Dim kvs As KeyValueStore
 
@@ -74,6 +80,10 @@ Sub Process_Globals
 	Dim DetectadaVersionAntigua As Boolean
 	Dim AlarmasActivadas=True As Boolean
 	Dim AplicacionProtegida=False As Boolean
+	Dim Formato24h=False As Boolean
+	Dim ColorHoras=Colors.Black As Int
+	Dim ColorMinutos=Colors.Blue As Int
+	Dim ColorSegundos=Colors.Red As Int
 
 	''' VALORES POR DEFECTo
 	
@@ -107,6 +117,10 @@ Sub Guardar_Configuracion
 	kvs.Put("VersionInstalada", Application.VersionCode)
 	kvs.Put("AlarmasActivadas", AlarmasActivadas)
 	kvs.Put("AplicacionProtegida", AplicacionProtegida)
+	kvs.Put("Formato24h", Formato24h)
+	kvs.Put("ColorHoras", ColorHoras)
+	kvs.Put("ColorMinutos", ColorMinutos)
+	kvs.Put("ColorSegundos", ColorSegundos)
 End Sub
 
 Sub Cargar_Configuracion
@@ -135,11 +149,22 @@ Sub Cargar_Configuracion
 	VersionInstalada=kvs.GetDefault("VersionInstalada",-1)
 	AlarmasActivadas=kvs.GetDefault("AlarmasActivadas",True)
 	AplicacionProtegida=kvs.GetDefault("AplicacionProtegida",False)
+	Formato24h=kvs.GetDefault("Formato24h",False)
+	ColorHoras=kvs.GetDefault("ColorHoras",Colors.Black)
+	ColorMinutos=kvs.GetDefault("ColorMinutos",Colors.Blue)
+	ColorSegundos=kvs.GetDefault("ColorSegundos",Colors.Red)
 	CalcularProximaAlarma
 End Sub
 
 Sub Inicializar_Con_Ejemplo
 
+	AlarmasActivadas=True 
+	AplicacionProtegida=False 
+	Formato24h=False 
+	ColorHoras=Colors.Black 
+	ColorMinutos=Colors.Blue 
+	ColorSegundos=Colors.Red 
+	
 	NumSecuencias=3
 	
 	'Secuencia 0
@@ -148,7 +173,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(0).num_actividades=9
 	Secuencia(0).tablero.tipo=2
 	Secuencia(0).tablero.indicar_hora=1
-	Secuencia(0).tablero.tam_icono=14
+	Secuencia(0).tablero.tam_icono=0
 	Secuencia(0).pictograma=26799
 	Secuencia(0).notificaciones=False
 	Secuencia(0).descripcion="Día lectivo completo"
@@ -222,7 +247,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(1).num_actividades=6
 	Secuencia(1).tablero.tipo=1
 	Secuencia(1).tablero.indicar_hora=3
-	Secuencia(1).tablero.tam_icono=17
+	Secuencia(1).tablero.tam_icono=0
 	Secuencia(1).pictograma=9813
 	Secuencia(1).notificaciones=False
 	Secuencia(1).descripcion="Tarde después del cole"
@@ -275,7 +300,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(2).num_actividades=4
 	Secuencia(2).tablero.tipo=3
 	Secuencia(2).tablero.indicar_hora=0
-	Secuencia(2).tablero.tam_icono=17
+	Secuencia(2).tablero.tam_icono=15
 	Secuencia(2).pictograma=3082
 	Secuencia(2).notificaciones=False
 	Secuencia(2).descripcion="Antes de ir al cole"

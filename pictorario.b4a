@@ -64,6 +64,7 @@ FileGroup9=PictogramasPorDefecto
 Group=Default Group
 IconFile=
 Library1=core
+Library10=sd_panelextra
 Library2=phone
 Library3=keyvaluestore2
 Library4=dialogs
@@ -72,27 +73,27 @@ Library6=json
 Library7=stringutils
 Library8=okhttputils2
 Library9=dateutils
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="26"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
-Module1=Visualizacion
-Module2=ConfigurarSecuencia
-Module3=SeleccionPictogramas
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
+Module1=ConfigurarSecuencia
+Module2=SeleccionPictogramas
+Module3=Visualizacion
 Module4=AcercaDe
 Module5=Configuracion
 Module6=ArranqueAutomatico
 Module7=Avisos
 Module8=Starter
 NumberOfFiles=31
-NumberOfLibraries=9
+NumberOfLibraries=10
 NumberOfModules=8
-Version=8.5
+Version=8.8
 @EndOfDesignText@
 ' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
 
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 102
-	#VersionName: 1.02
+	#VersionCode: 103
+	#VersionName: 1.03
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
@@ -225,21 +226,21 @@ Sub DibujarPortada
 			BotonCrear.Enabled=False 'Si llegamos al máximo de secuencias, no podemos crear más
 		End If
 
-		BotonAcercaDe.Initialize("BotonAcercaDe")
-		BotonAcercaDe.Text="Acerca de Pictorario"
-		BotonAcercaDe.TextSize=20
-		BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
-		BotonAcercaDe.TextColor=Colors.Black
-		PanelScroll.Panel.AddView(BotonAcercaDe,5dip,BotonCrear.Top+BotonCrear.Height,100%X-10dip,60dip)
-		
 		BotonConfiguracion.Initialize("BotonConfiguracion")
 		BotonConfiguracion.Text="Configuración"
 		BotonConfiguracion.TextSize=20
 		BotonConfiguracion.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
 		BotonConfiguracion.TextColor=Colors.Black
-		PanelScroll.Panel.AddView(BotonConfiguracion,5dip,BotonAcercaDe.Top+BotonAcercaDe.Height,100%X-10dip,60dip)
+		PanelScroll.Panel.AddView(BotonConfiguracion,5dip,BotonCrear.Top+BotonCrear.Height,100%X-10dip,60dip)
 
-		UltimaLinea=BotonConfiguracion.Top+BotonConfiguracion.Height
+		BotonAcercaDe.Initialize("BotonAcercaDe")
+		BotonAcercaDe.Text="Acerca de Pictorario"
+		BotonAcercaDe.TextSize=20
+		BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+		BotonAcercaDe.TextColor=Colors.Black
+		PanelScroll.Panel.AddView(BotonAcercaDe,5dip,BotonConfiguracion.Top+BotonConfiguracion.Height,100%X-10dip,60dip)
+		
+		UltimaLinea=BotonAcercaDe.Top+BotonConfiguracion.Height
 	End If
 
 	BotonSalir.Initialize("BotonSalir")
@@ -362,6 +363,7 @@ Sub BotonCandado_LongClick
 		Vibracion.Vibrate(300)
 		Starter.AplicacionProtegida=False
 		Msgbox("Se puede reactivar desde el menú de configuración.","Protección desactivada")
+		CallSub(Starter,"Guardar_Configuracion")
 		DibujarPortada
 	End If
 	ContadorCandado=0
