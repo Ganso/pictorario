@@ -16,15 +16,7 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Cambios en la visualización de secuencias:"&CRLF& _
-	" * Se muestran todas las actividades de la Secuencia en la parte inferior."&CRLF& _
-	" * Se muestra el progreso dentro de la actividad actual."&CRLF& _
-	" * Se indica la actividad actual con un pictograma en el centro y una marca roja en el reloj."&CRLF&CRLF& _
-	"- Nuevas opciones de configuración:"&CRLF& _
-	"* Seleccionar colores para las agujas del reloj."&CRLF& _
-	"* Formato de 12h o 24h."&CRLF&CRLF& _
-	"- Por defecto el tamaño de icono es 0, para hacer más limpia la visualización."&CRLF&CRLF& _
-	"- Optimizada la pantalla de ""Acerca de"". La opción de ""Reiniciar configuración"" se mueve al apartado de configuración."
+	"- Corregidos algunos puntos donde no se aplicaba la preferencia de formato horario."
 
 	Dim kvs As KeyValueStore
 
@@ -465,13 +457,16 @@ Sub CalcularProximaAlarma
 			TextoManana=" (mañana)"
 		End If
 		
+		Dim TextoHora As String
+		TextoHora=EscribirHora(Hora,Minuto)
+		
 		n.Initialize2(n.IMPORTANCE_LOW)
 		n.OnGoingEvent = False
 		n.Sound = False
 		n.Vibrate = False
 		n.Light = True
 		n.Icon = "iconw"
-		n.SetInfo("Próxima actividad en Pictorario" ,Hora&":"&NumberFormat(Minuto,2,0)&TextoManana&": "&Secuencia(ProximaAlarmaSeq).Descripcion&" ➞ "&ActividadSecuencia(ProximaAlarmaSeq,ProximaAlarmaAct).Descripcion, Main)
+		n.SetInfo("Próxima actividad en Pictorario" ,TextoHora&TextoManana&": "&Secuencia(ProximaAlarmaSeq).Descripcion&" ➞ "&ActividadSecuencia(ProximaAlarmaSeq,ProximaAlarmaAct).Descripcion, Main)
 		n.Notify(1)
 
 		'Service.AutomaticForegroundNotification=n
@@ -484,4 +479,23 @@ Sub CalcularProximaAlarma
 
 	'Log( DateTime.Time(DateTime.Now) & ": Fin de CalcularProximaAlarma")
 	
+End Sub
+
+Sub EscribirHora(Hora As Int, Minutos As Int) As String
+	Dim Salida As String
+	Dim HoraModificada As Int
+	If (Formato24h==False And Hora>11) Then
+		HoraModificada=Hora-12
+	Else
+		HoraModificada=Hora
+	End If
+	Salida=HoraModificada&":"&NumberFormat(Minutos,2,0)
+	If Formato24h==False Then
+		If Hora<12 Then
+			Salida=Salida&" a.m."
+		Else
+			Salida=Salida&" p.m."
+		End If
+	End If
+	Return Salida
 End Sub

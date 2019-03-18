@@ -92,8 +92,8 @@ Version=8.8
 
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 103
-	#VersionName: 1.03
+	#VersionCode: 104
+	#VersionName: 1.04
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
@@ -202,14 +202,16 @@ Sub DibujarPortada
 		ProximaAlarma.Initialize("ProximaAlarma")
 		Dim TextoManana="" As String
 		If (Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio*60+Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio) < (DateTime.GetHour(DateTime.Now)*60+DateTime.GetMinute(DateTime.Now)) Then
-			TextoManana="mañana "
+			TextoManana="Mañana a las "
+		Else
+			TextoManana="Hoy a las "
 		End If
-		ProximaAlarma.Text="Próxima alarma "&TextoManana&"a las "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio&":"&NumberFormat(Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio,2,0)&CRLF&Starter.Secuencia(Starter.ProximaAlarmaSeq).Descripcion&" ➞ "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Descripcion
+		ProximaAlarma.Text="Próxima alarma:"&CRLF&TextoManana&EscribirHora(Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio,Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio)&CRLF&Starter.Secuencia(Starter.ProximaAlarmaSeq).Descripcion&" ➞ "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Descripcion
 		ProximaAlarma.TextColor=Colors.Black
 		ProximaAlarma.TextSize=16
 		ProximaAlarma.Typeface=Typeface.CreateNew(Typeface.DEFAULT, Typeface.STYLE_ITALIC)
 		ProximaAlarma.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.RIGHT)
-		PanelScroll.Panel.AddView(ProximaAlarma,10dip,ProximaAlarmaPict.Top,100%X-100dip,80dip)
+		PanelScroll.Panel.AddView(ProximaAlarma,10dip,ProximaAlarmaPict.Top,100%X-110dip,80dip)
 
 		UltimaLinea=ProximaAlarma.Top+ProximaAlarma.Height
 	End If
@@ -373,4 +375,23 @@ Sub Activity_KeyPress (KeyCode As Int)
 	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
 		Sleep(0) 'No hace nada
 	End If
+End Sub
+
+Sub EscribirHora(Hora As Int, Minutos As Int) As String
+	Dim Salida As String
+	Dim HoraModificada As Int
+	If (Starter.Formato24h==False And Hora>11) Then
+		HoraModificada=Hora-12
+	Else
+		HoraModificada=Hora
+	End If
+	Salida=HoraModificada&":"&NumberFormat(Minutos,2,0)
+	If Starter.Formato24h==False Then
+		If Hora<12 Then
+			Salida=Salida&" a.m."
+		Else
+			Salida=Salida&" p.m."
+		End If
+	End If
+	Return Salida
 End Sub

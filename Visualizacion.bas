@@ -155,7 +155,7 @@ Sub DibujarTablero()
 		Dim Y=HoraMinuto_Y(Hora,0,0.85) As Float
 		Dim NumeroHora As Label
 		NumeroHora.Initialize("")
-		NumeroHora.Text=(Hora) Mod 24
+		NumeroHora.Text=Hora24a12((Hora) Mod 24)
 		NumeroHora.TextColor=Colors.DarkGray
 		NumeroHora.Gravity=Gravity.CENTER
 		NumeroHora.TextSize=15

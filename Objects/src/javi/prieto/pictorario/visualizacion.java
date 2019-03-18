@@ -350,8 +350,8 @@ public static int _vvvvvvvvvvvvvvvvvvvv1 = 0;
 public static int _vvvvvvvvvv6 = 0;
 public static int _vvvvvvvvvvvvvvvvvv6 = 0;
 public b4a.example.panelnavigator _navegadoractividades = null;
-public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvvvvvvvvvvvv6 = null;
 public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvvvvvvvvvvvv7 = null;
+public anywheresoftware.b4a.objects.LabelWrapper[] _vvvvvvvvvvvvvvvvvvvv0 = null;
 public anywheresoftware.b4a.objects.ProgressBarWrapper _progresoactividad = null;
 public anywheresoftware.b4a.objects.PanelWrapper _fondopictogramacentral = null;
 public anywheresoftware.b4a.objects.ImageViewWrapper _pictogramacentral = null;
@@ -972,8 +972,8 @@ _y = _horaminuto_y((float) (_hora),(float) (0),(float) (0.85));
 _numerohora = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 151;BA.debugLine="NumeroHora.Initialize(\"\")";
 _numerohora.Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 152;BA.debugLine="NumeroHora.Text=(Hora) Mod 24";
-_numerohora.setText(BA.ObjectToCharSequence((_hora)%24));
+ //BA.debugLineNum = 152;BA.debugLine="NumeroHora.Text=Hora24a12((Hora) Mod 24)";
+_numerohora.setText(BA.ObjectToCharSequence(_vvvvvvvvvvvvvvvvvvvv6((int) ((_hora)%24))));
  //BA.debugLineNum = 153;BA.debugLine="NumeroHora.TextColor=Colors.DarkGray";
 _numerohora.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.DarkGray);
  //BA.debugLineNum = 154;BA.debugLine="NumeroHora.Gravity=Gravity.CENTER";
@@ -1079,31 +1079,31 @@ for (;_nactividad <= limit105 ;_nactividad = _nactividad + step105 ) {
  //BA.debugLineNum = 215;BA.debugLine="NavegadorActividades.Add(NActividad,Starter.Colo";
 mostCurrent._navegadoractividades._v6(BA.NumberToString(_nactividad),mostCurrent._vvvvvvvvvv3._vv7[_nactividad],anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvvvvvvvv3._vvvv5,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].Pictograma+".png"));
  //BA.debugLineNum = 216;BA.debugLine="DescripcionesActividades(NActividad).Initialize(";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 217;BA.debugLine="DescripcionesActividades(NActividad).Gravity=Gra";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
- //BA.debugLineNum = 218;BA.debugLine="DescripcionesActividades(NActividad).Text=Starte";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].setText(BA.ObjectToCharSequence(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].Descripcion));
- //BA.debugLineNum = 219;BA.debugLine="DescripcionesActividades(NActividad).TextColor=C";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 220;BA.debugLine="DescripcionesActividades(NActividad).Typeface=Ty";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.DEFAULT_BOLD);
- //BA.debugLineNum = 221;BA.debugLine="DescripcionesActividades(NActividad).TextSize=20";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].setTextSize((float) (20));
- //BA.debugLineNum = 222;BA.debugLine="NavegadorActividades.GetPanel(NActividad).AddVie";
-mostCurrent._navegadoractividades._vv5(_nactividad).AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvvvvvvvvv6[_nactividad].getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2));
- //BA.debugLineNum = 223;BA.debugLine="HorasActividades(NActividad).Initialize(\"\")";
 mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].Initialize(mostCurrent.activityBA,"");
- //BA.debugLineNum = 224;BA.debugLine="HorasActividades(NActividad).Gravity=Gravity.CEN";
+ //BA.debugLineNum = 217;BA.debugLine="DescripcionesActividades(NActividad).Gravity=Gra";
 mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
- //BA.debugLineNum = 228;BA.debugLine="HorasActividades(NActividad).Text=cs.Initialize.";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setText(BA.ObjectToCharSequence(_cs.Initialize().Append(BA.ObjectToCharSequence("desde ")).Bold().Append(BA.ObjectToCharSequence(_vvvvvvvvvvvvvvvv2(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].hora_inicio,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].minuto_inicio))).Pop().Append(BA.ObjectToCharSequence("           hasta ")).Bold().Append(BA.ObjectToCharSequence(_vvvvvvvvvvvvvvvv2(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].hora_fin,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].minuto_fin))).Pop().getObject()));
- //BA.debugLineNum = 230;BA.debugLine="HorasActividades(NActividad).TextColor=Colors.Bl";
+ //BA.debugLineNum = 218;BA.debugLine="DescripcionesActividades(NActividad).Text=Starte";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setText(BA.ObjectToCharSequence(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].Descripcion));
+ //BA.debugLineNum = 219;BA.debugLine="DescripcionesActividades(NActividad).TextColor=C";
 mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
+ //BA.debugLineNum = 220;BA.debugLine="DescripcionesActividades(NActividad).Typeface=Ty";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setTypeface(anywheresoftware.b4a.keywords.Common.Typeface.DEFAULT_BOLD);
+ //BA.debugLineNum = 221;BA.debugLine="DescripcionesActividades(NActividad).TextSize=20";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setTextSize((float) (20));
+ //BA.debugLineNum = 222;BA.debugLine="NavegadorActividades.GetPanel(NActividad).AddVie";
+mostCurrent._navegadoractividades._vv5(_nactividad).AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2));
+ //BA.debugLineNum = 223;BA.debugLine="HorasActividades(NActividad).Initialize(\"\")";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].Initialize(mostCurrent.activityBA,"");
+ //BA.debugLineNum = 224;BA.debugLine="HorasActividades(NActividad).Gravity=Gravity.CEN";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 228;BA.debugLine="HorasActividades(NActividad).Text=cs.Initialize.";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].setText(BA.ObjectToCharSequence(_cs.Initialize().Append(BA.ObjectToCharSequence("desde ")).Bold().Append(BA.ObjectToCharSequence(_vvvvvvvvvvv4(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].hora_inicio,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].minuto_inicio))).Pop().Append(BA.ObjectToCharSequence("           hasta ")).Bold().Append(BA.ObjectToCharSequence(_vvvvvvvvvvv4(mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].hora_fin,mostCurrent._vvvvvvvvvv3._vvv3[mostCurrent._vvvvvvvvvv3._vvv1][_nactividad].minuto_fin))).Pop().getObject()));
+ //BA.debugLineNum = 230;BA.debugLine="HorasActividades(NActividad).TextColor=Colors.Bl";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 231;BA.debugLine="HorasActividades(NActividad).TextSize=16";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].setTextSize((float) (16));
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].setTextSize((float) (16));
  //BA.debugLineNum = 232;BA.debugLine="NavegadorActividades.GetPanel(NActividad).AddVie";
-mostCurrent._navegadoractividades._vv5(_nactividad).AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvvvvvvvvv7[_nactividad].getObject()),(int) (0),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2));
+mostCurrent._navegadoractividades._vv5(_nactividad).AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvvvvvvvvv0[_nactividad].getObject()),(int) (0),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),(int) (mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2));
  //BA.debugLineNum = 234;BA.debugLine="ProgresoActividad.Top=CambiarVista.Top+CambiarVi";
 mostCurrent._progresoactividad.setTop((int) (mostCurrent._cambiarvista.getTop()+mostCurrent._cambiarvista.getHeight()+anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (5))+mostCurrent._navegadoractividades._vv5(_nactividad).getHeight()/(double)2));
  //BA.debugLineNum = 235;BA.debugLine="ProgresoActividad.Height=10dip";
@@ -1117,7 +1117,7 @@ mostCurrent._navegadoractividades._vvvv3(anywheresoftware.b4a.keywords.Common.Fa
  //BA.debugLineNum = 240;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvvvvvvvvvvvvv2(int _hora,int _minutos) throws Exception{
+public static String  _vvvvvvvvvvv4(int _hora,int _minutos) throws Exception{
 String _salida = "";
 int _horamodificada = 0;
  //BA.debugLineNum = 434;BA.debugLine="Sub EscribirHora(Hora As Int, Minutos As Int) As S";
@@ -1200,20 +1200,20 @@ _vvvvvvvvvvvvvvvvvv6 = (int) (-1);
  //BA.debugLineNum = 59;BA.debugLine="Private NavegadorActividades As PanelNavigator";
 mostCurrent._navegadoractividades = new b4a.example.panelnavigator();
  //BA.debugLineNum = 60;BA.debugLine="Private DescripcionesActividades(Starter.MaxActiv";
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv3];
-{
-int d0 = mostCurrent._vvvvvvvvvvvvvvvvvvvv6.length;
-for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvvvvvvvvvvvvvvvvv6[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
-}
-}
-;
- //BA.debugLineNum = 61;BA.debugLine="Private HorasActividades(Starter.MaxActividades)";
 mostCurrent._vvvvvvvvvvvvvvvvvvvv7 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv3];
 {
 int d0 = mostCurrent._vvvvvvvvvvvvvvvvvvvv7.length;
 for (int i0 = 0;i0 < d0;i0++) {
 mostCurrent._vvvvvvvvvvvvvvvvvvvv7[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
+}
+}
+;
+ //BA.debugLineNum = 61;BA.debugLine="Private HorasActividades(Starter.MaxActividades)";
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0 = new anywheresoftware.b4a.objects.LabelWrapper[mostCurrent._vvvvvvvvvv3._vv3];
+{
+int d0 = mostCurrent._vvvvvvvvvvvvvvvvvvvv0.length;
+for (int i0 = 0;i0 < d0;i0++) {
+mostCurrent._vvvvvvvvvvvvvvvvvvvv0[i0] = new anywheresoftware.b4a.objects.LabelWrapper();
 }
 }
 ;
@@ -1226,7 +1226,7 @@ mostCurrent._pictogramacentral = new anywheresoftware.b4a.objects.ImageViewWrapp
  //BA.debugLineNum = 66;BA.debugLine="End Sub";
 return "";
 }
-public static int  _vvvvvvvvvvvvvvvvvvvv0(int _hora24) throws Exception{
+public static int  _vvvvvvvvvvvvvvvvvvvv6(int _hora24) throws Exception{
  //BA.debugLineNum = 408;BA.debugLine="Sub Hora24a12 (Hora24 As Int) As Int";
  //BA.debugLineNum = 409;BA.debugLine="If Starter.Formato24h==True Then";
 if (mostCurrent._vvvvvvvvvv3._vvv0==anywheresoftware.b4a.keywords.Common.True) { 
@@ -1382,7 +1382,7 @@ if (mostCurrent._vvvvvvvvvv3._vvv2[mostCurrent._vvvvvvvvvv3._vvv1].tablero.indic
  //BA.debugLineNum = 515;BA.debugLine="If Starter.Formato24h==False Then";
 if (mostCurrent._vvvvvvvvvv3._vvv0==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 516;BA.debugLine="RelojDigital.Text=NumberFormat(Hora24a12(HoraAc";
-mostCurrent._relojdigital.setText(BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.NumberFormat(_vvvvvvvvvvvvvvvvvvvv0(_vvvvvvvvvvvvvvvvvvv0),(int) (2),(int) (0))+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(_vvvvvvvvvvvvvvvvvvvv1,(int) (2),(int) (0))));
+mostCurrent._relojdigital.setText(BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.NumberFormat(_vvvvvvvvvvvvvvvvvvvv6(_vvvvvvvvvvvvvvvvvvv0),(int) (2),(int) (0))+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(_vvvvvvvvvvvvvvvvvvvv1,(int) (2),(int) (0))));
  //BA.debugLineNum = 517;BA.debugLine="If HoraActual=0 Then";
 if (_vvvvvvvvvvvvvvvvvvv0==0) { 
  //BA.debugLineNum = 518;BA.debugLine="RelojDigital.Text=RelojDigital.Text&\" de la no";
