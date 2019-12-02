@@ -1,0 +1,403 @@
+﻿Build1=Default,javi.prieto.pictorario
+File1=2271.png
+File10=32556.png
+File11=7229.png
+File12=9813.png
+File13=AcercaDe.bal
+File14=alarma.png
+File15=buscar.png
+File16=candado.png
+File17=Configuracion.bal
+File18=ConfigurarSecuencia.bal
+File19=dia.png
+File2=2369.png
+File20=engranaje.png
+File21=fila.png
+File22=GreatVibes-Regular.ttf
+File23=llave.png
+File24=logotipo.png
+File25=manana.png
+File26=pictogramas.png
+File27=Portada.bal
+File28=SeleccionarPictograma.bal
+File29=tarde.png
+File3=26799.png
+File30=trabajar_en_el_ordenador.png
+File31=VisualizarSecuencia.bal
+File4=2781.png
+File5=28206.png
+File6=28667.png
+File7=28675.png
+File8=3082.png
+File9=31857.png
+FileGroup1=PictogramasPorDefecto
+FileGroup10=PictogramasPorDefecto
+FileGroup11=PictogramasPorDefecto
+FileGroup12=PictogramasPorDefecto
+FileGroup13=Default Group
+FileGroup14=Default Group
+FileGroup15=Default Group
+FileGroup16=Default Group
+FileGroup17=Default Group
+FileGroup18=Default Group
+FileGroup19=Default Group
+FileGroup2=PictogramasPorDefecto
+FileGroup20=Default Group
+FileGroup21=Default Group
+FileGroup22=Default Group
+FileGroup23=Default Group
+FileGroup24=Default Group
+FileGroup25=Default Group
+FileGroup26=Default Group
+FileGroup27=Default Group
+FileGroup28=Default Group
+FileGroup29=Default Group
+FileGroup3=PictogramasPorDefecto
+FileGroup30=Default Group
+FileGroup31=Default Group
+FileGroup4=PictogramasPorDefecto
+FileGroup5=PictogramasPorDefecto
+FileGroup6=PictogramasPorDefecto
+FileGroup7=PictogramasPorDefecto
+FileGroup8=PictogramasPorDefecto
+FileGroup9=PictogramasPorDefecto
+Group=Default Group
+IconFile=
+Library1=core
+Library10=stringutils
+Library2=phone
+Library3=keyvaluestore2
+Library4=dialogs
+Library5=ime
+Library6=json
+Library7=okhttputils2
+Library8=dateutils
+Library9=sd_panelextra
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
+Module1=ConfigurarSecuencia
+Module2=SeleccionPictogramas
+Module3=Visualizacion
+Module4=AcercaDe
+Module5=Configuracion
+Module6=ArranqueAutomatico
+Module7=Avisos
+Module8=Starter
+NumberOfFiles=31
+NumberOfLibraries=10
+NumberOfModules=8
+Version=9.5
+@EndOfDesignText@
+' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
+
+#Region  Project Attributes 
+	#ApplicationLabel: Pictorario
+	#VersionCode: 105
+	#VersionName: 1.05
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+'#BridgeLogger: True
+
+'IMPORTANTE: Al actualizar de versión, indicar siempre los cambios en Starter.CambiosVersion
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+End Sub
+
+Sub Globals
+
+	Dim PictogramaSecuencia(Starter.MaxSecuencias) As Label
+	Dim EditarSecuencia(Starter.MaxSecuencias) As Label
+	Dim EtiquetaSecuencia(Starter.MaxActividades) As Label
+	
+	Dim ProximaAlarma As Label
+	Dim ProximaAlarmaPict As Label
+	
+	Dim BotonAcercaDe As Button
+	Dim BotonCrear As Button
+	Dim BotonSalir As Button
+	Dim BotonConfiguracion As Button
+	
+	Dim BotonCandado As Button
+
+	Private PanelScroll As ScrollView
+	Private Pictorario As Label
+
+	Dim ContadorCandado=0 As Int
+
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	Dim resultado As Int
+	
+	DibujarPortada
+
+	'Aviso por el cambio en el archivado de Pictogramas desde la Beta5 a la Beta6 (con el tiempo se podrá quitar)
+	If (Starter.DetectadaVersionAntigua==True) Then
+		resultado=Msgbox2( _
+			"Se han hecho cambios en la aplicación que han podido afectar a las secuencias ya creadas."&CRLF&CRLF& _
+			"Se recomienda comenzar con una configuración limpia."&CRLF&CRLF& _
+			"Disculpe las molestias." _
+			,"Actualización de datos","Reestablecer configuración (RECOMENDADO)","","Importar datos anteriores",Null)
+		If resultado==DialogResponse.POSITIVE Then
+			CallSub(Starter,"Inicializar_Con_Ejemplo")
+			CallSub(Starter,"BorrarPictogramas")
+			CallSub(Starter,"Guardar_Configuracion")
+		End If
+	End If
+	
+	'Si se ha actualizado la versión, muestra las novedades y guarda el cambio de versión
+	If (Starter.VersionInstalada<>-1 And Starter.VersionInstalada<>Application.VersionCode) Then
+		Msgbox2("Novedades de la versión "&Application.VersionName&":"&CRLF&CRLF&Starter.CambiosVersion,"APLICACIÓN ACTUALIZADA","Continuar","","",Null)
+		Starter.VersionInstalada=Application.VersionCode
+		CallSub(Starter,"Guardar_Configuracion")
+	End If
+End Sub
+
+Sub DibujarPortada
+
+	Activity.RemoveAllViews
+	Activity.LoadLayout("Portada")
+	
+	'Ajusta la caja de Pictorario a su altura
+	Dim SU As StringUtils
+	Do While SU.MeasureMultilineTextHeight(Pictorario,Pictorario.Text)>Pictorario.Height
+		Pictorario.TextSize=Pictorario.TextSize-1
+	Loop
+	
+	Dim Act As Int
+	Dim UltimaLinea=0 As Int
+	
+	For Act=0 To Starter.NumSecuencias-1
+		
+		PictogramaSecuencia(Act).Initialize("BotonPictograma")
+		PictogramaSecuencia(Act).Tag=Act
+		PictogramaSecuencia(Act).Color=Colors.Transparent
+		PictogramaSecuencia(Act).SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.Secuencia(Act).pictograma&".png"))
+		PanelScroll.Panel.AddView(PictogramaSecuencia(Act),10dip,10dip+90dip*Act,80dip,80dip)
+		
+		EtiquetaSecuencia(Act).Initialize("TextoSecuencia")
+		EtiquetaSecuencia(Act).Tag=Act
+		EtiquetaSecuencia(Act).Text=Starter.Secuencia(Act).descripcion
+		EtiquetaSecuencia(Act).TextColor=Colors.Black
+		EtiquetaSecuencia(Act).TextSize=16
+		EtiquetaSecuencia(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.LEFT)
+		PanelScroll.Panel.AddView(EtiquetaSecuencia(Act),110dip,10dip+90dip*Act,100%X-170dip,80dip)
+
+		If ( Starter.AplicacionProtegida==False ) Then
+				EditarSecuencia(Act).Initialize("BotonEditar")
+			EditarSecuencia(Act).Tag=Act
+			EditarSecuencia(Act).SetBackgroundImage(LoadBitmap(File.DirAssets,"engranaje.png"))
+			PanelScroll.Panel.AddView(EditarSecuencia(Act),100%X-60dip,30dip+90dip*Act,40dip,40dip)
+		End If
+
+		UltimaLinea=PictogramaSecuencia(Act).Top+PictogramaSecuencia(Act).Height
+	Next
+
+	If Starter.ProximaAlarmaSeq>=0 Then 'Si hay una próxima alarma definida
+		ProximaAlarmaPict.Initialize("ProximaAlarmaPict")
+		ProximaAlarmaPict.SetBackgroundImage(LoadBitmap(Starter.DirPictogramas,Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Pictograma&".png"))
+		PanelScroll.Panel.AddView(ProximaAlarmaPict,100%X-80dip,90dip*Starter.NumSecuencias,60dip,60dip)
+		
+		ProximaAlarma.Initialize("ProximaAlarma")
+		Dim TextoManana="" As String
+		If (Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio*60+Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio) < (DateTime.GetHour(DateTime.Now)*60+DateTime.GetMinute(DateTime.Now)) Then
+			TextoManana="Mañana a las "
+		Else
+			TextoManana="Hoy a las "
+		End If
+		ProximaAlarma.Text="Próxima alarma:"&CRLF&TextoManana&EscribirHora(Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).hora_inicio,Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).minuto_inicio)&CRLF&Starter.Secuencia(Starter.ProximaAlarmaSeq).Descripcion&" ➞ "&Starter.ActividadSecuencia(Starter.ProximaAlarmaSeq,Starter.ProximaAlarmaAct).Descripcion
+		ProximaAlarma.TextColor=Colors.Black
+		ProximaAlarma.TextSize=16
+		ProximaAlarma.Typeface=Typeface.CreateNew(Typeface.DEFAULT, Typeface.STYLE_ITALIC)
+		ProximaAlarma.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.RIGHT)
+		PanelScroll.Panel.AddView(ProximaAlarma,10dip,ProximaAlarmaPict.Top,100%X-110dip,80dip)
+
+		UltimaLinea=ProximaAlarma.Top+ProximaAlarma.Height
+	End If
+	
+	If ( Starter.AplicacionProtegida==False ) Then
+		BotonCrear.Initialize("BotonCrear")
+		BotonCrear.Text="Crear Secuencia"
+		BotonCrear.TextSize=20
+		BotonCrear.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+		BotonCrear.TextColor=Colors.Black
+		PanelScroll.Panel.AddView(BotonCrear,5dip,UltimaLinea+30dip,100%X-10dip,60dip)
+		
+		If Starter.NumSecuencias==Starter.MaxSecuencias Then
+			BotonCrear.Enabled=False 'Si llegamos al máximo de secuencias, no podemos crear más
+		End If
+
+		BotonConfiguracion.Initialize("BotonConfiguracion")
+		BotonConfiguracion.Text="Configuración"
+		BotonConfiguracion.TextSize=20
+		BotonConfiguracion.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+		BotonConfiguracion.TextColor=Colors.Black
+		PanelScroll.Panel.AddView(BotonConfiguracion,5dip,BotonCrear.Top+BotonCrear.Height,100%X-10dip,60dip)
+
+		BotonAcercaDe.Initialize("BotonAcercaDe")
+		BotonAcercaDe.Text="Acerca de Pictorario"
+		BotonAcercaDe.TextSize=20
+		BotonAcercaDe.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+		BotonAcercaDe.TextColor=Colors.Black
+		PanelScroll.Panel.AddView(BotonAcercaDe,5dip,BotonConfiguracion.Top+BotonConfiguracion.Height,100%X-10dip,60dip)
+		
+		UltimaLinea=BotonAcercaDe.Top+BotonConfiguracion.Height
+	End If
+
+	BotonSalir.Initialize("BotonSalir")
+	BotonSalir.Text="Salir"
+	BotonSalir.TextSize=20
+	BotonSalir.Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
+	BotonSalir.TextColor=Colors.Black
+	PanelScroll.Panel.AddView(BotonSalir,5dip,UltimaLinea,100%X-10dip,60dip)
+
+	PanelScroll.Panel.Height=BotonSalir.Top+BotonSalir.Height+5dip
+		
+	If ( Starter.AplicacionProtegida==True ) Then
+		BotonCandado.Initialize("BotonCandado")
+		BotonCandado.SetBackgroundImage(LoadBitmap(File.DirAssets,"candado.png"))
+		Activity.AddView(BotonCandado,100%X-50dip,100%Y-50dip,40dip,40dip)
+	End If
+	
+End Sub
+
+Sub BotonEditar_click
+	Dim BotonPulsado As Label
+	Dim Opciones As List
+	Dim resultado As Int
+	
+	BotonPulsado=Sender
+	Starter.SecuenciaActiva=BotonPulsado.Tag
+	Opciones.Initialize2(Array As String("Editar secuencia","Borrar secuencia","Duplicar secuencia","CANCELAR"))
+	resultado=InputList(Opciones,"Acción",-1)
+	Select resultado
+		Case 0
+			StartActivity(ConfigurarSecuencia)
+		Case 1
+			If Msgbox2("¿Está seguro de que quiere borrar la secuencia """&Starter.Secuencia(Starter.SecuenciaActiva).descripcion&"""?","Borrar secuencia","Sí","","No",Null)==DialogResponse.POSITIVE Then
+				For Sec=Starter.SecuenciaActiva To Starter.NumSecuencias-2
+					'Copia las siguientes hacia atrás
+					CallSub3(Starter,"CopiarSecuencias",Sec+1,Sec)
+				Next
+				'Reduce en uno el total, guarda el resultado, y recarga la portada
+				Starter.NumSecuencias=Starter.NumSecuencias-1
+				CallSub(Starter,"Guardar_Configuracion")
+				DibujarPortada
+			End If
+		Case 2
+			If Starter.NumSecuencias==Starter.MaxSecuencias Then
+				Msgbox("No es posible: Se ha alcanzado el máximo de secuencias soportadas por la aplicación.","Error al duplicar secuencia")
+			Else
+				'Creamos una secuencia igual al final, añadiendo "(copia)" a la descripción
+				CallSub3(Starter,"CopiarSecuencias",Starter.SecuenciaActiva,Starter.NumSecuencias)
+				Starter.Secuencia(Starter.NumSecuencias).Descripcion=Starter.Secuencia(Starter.NumSecuencias).Descripcion&" (copia)"
+				'Aumenta en uno el total, guarda el resultado, y recarga la portada
+				Starter.NumSecuencias=Starter.NumSecuencias+1
+				CallSub(Starter,"Guardar_Configuracion")
+				DibujarPortada
+			End If
+	End Select
+End Sub
+
+Sub BotonPictograma_click
+	Dim BotonPulsado As Label
+	BotonPulsado=Sender
+	Starter.SecuenciaActiva=BotonPulsado.Tag
+	StartActivity(Visualizacion)
+End Sub
+
+Sub TextoSecuencia_click
+	Dim EtiquetaPulsada As Label
+	EtiquetaPulsada=Sender
+	Starter.SecuenciaActiva=EtiquetaPulsada.Tag
+	StartActivity(Visualizacion)
+End Sub
+
+Sub Activity_Resume
+	DibujarPortada
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub BotonConfiguracion_Click
+	StartActivity(Configuracion)
+End Sub
+
+Sub BotonAcercaDe_Click
+	StartActivity(AcercaDe)
+End Sub
+
+Sub BotonCrear_Click
+	Starter.SecuenciaActiva=Starter.MaxSecuencias
+	StartActivity(ConfigurarSecuencia)
+End Sub
+
+Sub BotonSalir_Click
+	Activity.Finish
+End Sub
+
+Sub ProximaAlarma_Click
+	If ( Starter.AplicacionProtegida==False ) Then
+		Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq
+		StartActivity(ConfigurarSecuencia)
+	End If
+End Sub
+
+Sub ProximaAlarmaPict_Click
+	If ( Starter.AplicacionProtegida==False ) Then
+		Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq
+		StartActivity(ConfigurarSecuencia)
+	End If
+End Sub
+
+Sub BotonCandado_Click
+	Dim Vibracion As PhoneVibrate
+	Vibracion.Vibrate(100)
+	ContadorCandado=ContadorCandado+1
+End Sub
+
+Sub BotonCandado_LongClick
+	If ( ContadorCandado>0 ) Then
+		Dim Vibracion As PhoneVibrate
+		Vibracion.Vibrate(300)
+		Starter.AplicacionProtegida=False
+		Msgbox("Se puede reactivar desde el menú de configuración.","Protección desactivada")
+		CallSub(Starter,"Guardar_Configuracion")
+		DibujarPortada
+	End If
+	ContadorCandado=0
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int)
+	If KeyCode = KeyCodes.KEYCODE_BACK Then 'Al pulsar atrás...
+		Sleep(0) 'No hace nada
+	End If
+End Sub
+
+Sub EscribirHora(Hora As Int, Minutos As Int) As String
+	Dim Salida As String
+	Dim HoraModificada As Int
+	If (Starter.Formato24h==False And Hora>11) Then
+		HoraModificada=Hora-12
+	Else
+		HoraModificada=Hora
+	End If
+	Salida=HoraModificada&":"&NumberFormat(Minutos,2,0)
+	If Starter.Formato24h==False Then
+		If Hora<12 Then
+			Salida=Salida&" a.m."
+		Else
+			Salida=Salida&" p.m."
+		End If
+	End If
+	Return Salida
+End Sub
