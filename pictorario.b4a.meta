@@ -1,5 +1,5 @@
 ﻿ModuleBookmarks0=
-ModuleBookmarks1=114
+ModuleBookmarks1=115
 ModuleBookmarks2=
 ModuleBookmarks3=
 ModuleBookmarks4=
@@ -25,6 +25,6 @@ ModuleClosedNodes5=
 ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
-NavigationStack=Main,DibujarPortada,78,0,Diseñador Visual,AcercaDe.bal,-100,6,AcercaDe,Activity_Create,46,6,SeleccionPictogramas,DescargarPictograma,182,0,SeleccionPictogramas,BuscarTexto,115,6,Diseñador Visual,Configuracion.bal,-100,1,Diseñador Visual,ConfigurarSecuencia.bal,-100,4,Configuracion,Activity_Create,33,0,ConfigurarSecuencia,Globals,13,0,Starter,Process_Globals,15,6
+NavigationStack=ConfigurarSecuencia,Globals,13,0,Starter,EscribirHora,576,0,Starter,CopiarPictogramasIniciales,457,0,Starter,Inicializar_Con_Ejemplo,218,6,Visualizacion,Globals,53,0,Starter,Service_Create,93,0,Main,Globals,27,0,ConfigurarSecuencia,DibujarConfigurarSecuencia,274,1,Starter,Process_Globals,9,6,Visualizacion,DibujarTablero,221,1
 SelectedBuild=0
-VisibleModules=2,3,4,5,6,7,8,1
+VisibleModules=1,2,3,4,5,6,7,8

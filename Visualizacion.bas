@@ -4,7 +4,8 @@ ModulesStructureVersion=1
 Type=Activity
 Version=7.8
 @EndOfDesignText@
-' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Proyecto desarrollado por Javier Prieto Martínez
+' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
 
 #Region  Activity Attributes 
@@ -224,7 +225,7 @@ Sub DibujarTablero()
 		DescripcionesActividades(NActividad).Text=Starter.ActividadSecuencia(Starter.SecuenciaActiva,NActividad).Descripcion
 		DescripcionesActividades(NActividad).TextColor=Colors.Black
 		DescripcionesActividades(NActividad).Typeface=Typeface.DEFAULT_BOLD
-		DescripcionesActividades(NActividad).TextSize=20
+		DescripcionesActividades(NActividad).TextSize=26
 		NavegadorActividades.GetPanel(NActividad).AddView(DescripcionesActividades(NActividad),0,0,100%X,NavegadorActividades.GetPanel(NActividad).Height/2)
 		HorasActividades(NActividad).Initialize("")
 		HorasActividades(NActividad).Gravity=Gravity.CENTER
@@ -235,7 +236,7 @@ Sub DibujarTablero()
 			Append("           hasta ").Bold.Append(EscribirHora( Starter.ActividadSecuencia(Starter.SecuenciaActiva,NActividad).hora_fin , Starter.ActividadSecuencia(Starter.SecuenciaActiva,NActividad).minuto_fin )).Pop
 		HorasActividades(NActividad).TextColor=Colors.Black
 		HorasActividades(NActividad).TextSize=16
-		NavegadorActividades.GetPanel(NActividad).AddView(HorasActividades(NActividad),0,NavegadorActividades.GetPanel(NActividad).Height/2,100%X,NavegadorActividades.GetPanel(NActividad).Height/2)
+		NavegadorActividades.GetPanel(NActividad).AddView(HorasActividades(NActividad),0,NavegadorActividades.GetPanel(NActividad).Height/2,NavegadorActividades.GetPanel(NActividad).Width,NavegadorActividades.GetPanel(NActividad).Height/2)
 		
 		ProgresoActividad.Top=CambiarVista.Top+CambiarVista.Height+5dip+NavegadorActividades.GetPanel(NActividad).Height/2
 		ProgresoActividad.Height=10dip

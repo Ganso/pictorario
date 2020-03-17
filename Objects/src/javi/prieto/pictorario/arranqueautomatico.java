@@ -128,36 +128,36 @@ public class arranqueautomatico extends  android.app.Service{
 public b4a.example.dateutils _vvvvvvvvv1 = null;
 public b4a.example.versione06 _vvvvvvvvv2 = null;
 public javi.prieto.pictorario.main _vvvvvvvvv3 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvv4 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv5 = null;
-public javi.prieto.pictorario.visualizacion _vvvvvvvvv6 = null;
-public javi.prieto.pictorario.acercade _vvvvvvvvv7 = null;
-public javi.prieto.pictorario.configuracion _vvvvvvvvv0 = null;
-public javi.prieto.pictorario.avisos _vvvvvvvvvv2 = null;
-public javi.prieto.pictorario.starter _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv4 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.acercade _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvv7 = null;
+public javi.prieto.pictorario.avisos _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.starter _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv3 = null;
 public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
 public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 9;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 13;BA.debugLine="End Sub";
+ //BA.debugLineNum = 10;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 14;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_create() throws Exception{
- //BA.debugLineNum = 15;BA.debugLine="Sub Service_Create";
- //BA.debugLineNum = 17;BA.debugLine="End Sub";
+ //BA.debugLineNum = 16;BA.debugLine="Sub Service_Create";
+ //BA.debugLineNum = 18;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_destroy() throws Exception{
- //BA.debugLineNum = 24;BA.debugLine="Sub Service_Destroy";
- //BA.debugLineNum = 26;BA.debugLine="End Sub";
+ //BA.debugLineNum = 25;BA.debugLine="Sub Service_Destroy";
+ //BA.debugLineNum = 27;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
- //BA.debugLineNum = 19;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
- //BA.debugLineNum = 20;BA.debugLine="CallSub(Starter,\"Cargar_Configuracion\")";
-anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"Cargar_Configuracion");
- //BA.debugLineNum = 21;BA.debugLine="Service.StopAutomaticForeground 'Call this when t";
+ //BA.debugLineNum = 20;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
+ //BA.debugLineNum = 21;BA.debugLine="CallSub(Starter,\"Cargar_Configuracion\")";
+anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._vvvvvvvvvv2.getObject()),"Cargar_Configuracion");
+ //BA.debugLineNum = 22;BA.debugLine="Service.StopAutomaticForeground 'Call this when t";
 mostCurrent._service.StopAutomaticForeground();
- //BA.debugLineNum = 22;BA.debugLine="End Sub";
+ //BA.debugLineNum = 23;BA.debugLine="End Sub";
 return "";
 }
 }

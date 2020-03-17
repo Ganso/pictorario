@@ -4,7 +4,8 @@ ModulesStructureVersion=1
 Type=Service
 Version=7.8
 @EndOfDesignText@
-' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Proyecto desarrollado por Javier Prieto Martínez
+' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
 
 #Region  Service Attributes 
@@ -16,8 +17,8 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Solucionados problemas de descarga de pictogramas desde la web de ARASAAC."&CRLF&CRLF& _
-	"- Corregido el tamaño del texto en determinadas configuraciones de pantalla."
+	"- Cambiadas las actividades de ejemplo (reiniciar la configuración para verlas)."&CRLF&CRLF& _
+	"- Corregidos errores de visualización."
 	
 
 	Dim kvs As KeyValueStore
@@ -28,7 +29,7 @@ Sub Process_Globals
 	
 	Type Tablero ( tipo As Int, indicar_hora As Int, tam_icono As Int )
 	' Tipo 0: Reloj 12h AM
-	' Tipo 1: Reloj 12h PM
+	' Tipo 1: Reloj 12h PM bnm,,---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	' Tipo 2: Reloj 24h
 	' Tipo 3: Secuencia
 	' Indicar Hora 0: No indicar nada
@@ -52,7 +53,7 @@ Sub Process_Globals
 	''' TABLEROS
 	
 	Dim DescripcionTablero(4) As String
-	DescripcionTablero = Array As String("Reloj de 12h (mañana)","Reloj de 12h (tarde)","Reloj de 24h","Arco de secuencia")
+	DescripcionTablero = Array As String("Reloj de 12h (mañana)","Reloj de 12h (tarde)","Reloj de 24h","Secuencia completa")
 
 	Dim DescripcionMinutero(4) As String
 	DescripcionMinutero = Array As String("Sin indicación","Indicar hora","Indicar hora y minutos","Indicar hora, minutos y segundos")
@@ -91,7 +92,7 @@ Sub Service_Create
 	NumSecuencias=0
 	DirPictogramas=File.Combine(File.DirInternal,"/pictogramas")
 	IdPictogramaPorDefecto="7229" 'El pictograma por defecto es el reloj
-	PictogramasIniciales = Array As Int (31857,2781,28667,3082,28206,9813,2271,28675,2369,7229,26799,32556)
+	PictogramasIniciales = Array As Int (31857,2781,28667,3082,28206,9813,2271,28675,2369,7229,26799,32556,32568,4611,2587,13040,32580,11653)
 	kvs.Initialize(File.DirInternal, "configuracion")
 	
 	Cargar_Configuracion
@@ -162,80 +163,160 @@ Sub Inicializar_Con_Ejemplo
 	NumSecuencias=3
 	
 	'Secuencia 0
-	
 	Secuencia(0).Initialize
-	Secuencia(0).num_actividades=9
-	Secuencia(0).tablero.tipo=2
+	Secuencia(0).num_actividades=10
+	Secuencia(0).tablero.tipo=3
 	Secuencia(0).tablero.indicar_hora=1
 	Secuencia(0).tablero.tam_icono=0
 	Secuencia(0).pictograma=26799
 	Secuencia(0).notificaciones=False
-	Secuencia(0).descripcion="Día lectivo completo"
+	Secuencia(0).descripcion="Día con clases desde casa"
 	
-	ActividadSecuencia(0,0).hora_inicio=8
+	ActividadSecuencia(0,0).hora_inicio=9
 	ActividadSecuencia(0,0).minuto_inicio=0
-	ActividadSecuencia(0,0).hora_fin=8
-	ActividadSecuencia(0,0).minuto_fin=15
+	ActividadSecuencia(0,0).hora_fin=10
+	ActividadSecuencia(0,0).minuto_fin=0
 	ActividadSecuencia(0,0).pictograma=31857
-	ActividadSecuencia(0,0).descripcion="Despertarse"
+	ActividadSecuencia(0,0).descripcion="Despertarse con energía"
 	
-	ActividadSecuencia(0,1).hora_inicio=8
-	ActividadSecuencia(0,1).minuto_inicio=15
-	ActividadSecuencia(0,1).hora_fin=8
-	ActividadSecuencia(0,1).minuto_fin=30
-	ActividadSecuencia(0,1).pictograma=2781
-	ActividadSecuencia(0,1).descripcion="Vestirse"
+	ActividadSecuencia(0,1).hora_inicio=10
+	ActividadSecuencia(0,1).minuto_inicio=0
+	ActividadSecuencia(0,1).hora_fin=13
+	ActividadSecuencia(0,1).minuto_fin=0
+	ActividadSecuencia(0,1).pictograma=32556
+	ActividadSecuencia(0,1).descripcion="Tarea del cole"
 	
-	ActividadSecuencia(0,2).hora_inicio=8
-	ActividadSecuencia(0,2).minuto_inicio=30
-	ActividadSecuencia(0,2).hora_fin=9
+	ActividadSecuencia(0,2).hora_inicio=13
+	ActividadSecuencia(0,2).minuto_inicio=0
+	ActividadSecuencia(0,2).hora_fin=14
 	ActividadSecuencia(0,2).minuto_fin=0
-	ActividadSecuencia(0,2).pictograma=28667
-	ActividadSecuencia(0,2).descripcion="Desayunar"
+	ActividadSecuencia(0,2).pictograma=32568
+	ActividadSecuencia(0,2).descripcion="Tiempo libre"
 	
-	ActividadSecuencia(0,3).hora_inicio=9
+	ActividadSecuencia(0,3).hora_inicio=14
 	ActividadSecuencia(0,3).minuto_inicio=0
-	ActividadSecuencia(0,3).hora_fin=14
+	ActividadSecuencia(0,3).hora_fin=15
 	ActividadSecuencia(0,3).minuto_fin=0
-	ActividadSecuencia(0,3).pictograma=3082
-	ActividadSecuencia(0,3).descripcion="Cole"
-		
-	ActividadSecuencia(0,4).hora_inicio=14
+	ActividadSecuencia(0,3).pictograma=4611
+	ActividadSecuencia(0,3).descripcion="Comemos"
+	
+	ActividadSecuencia(0,4).hora_inicio=15
 	ActividadSecuencia(0,4).minuto_inicio=0
-	ActividadSecuencia(0,4).hora_fin=15
+	ActividadSecuencia(0,4).hora_fin=17
 	ActividadSecuencia(0,4).minuto_fin=0
-	ActividadSecuencia(0,4).pictograma=28206
-	ActividadSecuencia(0,4).descripcion="Comer"
-
-	ActividadSecuencia(0,5).hora_inicio=15
+	ActividadSecuencia(0,4).pictograma=2587
+	ActividadSecuencia(0,4).descripcion="Peli con palomitas"
+	
+	ActividadSecuencia(0,5).hora_inicio=17
 	ActividadSecuencia(0,5).minuto_inicio=0
-	ActividadSecuencia(0,5).hora_fin=20
-	ActividadSecuencia(0,5).minuto_fin=0
-	ActividadSecuencia(0,5).pictograma=9813
-	ActividadSecuencia(0,5).descripcion="Jugar"
-
-	ActividadSecuencia(0,6).hora_inicio=20
-	ActividadSecuencia(0,6).minuto_inicio=0
-	ActividadSecuencia(0,6).hora_fin=20
-	ActividadSecuencia(0,6).minuto_fin=30
-	ActividadSecuencia(0,6).pictograma=2271
-	ActividadSecuencia(0,6).descripcion="Bañarse"
-
-	ActividadSecuencia(0,7).hora_inicio=20
-	ActividadSecuencia(0,7).minuto_inicio=30
-	ActividadSecuencia(0,7).hora_fin=21
+	ActividadSecuencia(0,5).hora_fin=17
+	ActividadSecuencia(0,5).minuto_fin=30
+	ActividadSecuencia(0,5).pictograma=13040
+	ActividadSecuencia(0,5).descripcion="Deporte en casa"
+	
+	ActividadSecuencia(0,6).hora_inicio=17
+	ActividadSecuencia(0,6).minuto_inicio=30
+	ActividadSecuencia(0,6).hora_fin=19
+	ActividadSecuencia(0,6).minuto_fin=0
+	ActividadSecuencia(0,6).pictograma=32580
+	ActividadSecuencia(0,6).descripcion="Juegos en familia"
+	
+	ActividadSecuencia(0,7).hora_inicio=19
+	ActividadSecuencia(0,7).minuto_inicio=0
+	ActividadSecuencia(0,7).hora_fin=20
 	ActividadSecuencia(0,7).minuto_fin=0
-	ActividadSecuencia(0,7).pictograma=28675
-	ActividadSecuencia(0,7).descripcion="Cenar"
-
-	ActividadSecuencia(0,8).hora_inicio=21
+	ActividadSecuencia(0,7).pictograma=11653
+	ActividadSecuencia(0,7).descripcion="Tiempo libre"
+	
+	ActividadSecuencia(0,8).hora_inicio=20
 	ActividadSecuencia(0,8).minuto_inicio=0
-	ActividadSecuencia(0,8).hora_fin=21
+	ActividadSecuencia(0,8).hora_fin=20
 	ActividadSecuencia(0,8).minuto_fin=30
-	ActividadSecuencia(0,8).pictograma=2369
-	ActividadSecuencia(0,8).descripcion="Acostarse"
-
+	ActividadSecuencia(0,8).pictograma=2271
+	ActividadSecuencia(0,8).descripcion="Baño y cena"
+	
+	ActividadSecuencia(0,9).hora_inicio=20
+	ActividadSecuencia(0,9).minuto_inicio=30
+	ActividadSecuencia(0,9).hora_fin=21
+	ActividadSecuencia(0,9).minuto_fin=0
+	ActividadSecuencia(0,9).pictograma=2369
+	ActividadSecuencia(0,9).descripcion="Leemos y a dormir"
+	
 	'Secuencia 1
+	
+'	Secuencia(1).Initialize
+'	Secuencia(1).num_actividades=9
+'	Secuencia(1).tablero.tipo=2
+'	Secuencia(1).tablero.indicar_hora=1
+'	Secuencia(1).tablero.tam_icono=0
+'	Secuencia(1).pictograma=26799
+'	Secuencia(1).notificaciones=False
+'	Secuencia(1).descripcion="Día de colegio"
+'	
+'	ActividadSecuencia(1,0).hora_inicio=8
+'	ActividadSecuencia(1,0).minuto_inicio=0
+'	ActividadSecuencia(1,0).hora_fin=8
+'	ActividadSecuencia(1,0).minuto_fin=15
+'	ActividadSecuencia(1,0).pictograma=31857
+'	ActividadSecuencia(1,0).descripcion="Despertarse"
+'	
+'	ActividadSecuencia(1,1).hora_inicio=8
+'	ActividadSecuencia(1,1).minuto_inicio=15
+'	ActividadSecuencia(1,1).hora_fin=8
+'	ActividadSecuencia(1,1).minuto_fin=30
+'	ActividadSecuencia(1,1).pictograma=2781
+'	ActividadSecuencia(1,1).descripcion="Vestirse"
+'	
+'	ActividadSecuencia(1,2).hora_inicio=8
+'	ActividadSecuencia(1,2).minuto_inicio=30
+'	ActividadSecuencia(1,2).hora_fin=9
+'	ActividadSecuencia(1,2).minuto_fin=0
+'	ActividadSecuencia(1,2).pictograma=28667
+'	ActividadSecuencia(1,2).descripcion="Desayunar"
+'	
+'	ActividadSecuencia(1,3).hora_inicio=9
+'	ActividadSecuencia(1,3).minuto_inicio=0
+'	ActividadSecuencia(1,3).hora_fin=14
+'	ActividadSecuencia(1,3).minuto_fin=0
+'	ActividadSecuencia(1,3).pictograma=3082
+'	ActividadSecuencia(1,3).descripcion="Cole"
+'		
+'	ActividadSecuencia(1,4).hora_inicio=14
+'	ActividadSecuencia(1,4).minuto_inicio=0
+'	ActividadSecuencia(1,4).hora_fin=15
+'	ActividadSecuencia(1,4).minuto_fin=0
+'	ActividadSecuencia(1,4).pictograma=28206
+'	ActividadSecuencia(1,4).descripcion="Comer"
+'
+'	ActividadSecuencia(1,5).hora_inicio=15
+'	ActividadSecuencia(1,5).minuto_inicio=0
+'	ActividadSecuencia(1,5).hora_fin=20
+'	ActividadSecuencia(1,5).minuto_fin=0
+'	ActividadSecuencia(1,5).pictograma=9813
+'	ActividadSecuencia(1,5).descripcion="Jugar"
+'
+'	ActividadSecuencia(1,6).hora_inicio=20
+'	ActividadSecuencia(1,6).minuto_inicio=0
+'	ActividadSecuencia(1,6).hora_fin=20
+'	ActividadSecuencia(1,6).minuto_fin=30
+'	ActividadSecuencia(1,6).pictograma=2271
+'	ActividadSecuencia(1,6).descripcion="Bañarse"
+'
+'	ActividadSecuencia(1,7).hora_inicio=20
+'	ActividadSecuencia(1,7).minuto_inicio=30
+'	ActividadSecuencia(1,7).hora_fin=21
+'	ActividadSecuencia(1,7).minuto_fin=0
+'	ActividadSecuencia(1,7).pictograma=28675
+'	ActividadSecuencia(1,7).descripcion="Cenar"
+'
+'	ActividadSecuencia(1,8).hora_inicio=21
+'	ActividadSecuencia(1,8).minuto_inicio=0
+'	ActividadSecuencia(1,8).hora_fin=21
+'	ActividadSecuencia(1,8).minuto_fin=30
+'	ActividadSecuencia(1,8).pictograma=2369
+'	ActividadSecuencia(1,8).descripcion="Acostarse"
+
+'	Secuencia 1
 	
 	Secuencia(1).Initialize
 	Secuencia(1).num_actividades=6
@@ -244,7 +325,7 @@ Sub Inicializar_Con_Ejemplo
 	Secuencia(1).tablero.tam_icono=0
 	Secuencia(1).pictograma=9813
 	Secuencia(1).notificaciones=False
-	Secuencia(1).descripcion="Tarde después del cole"
+	Secuencia(1).descripcion="Tarde libre"
 	
 	ActividadSecuencia(1,0).hora_inicio=15
 	ActividadSecuencia(1,0).minuto_inicio=0

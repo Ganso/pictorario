@@ -4,6 +4,10 @@ ModulesStructureVersion=1
 Type=Activity
 Version=8.5
 @EndOfDesignText@
+' Proyecto desarrollado por Javier Prieto Martínez
+' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
+' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
+
 #Region  Activity Attributes 
 	#FullScreen: True
 	#IncludeTitle: False

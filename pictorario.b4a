@@ -1,45 +1,51 @@
 ﻿Build1=Default,javi.prieto.pictorario
-File1=2271.png
-File10=32556.png
-File11=7229.png
-File12=9813.png
-File13=AcercaDe.bal
-File14=alarma.png
-File15=buscar.png
-File16=candado.png
-File17=Configuracion.bal
-File18=ConfigurarSecuencia.bal
-File19=dia.png
-File2=2369.png
-File20=engranaje.png
-File21=fila.png
-File22=GreatVibes-Regular.ttf
-File23=llave.png
-File24=logotipo.png
-File25=manana.png
-File26=pictogramas.png
-File27=Portada.bal
-File28=SeleccionarPictograma.bal
-File29=tarde.png
-File3=26799.png
-File30=trabajar_en_el_ordenador.png
-File31=VisualizarSecuencia.bal
-File4=2781.png
-File5=28206.png
-File6=28667.png
-File7=28675.png
-File8=3082.png
-File9=31857.png
+File1=11653.png
+File10=28675.png
+File11=3082.png
+File12=31857.png
+File13=32556.png
+File14=32568.png
+File15=32580.png
+File16=4611.png
+File17=7229.png
+File18=9813.png
+File19=AcercaDe.bal
+File2=13040.png
+File20=alarma.png
+File21=buscar.png
+File22=candado.png
+File23=Configuracion.bal
+File24=ConfigurarSecuencia.bal
+File25=dia.png
+File26=engranaje.png
+File27=fila.png
+File28=GreatVibes-Regular.ttf
+File29=llave.png
+File3=2271.png
+File30=logotipo.png
+File31=manana.png
+File32=pictogramas.png
+File33=Portada.bal
+File34=SeleccionarPictograma.bal
+File35=tarde.png
+File36=trabajar_en_el_ordenador.png
+File37=VisualizarSecuencia.bal
+File4=2369.png
+File5=2587.png
+File6=26799.png
+File7=2781.png
+File8=28206.png
+File9=28667.png
 FileGroup1=PictogramasPorDefecto
 FileGroup10=PictogramasPorDefecto
 FileGroup11=PictogramasPorDefecto
 FileGroup12=PictogramasPorDefecto
-FileGroup13=Default Group
-FileGroup14=Default Group
-FileGroup15=Default Group
-FileGroup16=Default Group
-FileGroup17=Default Group
-FileGroup18=Default Group
+FileGroup13=PictogramasPorDefecto
+FileGroup14=PictogramasPorDefecto
+FileGroup15=PictogramasPorDefecto
+FileGroup16=PictogramasPorDefecto
+FileGroup17=PictogramasPorDefecto
+FileGroup18=PictogramasPorDefecto
 FileGroup19=Default Group
 FileGroup2=PictogramasPorDefecto
 FileGroup20=Default Group
@@ -55,6 +61,12 @@ FileGroup29=Default Group
 FileGroup3=PictogramasPorDefecto
 FileGroup30=Default Group
 FileGroup31=Default Group
+FileGroup32=Default Group
+FileGroup33=Default Group
+FileGroup34=Default Group
+FileGroup35=Default Group
+FileGroup36=Default Group
+FileGroup37=Default Group
 FileGroup4=PictogramasPorDefecto
 FileGroup5=PictogramasPorDefecto
 FileGroup6=PictogramasPorDefecto
@@ -74,33 +86,35 @@ Library7=okhttputils2
 Library8=dateutils
 Library9=sd_panelextra
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
-Module1=ConfigurarSecuencia
-Module2=SeleccionPictogramas
-Module3=Visualizacion
-Module4=AcercaDe
-Module5=Configuracion
-Module6=ArranqueAutomatico
-Module7=Avisos
-Module8=Starter
-NumberOfFiles=31
+Module1=SeleccionPictogramas
+Module2=Visualizacion
+Module3=AcercaDe
+Module4=Configuracion
+Module5=ArranqueAutomatico
+Module6=Avisos
+Module7=Starter
+Module8=ConfigurarSecuencia
+NumberOfFiles=37
 NumberOfLibraries=10
 NumberOfModules=8
 Version=9.5
 @EndOfDesignText@
-' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Proyecto desarrollado por Javier Prieto Martínez
+' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
+
+'IMPORTANTE: Al actualizar de versión, indicar siempre los cambios en Starter.CambiosVersion
 
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 105
-	#VersionName: 1.05
+	#VersionCode: 106
+	#VersionName: 1.06
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region
 
 '#BridgeLogger: True
 
-'IMPORTANTE: Al actualizar de versión, indicar siempre los cambios en Starter.CambiosVersion
 
 #Region  Activity Attributes 
 	#FullScreen: True

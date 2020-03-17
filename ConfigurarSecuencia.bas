@@ -4,7 +4,8 @@ ModulesStructureVersion=1
 Type=Activity
 Version=8
 @EndOfDesignText@
-' Proyecto desarrollado por Javier Prieto Martínez como parte del TFG del Curso de Adaptación al Grado de Informática de la Universidad Internacional de la Rioja
+' Proyecto desarrollado por Javier Prieto Martínez
+' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
 ' Este código fuente se ofrece con una licencia Creative Commons de tipo Reconocimiento-NoComercial-CompartirIgual 3.0 España (CC BY-NC-SA 3.0 ES)
 
 #Region  Activity Attributes 
@@ -278,7 +279,7 @@ Sub DibujarConfigurarSecuencia
 
 		ConfigHoraFinalAct(Act).Initialize("ConfigHoraFinalAct")
 		ConfigHoraFinalAct(Act).Tag=Act
-		ConfigHoraFinalAct(Act).Text="Desde"&CRLF&EscribirHora( Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin, Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin )
+		ConfigHoraFinalAct(Act).Text="Hasta"&CRLF&EscribirHora( Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).hora_fin, Starter.ActividadSecuencia(Starter.MaxSecuencias,Act).minuto_fin )
 		ConfigHoraFinalAct(Act).TextColor=Colors.Black
 		ConfigHoraFinalAct(Act).TextSize=16
 		ConfigHoraFinalAct(Act).Gravity=Bit.Or(Gravity.CENTER_VERTICAL, Gravity.CENTER_HORIZONTAL)
