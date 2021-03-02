@@ -27,6 +27,7 @@ public class acercade extends Activity implements B4AActivity{
 	public static final boolean fullScreen = true;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class acercade extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (acercade) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (acercade) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (acercade) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -340,17 +347,17 @@ public anywheresoftware.b4a.objects.LabelWrapper _parateo = null;
 public anywheresoftware.b4a.objects.LabelWrapper _versionapp = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _vervideo = null;
 public anywheresoftware.b4a.objects.LabelWrapper _pulsalosiconos = null;
-public b4a.example.dateutils _vvvvvvvvv1 = null;
-public b4a.example.versione06 _vvvvvvvvv2 = null;
-public javi.prieto.pictorario.main _vvvvvvvvv3 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv4 = null;
-public javi.prieto.pictorario.visualizacion _vvvvvvvvv5 = null;
-public javi.prieto.pictorario.configuracion _vvvvvvvvv7 = null;
-public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvv0 = null;
-public javi.prieto.pictorario.avisos _vvvvvvvvvv1 = null;
-public javi.prieto.pictorario.starter _vvvvvvvvvv2 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv3 = null;
-public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
+public b4a.example.dateutils _vvvvvvvvv4 = null;
+public b4a.example.versione06 _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.main _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv7 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv0 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.avisos _vvvvvvvvvv4 = null;
+public javi.prieto.pictorario.starter _vvvvvvvvvv5 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv6 = null;
+public javi.prieto.pictorario.httputils2service _vvvvvvvvvv7 = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -536,7 +543,7 @@ return "";
 public static String  _versionapp_click() throws Exception{
  //BA.debugLineNum = 92;BA.debugLine="Sub VersionApp_Click";
  //BA.debugLineNum = 93;BA.debugLine="Msgbox2(\"Novedades de la versión:\"&CRLF&CRLF&Star";
-anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Novedades de la versión:"+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvvvvvvvv2._v6 /*String*/ ),BA.ObjectToCharSequence("Versión "+anywheresoftware.b4a.keywords.Common.Application.getVersionName()),"Continuar","","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Novedades de la versión:"+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+mostCurrent._vvvvvvvvvv5._v6 /*String*/ ),BA.ObjectToCharSequence("Versión "+anywheresoftware.b4a.keywords.Common.Application.getVersionName()),"Continuar","","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
  //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }

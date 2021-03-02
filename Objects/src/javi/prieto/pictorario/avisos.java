@@ -125,17 +125,17 @@ public class avisos extends  android.app.Service{
 	public android.os.IBinder onBind(android.content.Intent intent) {
 		return null;
 	}public anywheresoftware.b4a.keywords.Common __c = null;
-public b4a.example.dateutils _vvvvvvvvv1 = null;
-public b4a.example.versione06 _vvvvvvvvv2 = null;
-public javi.prieto.pictorario.main _vvvvvvvvv3 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv4 = null;
-public javi.prieto.pictorario.visualizacion _vvvvvvvvv5 = null;
-public javi.prieto.pictorario.acercade _vvvvvvvvv6 = null;
-public javi.prieto.pictorario.configuracion _vvvvvvvvv7 = null;
-public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvv0 = null;
-public javi.prieto.pictorario.starter _vvvvvvvvvv2 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv3 = null;
-public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
+public b4a.example.dateutils _vvvvvvvvv4 = null;
+public b4a.example.versione06 _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.main _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv7 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv0 = null;
+public javi.prieto.pictorario.acercade _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.starter _vvvvvvvvvv5 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv6 = null;
+public javi.prieto.pictorario.httputils2service _vvvvvvvvvv7 = null;
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 10;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 14;BA.debugLine="End Sub";
@@ -156,11 +156,11 @@ return "";
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
  //BA.debugLineNum = 20;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
  //BA.debugLineNum = 22;BA.debugLine="Starter.SecuenciaActiva=Starter.ProximaAlarmaSeq";
-mostCurrent._vvvvvvvvvv2._vvv1 /*int*/  = mostCurrent._vvvvvvvvvv2._v0 /*int*/ ;
+mostCurrent._vvvvvvvvvv5._vvv1 /*int*/  = mostCurrent._vvvvvvvvvv5._v0 /*int*/ ;
  //BA.debugLineNum = 23;BA.debugLine="StartActivity(\"Visualizacion\")";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)("Visualizacion"));
  //BA.debugLineNum = 24;BA.debugLine="CallSubDelayed(Visualizacion,\"AvisoActividad\")";
-anywheresoftware.b4a.keywords.Common.CallSubDelayed(processBA,(Object)(mostCurrent._vvvvvvvvv5.getObject()),"AvisoActividad");
+anywheresoftware.b4a.keywords.Common.CallSubDelayed(processBA,(Object)(mostCurrent._vvvvvvvvv0.getObject()),"AvisoActividad");
  //BA.debugLineNum = 25;BA.debugLine="Service.StopAutomaticForeground 'Call this when t";
 mostCurrent._service.StopAutomaticForeground();
  //BA.debugLineNum = 27;BA.debugLine="End Sub";

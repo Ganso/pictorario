@@ -150,17 +150,17 @@ public static int _vvvv3 = 0;
 public static int _vvvv4 = 0;
 public static String _vvvv5 = "";
 public static int[] _vvvv6 = null;
-public b4a.example.dateutils _vvvvvvvvv1 = null;
-public b4a.example.versione06 _vvvvvvvvv2 = null;
-public javi.prieto.pictorario.main _vvvvvvvvv3 = null;
-public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv4 = null;
-public javi.prieto.pictorario.visualizacion _vvvvvvvvv5 = null;
-public javi.prieto.pictorario.acercade _vvvvvvvvv6 = null;
-public javi.prieto.pictorario.configuracion _vvvvvvvvv7 = null;
-public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvv0 = null;
-public javi.prieto.pictorario.avisos _vvvvvvvvvv1 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv3 = null;
-public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
+public b4a.example.dateutils _vvvvvvvvv4 = null;
+public b4a.example.versione06 _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.main _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.seleccionpictogramas _vvvvvvvvv7 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv0 = null;
+public javi.prieto.pictorario.acercade _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.avisos _vvvvvvvvvv4 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv6 = null;
+public javi.prieto.pictorario.httputils2service _vvvvvvvvvv7 = null;
 public static class _actividad{
 public boolean IsInitialized;
 public int hora_inicio;
@@ -249,7 +249,7 @@ anywheresoftware.b4a.keywords.Common.File.Delete(_vvvv5,_nomfich);
  }
 };
  //BA.debugLineNum = 483;BA.debugLine="CopiarPictogramasIniciales";
-_vvvvvvvvvvvvvvvvv0();
+_vvvv0();
  //BA.debugLineNum = 484;BA.debugLine="End Sub";
 return "";
 }
@@ -323,7 +323,7 @@ _minuto = _minutoact;
  }
 };
  //BA.debugLineNum = 517;BA.debugLine="CancelScheduledService(Avisos)";
-anywheresoftware.b4a.keywords.Common.CancelScheduledService(processBA,(Object)(mostCurrent._vvvvvvvvvv1.getObject()));
+anywheresoftware.b4a.keywords.Common.CancelScheduledService(processBA,(Object)(mostCurrent._vvvvvvvvvv4.getObject()));
  //BA.debugLineNum = 518;BA.debugLine="n.Cancel(1)";
 _n.Cancel((int) (1));
  //BA.debugLineNum = 520;BA.debugLine="If ProximaAlarmaSeq>=0 Then";
@@ -340,7 +340,7 @@ _hora = (int) (_hora-24);
  //BA.debugLineNum = 528;BA.debugLine="Dim TextoManana=\"\" As String";
 _textomanana = "";
  //BA.debugLineNum = 529;BA.debugLine="Dim HoraEjecucion=DateUtils.SetDateAndTime(DateT";
-_horaejecucion = mostCurrent._vvvvvvvvv1._setdateandtime(processBA,anywheresoftware.b4a.keywords.Common.DateTime.GetYear(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),anywheresoftware.b4a.keywords.Common.DateTime.GetMonth(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),anywheresoftware.b4a.keywords.Common.DateTime.GetDayOfMonth(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),_hora,_minuto,(int) (0));
+_horaejecucion = mostCurrent._vvvvvvvvv4._setdateandtime(processBA,anywheresoftware.b4a.keywords.Common.DateTime.GetYear(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),anywheresoftware.b4a.keywords.Common.DateTime.GetMonth(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),anywheresoftware.b4a.keywords.Common.DateTime.GetDayOfMonth(anywheresoftware.b4a.keywords.Common.DateTime.getNow()),_hora,_minuto,(int) (0));
  //BA.debugLineNum = 530;BA.debugLine="If EsManana==True Then";
 if (_esmanana==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 531;BA.debugLine="Dim p As Period";
@@ -348,14 +348,14 @@ _p = new b4a.example.dateutils._period();
  //BA.debugLineNum = 532;BA.debugLine="p.Days = 1";
 _p.Days = (int) (1);
  //BA.debugLineNum = 533;BA.debugLine="HoraEjecucion = DateUtils.AddPeriod(HoraEjecuci";
-_horaejecucion = mostCurrent._vvvvvvvvv1._addperiod(processBA,_horaejecucion,_p);
+_horaejecucion = mostCurrent._vvvvvvvvv4._addperiod(processBA,_horaejecucion,_p);
  //BA.debugLineNum = 534;BA.debugLine="TextoManana=\" (mañana)\"";
 _textomanana = " (mañana)";
  };
  //BA.debugLineNum = 537;BA.debugLine="Dim TextoHora As String";
 _textohora = "";
  //BA.debugLineNum = 538;BA.debugLine="TextoHora=EscribirHora(Hora,Minuto)";
-_textohora = _vvvvvvvvvvv4(_hora,_minuto);
+_textohora = _vvvvv1(_hora,_minuto);
  //BA.debugLineNum = 540;BA.debugLine="n.Initialize2(n.IMPORTANCE_LOW)";
 _n.Initialize2(_n.IMPORTANCE_LOW);
  //BA.debugLineNum = 541;BA.debugLine="n.OnGoingEvent = False";
@@ -369,11 +369,11 @@ _n.setLight(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 545;BA.debugLine="n.Icon = \"iconw\"";
 _n.setIcon("iconw");
  //BA.debugLineNum = 546;BA.debugLine="n.SetInfo(\"Próxima actividad en Pictorario\" ,Tex";
-_n.SetInfoNew(processBA,BA.ObjectToCharSequence("Próxima actividad en Pictorario"),BA.ObjectToCharSequence(_textohora+_textomanana+": "+_vvv2[_v0].Descripcion /*String*/ +" ➞ "+_vvv3[_v0][_vv1].Descripcion /*String*/ ),(Object)(mostCurrent._vvvvvvvvv3.getObject()));
+_n.SetInfoNew(processBA,BA.ObjectToCharSequence("Próxima actividad en Pictorario"),BA.ObjectToCharSequence(_textohora+_textomanana+": "+_vvv2[_v0].Descripcion /*String*/ +" ➞ "+_vvv3[_v0][_vv1].Descripcion /*String*/ ),(Object)(mostCurrent._vvvvvvvvv6.getObject()));
  //BA.debugLineNum = 547;BA.debugLine="n.Notify(1)";
 _n.Notify((int) (1));
  //BA.debugLineNum = 552;BA.debugLine="StartServiceAtExact(Avisos,HoraEjecucion,True)";
-anywheresoftware.b4a.keywords.Common.StartServiceAtExact(processBA,(Object)(mostCurrent._vvvvvvvvvv1.getObject()),_horaejecucion,anywheresoftware.b4a.keywords.Common.True);
+anywheresoftware.b4a.keywords.Common.StartServiceAtExact(processBA,(Object)(mostCurrent._vvvvvvvvvv4.getObject()),_horaejecucion,anywheresoftware.b4a.keywords.Common.True);
  };
  //BA.debugLineNum = 559;BA.debugLine="End Sub";
 return "";
@@ -450,7 +450,7 @@ _calcularproximaalarma();
  //BA.debugLineNum = 146;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvvvvvvvvvvvvvvv1(int _seq1,int _act1,int _seq2,int _act2) throws Exception{
+public static String  _vvvv7(int _seq1,int _act1,int _seq2,int _act2) throws Exception{
  //BA.debugLineNum = 441;BA.debugLine="Sub CopiarActividad(Seq1 As Int, Act1 As Int, Seq2";
  //BA.debugLineNum = 443;BA.debugLine="ActividadSecuencia(Seq2,Act2).Descripcion=Activid";
 _vvv3[_seq2][_act2].Descripcion /*String*/  = _vvv3[_seq1][_act1].Descripcion /*String*/ ;
@@ -467,7 +467,7 @@ _vvv3[_seq2][_act2].Pictograma /*String*/  = _vvv3[_seq1][_act1].Pictograma /*St
  //BA.debugLineNum = 449;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvvvvvvvvvvvvvv0() throws Exception{
+public static String  _vvvv0() throws Exception{
 int _i = 0;
 String _nombrefich = "";
  //BA.debugLineNum = 452;BA.debugLine="Sub CopiarPictogramasIniciales 'Copia los pictogra";
@@ -526,13 +526,13 @@ final int limit10 = (int) (_vvv2[_seq1].num_actividades /*int*/ -1);
 _i = (int) (0) ;
 for (;_i <= limit10 ;_i = _i + step10 ) {
  //BA.debugLineNum = 436;BA.debugLine="CopiarActividad(Seq1,i,Seq2,i)";
-_vvvvvvvvvvvvvvvvvv1(_seq1,_i,_seq2,_i);
+_vvvv7(_seq1,_i,_seq2,_i);
  }
 };
  //BA.debugLineNum = 439;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvvvvvvvv4(int _hora,int _minutos) throws Exception{
+public static String  _vvvvv1(int _hora,int _minutos) throws Exception{
 String _salida = "";
 int _horamodificada = 0;
  //BA.debugLineNum = 561;BA.debugLine="Sub EscribirHora(Hora As Int, Minutos As Int) As S";
@@ -925,8 +925,8 @@ public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 10;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 12;BA.debugLine="Dim CambiosVersion As String";
 _v6 = "";
- //BA.debugLineNum = 13;BA.debugLine="CambiosVersion= _ 	\"- Cambiadas las actividades d";
-_v6 = BA.__b (new byte[] {28,4,107,102,24,87,69,102,90,80,66,96,71,77,78,58,85,84,75,117,68,67,80,110,73,73,3,62,77,73,27,127,94,14,67,119,84,94,17,52,72,82,94,111,88,71,65,102,7,21,64,102,30,82,94,46,77,69,90,111,70,86,92,117,-15,-103,90,47,93,77,2,127,9,90,94,104,88,10,93,46,22}, 457638)+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+BA.__b (new byte[] {28,7,103,102,7,68,69,110,87,86,82,61,11,74,67,102,91,70,86,97,18,77,93,33,91,70,15,101,72,67,94,110,85,11,75,-54,-117,92,19}, 923628);
+ //BA.debugLineNum = 13;BA.debugLine="CambiosVersion= _ 	\"- Actualizaciones internas.\"";
+_v6 = main.vvv13 (new byte[] {29,3,-7,-67,0,71,-35,-78,86,76,-64,-6,67,68,-61,-90,70,16,-58,-85,71,72,-42,-72,77,88,-50}, 470285)+anywheresoftware.b4a.keywords.Common.CRLF+anywheresoftware.b4a.keywords.Common.CRLF+main.vvv13 (new byte[] {29,2,-110,19,16,-16,111,21,76,23,-75,84,94,67,-79,8,86,80,-89,71,80,89,-65,24,93,95,-13,0,90,10,-73,0,89,1,-85,92,86,23,-88,18,92,84,-81,31,94,65,-85,29,84,67,-87,14,31,84,-76,73,88,79,-72,65,84,17,-65,6,69,69,-98,19,77,68,-23,10,6,69,-93,6,27}, 384969)+anywheresoftware.b4a.keywords.Common.CRLF+main.vvv13 (new byte[] {119,125,46,56,61,127,56}, 951762);
  //BA.debugLineNum = 18;BA.debugLine="Dim kvs As KeyValueStore";
 _v7 = new b4a.example3.keyvaluestore();
  //BA.debugLineNum = 22;BA.debugLine="Type Actividad ( hora_inicio As Int, minuto_inici";
@@ -947,12 +947,12 @@ _vv3 = (int) (20);
 _vv4 = new String[(int) (4)];
 java.util.Arrays.fill(_vv4,"");
  //BA.debugLineNum = 50;BA.debugLine="DescripcionTablero = Array As String(\"Reloj de 12";
-_vv4 = new String[]{BA.__b (new byte[] {99,64,3,-59,31,20,15,-49,30,1,68,-123,11,5,23,-42,-9,-121,25,-33,83,2}, 112542),BA.__b (new byte[] {99,65,43,119,31,21,39,125,30,0,108,55,11,4,38,100,70,83,53,42}, 642175),BA.__b (new byte[] {99,64,-118,-57,31,20,-122,-51,30,2,-53,-121}, 354451),BA.__b (new byte[] {98,65,-58,37,16,91,-62,57,95,17,-33,120,70,92,-36,40,64,86}, 696329)};
+_vv4 = new String[]{main.vvv13 (new byte[] {98,74,25,78,30,30,21,68,31,11,94,14,10,15,13,93,-10,-115,3,84,82,8}, 962910),main.vvv13 (new byte[] {98,70,-3,69,30,18,-15,79,31,7,-70,5,10,3,-16,86,71,84,-29,24}, 489845),main.vvv13 (new byte[] {98,69,100,13,30,17,104,7,31,7,37,77}, 19428),main.vvv13 (new byte[] {99,73,119,81,17,83,115,77,94,25,110,12,71,84,109,92,65,94}, 553816)};
  //BA.debugLineNum = 52;BA.debugLine="Dim DescripcionMinutero(4) As String";
 _vv5 = new String[(int) (4)];
 java.util.Arrays.fill(_vv5,"");
  //BA.debugLineNum = 53;BA.debugLine="DescripcionMinutero = Array As String(\"Sin indica";
-_vv5 = new String[]{BA.__b (new byte[] {98,77,90,17,28,91,84,88,93,80,78,31,-24,-97,79}, 493151),BA.__b (new byte[] {120,74,76,85,22,84,94,28,86,94,67,26}, 457346),BA.__b (new byte[] {120,74,105,60,22,84,123,117,86,94,102,115,11,85,56,37,93,89,111,58,93,89}, 509926),BA.__b (new byte[] {120,75,-41,91,22,85,-59,18,86,95,-40,20,7,13,-53,70,90,67,-48,70,65,11,-42,26,94,72,-116,94,71,73,-49,92}, 276342)};
+_vv5 = new String[]{main.vvv13 (new byte[] {99,73,-104,27,29,95,-106,82,92,84,-116,21,-23,-101,-115}, 112467),main.vvv13 (new byte[] {121,66,-94,-73,23,92,-80,-2,87,86,-83,-8}, 645388),main.vvv13 (new byte[] {121,77,112,39,23,83,98,110,87,89,127,104,10,82,33,62,92,94,118,33,92,94}, 422956),main.vvv13 (new byte[] {121,79,-116,-112,23,81,-98,-39,87,91,-125,-33,6,9,-112,-115,91,71,-117,-115,64,15,-115,-47,95,76,-41,-107,70,77,-108,-105}, 232654)};
  //BA.debugLineNum = 57;BA.debugLine="Dim MaxColores=20 As Int";
 _vv6 = (int) (20);
  //BA.debugLineNum = 58;BA.debugLine="Dim Colores(MaxColores) As Int 'Colores para las";
@@ -1027,7 +1027,7 @@ _v7._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirIntern
  //BA.debugLineNum = 92;BA.debugLine="Cargar_Configuracion";
 _cargar_configuracion();
  //BA.debugLineNum = 93;BA.debugLine="CopiarPictogramasIniciales";
-_vvvvvvvvvvvvvvvvv0();
+_vvvv0();
  //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }
@@ -1039,7 +1039,7 @@ return "";
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
  //BA.debugLineNum = 407;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
  //BA.debugLineNum = 408;BA.debugLine="CancelScheduledService(Avisos)";
-anywheresoftware.b4a.keywords.Common.CancelScheduledService(processBA,(Object)(mostCurrent._vvvvvvvvvv1.getObject()));
+anywheresoftware.b4a.keywords.Common.CancelScheduledService(processBA,(Object)(mostCurrent._vvvvvvvvvv4.getObject()));
  //BA.debugLineNum = 409;BA.debugLine="End Sub";
 return "";
 }

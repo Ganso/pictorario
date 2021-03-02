@@ -74,7 +74,6 @@ FileGroup7=PictogramasPorDefecto
 FileGroup8=PictogramasPorDefecto
 FileGroup9=PictogramasPorDefecto
 Group=Default Group
-IconFile=
 Library1=core
 Library10=stringutils
 Library2=phone
@@ -85,19 +84,19 @@ Library6=json
 Library7=okhttputils2
 Library8=dateutils
 Library9=sd_panelextra
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="28"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
-Module1=SeleccionPictogramas
-Module2=Visualizacion
-Module3=AcercaDe
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Material.Light")~\n~~\n~AddPermission(android.permission.WRITE_EXTERNAL_STORAGE)~\n~
+Module1=AcercaDe
+Module2=ArranqueAutomatico
+Module3=Avisos
 Module4=Configuracion
-Module5=ArranqueAutomatico
-Module6=Avisos
+Module5=ConfigurarSecuencia
+Module6=SeleccionPictogramas
 Module7=Starter
-Module8=ConfigurarSecuencia
+Module8=Visualizacion
 NumberOfFiles=37
 NumberOfLibraries=10
 NumberOfModules=8
-Version=9.5
+Version=10.2
 @EndOfDesignText@
 ' Proyecto desarrollado por Javier Prieto Martínez
 ' Información, código fuente, documentación, etc. en http://blog.ganso.org/proyectos/pictorario
@@ -107,8 +106,8 @@ Version=9.5
 
 #Region  Project Attributes 
 	#ApplicationLabel: Pictorario
-	#VersionCode: 106
-	#VersionName: 1.06
+	#VersionCode: 107
+	#VersionName: 1.07
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: False
 #End Region

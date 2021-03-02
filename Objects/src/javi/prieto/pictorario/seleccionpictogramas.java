@@ -27,6 +27,7 @@ public class seleccionpictogramas extends Activity implements B4AActivity{
 	public static final boolean fullScreen = true;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class seleccionpictogramas extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (seleccionpictogramas) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (seleccionpictogramas) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (seleccionpictogramas) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -335,22 +342,22 @@ public anywheresoftware.b4a.objects.PanelWrapper _buscar = null;
 public anywheresoftware.b4a.objects.ScrollViewWrapper _listadopictogramas = null;
 public anywheresoftware.b4a.objects.LabelWrapper _titulo = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _botoncancelar = null;
-public static String _vvvvvvvvvvvv2 = "";
-public static int _vvvvvvvvvvvv7 = 0;
-public static int _vvvvvvvvvvvv0 = 0;
-public anywheresoftware.b4a.objects.ButtonWrapper[][] _vvvvvvvvvvvvv1 = null;
-public static int _vvvvvvvvvvvv3 = 0;
-public b4a.example.dateutils _vvvvvvvvv1 = null;
-public b4a.example.versione06 _vvvvvvvvv2 = null;
-public javi.prieto.pictorario.main _vvvvvvvvv3 = null;
-public javi.prieto.pictorario.visualizacion _vvvvvvvvv5 = null;
-public javi.prieto.pictorario.acercade _vvvvvvvvv6 = null;
-public javi.prieto.pictorario.configuracion _vvvvvvvvv7 = null;
-public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvv0 = null;
-public javi.prieto.pictorario.avisos _vvvvvvvvvv1 = null;
-public javi.prieto.pictorario.starter _vvvvvvvvvv2 = null;
-public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv3 = null;
-public javi.prieto.pictorario.httputils2service _vvvvvvvvvv4 = null;
+public static String _vvvvvvvvvvvv4 = "";
+public static int _vvvvvvvvvvvvv1 = 0;
+public static int _vvvvvvvvvvvvv2 = 0;
+public anywheresoftware.b4a.objects.ButtonWrapper[][] _vvvvvvvvvvvvv3 = null;
+public static int _vvvvvvvvvvvv5 = 0;
+public b4a.example.dateutils _vvvvvvvvv4 = null;
+public b4a.example.versione06 _vvvvvvvvv5 = null;
+public javi.prieto.pictorario.main _vvvvvvvvv6 = null;
+public javi.prieto.pictorario.visualizacion _vvvvvvvvv0 = null;
+public javi.prieto.pictorario.acercade _vvvvvvvvvv1 = null;
+public javi.prieto.pictorario.configuracion _vvvvvvvvvv2 = null;
+public javi.prieto.pictorario.arranqueautomatico _vvvvvvvvvv3 = null;
+public javi.prieto.pictorario.avisos _vvvvvvvvvv4 = null;
+public javi.prieto.pictorario.starter _vvvvvvvvvv5 = null;
+public javi.prieto.pictorario.configurarsecuencia _vvvvvvvvvv6 = null;
+public javi.prieto.pictorario.httputils2service _vvvvvvvvvv7 = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -366,11 +373,11 @@ mostCurrent._activity.LoadLayout("SeleccionarPictograma",mostCurrent.activityBA)
  //BA.debugLineNum = 38;BA.debugLine="BotonBuscar.SetBackgroundImage(LoadBitmap(File.Di";
 mostCurrent._botonbuscar.SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"buscar.png").getObject()));
  //BA.debugLineNum = 39;BA.debugLine="BarraBusqueda.Text=TextoBuscarPorDefecto";
-mostCurrent._barrabusqueda.setText(BA.ObjectToCharSequence(mostCurrent._vvvvvvvvvvvv2));
+mostCurrent._barrabusqueda.setText(BA.ObjectToCharSequence(mostCurrent._vvvvvvvvvvvv4));
  //BA.debugLineNum = 40;BA.debugLine="TamIcono=ListadoPictogramas.Width/3";
-_vvvvvvvvvvvv3 = (int) (mostCurrent._listadopictogramas.getWidth()/(double)3);
+_vvvvvvvvvvvv5 = (int) (mostCurrent._listadopictogramas.getWidth()/(double)3);
  //BA.debugLineNum = 41;BA.debugLine="DibujaIconos";
-_vvvvvvvvvvvv4();
+_vvvvvvvvvvvv6();
  //BA.debugLineNum = 42;BA.debugLine="End Sub";
 return "";
 }
@@ -444,14 +451,14 @@ return "";
 public static String  _barrabusqueda_enterpressed() throws Exception{
  //BA.debugLineNum = 71;BA.debugLine="Sub BarraBusqueda_EnterPressed";
  //BA.debugLineNum = 72;BA.debugLine="BuscarTexto";
-_vvvvvvvvvvvv5();
+_vvvvvvvvvvvv7();
  //BA.debugLineNum = 73;BA.debugLine="End Sub";
 return "";
 }
 public static String  _barrabusqueda_focuschanged(boolean _tienefoco) throws Exception{
  //BA.debugLineNum = 63;BA.debugLine="Sub BarraBusqueda_FocusChanged (TieneFoco As Boole";
  //BA.debugLineNum = 65;BA.debugLine="If TieneFoco==True And BarraBusqueda.Text==TextoB";
-if (_tienefoco==anywheresoftware.b4a.keywords.Common.True && (mostCurrent._barrabusqueda.getText()).equals(mostCurrent._vvvvvvvvvvvv2)) { 
+if (_tienefoco==anywheresoftware.b4a.keywords.Common.True && (mostCurrent._barrabusqueda.getText()).equals(mostCurrent._vvvvvvvvvvvv4)) { 
  //BA.debugLineNum = 66;BA.debugLine="BarraBusqueda.Text=\"\"";
 mostCurrent._barrabusqueda.setText(BA.ObjectToCharSequence(""));
  //BA.debugLineNum = 67;BA.debugLine="Activity.Invalidate";
@@ -463,14 +470,14 @@ return "";
 public static String  _botonbuscar_click() throws Exception{
  //BA.debugLineNum = 59;BA.debugLine="Sub BotonBuscar_Click";
  //BA.debugLineNum = 60;BA.debugLine="BuscarTexto";
-_vvvvvvvvvvvv5();
+_vvvvvvvvvvvv7();
  //BA.debugLineNum = 61;BA.debugLine="End Sub";
 return "";
 }
 public static String  _botoncancelar_click() throws Exception{
  //BA.debugLineNum = 199;BA.debugLine="Sub BotonCancelar_Click";
  //BA.debugLineNum = 200;BA.debugLine="CallSubDelayed2(ConfigurarSecuencia,\"PictogramaEl";
-anywheresoftware.b4a.keywords.Common.CallSubDelayed2(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"PictogramaElegido",(Object)(-1));
+anywheresoftware.b4a.keywords.Common.CallSubDelayed2(processBA,(Object)(mostCurrent._vvvvvvvvvv6.getObject()),"PictogramaElegido",(Object)(-1));
  //BA.debugLineNum = 201;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
  //BA.debugLineNum = 202;BA.debugLine="End Sub";
@@ -482,15 +489,15 @@ anywheresoftware.b4a.objects.ButtonWrapper _botonpulsado = null;
  //BA.debugLineNum = 53;BA.debugLine="Dim BotonPulsado As Button";
 _botonpulsado = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 54;BA.debugLine="BotonPulsado=Sender";
-_botonpulsado.setObject((android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
+_botonpulsado = (anywheresoftware.b4a.objects.ButtonWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ButtonWrapper(), (android.widget.Button)(anywheresoftware.b4a.keywords.Common.Sender(mostCurrent.activityBA)));
  //BA.debugLineNum = 55;BA.debugLine="CallSubDelayed2(ConfigurarSecuencia,\"PictogramaEl";
-anywheresoftware.b4a.keywords.Common.CallSubDelayed2(processBA,(Object)(mostCurrent._vvvvvvvvvv3.getObject()),"PictogramaElegido",_botonpulsado.getTag());
+anywheresoftware.b4a.keywords.Common.CallSubDelayed2(processBA,(Object)(mostCurrent._vvvvvvvvvv6.getObject()),"PictogramaElegido",_botonpulsado.getTag());
  //BA.debugLineNum = 56;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
  //BA.debugLineNum = 57;BA.debugLine="End Sub";
 return "";
 }
-public static void  _vvvvvvvvvvvv5() throws Exception{
+public static void  _vvvvvvvvvvvv7() throws Exception{
 ResumableSub_BuscarTexto rsub = new ResumableSub_BuscarTexto(null);
 rsub.resume(processBA, null);
 }
@@ -554,7 +561,7 @@ if (true) break;
 case 1:
 //if
 this.state = 49;
-if ((parent.mostCurrent._barrabusqueda.getText()).equals(parent.mostCurrent._vvvvvvvvvvvv2) == false) { 
+if ((parent.mostCurrent._barrabusqueda.getText()).equals(parent.mostCurrent._vvvvvvvvvvvv4) == false) { 
 this.state = 3;
 }if (true) break;
 
@@ -576,7 +583,7 @@ _web._initialize /*String*/ (processBA,"buscapictogramas",seleccionpictogramas.g
  //BA.debugLineNum = 91;BA.debugLine="Dim su As StringUtils";
 _su = new anywheresoftware.b4a.objects.StringUtils();
  //BA.debugLineNum = 92;BA.debugLine="Web.Download(\"https://api.arasaac.org/api/pictog";
-_web._vvvvv2 /*String*/ ("https://api.arasaac.org/api/pictograms/es/search/"+_su.EncodeUrl(parent.mostCurrent._barrabusqueda.getText(),"UTF8").replace("+","%20"));
+_web._vvvvv5 /*String*/ ("https://api.arasaac.org/api/pictograms/es/search/"+_su.EncodeUrl(parent.mostCurrent._barrabusqueda.getText(),"UTF8").replace("+","%20"));
  //BA.debugLineNum = 93;BA.debugLine="Wait For (Web) JobDone(j As HttpJob)";
 anywheresoftware.b4a.keywords.Common.WaitFor("jobdone", processBA, this, (Object)(_web));
 this.state = 50;
@@ -594,7 +601,7 @@ if (true) break;
 case 4:
 //if
 this.state = 13;
-if (_j._vvvvvvv0 /*boolean*/ ) { 
+if (_j._vvvvvvvv3 /*boolean*/ ) { 
 this.state = 6;
 }else {
 this.state = 12;
@@ -606,7 +613,7 @@ this.state = 7;
  //BA.debugLineNum = 96;BA.debugLine="Dim jp As JSONParser";
 _jp = new anywheresoftware.b4a.objects.collections.JSONParser();
  //BA.debugLineNum = 97;BA.debugLine="jp.Initialize(j.GetString)";
-_jp.Initialize(_j._vvvvvv2 /*String*/ ());
+_jp.Initialize(_j._vvvvvv5 /*String*/ ());
  //BA.debugLineNum = 98;BA.debugLine="Dim PictogramasEncontrados As List = jp.NextArr";
 _pictogramasencontrados = new anywheresoftware.b4a.objects.collections.List();
 _pictogramasencontrados = _jp.NextArray();
@@ -628,7 +635,7 @@ case 51:
 this.state = 10;
 if (index19 < groupLen19) {
 this.state = 9;
-_pictograma.setObject((anywheresoftware.b4a.objects.collections.Map.MyMap)(group19.Get(index19)));}
+_pictograma = (anywheresoftware.b4a.objects.collections.Map) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.collections.Map(), (anywheresoftware.b4a.objects.collections.Map.MyMap)(group19.Get(index19)));}
 if (true) break;
 
 case 52:
@@ -665,9 +672,9 @@ case 13:
 this.state = 14;
 ;
  //BA.debugLineNum = 106;BA.debugLine="j.Release";
-_j._vvvvvvv6 /*String*/ ();
+_j._vvvvvvvv1 /*String*/ ();
  //BA.debugLineNum = 107;BA.debugLine="Web.Release";
-_web._vvvvvvv6 /*String*/ ();
+_web._vvvvvvvv1 /*String*/ ();
  //BA.debugLineNum = 109;BA.debugLine="ProgressDialogShow(\"Descargando imágenes\")";
 anywheresoftware.b4a.keywords.Common.ProgressDialogShow(mostCurrent.activityBA,BA.ObjectToCharSequence("Descargando imágenes"));
  //BA.debugLineNum = 113;BA.debugLine="For i=0 To encontrados-1";
@@ -703,7 +710,7 @@ if (true) break;
 case 17:
 //if
 this.state = 20;
-if (anywheresoftware.b4a.keywords.Common.File.Exists(parent.mostCurrent._vvvvvvvvvv2._vvvv5 /*String*/ ,BA.NumberToString(_id[_i])+".png")==anywheresoftware.b4a.keywords.Common.False) { 
+if (anywheresoftware.b4a.keywords.Common.File.Exists(parent.mostCurrent._vvvvvvvvvv5._vvvv5 /*String*/ ,BA.NumberToString(_id[_i])+".png")==anywheresoftware.b4a.keywords.Common.False) { 
 this.state = 19;
 }if (true) break;
 
@@ -753,7 +760,7 @@ if (true) break;
 case 24:
 //if
 this.state = 27;
-if (anywheresoftware.b4a.keywords.Common.File.Exists(parent.mostCurrent._vvvvvvvvvv2._vvvv5 /*String*/ ,BA.NumberToString(_id[_i])+".png")==anywheresoftware.b4a.keywords.Common.False) { 
+if (anywheresoftware.b4a.keywords.Common.File.Exists(parent.mostCurrent._vvvvvvvvvv5._vvvv5 /*String*/ ,BA.NumberToString(_id[_i])+".png")==anywheresoftware.b4a.keywords.Common.False) { 
 this.state = 26;
 }if (true) break;
 
@@ -761,7 +768,7 @@ case 26:
 //C
 this.state = 27;
  //BA.debugLineNum = 124;BA.debugLine="Wait For (DescargarPictograma(id(i),URL(i)))";
-anywheresoftware.b4a.keywords.Common.WaitFor("complete", processBA, this, _vvvvvvvvvvvv6(_id[_i],_url[_i]));
+anywheresoftware.b4a.keywords.Common.WaitFor("complete", processBA, this, _vvvvvvvvvvvv0(_id[_i],_url[_i]));
 this.state = 57;
 return;
 case 57:
@@ -791,7 +798,7 @@ case 29:
 //for
 this.state = 36;
 step40 = 1;
-limit40 = (int) (parent._vvvvvvvvvvvv7-1);
+limit40 = (int) (parent._vvvvvvvvvvvvv1-1);
 _x = (int) (0) ;
 this.state = 58;
 if (true) break;
@@ -818,7 +825,7 @@ case 32:
 //for
 this.state = 35;
 step41 = 1;
-limit41 = (int) (parent._vvvvvvvvvvvv0-1);
+limit41 = (int) (parent._vvvvvvvvvvvvv2-1);
 _y = (int) (0) ;
 this.state = 60;
 if (true) break;
@@ -839,7 +846,7 @@ case 34:
 //C
 this.state = 61;
  //BA.debugLineNum = 132;BA.debugLine="BotonIcono(y,x).Visible=False 'Oculta todos lo";
-parent.mostCurrent._vvvvvvvvvvvvv1[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.False);
+parent.mostCurrent._vvvvvvvvvvvvv3[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.False);
  if (true) break;
 if (true) break;
 
@@ -891,7 +898,7 @@ if (true) break;
 case 40:
 //if
 this.state = 47;
-if (_y<parent._vvvvvvvvvvvv0) { 
+if (_y<parent._vvvvvvvvvvvvv2) { 
 this.state = 42;
 }if (true) break;
 
@@ -899,13 +906,13 @@ case 42:
 //C
 this.state = 43;
  //BA.debugLineNum = 140;BA.debugLine="BotonIcono(y,x).SetBackgroundImage(LoadBitmap(";
-parent.mostCurrent._vvvvvvvvvvvvv1[_y][_x].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.Combine(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"/pictogramas"),BA.NumberToString(_id[_i])+".png").getObject()));
+parent.mostCurrent._vvvvvvvvvvvvv3[_y][_x].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.Combine(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"/pictogramas"),BA.NumberToString(_id[_i])+".png").getObject()));
  //BA.debugLineNum = 141;BA.debugLine="BotonIcono(y,x).Tag=id(i)";
-parent.mostCurrent._vvvvvvvvvvvvv1[_y][_x].setTag((Object)(_id[_i]));
+parent.mostCurrent._vvvvvvvvvvvvv3[_y][_x].setTag((Object)(_id[_i]));
  //BA.debugLineNum = 142;BA.debugLine="BotonIcono(y,x).Visible=True";
-parent.mostCurrent._vvvvvvvvvvvvv1[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.True);
+parent.mostCurrent._vvvvvvvvvvvvv3[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 143;BA.debugLine="ListadoPictogramas.Panel.Height=(y+1)*TamIcono";
-parent.mostCurrent._listadopictogramas.getPanel().setHeight((int) ((_y+1)*parent._vvvvvvvvvvvv3));
+parent.mostCurrent._listadopictogramas.getPanel().setHeight((int) ((_y+1)*parent._vvvvvvvvvvvv5));
  //BA.debugLineNum = 144;BA.debugLine="x=x+1";
 _x = (int) (_x+1);
  //BA.debugLineNum = 145;BA.debugLine="If (x=NumColumnas) Then";
@@ -914,7 +921,7 @@ if (true) break;
 case 43:
 //if
 this.state = 46;
-if ((_x==parent._vvvvvvvvvvvv7)) { 
+if ((_x==parent._vvvvvvvvvvvvv1)) { 
 this.state = 45;
 }if (true) break;
 
@@ -963,7 +970,7 @@ public static void  _jobdone(javi.prieto.pictorario.httpjob _j) throws Exception
 }
 public static void  _complete(int _resultado) throws Exception{
 }
-public static anywheresoftware.b4a.keywords.Common.ResumableSubWrapper  _vvvvvvvvvvvv6(int _id,String _url) throws Exception{
+public static anywheresoftware.b4a.keywords.Common.ResumableSubWrapper  _vvvvvvvvvvvv0(int _id,String _url) throws Exception{
 ResumableSub_DescargarPictograma rsub = new ResumableSub_DescargarPictograma(null,_id,_url);
 rsub.resume(processBA, null);
 return (anywheresoftware.b4a.keywords.Common.ResumableSubWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.keywords.Common.ResumableSubWrapper(), rsub);
@@ -997,7 +1004,7 @@ _web3 = new javi.prieto.pictorario.httpjob();
  //BA.debugLineNum = 160;BA.debugLine="Web3.Initialize(\"bajapictograma\",Me)";
 _web3._initialize /*String*/ (processBA,"bajapictograma",seleccionpictogramas.getObject());
  //BA.debugLineNum = 161;BA.debugLine="Web3.Download(URL)";
-_web3._vvvvv2 /*String*/ (_url);
+_web3._vvvvv5 /*String*/ (_url);
  //BA.debugLineNum = 163;BA.debugLine="Wait For (Web3) JobDone(j3 As HttpJob)";
 anywheresoftware.b4a.keywords.Common.WaitFor("jobdone", processBA, this, (Object)(_web3));
 this.state = 5;
@@ -1013,7 +1020,7 @@ if (true) break;
 case 1:
 //if
 this.state = 4;
-if (_j3._vvvvvvv0 /*boolean*/ ) { 
+if (_j3._vvvvvvvv3 /*boolean*/ ) { 
 this.state = 3;
 }if (true) break;
 
@@ -1023,9 +1030,9 @@ this.state = 4;
  //BA.debugLineNum = 165;BA.debugLine="Dim Fichero As OutputStream";
 _fichero = new anywheresoftware.b4a.objects.streams.File.OutputStreamWrapper();
  //BA.debugLineNum = 166;BA.debugLine="Fichero = File.OpenOutput(Starter.DirPictogramas";
-_fichero = anywheresoftware.b4a.keywords.Common.File.OpenOutput(parent.mostCurrent._vvvvvvvvvv2._vvvv5 /*String*/ ,BA.NumberToString(_id)+".png",anywheresoftware.b4a.keywords.Common.False);
+_fichero = anywheresoftware.b4a.keywords.Common.File.OpenOutput(parent.mostCurrent._vvvvvvvvvv5._vvvv5 /*String*/ ,BA.NumberToString(_id)+".png",anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 167;BA.debugLine="File.Copy2(Web3.GetInputStream, Fichero)";
-anywheresoftware.b4a.keywords.Common.File.Copy2((java.io.InputStream)(_web3._vvvvv0 /*anywheresoftware.b4a.objects.streams.File.InputStreamWrapper*/ ().getObject()),(java.io.OutputStream)(_fichero.getObject()));
+anywheresoftware.b4a.keywords.Common.File.Copy2((java.io.InputStream)(_web3._vvvvvv3 /*anywheresoftware.b4a.objects.streams.File.InputStreamWrapper*/ ().getObject()),(java.io.OutputStream)(_fichero.getObject()));
  //BA.debugLineNum = 168;BA.debugLine="Fichero.Close";
 _fichero.Close();
  if (true) break;
@@ -1035,9 +1042,9 @@ case 4:
 this.state = -1;
 ;
  //BA.debugLineNum = 170;BA.debugLine="j3.Release";
-_j3._vvvvvvv6 /*String*/ ();
+_j3._vvvvvvvv1 /*String*/ ();
  //BA.debugLineNum = 171;BA.debugLine="Web3.Release";
-_web3._vvvvvvv6 /*String*/ ();
+_web3._vvvvvvvv1 /*String*/ ();
  //BA.debugLineNum = 172;BA.debugLine="Return 0";
 if (true) {
 anywheresoftware.b4a.keywords.Common.ReturnFromResumableSub(this,(Object)(0));return;};
@@ -1048,7 +1055,7 @@ if (true) break;
         }
     }
 }
-public static String  _vvvvvvvvvvvv4() throws Exception{
+public static String  _vvvvvvvvvvvv6() throws Exception{
 int _x = 0;
 int _y = 0;
  //BA.debugLineNum = 204;BA.debugLine="Sub DibujaIconos";
@@ -1058,21 +1065,21 @@ _y = 0;
  //BA.debugLineNum = 207;BA.debugLine="For x=0 To NumColumnas-1";
 {
 final int step2 = 1;
-final int limit2 = (int) (_vvvvvvvvvvvv7-1);
+final int limit2 = (int) (_vvvvvvvvvvvvv1-1);
 _x = (int) (0) ;
 for (;_x <= limit2 ;_x = _x + step2 ) {
  //BA.debugLineNum = 208;BA.debugLine="For y=0 To NumLineas-1";
 {
 final int step3 = 1;
-final int limit3 = (int) (_vvvvvvvvvvvv0-1);
+final int limit3 = (int) (_vvvvvvvvvvvvv2-1);
 _y = (int) (0) ;
 for (;_y <= limit3 ;_y = _y + step3 ) {
  //BA.debugLineNum = 209;BA.debugLine="BotonIcono(y,x).Initialize(\"BotonIcono\")";
-mostCurrent._vvvvvvvvvvvvv1[_y][_x].Initialize(mostCurrent.activityBA,"BotonIcono");
+mostCurrent._vvvvvvvvvvvvv3[_y][_x].Initialize(mostCurrent.activityBA,"BotonIcono");
  //BA.debugLineNum = 210;BA.debugLine="ListadoPictogramas.Panel.AddView(BotonIcono(y,x";
-mostCurrent._listadopictogramas.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvv1[_y][_x].getObject()),(int) (_x*_vvvvvvvvvvvv3),(int) (_y*_vvvvvvvvvvvv3),_vvvvvvvvvvvv3,_vvvvvvvvvvvv3);
+mostCurrent._listadopictogramas.getPanel().AddView((android.view.View)(mostCurrent._vvvvvvvvvvvvv3[_y][_x].getObject()),(int) (_x*_vvvvvvvvvvvv5),(int) (_y*_vvvvvvvvvvvv5),_vvvvvvvvvvvv5,_vvvvvvvvvvvv5);
  //BA.debugLineNum = 211;BA.debugLine="BotonIcono(y,x).Visible=False";
-mostCurrent._vvvvvvvvvvvvv1[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.False);
+mostCurrent._vvvvvvvvvvvvv3[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.False);
  }
 };
  }
@@ -1080,7 +1087,7 @@ mostCurrent._vvvvvvvvvvvvv1[_y][_x].setVisible(anywheresoftware.b4a.keywords.Com
  //BA.debugLineNum = 214;BA.debugLine="ListadoPictogramas.Panel.Height=0 'Ningún icono v";
 mostCurrent._listadopictogramas.getPanel().setHeight((int) (0));
  //BA.debugLineNum = 216;BA.debugLine="RellenarIconos";
-_vvvvvvvvvvvvv2();
+_vvvvvvvvvvvvv4();
  //BA.debugLineNum = 217;BA.debugLine="End Sub";
 return "";
 }
@@ -1099,26 +1106,26 @@ mostCurrent._titulo = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 19;BA.debugLine="Private BotonCancelar As Button";
 mostCurrent._botoncancelar = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 22;BA.debugLine="Dim TextoBuscarPorDefecto=\"Buscar pictograma por";
-mostCurrent._vvvvvvvvvvvv2 = "Buscar pictograma por texto";
+mostCurrent._vvvvvvvvvvvv4 = "Buscar pictograma por texto";
  //BA.debugLineNum = 25;BA.debugLine="Dim NumColumnas As Int = 3";
-_vvvvvvvvvvvv7 = (int) (3);
+_vvvvvvvvvvvvv1 = (int) (3);
  //BA.debugLineNum = 26;BA.debugLine="Dim NumLineas As Int = 20";
-_vvvvvvvvvvvv0 = (int) (20);
+_vvvvvvvvvvvvv2 = (int) (20);
  //BA.debugLineNum = 29;BA.debugLine="Dim BotonIcono(NumLineas,NumColumnas) As Button";
-mostCurrent._vvvvvvvvvvvvv1 = new anywheresoftware.b4a.objects.ButtonWrapper[_vvvvvvvvvvvv0][];
+mostCurrent._vvvvvvvvvvvvv3 = new anywheresoftware.b4a.objects.ButtonWrapper[_vvvvvvvvvvvvv2][];
 {
-int d0 = mostCurrent._vvvvvvvvvvvvv1.length;
-int d1 = _vvvvvvvvvvvv7;
+int d0 = mostCurrent._vvvvvvvvvvvvv3.length;
+int d1 = _vvvvvvvvvvvvv1;
 for (int i0 = 0;i0 < d0;i0++) {
-mostCurrent._vvvvvvvvvvvvv1[i0] = new anywheresoftware.b4a.objects.ButtonWrapper[d1];
+mostCurrent._vvvvvvvvvvvvv3[i0] = new anywheresoftware.b4a.objects.ButtonWrapper[d1];
 for (int i1 = 0;i1 < d1;i1++) {
-mostCurrent._vvvvvvvvvvvvv1[i0][i1] = new anywheresoftware.b4a.objects.ButtonWrapper();
+mostCurrent._vvvvvvvvvvvvv3[i0][i1] = new anywheresoftware.b4a.objects.ButtonWrapper();
 }
 }
 }
 ;
  //BA.debugLineNum = 32;BA.debugLine="Dim TamIcono As Int";
-_vvvvvvvvvvvv3 = 0;
+_vvvvvvvvvvvv5 = 0;
  //BA.debugLineNum = 34;BA.debugLine="End Sub";
 return "";
 }
@@ -1127,7 +1134,7 @@ public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 11;BA.debugLine="End Sub";
 return "";
 }
-public static String  _vvvvvvvvvvvvv2() throws Exception{
+public static String  _vvvvvvvvvvvvv4() throws Exception{
 anywheresoftware.b4a.objects.collections.List _filelist = null;
 int _i = 0;
 int _x = 0;
@@ -1147,15 +1154,15 @@ _id = 0;
  //BA.debugLineNum = 223;BA.debugLine="Dim NombreFich As String";
 _nombrefich = "";
  //BA.debugLineNum = 225;BA.debugLine="fileList = File.ListFiles(Starter.DirPictogramas)";
-_filelist = anywheresoftware.b4a.keywords.Common.File.ListFiles(mostCurrent._vvvvvvvvvv2._vvvv5 /*String*/ );
+_filelist = anywheresoftware.b4a.keywords.Common.File.ListFiles(mostCurrent._vvvvvvvvvv5._vvvv5 /*String*/ );
  //BA.debugLineNum = 226;BA.debugLine="fileList.Sort(False)";
 _filelist.Sort(anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 228;BA.debugLine="NumFicheros=fileList.Size";
 _numficheros = _filelist.getSize();
  //BA.debugLineNum = 229;BA.debugLine="If NumFicheros>(NumLineas*NumColumnas) Then";
-if (_numficheros>(_vvvvvvvvvvvv0*_vvvvvvvvvvvv7)) { 
+if (_numficheros>(_vvvvvvvvvvvvv2*_vvvvvvvvvvvvv1)) { 
  //BA.debugLineNum = 230;BA.debugLine="NumFicheros=NumLineas*NumColumnas";
-_numficheros = (int) (_vvvvvvvvvvvv0*_vvvvvvvvvvvv7);
+_numficheros = (int) (_vvvvvvvvvvvvv2*_vvvvvvvvvvvvv1);
  };
  //BA.debugLineNum = 233;BA.debugLine="x=0";
 _x = (int) (0);
@@ -1168,23 +1175,23 @@ final int limit12 = (int) (_numficheros-1);
 _i = (int) (0) ;
 for (;_i <= limit12 ;_i = _i + step12 ) {
  //BA.debugLineNum = 236;BA.debugLine="If y<NumLineas Then";
-if (_y<_vvvvvvvvvvvv0) { 
+if (_y<_vvvvvvvvvvvvv2) { 
  //BA.debugLineNum = 237;BA.debugLine="NombreFich=fileList.Get(i)";
 _nombrefich = BA.ObjectToString(_filelist.Get(_i));
  //BA.debugLineNum = 238;BA.debugLine="BotonIcono(y,x).SetBackgroundImage(LoadBitmap(S";
-mostCurrent._vvvvvvvvvvvvv1[_y][_x].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvvvvvvvv2._vvvv5 /*String*/ ,_nombrefich).getObject()));
+mostCurrent._vvvvvvvvvvvvv3[_y][_x].SetBackgroundImageNew((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(mostCurrent._vvvvvvvvvv5._vvvv5 /*String*/ ,_nombrefich).getObject()));
  //BA.debugLineNum = 239;BA.debugLine="id=Regex.Replace(\"[^0-9]\",NombreFich,\"\")";
 _id = (int)(Double.parseDouble(anywheresoftware.b4a.keywords.Common.Regex.Replace("[^0-9]",_nombrefich,"")));
  //BA.debugLineNum = 240;BA.debugLine="BotonIcono(y,x).Tag=id";
-mostCurrent._vvvvvvvvvvvvv1[_y][_x].setTag((Object)(_id));
+mostCurrent._vvvvvvvvvvvvv3[_y][_x].setTag((Object)(_id));
  //BA.debugLineNum = 241;BA.debugLine="BotonIcono(y,x).Visible=True";
-mostCurrent._vvvvvvvvvvvvv1[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.True);
+mostCurrent._vvvvvvvvvvvvv3[_y][_x].setVisible(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 242;BA.debugLine="ListadoPictogramas.Panel.Height=(y+1)*TamIcono";
-mostCurrent._listadopictogramas.getPanel().setHeight((int) ((_y+1)*_vvvvvvvvvvvv3));
+mostCurrent._listadopictogramas.getPanel().setHeight((int) ((_y+1)*_vvvvvvvvvvvv5));
  //BA.debugLineNum = 243;BA.debugLine="x=x+1";
 _x = (int) (_x+1);
  //BA.debugLineNum = 244;BA.debugLine="If (x=NumColumnas) Then";
-if ((_x==_vvvvvvvvvvvv7)) { 
+if ((_x==_vvvvvvvvvvvvv1)) { 
  //BA.debugLineNum = 245;BA.debugLine="x=0";
 _x = (int) (0);
  //BA.debugLineNum = 246;BA.debugLine="y=y+1";

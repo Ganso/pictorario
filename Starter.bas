@@ -17,8 +17,8 @@ Sub Process_Globals
 
 	Dim CambiosVersion As String
 	CambiosVersion= _
-	"- Cambiadas las actividades de ejemplo (reiniciar la configuración para verlas)."&CRLF&CRLF& _
-	"- Corregidos errores de visualización."
+	"- Actualizaciones internas." & CRLF & CRLF & _
+	"- Podéis notificar cualquier fallo o sugerencia por correo a javi@ganso.org." & CRLF & "GRACIAS"
 	
 
 	Dim kvs As KeyValueStore
