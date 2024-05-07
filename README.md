@@ -4,3 +4,4 @@ Esta aplicación es completamente gratuita, y ha sido creada por su autor como T
 
 Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para ARASAAC (http://arasaac.org) que los distribuye bajo licencia Creative Commons (BY-NC-SA).
 
+La documentación completa del proyecto está [en mi página web](https://blog.ganso.org/proyectos/pictorario)
