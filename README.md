@@ -4,6 +4,8 @@ Esta aplicación es completamente gratuita, y ha sido creada por su autor como T
 
 Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para ARASAAC (http://arasaac.org) que los distribuye bajo licencia Creative Commons (BY-NC-SA).
 
+[Presentación en Youtube](https://youtu.be/cjTAGguz5H0?si=9tW0Vji1QCRNCyKs)
+
 # Documentación
 
 He decidido compartir la [memoria del Trabajo Fin de Grado presentada a la Universidad Internacional de la Rioja para el acceso a la titulación de Graduado en Ingeniería Informática](https://github.com/Ganso/pictorario/files/15245597/Memoria.TFG.-.Javier.Prieto.Martinez.pdf), en la que presento este proyecto, cuento cómo llevé a cabo el desarrollo, y realizo una descripción técnica detallada de la aplicación en el momento de lanzar la Beta 7. Este trabajo obtuvo una nota de sobresaliente.
