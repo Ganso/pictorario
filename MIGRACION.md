@@ -430,6 +430,13 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 
 **Limitación de las pruebas en emulador.** El campo de texto de Compose no acepta texto inyectado con `adb shell input text` ni con `keyevent` en este emulador; el campo recibe el foco pero queda vacío. Por eso la búsqueda no se pudo accionar desde la interfaz automatizada. En su lugar se verificó el código de red **ejecutándolo contra el servicio real desde un test JVM**: `search("perro")` devolvió 10 identificadores, con el 7202 el primero, exactamente lo mismo que `curl`. Esa comprobación en vivo era temporal y no queda en la suite; en su lugar hay un `ArasaacResponseTest` con una respuesta real recortada como fixture, para que los tests sigan siendo deterministas y sin red. **Queda pendiente probar la búsqueda a mano en un dispositivo físico.**
 
+## Notas de la fase 7
+
+- **El selector de color es una paleta fija, no una rueda HSV** como preveía el plan. La elección sólo tiene que distinguir tres agujas de un vistazo, y una paleta cerrada garantiza que todos los tonos se lean bien sobre la esfera blanca, cosa que una rueda libre no puede prometer. Los tres colores por defecto encabezan la lista.
+- **El changelog se muestra solo** cuando el `versionCode` guardado no coincide con el instalado, y también bajo demanda pulsando la versión en «Acerca de». El texto avisa de que la configuración se reinicia al venir de la 1.x.
+- La fuente GreatVibes se aplica a «Para Teo» desde `res/font`, sin la carga manual que el original tenía comentada.
+- Al activar la protección se explica el gesto de desbloqueo, igual que hacía el `Msgbox` del original.
+
 ---
 
 ## Correcciones respecto al original

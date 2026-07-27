@@ -16,7 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import es.pictorario.app.ui.clock.ClockScreen
 import es.pictorario.app.ui.editor.EditorScreen
+import es.pictorario.app.BuildConfig
+import es.pictorario.app.ui.about.AboutScreen
+import es.pictorario.app.ui.about.VERSION_CHANGES
+import es.pictorario.app.ui.common.ConfirmDialog
 import es.pictorario.app.ui.home.HomeScreen
+import es.pictorario.app.ui.settings.SettingsScreen
 import es.pictorario.app.ui.picker.PickerScreen
 import es.pictorario.app.ui.theme.PictorarioTheme
 
@@ -37,13 +42,29 @@ fun AppRoot(state: PictorarioState, onExit: () -> Unit) {
 
             BackHandler(enabled = state.settings.appProtected) { /* locked: ignore Back */ }
 
+            // What's-new, shown once per update. The original compared the same
+            // stored versionCode in Main (pictorario.b4a:154-173).
+            if (state.settings.installedVersion != BuildConfig.VERSION_CODE) {
+                ConfirmDialog(
+                    title = "Novedades de esta versión",
+                    message = VERSION_CHANGES,
+                    confirmText = "Aceptar",
+                    onConfirm = {
+                        state.updateSettings { it.copy(installedVersion = BuildConfig.VERSION_CODE) }
+                    },
+                    onDismiss = {
+                        state.updateSettings { it.copy(installedVersion = BuildConfig.VERSION_CODE) }
+                    },
+                )
+            }
+
             when (val screen = state.screen) {
                 is Screen.Home -> HomeScreen(state, onExit)
                 is Screen.Clock -> ClockScreen(state, screen.sequenceIndex)
                 is Screen.Editor -> EditorScreen(state)
                 is Screen.Picker -> PickerScreen(state)
-                is Screen.Settings -> Pending("Configuración", null, state)
-                is Screen.About -> Pending("Acerca de", null, state)
+                is Screen.Settings -> SettingsScreen(state)
+                is Screen.About -> AboutScreen(state)
             }
         }
     }
