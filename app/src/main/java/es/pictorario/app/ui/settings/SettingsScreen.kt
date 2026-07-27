@@ -31,7 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import es.pictorario.app.R
 import es.pictorario.app.alarm.AlarmScheduler
 import es.pictorario.app.ui.PictorarioState
-import es.pictorario.app.ui.clock.BoardBackground
 import es.pictorario.app.ui.common.ColorPickerDialog
 import es.pictorario.app.ui.common.ConfirmDialog
 import es.pictorario.app.ui.common.HandColorRow
@@ -55,8 +54,7 @@ fun SettingsScreen(state: PictorarioState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BoardBackground)
-            .verticalScroll(rememberScrollState())
+                        .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {

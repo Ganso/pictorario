@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.sp
 import es.pictorario.app.BuildConfig
 import es.pictorario.app.R
 import es.pictorario.app.ui.PictorarioState
-import es.pictorario.app.ui.clock.BoardBackground
 import es.pictorario.app.ui.common.ConfirmDialog
 
 /** The changelog shown once after an update. Port of `Starter.CambiosVersion`. */
@@ -72,8 +71,7 @@ fun AboutScreen(state: PictorarioState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BoardBackground)
-            .verticalScroll(rememberScrollState())
+                        .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),

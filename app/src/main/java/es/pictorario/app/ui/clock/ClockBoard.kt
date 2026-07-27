@@ -30,9 +30,6 @@ import kotlin.math.sin
 /** Panel proportions from `LS_visualizarsecuencia.java`: 130% of the width. */
 const val BOARD_ASPECT_RATIO = 1f / 1.3f
 
-/** Backdrop of the visualisation screen, the `0xFFF0FFFF` of the original. */
-val BoardBackground = Color(0xFFF0FFFF)
-
 private val FrameColor = Color(0xFF808080)
 private val FaceColor = Color.White
 private val TickColor = Color(0xFFCCCCCC)

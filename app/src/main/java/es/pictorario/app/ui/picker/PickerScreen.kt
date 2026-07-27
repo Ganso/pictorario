@@ -3,6 +3,7 @@ package es.pictorario.app.ui.picker
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +41,9 @@ import androidx.compose.ui.unit.sp
 import es.pictorario.app.R
 import es.pictorario.app.data.ArasaacApi
 import es.pictorario.app.ui.PictorarioState
-import es.pictorario.app.ui.clock.BoardBackground
 import es.pictorario.app.ui.common.PictogramImage
+import es.pictorario.app.ui.theme.FieldBorder
+import es.pictorario.app.ui.theme.FieldSurface
 import kotlinx.coroutines.launch
 
 /** What the picker is doing right now, so the UI can say so. */
@@ -96,7 +98,7 @@ fun PickerScreen(state: PictorarioState) {
         }
     }
 
-    Column(Modifier.fillMaxSize().background(BoardBackground)) {
+    Column(Modifier.fillMaxSize()) {
         Text(
             text = "Seleccionar pictograma",
             fontSize = 24.sp,
@@ -126,7 +128,8 @@ fun PickerScreen(state: PictorarioState) {
                 Box(
                     modifier = Modifier
                         .aspectRatio(1f)
-                        .background(androidx.compose.ui.graphics.Color.White)
+                        .background(FieldSurface)
+                        .border(1.dp, FieldBorder)
                         .clickable { state.applyPickedPictogram(id) },
                 ) {
                     PictogramImage(

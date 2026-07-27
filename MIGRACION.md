@@ -399,8 +399,8 @@ La **X se escala por tres radios y la Y por uno solo**. Leerlo como «un punto a
 Otros puntos:
 
 - **Los botones van superpuestos sobre la parte baja del panel**, no debajo. `LS_visualizarsecuencia.java` coloca `Volver` a 30 dp del borde inferior del propio `panelreloj`, aprovechando el hueco que deja la esfera. Con un `Column` normal quedaban demasiado abajo.
-- **El fondo es `#F0FFFF`**, el mismo azur que usaba el editor. Muestreado de la captura de referencia.
-- **`CambiarVista` ya persiste el tipo de tablero**, corrigiendo `Visualizacion.bas:495`. Comprobado en el emulador: se cicla por los cuatro y el cambio sobrevive a salir de la pantalla.
+- **El fondo era `#F0FFFF`**, el azur del original, pero por decisión posterior toda la aplicación pasó a **blanco puro**. Los campos pulsables (selectores de tablero y de hora, celdas del buscador) llevan ahora superficie gris claro y borde, porque antes se distinguían apoyándose en el celeste del fondo.
+- **`CambiarVista` ya persiste el tipo de tablero**, corrigiendo `Visualizacion.bas:495`. Comprobado en el emulador: se cicla por los cuatro y el cambio sobrevive a salir de la pantalla. Al pulsarlo aparece un aviso superpuesto («Cambiando vista a …»), que es el equivalente del `ToastMessageShow` del original pero dibujado dentro de la aplicación, al pie y sin tapar la esfera.
 - El centro y el radio se calculan **siempre contra el ancho**, nunca contra el alto: tomarlos del alto deformaría la esfera en tablet.
 
 ## Notas de la fase 4

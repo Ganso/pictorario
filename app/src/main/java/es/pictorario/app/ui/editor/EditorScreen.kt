@@ -3,6 +3,7 @@ package es.pictorario.app.ui.editor
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -50,7 +51,8 @@ import es.pictorario.app.ui.common.ConfirmDialog
 import es.pictorario.app.ui.common.OptionListDialog
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.PictorarioTimePicker
-import es.pictorario.app.ui.clock.BoardBackground
+import es.pictorario.app.ui.theme.FieldBorder
+import es.pictorario.app.ui.theme.FieldSurface
 
 private val CellSize = 70.dp
 private val CellGap = 5.dp
@@ -80,7 +82,7 @@ fun EditorScreen(state: PictorarioState) {
     BackHandler(enabled = !state.settings.appProtected) { confirmCancel = true }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize().background(BoardBackground).padding(horizontal = CellGap),
+        modifier = Modifier.fillMaxSize().padding(horizontal = CellGap),
         verticalArrangement = Arrangement.spacedBy(CellGap),
     ) {
         item {
@@ -304,7 +306,8 @@ private fun ValueButton(text: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(CellSize)
-            .background(Color.White)
+            .background(FieldSurface)
+            .border(1.dp, FieldBorder)
             .clickable(onClick = onClick),
     ) {
         Text(text, fontSize = 16.sp, textAlign = TextAlign.Center)
@@ -396,7 +399,8 @@ private fun TimeButton(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .height(CellSize)
-            .background(Color.White)
+            .background(FieldSurface)
+            .border(1.dp, FieldBorder)
             .clickable(onClick = onClick),
     ) {
         Text(

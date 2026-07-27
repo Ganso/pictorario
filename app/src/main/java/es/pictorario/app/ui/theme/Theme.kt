@@ -20,6 +20,17 @@ private val PictorarioColors = lightColorScheme(
     onSurface = Color.Black,
 )
 
+/**
+ * Fill for tappable fields: time and board pickers, picker grid cells.
+ *
+ * They used to read as white cards against the pale blue backdrop the original
+ * had. Now that the page is plain white they need a surface of their own.
+ */
+val FieldSurface = Color(0xFFF2F4F5)
+
+/** Hairline around those same fields. */
+val FieldBorder = Color(0xFFDADDE0)
+
 @Composable
 fun PictorarioTheme(content: @Composable () -> Unit) {
     MaterialTheme(colorScheme = PictorarioColors, content = content)

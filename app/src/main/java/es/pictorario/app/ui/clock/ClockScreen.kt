@@ -44,7 +44,11 @@ import es.pictorario.app.domain.Sequence
 import es.pictorario.app.domain.TimeFormat
 import es.pictorario.app.domain.TimeIndicator
 import es.pictorario.app.ui.PictorarioState
+import es.pictorario.app.domain.BOARD_TYPE_LABELS
+import es.pictorario.app.ui.common.Notice
+import es.pictorario.app.ui.common.NoticeController
 import es.pictorario.app.ui.common.PictogramImage
+import es.pictorario.app.ui.common.rememberNotice
 import es.pictorario.app.ui.common.lockGesture
 import java.time.LocalTime
 
@@ -65,6 +69,7 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
     val now = rememberClockTick(needsSeconds = showsSeconds)
 
     var selected by remember(sequenceIndex) { mutableIntStateOf(-1) }
+    val notice = rememberNotice()
 
     // Whatever is happening right now is selected on arrival, and again as the
     // day moves on, unless the user has picked something else in the meantime.
@@ -76,31 +81,37 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
 
     BackHandler(enabled = !settings.appProtected) { state.navigateHome() }
 
-    Column(
-        modifier = Modifier.fillMaxSize().background(BoardBackground),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        DialArea(
-            sequence = sequence,
-            state = state,
-            sequenceIndex = sequenceIndex,
-            now = now,
-            selected = selected,
-            screenHeightPx = screenHeightPx,
-            onSelect = { selected = it },
-        )
-
-        if (selected in sequence.activities.indices) {
-            ActivityPager(
+    Box(Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            DialArea(
                 sequence = sequence,
-                selectedIndex = selected,
+                state = state,
+                sequenceIndex = sequenceIndex,
                 now = now,
-                format24h = settings.format24h,
-                repository = state.pictograms,
+                selected = selected,
+                screenHeightPx = screenHeightPx,
+                notice = notice,
                 onSelect = { selected = it },
-                modifier = Modifier.fillMaxSize(),
             )
+
+            if (selected in sequence.activities.indices) {
+                ActivityPager(
+                    sequence = sequence,
+                    selectedIndex = selected,
+                    now = now,
+                    format24h = settings.format24h,
+                    repository = state.pictograms,
+                    onSelect = { selected = it },
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
+
+        // Floats over everything, near the bottom, so it never hides the dial.
+        Notice(notice)
     }
 }
 
@@ -112,6 +123,7 @@ private fun DialArea(
     now: LocalTime,
     selected: Int,
     screenHeightPx: Float,
+    notice: NoticeController,
     onSelect: (Int) -> Unit,
 ) {
     val settings = state.settings
@@ -190,7 +202,15 @@ private fun DialArea(
             val protectedModifier = if (settings.appProtected) {
                 Modifier.lockGesture(state::navigateHome)
             } else {
-                Modifier.clickable { state.cycleBoardType(sequenceIndex) }
+                Modifier.clickable {
+                    // The board changes underneath without any transition, so
+                    // the notice is what tells the user which one they landed on.
+                    val next = BoardType.entries[
+                        (sequence.board.type.ordinal + 1) % BoardType.entries.size,
+                    ]
+                    state.cycleBoardType(sequenceIndex)
+                    notice.show("Cambiando vista a ${BOARD_TYPE_LABELS[next.ordinal]}")
+                }
             }
             Image(
                 painter = painterResource(boardIcon(sequence.board.type, settings.appProtected)),
@@ -198,6 +218,7 @@ private fun DialArea(
                 modifier = Modifier.size(60.dp).then(protectedModifier),
             )
         }
+
     }
 }
 
