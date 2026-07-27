@@ -96,13 +96,18 @@ fun SettingsScreen(state: PictorarioState) {
                         "suenen a la hora exacta, concede el permiso de alarmas.",
                     fontSize = 14.sp,
                 )
-                Button(
-                    onClick = {
-                        AlarmScheduler.exactAlarmSettingsIntent(context)
-                            ?.let { runCatching { context.startActivity(it) } }
-                    },
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                ) { Text("Permitir avisos puntuales") }
+                Help(
+                    "Abre los ajustes de Android donde se concede el permiso",
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Button(
+                        onClick = {
+                            AlarmScheduler.exactAlarmSettingsIntent(context)
+                                ?.let { runCatching { context.startActivity(it) } }
+                        },
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    ) { Text("Permitir avisos puntuales") }
+                }
             }
         }
 
@@ -115,7 +120,9 @@ fun SettingsScreen(state: PictorarioState) {
             }
         }
 
-        Text("Colores del reloj (horario, minutero y segundero)", fontSize = 16.sp)
+        Help("Toca cada cuadro para cambiar el color de esa aguja") {
+            Text("Colores del reloj (horario, minutero y segundero)", fontSize = 16.sp)
+        }
         HandColorRow(
             hourColor = settings.hourColor,
             minuteColor = settings.minuteColor,
@@ -202,13 +209,14 @@ private fun SettingRow(
     icon: Int? = null,
     content: @Composable () -> Unit,
 ) {
+    // The whole row is the target, not just the label: the finger naturally
+    // lands on the control, and holding it there is what asks for help.
+    Help(help, modifier = Modifier.fillMaxWidth()) {
     Row(
         modifier = Modifier.fillMaxWidth().height(80.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Help(help, modifier = Modifier.weight(1f)) {
-            Text(label, fontSize = 16.sp)
-        }
+        Text(label, fontSize = 16.sp, modifier = Modifier.weight(1f))
         icon?.let {
             Image(
                 painter = painterResource(it),
@@ -217,5 +225,6 @@ private fun SettingRow(
             )
         }
         content()
+    }
     }
 }

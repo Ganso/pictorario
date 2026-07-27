@@ -21,6 +21,11 @@ import androidx.compose.ui.unit.sp
  *
  * The text also becomes the accessibility description, so screen readers say
  * the same thing.
+ *
+ * **Do not hand this a `Modifier.weight`.** `TooltipBox` does not carry a row
+ * weight through to its anchor, so a `fillMaxWidth` inside resolves against the
+ * whole row and shoves its siblings off screen. Inside a `Row`, put the weight
+ * on a plain `Box` and place the `Help` within it.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

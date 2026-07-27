@@ -464,7 +464,11 @@ Esta fase cambió de alcance al saberse que **la ficha había sido retirada de G
 Tres mejoras pedidas sobre la marcha, ninguna presente en la versión B4A:
 
 - **Indicadores en la portada.** Cada secuencia muestra un icono de alarma si tiene avisos activados —y sólo si el interruptor general también lo está, porque si no el icono mentiría— y un punto verde con el nombre de la actividad cuando alguna está transcurriendo en ese momento. La portada late una vez por minuto, así que ambos se mantienen al día en vez de congelarse en la hora a la que se abrió la pantalla.
-- **Ayuda al mantener pulsado.** Todos los botones e iconos accionables explican qué hacen si se mantiene el dedo encima. La aplicación se apoya mucho en iconos —engranajes, candados, amaneceres— y la maneja tanto un adulto que la configura de higos a brevas como un niño que no lee las etiquetas. El texto sirve además de descripción para lectores de pantalla. Comprobado en el emulador que la pulsación larga muestra la ayuda **sin disparar la acción**, y que el toque corto sigue funcionando.
+- **Ayuda al mantener pulsado.** Todos los botones e iconos accionables explican qué hacen si se mantiene el dedo encima.
+
+  Cuidado con una trampa de `TooltipBox`: **no propaga el `weight` de un `Row` a su anclaje**, de modo que un `fillMaxWidth()` dentro se mide contra la fila entera y expulsa a los hermanos fuera de la pantalla. Costó que el editor perdiera el botón «Hasta» y que la pantalla del reloj perdiera «Cambiar vista». La solución es poner el peso en un `Box` normal y meter el `Help` dentro; está anotado en el KDoc del componente.
+
+  Segunda lección: la ayuda hay que colgarla del **control entero**, no de su etiqueta. En Configuración se puso al principio sobre el texto de cada fila, y como el dedo aterriza en la casilla o en el botón, no aparecía nunca. La aplicación se apoya mucho en iconos —engranajes, candados, amaneceres— y la maneja tanto un adulto que la configura de higos a brevas como un niño que no lee las etiquetas. El texto sirve además de descripción para lectores de pantalla. Comprobado en el emulador que la pulsación larga muestra la ayuda **sin disparar la acción**, y que el toque corto sigue funcionando.
 - **Aviso al cambiar de vista**, descrito en las notas de la fase 3.
 
 ---

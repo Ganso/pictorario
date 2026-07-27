@@ -190,12 +190,14 @@ private fun DialArea(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             if (!settings.appProtected) {
-                Help("Volver a la portada", modifier = Modifier.weight(1f)) {
-                    Button(
-                        onClick = state::navigateHome,
-                        modifier = Modifier.fillMaxWidth().height(60.dp),
-                    ) {
-                        Text("Cerrar visualización", fontSize = 18.sp)
+                Box(Modifier.weight(1f)) {
+                    Help("Volver a la portada", modifier = Modifier.fillMaxWidth()) {
+                        Button(
+                            onClick = state::navigateHome,
+                            modifier = Modifier.fillMaxWidth().height(60.dp),
+                        ) {
+                            Text("Cerrar visualización", fontSize = 18.sp)
+                        }
                     }
                 }
             } else {

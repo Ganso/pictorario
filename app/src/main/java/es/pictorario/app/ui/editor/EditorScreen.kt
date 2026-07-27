@@ -412,7 +412,8 @@ private fun TimeButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-    Help(help, modifier = modifier) {
+    Box(modifier) {
+        Help(help, modifier = Modifier.fillMaxWidth()) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -427,6 +428,7 @@ private fun TimeButton(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
             )
+        }
         }
     }
 }
