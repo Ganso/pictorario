@@ -1,0 +1,110 @@
+package es.pictorario.app.domain
+
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class ActivityRulesTest {
+
+    @Test
+    fun activitiesAreOrderedByStartTime() {
+        val sorted = ActivityRules.sortByStart(
+            listOf(activity(15, 0, 16, 0), activity(9, 0, 10, 0), activity(12, 30, 13, 0)),
+        )
+        assertEquals(listOf(9, 12, 15), sorted.map { it.startHour })
+    }
+
+    @Test
+    fun anActivityRunningIntoTheNextOneIsTrimmedBackToItsStart() {
+        val trimmed = ActivityRules.removeOverlaps(
+            listOf(activity(9, 0, 11, 0), activity(10, 0, 12, 0)),
+        )
+        assertEquals(10, trimmed[0].endHour)
+        assertEquals(0, trimmed[0].endMinute)
+        assertEquals(10, trimmed[1].startHour)
+    }
+
+    @Test
+    fun activitiesThatMerelyTouchAreLeftAlone() {
+        val original = listOf(activity(9, 0, 10, 0), activity(10, 0, 11, 0))
+        assertEquals(original, ActivityRules.removeOverlaps(original))
+    }
+
+    @Test
+    fun movingAStartPastItsEndPushesTheEndOutByHalfAnHour() {
+        val moved = ActivityRules.withStart(activity(9, 0, 10, 0), 11, 0)
+        assertEquals(11, moved.startHour)
+        assertEquals(11, moved.endHour)
+        assertEquals(30, moved.endMinute)
+    }
+
+    @Test
+    fun movingAStartPastAnEndInTheSameHourIsAlsoDetected() {
+        // Regression for ConfigurarSecuencia.bas:504, which compared the new
+        // start against (endHour, startHour) instead of (endHour, endMinute).
+        // Both hours being 10, the original saw no conflict and left the
+        // activity ending five minutes before it began.
+        val moved = ActivityRules.withStart(activity(10, 0, 10, 50), 10, 55)
+        assertEquals(10, moved.startHour)
+        assertEquals(55, moved.startMinute)
+        assertEquals(11, moved.endHour)
+        assertEquals(25, moved.endMinute)
+    }
+
+    @Test
+    fun aStartThatStillPrecedesItsEndIsAppliedUntouched() {
+        val moved = ActivityRules.withStart(activity(10, 0, 12, 0), 11, 15)
+        assertEquals(11, moved.startHour)
+        assertEquals(15, moved.startMinute)
+        assertEquals(12, moved.endHour)
+        assertEquals(0, moved.endMinute)
+    }
+
+    @Test
+    fun movingAnEndBeforeItsStartPullsTheStartBack() {
+        val moved = ActivityRules.withEnd(activity(10, 0, 12, 0), 9, 0)
+        assertEquals(8, moved.startHour)
+        assertEquals(30, moved.startMinute)
+        assertEquals(9, moved.endHour)
+    }
+
+    @Test
+    fun theFirstActivityOfAnEmptySequenceStartsAtEight() {
+        val added = ActivityRules.newActivity(emptyList())
+        assertEquals(8, added.startHour)
+        assertEquals(0, added.startMinute)
+        assertEquals(8, added.endHour)
+        assertEquals(30, added.endMinute)
+        assertEquals(NEW_ACTIVITY_PICTOGRAM_ID, added.pictogramId)
+    }
+
+    @Test
+    fun aNewActivityStartsWhereThePreviousOneEnded() {
+        val added = ActivityRules.newActivity(listOf(activity(9, 0, 10, 45)))
+        assertEquals(10, added.startHour)
+        assertEquals(45, added.startMinute)
+        assertEquals(11, added.endHour)
+        assertEquals(15, added.endMinute)
+    }
+
+    @Test
+    fun aNewActivityNeverRunsPastTheEndOfTheDay() {
+        val added = ActivityRules.newActivity(listOf(activity(23, 0, 23, 50)))
+        assertEquals(LAST_MINUTE_OF_DAY, added.endHour * 60 + added.endMinute)
+    }
+
+    @Test
+    fun normalizeSortsAndThenTrims() {
+        val result = ActivityRules.normalize(
+            listOf(activity(10, 0, 12, 0), activity(9, 0, 11, 0)),
+        )
+        assertEquals(listOf(9, 10), result.map { it.startHour })
+        assertEquals(10, result[0].endHour)
+    }
+
+    private fun activity(
+        startHour: Int,
+        startMinute: Int,
+        endHour: Int,
+        endMinute: Int,
+    ) = Activity(startHour, startMinute, endHour, endMinute, DEFAULT_PICTOGRAM_ID, "")
+}

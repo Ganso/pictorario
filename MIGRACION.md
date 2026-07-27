@@ -325,7 +325,7 @@ El bloqueo parental oculta engranajes y botones de edición; el desbloqueo es un
 Cada fase compila, instala y se puede enseñar.
 
 0. ~~**Reorganización del repo + esqueleto**~~ — **COMPLETADA** (27/07/2026, rama `migracion-kotlin`). Ver «Notas de la fase 0» más abajo.
-1. **Dominio puro + tests** (1 día) — `Model`, `Palette`, `TimeFormat`, `ActivityRules`, `AlarmCalculator`, `ClockGeometry`, `SampleData`. Cero UI. **Aquí se corrigen y se prueban todos los bugs heredados.** *Verificable*: `./gradlew test` en verde.
+1. ~~**Dominio puro + tests**~~ — **COMPLETADA** (27/07/2026). 48 tests en verde. Ver «Notas de la fase 1».
 2. **Persistencia y portada** (1 día) — `AppDataStore`, `PictogramRepository` con la siembra, `BitmapCache`, `HomeScreen` (geometría en `pictorario.b4a:176-282`), menú Editar/Borrar/Duplicar. *Verificable*: se ven las 3 secuencias de ejemplo; matar y reabrir conserva el estado.
 3. **Reloj estático** (2-3 días, fase crítica) — `ClockBoard`: cara, marco, arco de 300°, marcas y números de las horas, sectores de colores. Sin interacción ni agujas. *Verificable*: comparar los 4 tipos de tablero contra la app B4A instalada en paralelo desde `b4a/Objects/pictorario.apk`. **Hacerlo pronto para descubrir sorpresas de geometría cuanto antes.**
 4. **Reloj vivo** (2 días) — `ClockHands` con tick por ciclo de vida, reloj digital, hit-test, botones-pictograma, `HorizontalPager` sincronizado, barra de progreso, pictograma central, `CambiarVista` persistiendo el tipo.
@@ -351,6 +351,19 @@ Hallazgos y desviaciones surgidos al montar el esqueleto:
 - **La versión B4A arranca sin problemas en Android 16 / API 36**, así que sirve como referencia viva y no sólo como capturas. Las capturas de la portada y los cuatro tipos de tablero están en `docs/referencia-b4a/`.
 - **Hallazgo sobre el tipo 3**: lo que el análisis estático tomó por un bug (el `*3` ausente en `Visualizacion.bas:132,143`) resulta ser lo que da al tablero su forma de herradura. Ver la sección del reloj.
 
+## Notas de la fase 1
+
+El paquete `domain/` quedó en 7 ficheros, sin un solo import de Android, y `app/src/test/` con **48 tests** repartidos en 6 clases. Todo lo verificable de la migración vive aquí.
+
+- **`Point` propio en vez de `Offset` de Compose.** Para que `domain/` sea de verdad Kotlin puro se define un `data class Point(x, y)` local; la conversión se hará en la capa de UI. Son tres líneas y a cambio los tests no arrastran nada de Android.
+- **Color 20 de la paleta**: la serie del original es ColorBrewer Set3 (11 entradas) seguida de Paired (8). El hueco se rellena con el siguiente de Paired, `#CAB2D6`.
+- **Bug nuevo encontrado y corregido en `EscribirHora`** (`Visualizacion.bas:441`): en formato de 12 horas restaba 12 sólo si la hora era mayor que 11, y nunca devolvía un cero a doce. Resultado: medianoche se imprimía `00:00 a.m.` y mediodía `00:00 p.m.`. Ahora ambos son `12:00`, que es lo que hacía la propia `Hora24a12` y lo que espera un reloj de 12 horas.
+- **Texto del reloj digital verificado contra el original** (`Temporizador_Tick`, líneas 518-535): sufijo « de la noche» sólo a las 0 h, « del mediodía» sólo a las 12 h, « p.m.» a partir de las 13 h y « a.m.» en el resto. No es la partición por franjas que yo había supuesto.
+- **`sweepAngle` normalizado**: una actividad que cruza las 12 en un reloj de 12 o 24 horas daba antes un sector negativo o vacío.
+- **`hitTest` con comprobación de radio**: el original resolvía sólo por ángulo, así que un toque en una esquina de la pantalla seleccionaba actividad.
+- **`visibleActivities` devuelve `IndexedValue`**, conservando el índice original de cada actividad para que el color del sector siga coincidiendo con el de su fila en el editor aunque el tablero descarte actividades.
+- **La ranura fantasma desaparece**: `Sequence.activities` es una `List`, así que `num_actividades` y el buffer de edición `Secuencia(MaxSecuencias)` dejan de existir.
+
 ---
 
 ## Correcciones respecto al original
@@ -365,6 +378,7 @@ A documentar en el README:
 | `Visualizacion.bas:267-270` | Factores X/Y distintos → agujas elípticas | Agujas circulares |
 | `Visualizacion.bas:495` | `CambiarVista` no persiste el tipo de tablero | Se persiste |
 | `Visualizacion.bas:544-560` | Hit-test sin comprobar radio y roto en sectores que cruzan 0° | Ambos corregidos en `ClockGeometry.hitTest` |
+| `Visualizacion.bas:441` | `EscribirHora` imprimía medianoche como `00:00 a.m.` y mediodía como `00:00 p.m.` | Ambos son `12:00` |
 | ~~`Visualizacion.bas:132,143`~~ | ~~Falta un `*3` en el recorte del arco~~ | **NO es un bug**: produce la forma de herradura del tipo 3. Se reproduce tal cual |
 | `Visualizacion.bas:111-115` | División por cero si `maxHour == minHour` | `span = max(1, maxHour - minHour)` |
 | `Visualizacion.bas:307-332` | Sectores con borde exterior poligonal | `drawArc` con arco real |
