@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import es.pictorario.app.data.PictogramRepository
 import es.pictorario.app.domain.AppData
+import es.pictorario.app.domain.BoardType
 import es.pictorario.app.domain.MAX_SEQUENCES
 import es.pictorario.app.domain.Sequence
 import es.pictorario.app.domain.Settings
@@ -101,6 +102,23 @@ class PictorarioState(
             val copy = source.copy(description = "${source.description} (copia)")
             current.copy(sequences = current.sequences + copy)
         }
+    }
+
+    /**
+     * Advances the board through its four styles.
+     *
+     * `Visualizacion.bas:495` changed this in memory only, so switching to the
+     * 24-hour dial and leaving the screen silently reverted it. Here the choice
+     * is written back, which is what a user pressing that button expects.
+     */
+    fun cycleBoardType(index: Int) = edit { current ->
+        val sequence = current.sequences.getOrNull(index) ?: return@edit current
+        val next = BoardType.entries[(sequence.board.type.ordinal + 1) % BoardType.entries.size]
+        current.copy(
+            sequences = current.sequences.toMutableList().apply {
+                this[index] = sequence.copy(board = sequence.board.copy(type = next))
+            },
+        )
     }
 
     /** Restores the example sequences and the bundled pictograms. */

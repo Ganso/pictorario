@@ -327,7 +327,7 @@ Cada fase compila, instala y se puede enseñar.
 0. ~~**Reorganización del repo + esqueleto**~~ — **COMPLETADA** (27/07/2026, rama `migracion-kotlin`). Ver «Notas de la fase 0» más abajo.
 1. ~~**Dominio puro + tests**~~ — **COMPLETADA** (27/07/2026). 48 tests en verde. Ver «Notas de la fase 1».
 2. ~~**Persistencia y portada**~~ — **COMPLETADA** (27/07/2026). 53 tests en verde. Ver «Notas de la fase 2».
-3. **Reloj estático** (2-3 días, fase crítica) — `ClockBoard`: cara, marco, arco de 300°, marcas y números de las horas, sectores de colores. Sin interacción ni agujas. *Verificable*: comparar los 4 tipos de tablero contra la app B4A instalada en paralelo desde `b4a/Objects/pictorario.apk`. **Hacerlo pronto para descubrir sorpresas de geometría cuanto antes.**
+3. ~~**Reloj estático**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 3».
 4. **Reloj vivo** (2 días) — `ClockHands` con tick por ciclo de vida, reloj digital, hit-test, botones-pictograma, `HorizontalPager` sincronizado, barra de progreso, pictograma central, `CambiarVista` persistiendo el tipo.
 5. **Editor** (2 días) — borrador local, selectores de tipo de tablero e indicador, slider de tamaño de icono, checkbox de notificaciones, filas de actividad con `TimePicker` respetando `format24h`, ordenación y solapes con sus avisos, añadir/borrar actividad, aceptar/cancelar. *Verificable*: crear una secuencia nueva y verla en el reloj.
 6. **Buscador ARASAAC** (1 día) — `ArasaacApi` + `LazyVerticalGrid` de 3 columnas sin tope artificial, listado inicial de ficheros locales (los más recientes primero), búsqueda y **descarga concurrente** (`coroutineScope { ids.map { async { … } }.awaitAll() }` con `Semaphore(6)`), progreso y manejo de "sin conexión".
@@ -378,6 +378,31 @@ Persistencia funcionando y portada completa. Verificado en el emulador: las tres
 
 **Punto abierto de aspecto**: los botones de la portada son ahora `Button` de Material 3 —azules y redondeados— frente a los rectángulos grises planos del original. La disposición y los textos son idénticos, pero el estilo no. Comparar `docs/referencia-b4a/portada.png` con la app actual y decidir si se replica el aspecto gris o se acepta el de Material 3.
 
+## Notas de la fase 3
+
+La fase crítica sale bien: los cuatro tableros coinciden con el original. La comparativa está en `docs/comparativas/fase3-tableros.png` (izquierda original, derecha nuevo) y el mapa de diferencias del marco en `docs/comparativas/fase3-diferencias-marco.png`.
+
+**El vértice de cierre del recorte no es un punto polar.** Es el hallazgo de la fase. `Visualizacion.bas:132` y `:143` escriben:
+
+```basic
+Recorte.LineTo( (CosD(81)*Radio*3)+CentroX, (SinD(81)*Radio)+CentroY)
+```
+
+La **X se escala por tres radios y la Y por uno solo**. Leerlo como «un punto a 81° y distancia R» —que es la lectura natural, y la que yo hice primero— acerca demasiado ese vértice a la línea central y deforma visiblemente la punta derecha de la herradura. Corregido reproduciendo las dos escalas por separado. La primera versión pasaba la revisión a ojo; sólo se detectó al recortar y superponer esa zona contra la captura del original.
+
+**Verificación cuantitativa** sobre el tablero de arco, comparando la máscara del marco gris píxel a píxel: desplazamiento vertical óptimo de **0 px** y diámetro idéntico (1019 px en ambos). Las diferencias que quedan están todas explicadas:
+
+- el reloj digital de la cabecera y la caja del pictograma central, que son de la fase 4;
+- los glifos de los números de las horas, que Compose mide distinto que las `Label` de B4A;
+- líneas de un píxel en los bordes, por antialiasing.
+
+Otros puntos:
+
+- **Los botones van superpuestos sobre la parte baja del panel**, no debajo. `LS_visualizarsecuencia.java` coloca `Volver` a 30 dp del borde inferior del propio `panelreloj`, aprovechando el hueco que deja la esfera. Con un `Column` normal quedaban demasiado abajo.
+- **El fondo es `#F0FFFF`**, el mismo azur que usaba el editor. Muestreado de la captura de referencia.
+- **`CambiarVista` ya persiste el tipo de tablero**, corrigiendo `Visualizacion.bas:495`. Comprobado en el emulador: se cicla por los cuatro y el cambio sobrevive a salir de la pantalla.
+- El centro y el radio se calculan **siempre contra el ancho**, nunca contra el alto: tomarlos del alto deformaría la esfera en tablet.
+
 ---
 
 ## Correcciones respecto al original
@@ -393,7 +418,7 @@ A documentar en el README:
 | `Visualizacion.bas:495` | `CambiarVista` no persiste el tipo de tablero | Se persiste |
 | `Visualizacion.bas:544-560` | Hit-test sin comprobar radio y roto en sectores que cruzan 0° | Ambos corregidos en `ClockGeometry.hitTest` |
 | `Visualizacion.bas:441` | `EscribirHora` imprimía medianoche como `00:00 a.m.` y mediodía como `00:00 p.m.` | Ambos son `12:00` |
-| ~~`Visualizacion.bas:132,143`~~ | ~~Falta un `*3` en el recorte del arco~~ | **NO es un bug**: produce la forma de herradura del tipo 3. Se reproduce tal cual |
+| ~~`Visualizacion.bas:132,143`~~ | ~~Falta un `*3` en el recorte del arco~~ | **NO es un bug**: el vértice escala la X por `3·R` y la Y por `R`, y eso produce la forma de herradura. Se reproduce tal cual |
 | `Visualizacion.bas:111-115` | División por cero si `maxHour == minHour` | `span = max(1, maxHour - minHour)` |
 | `Visualizacion.bas:307-332` | Sectores con borde exterior poligonal | `drawArc` con arco real |
 | `SeleccionPictogramas.bas:82-83` | Topes fijos de 100/60 resultados, cuando la API devuelve hasta 145 | `LazyVerticalGrid` sin tope artificial |
