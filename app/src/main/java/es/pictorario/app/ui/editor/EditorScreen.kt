@@ -79,7 +79,7 @@ fun EditorScreen(state: PictorarioState) {
     var activityMenu by remember { mutableStateOf<Int?>(null) }
     var confirmCancel by remember { mutableStateOf(false) }
 
-    BackHandler(enabled = !state.settings.appProtected) { confirmCancel = true }
+    BackHandler { confirmCancel = true }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(horizontal = CellGap),

@@ -66,7 +66,7 @@ fun AboutScreen(state: PictorarioState) {
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    BackHandler(enabled = !state.settings.appProtected) { state.navigateHome() }
+    BackHandler { state.navigateHome() }
 
     Column(
         modifier = Modifier

@@ -79,7 +79,7 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
         if (current >= 0 && selected == -1) selected = current
     }
 
-    BackHandler(enabled = !settings.appProtected) { state.navigateHome() }
+    BackHandler { state.navigateHome() }
 
     Box(Modifier.fillMaxSize()) {
         Column(

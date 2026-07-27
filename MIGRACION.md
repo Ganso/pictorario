@@ -21,7 +21,7 @@ El objetivo es **reescribirla en Kotlin nativo con Jetpack Compose**, conservand
 | `minSdk` | **26** (Android 8) |
 | Bugs heredados | Se corrigen y se documentan |
 | Agujas del reloj | Se corrigen a circulares |
-| Botón Atrás | Se anula **sólo** con el bloqueo parental activo |
+| Botón Atrás | **Siempre navega**, también con el bloqueo parental activo |
 
 ---
 
@@ -314,7 +314,9 @@ En API 34+, `canUseFullScreenIntent()` puede ser falso; en ese caso, botón en C
 
 ## Botón Atrás y bloqueo parental
 
-El original anula Atrás en todas las pantallas. **Cambio acordado**: `BackHandler(enabled = settings.appProtected)`. Con el bloqueo parental activo, Atrás se ignora (que es cuando de verdad importa); desbloqueada, la app navega con normalidad, como espera Android moderno y las políticas de Play.
+El original anula Atrás en todas las pantallas. **Aquí Atrás navega siempre**, esté o no activo el bloqueo parental.
+
+Se llegó en dos pasos. Primero se acordó anularlo sólo con el bloqueo activo, por ser «cuando de verdad importa». Al probarlo se vio que no compensa: lo que el bloqueo quita es la capacidad de **editar**, no la de moverse por la aplicación, y un dispositivo cuyo botón Atrás no hace nada resulta desconcertante y choca con las convenciones de Android. Volver a la portada estando protegido es inofensivo, porque allí no hay ningún control de edición a la vista.
 
 El bloqueo parental oculta engranajes y botones de edición; el desbloqueo es un gesto de pulsación corta (vibra 100 ms) seguida de pulsación larga (vibra 300 ms) — `pictorario.b4a:375-391` y `Visualizacion.bas:506-513`. Se encapsula en `ui/common/LockGesture.kt`.
 
@@ -399,6 +401,7 @@ La **X se escala por tres radios y la Y por uno solo**. Leerlo como «un punto a
 Otros puntos:
 
 - **Los botones van superpuestos sobre la parte baja del panel**, no debajo. `LS_visualizarsecuencia.java` coloca `Volver` a 30 dp del borde inferior del propio `panelreloj`, aprovechando el hueco que deja la esfera. Con un `Column` normal quedaban demasiado abajo.
+- **Atrás quedó funcionando también con el bloqueo parental**, revirtiendo la decisión inicial. Verificado en el emulador: desde el reloj vuelve a la portada y la protección se mantiene.
 - **El fondo era `#F0FFFF`**, el azur del original, pero por decisión posterior toda la aplicación pasó a **blanco puro**. Los campos pulsables (selectores de tablero y de hora, celdas del buscador) llevan ahora superficie gris claro y borde, porque antes se distinguían apoyándose en el celeste del fondo.
 - **`CambiarVista` ya persiste el tipo de tablero**, corrigiendo `Visualizacion.bas:495`. Comprobado en el emulador: se cicla por los cuatro y el cambio sobrevive a salir de la pantalla. Al pulsarlo aparece un aviso superpuesto («Cambiando vista a …»), que es el equivalente del `ToastMessageShow` del original pero dibujado dentro de la aplicación, al pie y sin tapar la esfera.
 - El centro y el radio se calculan **siempre contra el ancho**, nunca contra el alto: tomarlos del alto deformaría la esfera en tablet.
@@ -516,7 +519,7 @@ Para comparar contra la versión antigua, instalar en paralelo el APK B4A: `adb 
 - El editor ordena y recorta solapes igual; el `TimePicker` respeta el formato 12/24 h.
 - Buscar y descargar un pictograma nuevo; persiste tras reiniciar la app.
 - Alarma: actividad a 2 minutos vista, dispositivo bloqueado → salta el aviso a pantalla completa. Reiniciar el móvil y comprobar que sigue programada. Cambiar la hora del sistema y comprobar la reprogramación.
-- Bloqueo parental: activar, comprobar que desaparecen los controles de edición y que Atrás queda anulado; desbloquear con el gesto corto+largo; comprobar que desbloqueada Atrás vuelve a funcionar.
+- Bloqueo parental: activar, comprobar que desaparecen los controles de edición y que **Atrás sigue funcionando**; desbloquear con el gesto corto+largo.
 
 **Release**: `./build_and_copy.sh` genera APK debug y AAB release firmado, con `versionCode` > 107.
 

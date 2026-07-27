@@ -49,7 +49,7 @@ fun SettingsScreen(state: PictorarioState) {
     var confirmReset by remember { mutableStateOf(false) }
     var lockExplanation by remember { mutableStateOf(false) }
 
-    BackHandler(enabled = !settings.appProtected) { state.navigateHome() }
+    BackHandler { state.navigateHome() }
 
     Column(
         modifier = Modifier
