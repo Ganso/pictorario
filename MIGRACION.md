@@ -328,7 +328,7 @@ Cada fase compila, instala y se puede enseñar.
 1. ~~**Dominio puro + tests**~~ — **COMPLETADA** (27/07/2026). 48 tests en verde. Ver «Notas de la fase 1».
 2. ~~**Persistencia y portada**~~ — **COMPLETADA** (27/07/2026). 53 tests en verde. Ver «Notas de la fase 2».
 3. ~~**Reloj estático**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 3».
-4. **Reloj vivo** (2 días) — `ClockHands` con tick por ciclo de vida, reloj digital, hit-test, botones-pictograma, `HorizontalPager` sincronizado, barra de progreso, pictograma central, `CambiarVista` persistiendo el tipo.
+4. ~~**Reloj vivo**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 4».
 5. **Editor** (2 días) — borrador local, selectores de tipo de tablero e indicador, slider de tamaño de icono, checkbox de notificaciones, filas de actividad con `TimePicker` respetando `format24h`, ordenación y solapes con sus avisos, añadir/borrar actividad, aceptar/cancelar. *Verificable*: crear una secuencia nueva y verla en el reloj.
 6. **Buscador ARASAAC** (1 día) — `ArasaacApi` + `LazyVerticalGrid` de 3 columnas sin tope artificial, listado inicial de ficheros locales (los más recientes primero), búsqueda y **descarga concurrente** (`coroutineScope { ids.map { async { … } }.awaitAll() }` con `Semaphore(6)`), progreso y manejo de "sin conexión".
 7. **Configuración, Acerca de y candado** (1 día) — alarmas, protección, formato horario, los tres colores con `ColorPickerDialog` propio (HSV, sin dependencias), reiniciar configuración; créditos, GreatVibes en "Para Teo", enlaces con `Intent.ACTION_VIEW`, changelog al detectar cambio de `versionCode`; `LockGesture`; `BackHandler` condicionado.
@@ -402,6 +402,17 @@ Otros puntos:
 - **El fondo es `#F0FFFF`**, el mismo azur que usaba el editor. Muestreado de la captura de referencia.
 - **`CambiarVista` ya persiste el tipo de tablero**, corrigiendo `Visualizacion.bas:495`. Comprobado en el emulador: se cicla por los cuatro y el cambio sobrevive a salir de la pantalla.
 - El centro y el radio se calculan **siempre contra el ancho**, nunca contra el alto: tomarlos del alto deformaría la esfera en tablet.
+
+## Notas de la fase 4
+
+La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-reloj-vivo.png`.
+
+- **El tick se adapta a lo que hay en pantalla.** Con segundero visible late cada 500 ms como el original; si no, duerme hasta el siguiente minuto. En una app pensada para dejarse encendida todo el día, despertar dos veces por segundo sin necesidad es gasto puro. Va atado a `repeatOnLifecycle(STARTED)`, lo que además corrige que el `Timer` de B4A siguiera corriendo en segundo plano.
+- **`PanelNavigator` (`sd_panelextra`) se sustituye por `HorizontalPager`** más una tira de miniaturas que hace de indicador de página, que es lo que aquella librería dibujaba. La sincronización es bidireccional: tocar un sector desplaza el carrusel y deslizar el carrusel selecciona el sector.
+- **Las miniaturas se reparten el ancho a partes iguales** en vez de tener un tamaño fijo. Con las diez actividades de la secuencia de ejemplo se salían de la pantalla; una secuencia admite hasta veinte.
+- **El contorno rojo del sector seleccionado dibuja sólo el arco exterior**, no los dos radios. El original trazaba una circunferencia completa y dejaba que el recorte se comiera los lados rectos, así que las líneas rectas nunca se veían.
+- **Las agujas ya no son elípticas.** El original usaba fracciones distintas para X e Y (0,7/0,6 la horaria y 0,8/0,75 la minutera); ahora cada aguja usa una sola fracción.
+- **La barra de progreso desaparece cuando la actividad no está en curso**, en vez de mostrar un valor fuera de rango.
 
 ---
 

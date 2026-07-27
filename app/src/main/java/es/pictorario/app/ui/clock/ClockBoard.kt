@@ -9,6 +9,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -47,6 +48,7 @@ fun ClockBoard(
     sequence: Sequence,
     format24h: Boolean,
     screenHeightPx: Float,
+    selectedIndex: Int,
     modifier: Modifier = Modifier,
 ) {
     val measurer = rememberTextMeasurer()
@@ -56,7 +58,7 @@ fun ClockBoard(
 
         drawFace(sequence.board.type, geometry, screenHeightPx)
         drawHourMarks(geometry, sequence, format24h, measurer)
-        drawSectors(sequence, geometry)
+        drawSectors(sequence, geometry, selectedIndex)
     }
 }
 
@@ -159,7 +161,11 @@ private fun DrawScope.drawHourMarks(
     }
 }
 
-private fun DrawScope.drawSectors(sequence: Sequence, geometry: ClockGeometry) {
+private fun DrawScope.drawSectors(
+    sequence: Sequence,
+    geometry: ClockGeometry,
+    selectedIndex: Int,
+) {
     val sectorRadius = geometry.radius * SECTOR_RADIUS_FRACTION
     val topLeft = Offset(
         geometry.center.x - sectorRadius,
@@ -169,14 +175,30 @@ private fun DrawScope.drawSectors(sequence: Sequence, geometry: ClockGeometry) {
 
     ClockGeometry.visibleActivities(sequence.board.type, sequence.activities)
         .forEach { (index, activity) ->
+            val start = geometry.startAngle(activity)
+            val sweep = geometry.sweepAngle(activity)
             drawArc(
                 color = Color(Palette.color(index).toInt()),
-                startAngle = geometry.startAngle(activity),
-                sweepAngle = geometry.sweepAngle(activity),
+                startAngle = start,
+                sweepAngle = sweep,
                 useCenter = true,
                 topLeft = topLeft,
                 size = diameter,
             )
+            if (index == selectedIndex) {
+                // Only the outer edge is outlined, not the two radii: the
+                // original stroked a full circle and let the wedge clip it, so
+                // the straight sides never showed.
+                drawArc(
+                    color = Color.Red,
+                    startAngle = start,
+                    sweepAngle = sweep,
+                    useCenter = false,
+                    topLeft = topLeft,
+                    size = diameter,
+                    style = Stroke(width = SelectedSectorStroke.toPx()),
+                )
+            }
         }
 }
 
