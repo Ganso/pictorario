@@ -470,6 +470,7 @@ Tres mejoras pedidas sobre la marcha, ninguna presente en la versión B4A:
 
   Segunda lección: la ayuda hay que colgarla del **control entero**, no de su etiqueta. En Configuración se puso al principio sobre el texto de cada fila, y como el dedo aterriza en la casilla o en el botón, no aparecía nunca. La aplicación se apoya mucho en iconos —engranajes, candados, amaneceres— y la maneja tanto un adulto que la configura de higos a brevas como un niño que no lee las etiquetas. El texto sirve además de descripción para lectores de pantalla. Comprobado en el emulador que la pulsación larga muestra la ayuda **sin disparar la acción**, y que el toque corto sigue funcionando.
 - **Aviso al cambiar de vista**, descrito en las notas de la fase 3.
+- **Aviso cuando una hora no se puede aplicar.** El original reordenaba y recortaba solapes en silencio, de modo que la hora que el usuario acababa de elegir podía quedar sobrescrita sin que se enterase. Ahora `ActivityRules.changeTime` devuelve, junto con la lista corregida, qué ha pasado: si la hora se aplicó tal cual, si chocó con otra actividad —y con cuál— o si hubo que ajustar algo. El editor lo muestra sobre el formulario.
 
 ---
 

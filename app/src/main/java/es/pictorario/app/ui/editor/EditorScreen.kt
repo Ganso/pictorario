@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import es.pictorario.app.R
 import es.pictorario.app.domain.Activity
 import es.pictorario.app.domain.ActivityRules
+import es.pictorario.app.domain.TimeChangeOutcome
 import es.pictorario.app.domain.BOARD_TYPE_LABELS
 import es.pictorario.app.domain.BoardType
 import es.pictorario.app.domain.MAX_ACTIVITIES
@@ -49,6 +50,8 @@ import es.pictorario.app.ui.PictogramTarget
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ConfirmDialog
 import es.pictorario.app.ui.common.Help
+import es.pictorario.app.ui.common.Notice
+import es.pictorario.app.ui.common.rememberNotice
 import es.pictorario.app.ui.common.OptionListDialog
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.PictorarioTimePicker
@@ -79,9 +82,11 @@ fun EditorScreen(state: PictorarioState) {
     var timeEdit by remember { mutableStateOf<TimeEdit?>(null) }
     var activityMenu by remember { mutableStateOf<Int?>(null) }
     var confirmCancel by remember { mutableStateOf(false) }
+    val notice = rememberNotice()
 
     BackHandler { confirmCancel = true }
 
+    Box(Modifier.fillMaxSize()) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(horizontal = CellGap),
         verticalArrangement = Arrangement.spacedBy(CellGap),
@@ -211,6 +216,10 @@ fun EditorScreen(state: PictorarioState) {
         }
     }
 
+        // Floats over the form so a rejected time cannot be missed.
+        Notice(notice)
+    }
+
     if (boardPicker) {
         OptionListDialog(
             title = "Tipo de tablero",
@@ -249,18 +258,18 @@ fun EditorScreen(state: PictorarioState) {
             minute = if (edit.isStart) activity.startMinute else activity.endMinute,
             format24h = format24h,
             onAccept = { hour, minute ->
-                state.updateDraft { sequence ->
-                    // Sorting and de-overlapping happen right away, exactly as
-                    // OrdenarActividades did after every time change.
-                    val updated = sequence.activities.toMutableList().also { list ->
-                        list[edit.activityIndex] = if (edit.isStart) {
-                            ActivityRules.withStart(activity, hour, minute)
-                        } else {
-                            ActivityRules.withEnd(activity, hour, minute)
-                        }
-                    }
-                    sequence.copy(activities = ActivityRules.normalize(updated))
-                }
+                // Sorting and de-overlapping happen right away, as
+                // OrdenarActividades did, but now the user is told when the
+                // time they picked could not stand.
+                val change = ActivityRules.changeTime(
+                    activities = draft.activities,
+                    index = edit.activityIndex,
+                    isStart = edit.isStart,
+                    hour = hour,
+                    minute = minute,
+                )
+                state.updateDraft { it.copy(activities = change.activities) }
+                noticeFor(change.outcome)?.let(notice::show)
                 timeEdit = null
             },
             onDismiss = { timeEdit = null },
@@ -294,6 +303,20 @@ fun EditorScreen(state: PictorarioState) {
             onDismiss = { confirmCancel = false },
         )
     }
+}
+
+/** Turns the outcome of a time change into something worth reading, or nothing. */
+private fun noticeFor(outcome: TimeChangeOutcome): String? = when (outcome) {
+    is TimeChangeOutcome.Applied -> null
+
+    is TimeChangeOutcome.Rejected -> {
+        val other = outcome.clashedWith.takeIf { it.isNotBlank() }?.let { "«$it»" }
+            ?: "la actividad siguiente"
+        "No se ha podido poner esa hora: se solapaba con $other"
+    }
+
+    is TimeChangeOutcome.Adjusted ->
+        outcome.detail.replaceFirstChar(Char::uppercaseChar)
 }
 
 @Composable

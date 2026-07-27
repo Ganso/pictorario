@@ -1,6 +1,7 @@
 package es.pictorario.app.domain
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ActivityRulesTest {
@@ -100,6 +101,103 @@ class ActivityRulesTest {
         assertEquals(listOf(9, 10), result.map { it.startHour })
         assertEquals(10, result[0].endHour)
     }
+
+    // ---- changeTime: what the user is told -------------------------------
+
+    @Test
+    fun aTimeThatFitsIsAppliedWithoutComment() {
+        val result = ActivityRules.changeTime(
+            activities = listOf(named("Desayunar", 9, 0, 10, 0), named("Cole", 11, 0, 12, 0)),
+            index = 0,
+            isStart = false,
+            hour = 10,
+            minute = 30,
+        )
+        assertEquals(TimeChangeOutcome.Applied, result.outcome)
+        assertEquals(10, result.activities[0].endHour)
+        assertEquals(30, result.activities[0].endMinute)
+    }
+
+    @Test
+    fun anEndThatRunsIntoTheNextActivityIsRejectedAndNamesIt() {
+        val result = ActivityRules.changeTime(
+            activities = listOf(named("Desayunar", 9, 0, 10, 0), named("Cole", 11, 0, 12, 0)),
+            index = 0,
+            isStart = false,
+            hour = 11,
+            minute = 30,
+        )
+        assertEquals(TimeChangeOutcome.Rejected("Cole"), result.outcome)
+        // Cut back to where the next one starts, never left overlapping.
+        assertEquals(11, result.activities[0].endHour)
+        assertEquals(0, result.activities[0].endMinute)
+    }
+
+    @Test
+    fun aStartThatEatsIntoThePreviousActivityShortensIt() {
+        val result = ActivityRules.changeTime(
+            activities = listOf(named("Desayunar", 9, 0, 10, 0), named("Cole", 11, 0, 12, 0)),
+            index = 1,
+            isStart = true,
+            hour = 9,
+            minute = 30,
+        )
+        val outcome = result.outcome
+        assertTrue("era $outcome", outcome is TimeChangeOutcome.Adjusted)
+        assertTrue((outcome as TimeChangeOutcome.Adjusted).detail.contains("Desayunar"))
+        // The requested start does stand; the previous activity gives way.
+        assertEquals(9, result.activities[1].startHour)
+        assertEquals(30, result.activities[1].startMinute)
+        assertEquals(9, result.activities[0].endHour)
+        assertEquals(30, result.activities[0].endMinute)
+    }
+
+    @Test
+    fun movingAStartPastItsOwnEndIsReportedAsAnAdjustment() {
+        val result = ActivityRules.changeTime(
+            activities = listOf(named("Desayunar", 9, 0, 10, 0)),
+            index = 0,
+            isStart = true,
+            hour = 11,
+            minute = 0,
+        )
+        val outcome = result.outcome
+        assertTrue("era $outcome", outcome is TimeChangeOutcome.Adjusted)
+        assertTrue((outcome as TimeChangeOutcome.Adjusted).detail.contains("fin"))
+        assertEquals(11, result.activities[0].endHour)
+        assertEquals(30, result.activities[0].endMinute)
+    }
+
+    @Test
+    fun anActivityMovedPastAnotherIsReorderedAndTheNewPositionIsReported() {
+        val result = ActivityRules.changeTime(
+            activities = listOf(named("Desayunar", 9, 0, 10, 0), named("Cole", 11, 0, 12, 0)),
+            index = 0,
+            isStart = true,
+            hour = 13,
+            minute = 0,
+        )
+        assertEquals(1, result.editedIndex)
+        assertEquals("Cole", result.activities[0].description)
+        assertEquals("Desayunar", result.activities[1].description)
+    }
+
+    @Test
+    fun theEditedActivityIsTrackedByPositionNotByValue() {
+        // Two activities with identical times: finding the edited one by
+        // equality would pick the wrong one.
+        val twins = listOf(named("Uno", 9, 0, 10, 0), named("Dos", 9, 0, 10, 0))
+        val result = ActivityRules.changeTime(twins, index = 1, isStart = false, hour = 9, minute = 30)
+        assertEquals("Dos", result.activities[result.editedIndex].description)
+    }
+
+    private fun named(
+        description: String,
+        startHour: Int,
+        startMinute: Int,
+        endHour: Int,
+        endMinute: Int,
+    ) = Activity(startHour, startMinute, endHour, endMinute, DEFAULT_PICTOGRAM_ID, description)
 
     private fun activity(
         startHour: Int,

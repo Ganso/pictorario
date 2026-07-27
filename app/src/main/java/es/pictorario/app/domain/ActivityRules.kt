@@ -9,6 +9,30 @@ private const val NEW_ACTIVITY_MINUTES = 30
 /** Where the first activity of an empty sequence starts: 08:00. */
 private const val FIRST_ACTIVITY_START = 8 * 60
 
+/** What became of a requested time change. */
+sealed interface TimeChangeOutcome {
+
+    /** The time was set to exactly what was asked for. */
+    data object Applied : TimeChangeOutcome
+
+    /**
+     * The requested time could not stand because [clashedWith] was in the way,
+     * so it was cut back to where that activity begins or ends.
+     */
+    data class Rejected(val clashedWith: String) : TimeChangeOutcome
+
+    /** The time was set, but something else had to give. */
+    data class Adjusted(val detail: String) : TimeChangeOutcome
+}
+
+/** A requested time change, together with what actually happened. */
+data class TimeChange(
+    val activities: List<Activity>,
+    /** Where the edited activity ended up, which reordering may have moved. */
+    val editedIndex: Int,
+    val outcome: TimeChangeOutcome,
+)
+
 /**
  * The scheduling rules the sequence editor enforces, lifted from
  * `ConfigurarSecuencia.bas` and kept free of any Android dependency.
@@ -63,6 +87,75 @@ object ActivityRules {
         if (moved.startMinutes < moved.endMinutes) return moved
         val start = maxOf(moved.endMinutes - NEW_ACTIVITY_MINUTES, 0)
         return moved.copy(startHour = start / 60, startMinute = start % 60)
+    }
+
+    /**
+     * Moves one end of an activity and reports whether it stuck.
+     *
+     * The original applied the same sorting and trimming but said nothing about
+     * it, so a time the user had just chosen could be quietly overwritten by
+     * [removeOverlaps] and they would never know. Here the caller gets an
+     * [TimeChangeOutcome] to show.
+     *
+     * @param isStart which end is being moved.
+     */
+    fun changeTime(
+        activities: List<Activity>,
+        index: Int,
+        isStart: Boolean,
+        hour: Int,
+        minute: Int,
+    ): TimeChange {
+        val original = activities.getOrNull(index)
+            ?: return TimeChange(activities, index, TimeChangeOutcome.Applied)
+
+        val moved = if (isStart) {
+            withStart(original, hour, minute)
+        } else {
+            withEnd(original, hour, minute)
+        }
+        val requested = hour * 60 + minute
+
+        // Sorting is tracked by index rather than by value: two activities can
+        // hold identical times, so the edited one cannot be found by equality.
+        val sorted = activities.toMutableList()
+            .also { it[index] = moved }
+            .withIndex()
+            .sortedBy { it.value.startMinutes }
+        val editedIndex = sorted.indexOfFirst { it.index == index }
+        val ordered = sorted.map { it.value }
+        val trimmed = removeOverlaps(ordered)
+        val settled = trimmed[editedIndex]
+
+        val kept = if (isStart) settled.startMinutes == requested else settled.endMinutes == requested
+        val neighbour = trimmed.indices.firstOrNull { it != editedIndex && trimmed[it] != ordered[it] }
+
+        val outcome = when {
+            // The requested time lost to a neighbour: the one it ran into is
+            // whichever activity now bounds it on that side.
+            !kept -> TimeChangeOutcome.Rejected(
+                clashedWith = trimmed.getOrNull(editedIndex + 1)?.description.orEmpty(),
+            )
+
+            neighbour != null -> TimeChangeOutcome.Adjusted(
+                detail = "se ha acortado «${trimmed[neighbour].description}» para dejar sitio",
+            )
+
+            // withStart and withEnd push the opposite end when the activity
+            // would otherwise end before it begins.
+            isStart && moved.endMinutes != original.endMinutes ->
+                TimeChangeOutcome.Adjusted("la hora de fin se ha movido para que la actividad dure media hora")
+
+            !isStart && moved.startMinutes != original.startMinutes ->
+                TimeChangeOutcome.Adjusted("la hora de inicio se ha movido para que la actividad dure media hora")
+
+            editedIndex != index ->
+                TimeChangeOutcome.Adjusted("se ha colocado la actividad en su posición correcta")
+
+            else -> TimeChangeOutcome.Applied
+        }
+
+        return TimeChange(trimmed, editedIndex, outcome)
     }
 
     /**
