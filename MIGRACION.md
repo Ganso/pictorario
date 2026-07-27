@@ -326,7 +326,7 @@ Cada fase compila, instala y se puede enseñar.
 
 0. ~~**Reorganización del repo + esqueleto**~~ — **COMPLETADA** (27/07/2026, rama `migracion-kotlin`). Ver «Notas de la fase 0» más abajo.
 1. ~~**Dominio puro + tests**~~ — **COMPLETADA** (27/07/2026). 48 tests en verde. Ver «Notas de la fase 1».
-2. **Persistencia y portada** (1 día) — `AppDataStore`, `PictogramRepository` con la siembra, `BitmapCache`, `HomeScreen` (geometría en `pictorario.b4a:176-282`), menú Editar/Borrar/Duplicar. *Verificable*: se ven las 3 secuencias de ejemplo; matar y reabrir conserva el estado.
+2. ~~**Persistencia y portada**~~ — **COMPLETADA** (27/07/2026). 53 tests en verde. Ver «Notas de la fase 2».
 3. **Reloj estático** (2-3 días, fase crítica) — `ClockBoard`: cara, marco, arco de 300°, marcas y números de las horas, sectores de colores. Sin interacción ni agujas. *Verificable*: comparar los 4 tipos de tablero contra la app B4A instalada en paralelo desde `b4a/Objects/pictorario.apk`. **Hacerlo pronto para descubrir sorpresas de geometría cuanto antes.**
 4. **Reloj vivo** (2 días) — `ClockHands` con tick por ciclo de vida, reloj digital, hit-test, botones-pictograma, `HorizontalPager` sincronizado, barra de progreso, pictograma central, `CambiarVista` persistiendo el tipo.
 5. **Editor** (2 días) — borrador local, selectores de tipo de tablero e indicador, slider de tamaño de icono, checkbox de notificaciones, filas de actividad con `TimePicker` respetando `format24h`, ordenación y solapes con sus avisos, añadir/borrar actividad, aceptar/cancelar. *Verificable*: crear una secuencia nueva y verla en el reloj.
@@ -363,6 +363,20 @@ El paquete `domain/` quedó en 7 ficheros, sin un solo import de Android, y `app
 - **`hitTest` con comprobación de radio**: el original resolvía sólo por ángulo, así que un toque en una esquina de la pantalla seleccionaba actividad.
 - **`visibleActivities` devuelve `IndexedValue`**, conservando el índice original de cada actividad para que el color del sector siga coincidiendo con el de su fila en el editor aunque el tablero descarte actividades.
 - **La ranura fantasma desaparece**: `Sequence.activities` es una `List`, así que `num_actividades` y el buffer de edición `Secuencia(MaxSecuencias)` dejan de existir.
+
+## Notas de la fase 2
+
+Persistencia funcionando y portada completa. Verificado en el emulador: las tres secuencias de ejemplo aparecen con sus pictogramas, duplicar y borrar funcionan, y el estado sobrevive a un `am force-stop`.
+
+- **`PictorarioState` sustituye a `Starter.bas`**: en vez de un servicio siempre en marcha con estado global mutable, un objeto normal propiedad de la Activity que lee del `DataStore` y escribe el documento entero en cada cambio.
+- **El JSON persistido es legible**: `adb shell run-as javi.prieto.pictorario.debug cat files/pictorario.json` lo muestra formateado, que era una de las razones para elegir DataStore con serializador propio.
+- **`ReplaceFileCorruptionHandler`**: un fichero truncado o editado a mano cae a los datos de ejemplo en vez de dejar la app sin arrancar.
+- **Caché de pictogramas por bytes, no por número de entradas.** Seis de los assets son de 2500×2500: uno solo ocupa 25 MB descodificado y habría desalojado todo lo demás. El `LruCache` mide `ancho × alto × 4` con un tope de 24 MB, y la descodificación usa `inSampleSize` según el tamaño en pantalla.
+- **`safeDrawingPadding()`**: desde Android 15 las apps dibujan de borde a borde por defecto, y sin esto la barra de estado se comía el logotipo. Se detectó en la primera captura del emulador.
+- **`LockGesture` adelantado desde la fase 7**, porque el botón del candado forma parte de la portada y dejarlo sin funcionar habría sido peor que implementarlo. La fase 7 sólo tiene que reutilizarlo en la pantalla del reloj.
+- **Las pantallas aún no escritas son marcadores** que permiten navegar y volver, de modo que el enrutado ya está probado.
+
+**Punto abierto de aspecto**: los botones de la portada son ahora `Button` de Material 3 —azules y redondeados— frente a los rectángulos grises planos del original. La disposición y los textos son idénticos, pero el estilo no. Comparar `docs/referencia-b4a/portada.png` con la app actual y decidir si se replica el aspecto gris o se acepta el de Material 3.
 
 ---
 
