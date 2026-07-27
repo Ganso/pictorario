@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import es.pictorario.app.ui.clock.ClockScreen
+import es.pictorario.app.ui.editor.EditorScreen
 import es.pictorario.app.ui.home.HomeScreen
 import es.pictorario.app.ui.theme.PictorarioTheme
 
@@ -38,16 +39,14 @@ fun AppRoot(state: PictorarioState, onExit: () -> Unit) {
             when (val screen = state.screen) {
                 is Screen.Home -> HomeScreen(state, onExit)
                 is Screen.Clock -> ClockScreen(state, screen.sequenceIndex)
-                is Screen.Editor -> Pending("Editor", describe(screen), state)
+                is Screen.Editor -> EditorScreen(state)
+                is Screen.Picker -> Pending("Selector de pictogramas", null, state)
                 is Screen.Settings -> Pending("Configuración", null, state)
                 is Screen.About -> Pending("Acerca de", null, state)
             }
         }
     }
 }
-
-private fun describe(screen: Screen.Editor): String =
-    screen.sequenceIndex?.let { "Secuencia $it" } ?: "Secuencia nueva"
 
 /** Stand-in for the screens still to be built, so navigation can be exercised. */
 @Composable

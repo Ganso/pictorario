@@ -20,8 +20,15 @@ sealed interface Screen {
     data class Clock(val sequenceIndex: Int) : Screen
     /** [sequenceIndex] is `null` when creating a sequence rather than editing one. */
     data class Editor(val sequenceIndex: Int?) : Screen
+    data object Picker : Screen
     data object Settings : Screen
     data object About : Screen
+}
+
+/** What the pictogram picker is about to replace. */
+sealed interface PictogramTarget {
+    data object SequenceIcon : PictogramTarget
+    data class ActivityIcon(val index: Int) : PictogramTarget
 }
 
 /**
@@ -63,6 +70,78 @@ class PictorarioState(
 
     fun navigateHome() {
         screen = Screen.Home
+    }
+
+    // ---- Sequence editing ------------------------------------------------
+
+    /**
+     * The sequence being edited, held apart from the stored data until the user
+     * accepts. B4A kept this in a phantom eleventh slot of its fixed-size array
+     * (`Starter.Secuencia(MaxSecuencias)`); a nullable draft says the same thing
+     * without the off-by-one traps that came with it.
+     *
+     * It lives here rather than inside the editor composable so that going off
+     * to the pictogram picker and coming back does not lose the changes.
+     */
+    var draft by mutableStateOf<Sequence?>(null)
+        private set
+
+    /** Position the draft will be written back to, or `null` for a new sequence. */
+    var draftIndex by mutableStateOf<Int?>(null)
+        private set
+
+    var pictogramTarget by mutableStateOf<PictogramTarget?>(null)
+        private set
+
+    fun startEditing(index: Int?) {
+        draftIndex = index
+        draft = index?.let { sequences.getOrNull(it) }
+            ?: Sequence(description = "", activities = emptyList())
+        screen = Screen.Editor(index)
+    }
+
+    fun updateDraft(transform: (Sequence) -> Sequence) {
+        draft = draft?.let(transform)
+    }
+
+    fun commitDraft() {
+        val sequence = draft ?: return
+        val normalized = sequence.copy(
+            activities = es.pictorario.app.domain.ActivityRules.normalize(sequence.activities),
+        )
+        draftIndex?.let { replaceSequence(it, normalized) } ?: addSequence(normalized)
+        discardDraft()
+    }
+
+    fun discardDraft() {
+        draft = null
+        draftIndex = null
+        pictogramTarget = null
+        screen = Screen.Home
+    }
+
+    fun choosePictogramFor(target: PictogramTarget) {
+        pictogramTarget = target
+        screen = Screen.Picker
+    }
+
+    /** Applies the picked pictogram to whatever asked for it and returns to the editor. */
+    fun applyPickedPictogram(id: Int?) {
+        val target = pictogramTarget
+        if (id != null && target != null) {
+            updateDraft { sequence ->
+                when (target) {
+                    is PictogramTarget.SequenceIcon -> sequence.copy(pictogramId = id)
+                    is PictogramTarget.ActivityIcon -> sequence.copy(
+                        activities = sequence.activities.toMutableList().apply {
+                            getOrNull(target.index)?.let { this[target.index] = it.copy(pictogramId = id) }
+                        },
+                    )
+                }
+            }
+        }
+        pictogramTarget = null
+        screen = Screen.Editor(draftIndex)
     }
 
     // ---- Mutations -------------------------------------------------------

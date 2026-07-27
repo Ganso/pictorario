@@ -329,7 +329,7 @@ Cada fase compila, instala y se puede enseñar.
 2. ~~**Persistencia y portada**~~ — **COMPLETADA** (27/07/2026). 53 tests en verde. Ver «Notas de la fase 2».
 3. ~~**Reloj estático**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 3».
 4. ~~**Reloj vivo**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 4».
-5. **Editor** (2 días) — borrador local, selectores de tipo de tablero e indicador, slider de tamaño de icono, checkbox de notificaciones, filas de actividad con `TimePicker` respetando `format24h`, ordenación y solapes con sus avisos, añadir/borrar actividad, aceptar/cancelar. *Verificable*: crear una secuencia nueva y verla en el reloj.
+5. ~~**Editor**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 5».
 6. **Buscador ARASAAC** (1 día) — `ArasaacApi` + `LazyVerticalGrid` de 3 columnas sin tope artificial, listado inicial de ficheros locales (los más recientes primero), búsqueda y **descarga concurrente** (`coroutineScope { ids.map { async { … } }.awaitAll() }` con `Semaphore(6)`), progreso y manejo de "sin conexión".
 7. **Configuración, Acerca de y candado** (1 día) — alarmas, protección, formato horario, los tres colores con `ColorPickerDialog` propio (HSV, sin dependencias), reiniciar configuración; créditos, GreatVibes en "Para Teo", enlaces con `Intent.ACTION_VIEW`, changelog al detectar cambio de `versionCode`; `LockGesture`; `BackHandler` condicionado.
 8. **Alarmas** (2 días) — `Notifications`, `AlarmScheduler`, `AlarmReceiver`, `BootReceiver`, permisos de runtime, full-screen intent, `AlarmDialog`. *Verificable*: actividad a 2 minutos vista con la pantalla apagada.
@@ -413,6 +413,14 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 - **El contorno rojo del sector seleccionado dibuja sólo el arco exterior**, no los dos radios. El original trazaba una circunferencia completa y dejaba que el recorte se comiera los lados rectos, así que las líneas rectas nunca se veían.
 - **Las agujas ya no son elípticas.** El original usaba fracciones distintas para X e Y (0,7/0,6 la horaria y 0,8/0,75 la minutera); ahora cada aguja usa una sola fracción.
 - **La barra de progreso desaparece cuando la actividad no está en curso**, en vez de mostrar un valor fuera de rango.
+
+## Notas de la fase 5
+
+- **El borrador vive en `PictorarioState`, no en el composable.** Tiene que sobrevivir a ir al selector de pictogramas y volver, que es justo lo que hacía falta reproducir del original. Sustituye a la ranura fantasma `Secuencia(MaxSecuencias)` de B4A, y con ella desaparecen los caminos en que «Aceptar» podía escribir sobre el índice equivocado.
+- **La ordenación y el recorte de solapes se aplican en cuanto se cambia una hora**, como hacía `OrdenarActividades`, y otra vez al aceptar. Toda esa lógica es la de `ActivityRules`, ya cubierta por tests en la fase 1.
+- **`TimePicker` de Material 3** en lugar del `TimeDialog` de la librería `dialogs`, respetando `format24h`. Es API experimental, así que se opta explícitamente con `@OptIn`.
+- **`InputList` de B4A se convierte en `OptionListDialog`**, un diálogo de lista que se cierra al elegir, igual que el original.
+- Cada fila de actividad se tiñe con el color que tendrá su sector en el reloj, que es como el original ataba las dos pantallas.
 
 ---
 

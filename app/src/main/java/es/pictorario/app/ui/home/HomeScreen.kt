@@ -85,7 +85,7 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
                     HomeButton(
                         text = "Crear Secuencia",
                         enabled = sequences.size < MAX_SEQUENCES,
-                        onClick = { state.navigateTo(Screen.Editor(null)) },
+                        onClick = { state.startEditing(null) },
                     )
                     HomeButton("Configuración") { state.navigateTo(Screen.Settings) }
                     HomeButton("Acerca de Pictorario") { state.navigateTo(Screen.About) }
@@ -111,7 +111,7 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
         SequenceMenu(
             sequence = sequences[index],
             canDuplicate = sequences.size < MAX_SEQUENCES,
-            onEdit = { menuFor = null; state.navigateTo(Screen.Editor(index)) },
+            onEdit = { menuFor = null; state.startEditing(index) },
             onDelete = { menuFor = null; confirmDelete = index },
             onDuplicate = { menuFor = null; state.duplicateSequence(index) },
             onDismiss = { menuFor = null },
