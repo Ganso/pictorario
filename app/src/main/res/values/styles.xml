@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        El tema de plataforma sólo cubre la ventana antes de que Compose tome el
+        control; el aspecto real lo define ui/theme/. Se hereda de Material Light
+        sin ActionBar, igual que en el proyecto hermano Colorear.
+    -->
+    <style name="Theme.Pictorario" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

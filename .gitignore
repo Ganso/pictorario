@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+.idea/
+local.properties
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+app/build/
+*.apk
+*.aab
+
+# Material de firma: NUNCA debe subirse al repositorio
+*.jks
+*.keystore
+*.p12
+*.pepk
+keystore.properties
+clave*.txt
