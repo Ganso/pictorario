@@ -330,7 +330,7 @@ Cada fase compila, instala y se puede enseñar.
 3. ~~**Reloj estático**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 3».
 4. ~~**Reloj vivo**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 4».
 5. ~~**Editor**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 5».
-6. **Buscador ARASAAC** (1 día) — `ArasaacApi` + `LazyVerticalGrid` de 3 columnas sin tope artificial, listado inicial de ficheros locales (los más recientes primero), búsqueda y **descarga concurrente** (`coroutineScope { ids.map { async { … } }.awaitAll() }` con `Semaphore(6)`), progreso y manejo de "sin conexión".
+6. ~~**Buscador ARASAAC**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 6».
 7. **Configuración, Acerca de y candado** (1 día) — alarmas, protección, formato horario, los tres colores con `ColorPickerDialog` propio (HSV, sin dependencias), reiniciar configuración; créditos, GreatVibes en "Para Teo", enlaces con `Intent.ACTION_VIEW`, changelog al detectar cambio de `versionCode`; `LockGesture`; `BackHandler` condicionado.
 8. **Alarmas** (2 días) — `Notifications`, `AlarmScheduler`, `AlarmReceiver`, `BootReceiver`, permisos de runtime, full-screen intent, `AlarmDialog`. *Verificable*: actividad a 2 minutos vista con la pantalla apagada.
 9. **Pulido, README y publicación** (1 día) — icono adaptativo, recompresión de los 18 PNG, reglas R8, `build_and_copy.sh`, **README reescrito** (estructura de la sección «README» de este plan), `strings.xml` completo, revisión de contraste y tamaños táctiles, AAB firmado, justificaciones de permisos para Play Console.
@@ -421,6 +421,14 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 - **`TimePicker` de Material 3** en lugar del `TimeDialog` de la librería `dialogs`, respetando `format24h`. Es API experimental, así que se opta explícitamente con `@OptIn`.
 - **`InputList` de B4A se convierte en `OptionListDialog`**, un diálogo de lista que se cierra al elegir, igual que el original.
 - Cada fila de actividad se tiñe con el color que tendrá su sector en el reloj, que es como el original ataba las dos pantallas.
+
+## Notas de la fase 6
+
+- **Descargas concurrentes** con `async`/`awaitAll` y un `Semaphore(6)`, frente a las secuenciales del original. Sólo se baja lo que no está ya en disco.
+- **`LazyVerticalGrid` de tres columnas sin tope artificial**: el original dimensionaba arrays de 100 y mostraba 60, cuando la API puede devolver más.
+- **`HttpURLConnection` en vez de un cliente HTTP**: son dos llamadas sin autenticación, y Retrofit o Ktor pesarían más que el código que ahorran.
+
+**Limitación de las pruebas en emulador.** El campo de texto de Compose no acepta texto inyectado con `adb shell input text` ni con `keyevent` en este emulador; el campo recibe el foco pero queda vacío. Por eso la búsqueda no se pudo accionar desde la interfaz automatizada. En su lugar se verificó el código de red **ejecutándolo contra el servicio real desde un test JVM**: `search("perro")` devolvió 10 identificadores, con el 7202 el primero, exactamente lo mismo que `curl`. Esa comprobación en vivo era temporal y no queda en la suite; en su lugar hay un `ArasaacResponseTest` con una respuesta real recortada como fixture, para que los tests sigan siendo deterministas y sin red. **Queda pendiente probar la búsqueda a mano en un dispositivo físico.**
 
 ---
 

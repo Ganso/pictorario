@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import es.pictorario.app.ui.clock.ClockScreen
 import es.pictorario.app.ui.editor.EditorScreen
 import es.pictorario.app.ui.home.HomeScreen
+import es.pictorario.app.ui.picker.PickerScreen
 import es.pictorario.app.ui.theme.PictorarioTheme
 
 /**
@@ -40,7 +41,7 @@ fun AppRoot(state: PictorarioState, onExit: () -> Unit) {
                 is Screen.Home -> HomeScreen(state, onExit)
                 is Screen.Clock -> ClockScreen(state, screen.sequenceIndex)
                 is Screen.Editor -> EditorScreen(state)
-                is Screen.Picker -> Pending("Selector de pictogramas", null, state)
+                is Screen.Picker -> PickerScreen(state)
                 is Screen.Settings -> Pending("Configuración", null, state)
                 is Screen.About -> Pending("Acerca de", null, state)
             }
