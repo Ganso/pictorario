@@ -2,27 +2,41 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Descarga de pictogramas desde ARASAAC -->
+    <!--
+        Conjunto de permisos deliberadamente mínimo. La ficha se retiró de Google
+        Play por incumplimiento, así que se evita todo permiso sujeto a revisión
+        de políticas: la aplicación es plenamente funcional sin ninguno de ellos.
+        Ver PUBLICACION.md.
+    -->
+
+    <!-- Descarga de pictogramas desde ARASAAC, sólo cuando el adulto busca -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Gesto del candado parental y aviso de actividad -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- Reprogramar la alarma tras reiniciar el dispositivo -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- Notificación de próxima actividad y aviso (runtime en API 33+) -->
+    <!-- Notificaciones; se pide en tiempo de ejecución y se acepta la negativa -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Alarmas exactas: USE_EXACT_ALARM en API 33+, SCHEDULE_EXACT_ALARM antes -->
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission
-        android:name="android.permission.SCHEDULE_EXACT_ALARM"
-        android:maxSdkVersion="32" />
-    <!-- El aviso abre la pantalla del reloj con el dispositivo bloqueado -->
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <!--
+        Alarmas exactas: OPCIONALES. Por defecto se usan alarmas con ventana, que
+        no requieren permiso alguno. El adulto puede conceder la puntualidad
+        exacta desde los ajustes del sistema, y hasta API 32 se concedía sola.
+        NO se declara USE_EXACT_ALARM: Google Play la reserva a aplicaciones cuya
+        función principal es despertador o calendario, y una declaración
+        rechazada bloquearía la republicación.
+    -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
+        android:name=".PictorarioApp"
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pictorario">
         <activity
@@ -30,8 +44,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi">
             <intent-filter>
@@ -39,6 +51,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".alarm.AlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".alarm.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

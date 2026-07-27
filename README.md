@@ -20,6 +20,16 @@ El plan de trabajo completo, fase a fase, está en [MIGRACION.md](MIGRACION.md).
 
 > **Aviso para quien actualice desde la versión 1.x:** la configuración se reinicia. Los datos antiguos se guardaban en un formato propio de B4A que no se migra, así que la aplicación arranca con las secuencias de ejemplo.
 
+## Publicación
+
+La ficha de Pictorario fue **retirada de Google Play por incumplimiento de políticas**, al no haberse actualizado al nivel de API exigido. Por eso el proyecto adopta la postura más conservadora posible: la aplicación es plenamente funcional **sin ningún permiso sujeto a revisión de políticas**.
+
+Los permisos que declara son exactamente cinco: acceso a internet para descargar pictogramas, vibración, reprogramar la alarma tras reiniciar, notificaciones y —opcional— alarmas exactas. Se ha renunciado a propósito a `USE_EXACT_ALARM` y a `USE_FULL_SCREEN_INTENT`, que Google Play reserva a aplicaciones de despertador, calendario o llamadas.
+
+**Los datos no salen del dispositivo.** No hay cuentas, publicidad, analítica ni rastreo. Lo único que se envía a un tercero es el texto que el adulto teclea al buscar un pictograma, que va a ARASAAC sin identificador alguno.
+
+Antes de subir cualquier versión hay que seguir [PUBLICACION.md](PUBLICACION.md).
+
 ## Compilar
 
 1. Abrir este directorio con Android Studio y esperar a que termine la sincronización de Gradle.

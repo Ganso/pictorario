@@ -27,7 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 import es.pictorario.app.R
+import es.pictorario.app.alarm.AlarmScheduler
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.clock.BoardBackground
 import es.pictorario.app.ui.common.ColorPickerDialog
@@ -42,6 +44,7 @@ private const val LOCK_EXPLANATION =
 /** Global preferences. Port of `Configuracion.bas`. */
 @Composable
 fun SettingsScreen(state: PictorarioState) {
+    val context = LocalContext.current
     val settings = state.settings
     var colorPicker by remember { mutableStateOf<Int?>(null) }
     var confirmReset by remember { mutableStateOf(false) }
@@ -74,6 +77,26 @@ fun SettingsScreen(state: PictorarioState) {
                     if (on) lockExplanation = true
                 },
             )
+        }
+
+        // Exact alarms are opt-in: without them the app still works, so the row
+        // only appears while the permission is missing and simply hands over to
+        // the system screen that grants it.
+        if (!AlarmScheduler.canScheduleExact(context)) {
+            Column {
+                Text(
+                    text = "Los avisos pueden retrasarse unos minutos. Para que " +
+                        "suenen a la hora exacta, concede el permiso de alarmas.",
+                    fontSize = 14.sp,
+                )
+                Button(
+                    onClick = {
+                        AlarmScheduler.exactAlarmSettingsIntent(context)
+                            ?.let { runCatching { context.startActivity(it) } }
+                    },
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                ) { Text("Permitir avisos puntuales") }
+            }
         }
 
         SettingRow(label = "Formato horario") {

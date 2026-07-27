@@ -43,6 +43,8 @@ class PictorarioState(
     private val store: DataStore<AppData>,
     val pictograms: PictogramRepository,
     private val scope: CoroutineScope,
+    /** Called on every change so the next alarm always matches what is stored. */
+    private val onDataChanged: (AppData) -> Unit = {},
 ) {
 
     var data by mutableStateOf<AppData?>(null)
@@ -60,7 +62,10 @@ class PictorarioState(
     init {
         scope.launch {
             pictograms.seedBundledPictograms()
-            store.data.collect { data = it }
+            store.data.collect {
+                data = it
+                onDataChanged(it)
+            }
         }
     }
 

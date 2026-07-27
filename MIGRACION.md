@@ -332,8 +332,8 @@ Cada fase compila, instala y se puede enseñar.
 5. ~~**Editor**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 5».
 6. ~~**Buscador ARASAAC**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 6».
 7. **Configuración, Acerca de y candado** (1 día) — alarmas, protección, formato horario, los tres colores con `ColorPickerDialog` propio (HSV, sin dependencias), reiniciar configuración; créditos, GreatVibes en "Para Teo", enlaces con `Intent.ACTION_VIEW`, changelog al detectar cambio de `versionCode`; `LockGesture`; `BackHandler` condicionado.
-8. **Alarmas** (2 días) — `Notifications`, `AlarmScheduler`, `AlarmReceiver`, `BootReceiver`, permisos de runtime, full-screen intent, `AlarmDialog`. *Verificable*: actividad a 2 minutos vista con la pantalla apagada.
-9. **Pulido, README y publicación** (1 día) — icono adaptativo, recompresión de los 18 PNG, reglas R8, `build_and_copy.sh`, **README reescrito** (estructura de la sección «README» de este plan), `strings.xml` completo, revisión de contraste y tamaños táctiles, AAB firmado, justificaciones de permisos para Play Console.
+8. ~~**Alarmas**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 8».
+9. ~~**Pulido y cumplimiento**~~ — **COMPLETADA** (27/07/2026). Ver «Notas de la fase 9» y [PUBLICACION.md](PUBLICACION.md).
 
 ---
 
@@ -437,6 +437,24 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 - La fuente GreatVibes se aplica a «Para Teo» desde `res/font`, sin la carga manual que el original tenía comentada.
 - Al activar la protección se explica el gesto de desbloqueo, igual que hacía el `Msgbox` del original.
 
+## Notas de la fase 8
+
+- **Fallo real encontrado en el emulador**: al saltar la alarma la aplicación moría con `IllegalStateException: There are multiple DataStores active for the same file`. El receptor abría su propio `DataStore` sobre el mismo fichero que ya tenía abierto la interfaz. Corregido con un contenedor único en `PictorarioApp`, cuyo ámbito vive lo que el proceso; de paso el almacén sobrevive a que se recree la Activity, que era el mismo fallo latente al rotar.
+- **La alarma se reprograma en cada escritura** del documento, de modo que el horario programado nunca puede desfasarse de lo guardado. En B4A había que acordarse de llamar a `CalcularProximaAlarma` a mano.
+- `BootReceiver` atiende además `MY_PACKAGE_REPLACED`, `TIME_SET` y `TIMEZONE_CHANGED`, tres casos que dejaban la alarma descolocada y que el original no cubría.
+- **Verificado en el emulador** que la alarma se programa como `RTC_WAKEUP` exacta, exenta de Doze, y que la notificación de próxima actividad aparece con el texto correcto.
+
+## Notas de la fase 9
+
+Esta fase cambió de alcance al saberse que **la ficha había sido retirada de Google Play por incumplimiento**. El cumplimiento pasó de ser un trámite final a ser el criterio rector, y costó funcionalidad a propósito. Todo el detalle está en [PUBLICACION.md](PUBLICACION.md).
+
+- **Se renuncia a `USE_EXACT_ALARM` y a `USE_FULL_SCREEN_INTENT`.** Google Play los reserva a aplicaciones cuya función principal es despertador, calendario o llamadas. Pictorario es defendible como agenda, pero una declaración rechazada bloquearía la republicación, que es exactamente lo que no se puede arriesgar. **Consecuencia:** el aviso ya no abre el reloj a pantalla completa sobre el dispositivo bloqueado; ahora es una notificación prominente con sonido y vibración que lo abre al tocarla.
+- **Las alarmas exactas pasan a ser opcionales.** Por defecto se usa `setWindow`, que no requiere permiso alguno; si el adulto concede `SCHEDULE_EXACT_ALARM` desde los ajustes del sistema, se usa `setAlarmClock`. La fila correspondiente sólo aparece en Configuración mientras falte el permiso.
+- **Permisos del artefacto de publicación verificados con `aapt2`**: `INTERNET`, `VIBRATE`, `RECEIVE_BOOT_COMPLETED`, `POST_NOTIFICATIONS` y `SCHEDULE_EXACT_ALARM`. Nada más.
+- **Reglas de copia de seguridad** que respaldan los horarios y dejan fuera los pictogramas descargados, que se pueden volver a obtener. `lintVitalRelease` rechazó la primera versión de esas reglas por redundante, y con razón.
+- **Assets recomprimidos**: seis pictogramas venían a 2500×2500. El directorio pasa de 1,6 MB a 288 KB y los iconos de interfaz de 700 KB a 140 KB, conservando la transparencia. El APK de publicación baja de 3,4 MB a 2,4 MB.
+- **Icono adaptativo** en las cinco densidades, con capa monocroma para los temas dinámicos.
+
 ---
 
 ## Correcciones respecto al original
@@ -457,9 +475,10 @@ A documentar en el README:
 | `Visualizacion.bas:307-332` | Sectores con borde exterior poligonal | `drawArc` con arco real |
 | `SeleccionPictogramas.bas:82-83` | Topes fijos de 100/60 resultados, cuando la API devuelve hasta 145 | `LazyVerticalGrid` sin tope artificial |
 | `SeleccionPictogramas.bas:117` | Descargas secuenciales | Concurrentes con `Semaphore(6)` |
-| `Avisos.bas:26-30` | `StartActivity` desde Service: bloqueado en Android 10+ | Notificación con full-screen intent |
+| `Avisos.bas:26-30` | `StartActivity` desde Service: bloqueado en Android 10+ | Notificación prominente que abre el reloj al tocarla |
 | `ArranqueAutomatico.bas` | Sólo reprograma en `BOOT_COMPLETED` | También en `MY_PACKAGE_REPLACED`, `TIME_SET`, `TIMEZONE_CHANGED` |
 | Manifest | `WRITE_EXTERNAL_STORAGE`, `WRITE_SETTINGS`, `WAKE_LOCK`, `FOREGROUND_SERVICE` sin uso | Eliminados |
+| Assets | Seis pictogramas a 2500×2500 y cuatro iconos JPEG con extensión `.png` | Recomprimidos a 500×500 y convertidos |
 
 ---
 
@@ -605,7 +624,11 @@ El keystore es **irrecuperable**: si se pierde y la app no está en Play App Sig
 
 ---
 
-## Pendiente de verificar (no bloquea el arranque)
+## Pendiente de verificar
 
-- **Compatibilidad de la clave DSA con Play App Signing** (ver sección anterior). Es el único punto que puede obligar a replantear la publicación.
+Todo esto vive ahora en [PUBLICACION.md](PUBLICACION.md), que es el documento a seguir antes de subir nada. Lo más urgente:
+
+1. **Si la ficha se puede recuperar.** Fue retirada por incumplimiento. Si el nombre de paquete quedó bloqueado, hay que publicar ficha nueva con otro `applicationId`.
+2. **Si la clave DSA de 1024 bits sirve**, o hay que generar una clave de subida RSA.
+3. **Política de privacidad**, obligatoria por tratarse de una aplicación dirigida a menores.
 - **Aviso de pérdida de datos**: al no migrar el `KeyValueStore` antiguo, un usuario existente con secuencias propias las perderá al actualizar. Conviene indicarlo en las notas de la versión y mostrar un aviso de una sola vez en el primer arranque tras actualizar (barato, y evita reseñas negativas).

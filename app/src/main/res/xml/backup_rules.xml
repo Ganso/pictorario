@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Sólo se respalda la configuración del usuario, para que sus horarios no se
+    pierdan al cambiar de dispositivo. Al declarar un include explícito, todo lo
+    demás queda excluido: los pictogramas descargados no viajan en la copia
+    porque se pueden volver a obtener de ARASAAC y la abultarían sin motivo.
+-->
+<full-backup-content>
+    <include domain="file" path="pictorario.json" />
+</full-backup-content>
