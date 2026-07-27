@@ -442,7 +442,8 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 - **Fallo real encontrado en el emulador**: al saltar la alarma la aplicación moría con `IllegalStateException: There are multiple DataStores active for the same file`. El receptor abría su propio `DataStore` sobre el mismo fichero que ya tenía abierto la interfaz. Corregido con un contenedor único en `PictorarioApp`, cuyo ámbito vive lo que el proceso; de paso el almacén sobrevive a que se recree la Activity, que era el mismo fallo latente al rotar.
 - **La alarma se reprograma en cada escritura** del documento, de modo que el horario programado nunca puede desfasarse de lo guardado. En B4A había que acordarse de llamar a `CalcularProximaAlarma` a mano.
 - `BootReceiver` atiende además `MY_PACKAGE_REPLACED`, `TIME_SET` y `TIMEZONE_CHANGED`, tres casos que dejaban la alarma descolocada y que el original no cubría.
-- **Verificado en el emulador** que la alarma se programa como `RTC_WAKEUP` exacta, exenta de Doze, y que la notificación de próxima actividad aparece con el texto correcto.
+- **Verificada la cadena completa en el emulador**, con el dispositivo bloqueado: la alarma se programa, salta, publica la notificación de aviso (canal de importancia alta, categoría `alarm`, con la actividad como título) y reencadena la siguiente para el día siguiente. Sin caídas.
+- Con el permiso de alarmas exactas concedido, la alarma se programa con `window=0` y `exactAllowReason=permission`; sin él, con una ventana de cinco minutos. Ambos caminos comprobados.
 
 ## Notas de la fase 9
 
@@ -484,10 +485,12 @@ A documentar en el README:
 
 ## Entorno de pruebas
 
+`./build_and_copy.sh` compila, y salvo que se le pase `--dry-run` detecta si hay un emulador disponible, arranca uno si hace falta, instala el APK de depuración y abre la aplicación. Con `--headless` el emulador arranca sin ventana, y con `--avd NOMBRE` se elige otro distinto de `pictorario_test`.
+
 Montado en la fase 0 sobre el SDK ya instalado en `~/Android/Sdk`:
 
 - **AVD `pictorario_test`**: Pixel 6 (1080×2400, vertical), `system-images;android-36;google_apis;x86_64`, Android 16 / API 36. Acelerado por KVM, accesible sin `sudo` gracias a una ACL sobre `/dev/kvm`.
-- **Arranque con ventana**: `~/Android/Sdk/emulator/emulator -avd pictorario_test -no-audio -no-boot-anim -gpu host`. Añadir `-no-window` para automatizar sin interfaz.
+- **Arranque a mano**: `~/Android/Sdk/emulator/emulator -avd pictorario_test -no-audio -no-boot-anim -gpu host`. Añadir `-no-window` para automatizar sin interfaz. Normalmente basta con `./build_and_copy.sh`.
 - **`mobile-mcp`** (`@mobilenext/mobile-mcp`) declarado en `.mcp.json` del proyecto, para dirigir el emulador por texto de elemento en vez de por coordenadas.
 - Como alternativa siempre disponible, `adb` directo: `install -r`, `am start`, `exec-out screencap -p`, `shell input tap/swipe`, `uiautomator dump`, `logcat`.
 

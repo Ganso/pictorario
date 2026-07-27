@@ -47,6 +47,14 @@ Para generar a la vez el APK de depuración y el AAB de publicación:
 ./build_and_copy.sh
 ```
 
+Además de compilar, el script detecta si hay un emulador disponible: usa el que esté corriendo o arranca uno, instala el APK de depuración y abre la aplicación. Para sólo compilar, sin tocar ningún emulador:
+
+```bash
+./build_and_copy.sh --dry-run
+```
+
+Acepta también `--headless`, para arrancar el emulador sin ventana, y `--avd NOMBRE` para elegir otro distinto de `pictorario_test`.
+
 El AAB sólo sale firmado si existe un fichero `keystore.properties` en la raíz (no versionado) con las claves `storeFile`, `storePassword`, `keyAlias` y `keyPassword`. Sin él, el release se compila igualmente pero sin firmar.
 
 ## Preparar un nuevo release
