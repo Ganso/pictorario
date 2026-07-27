@@ -38,6 +38,14 @@ import es.pictorario.app.domain.Sequence
 import es.pictorario.app.domain.TimeFormat
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.Screen
+import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
+import es.pictorario.app.domain.Activity
+import es.pictorario.app.ui.clock.rememberClockTick
+import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.lockGesture
 import java.time.LocalTime
@@ -55,11 +63,13 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
     var menuFor by remember { mutableStateOf<Int?>(null) }
     var confirmDelete by remember { mutableStateOf<Int?>(null) }
 
-    val nextAlarm = remember(state.data) {
-        state.data?.let {
-            val now = LocalTime.now()
-            AlarmCalculator.next(it, now.hour * 60 + now.minute)
-        }
+    // Ticks once a minute, so the badges and the next alarm stay right as the
+    // day moves on instead of freezing at whatever time the screen opened.
+    val now = rememberClockTick(needsSeconds = false)
+    val minutesOfDay = now.hour * 60 + now.minute
+
+    val nextAlarm = remember(state.data, minutesOfDay) {
+        state.data?.let { AlarmCalculator.next(it, minutesOfDay) }
     }
 
     Box(Modifier.fillMaxSize()) {
@@ -71,6 +81,14 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
                     sequence = sequence,
                     state = state,
                     showGear = !settings.appProtected,
+                    // The alarm badge tracks what will actually happen: a
+                    // sequence set to notify says nothing while the global
+                    // switch is off.
+                    hasAlarm = settings.alarmsEnabled && sequence.notifications,
+                    runningActivity = sequence.activities.firstOrNull {
+                        it.contains(minutesOfDay)
+                    },
+                    format24h = settings.format24h,
                     onOpen = { state.navigateTo(Screen.Clock(index)) },
                     onGear = { menuFor = index },
                 )
@@ -84,26 +102,38 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
                 if (!settings.appProtected) {
                     HomeButton(
                         text = "Crear Secuencia",
+                        help = if (sequences.size < MAX_SEQUENCES) {
+                            "Crear un horario nuevo"
+                        } else {
+                            "Ya tienes el máximo de $MAX_SEQUENCES secuencias"
+                        },
                         enabled = sequences.size < MAX_SEQUENCES,
                         onClick = { state.startEditing(null) },
                     )
-                    HomeButton("Configuración") { state.navigateTo(Screen.Settings) }
-                    HomeButton("Acerca de Pictorario") { state.navigateTo(Screen.About) }
+                    HomeButton("Configuración", "Alarmas, protección, formato horario y colores") {
+                        state.navigateTo(Screen.Settings)
+                    }
+                    HomeButton("Acerca de Pictorario", "Créditos, licencia y versión") {
+                        state.navigateTo(Screen.About)
+                    }
                 }
-                HomeButton("Salir", onClick = onExit)
+                HomeButton("Salir", "Cerrar Pictorario", onClick = onExit)
             }
         }
 
         if (settings.appProtected) {
-            Image(
-                painter = painterResource(R.drawable.candado),
-                contentDescription = "Desbloquear la aplicación",
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(10.dp)
-                    .size(40.dp)
-                    .lockGesture { state.updateSettings { it.copy(appProtected = false) } },
-            )
+            Help(
+                text = "Para desbloquear: toca una vez y después mantén pulsado",
+                modifier = Modifier.align(Alignment.BottomEnd).padding(10.dp),
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.candado),
+                    contentDescription = "Desbloquear la aplicación",
+                    modifier = Modifier
+                        .size(40.dp)
+                        .lockGesture { state.updateSettings { it.copy(appProtected = false) } },
+                )
+            }
         }
     }
 
@@ -160,6 +190,9 @@ private fun SequenceRow(
     sequence: Sequence,
     state: PictorarioState,
     showGear: Boolean,
+    hasAlarm: Boolean,
+    runningActivity: Activity?,
+    format24h: Boolean,
     onOpen: () -> Unit,
     onGear: () -> Unit,
 ) {
@@ -167,30 +200,84 @@ private fun SequenceRow(
         modifier = Modifier.fillMaxWidth().height(90.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        PictogramImage(
-            pictogramId = sequence.pictogramId,
-            repository = state.pictograms,
-            size = 80.dp,
-            contentDescription = sequence.description,
-            modifier = Modifier.size(80.dp).clickable(onClick = onOpen),
-        )
-        Text(
-            text = sequence.description,
-            fontSize = 16.sp,
+        Help("Abrir «${sequence.description}»") {
+            PictogramImage(
+                pictogramId = sequence.pictogramId,
+                repository = state.pictograms,
+                size = 80.dp,
+                contentDescription = sequence.description,
+                modifier = Modifier.size(80.dp).clickable(onClick = onOpen),
+            )
+        }
+
+        Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 20.dp)
                 .clickable(onClick = onOpen),
-        )
+        ) {
+            Text(sequence.description, fontSize = 16.sp)
+
+            if (hasAlarm || runningActivity != null) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(top = 6.dp),
+                ) {
+                    if (hasAlarm) {
+                        Help("Esta secuencia tiene las alarmas activadas") {
+                            Image(
+                                painter = painterResource(R.drawable.alarma),
+                                contentDescription = "Alarmas activadas",
+                                modifier = Modifier.size(22.dp),
+                            )
+                        }
+                    }
+                    runningActivity?.let { activity ->
+                        val until = TimeFormat.time(activity.endHour, activity.endMinute, format24h)
+                        Help("Ahora mismo: ${activity.description}, hasta las $until") {
+                            RunningNowBadge(activity.description)
+                        }
+                    }
+                }
+            }
+        }
+
         if (showGear) {
-            Image(
-                painter = painterResource(R.drawable.engranaje),
-                contentDescription = "Opciones de ${sequence.description}",
-                modifier = Modifier.size(40.dp).clickable(onClick = onGear),
-            )
+            Help("Editar, borrar o duplicar «${sequence.description}»") {
+                Image(
+                    painter = painterResource(R.drawable.engranaje),
+                    contentDescription = "Opciones de ${sequence.description}",
+                    modifier = Modifier.size(40.dp).clickable(onClick = onGear),
+                )
+            }
         }
     }
 }
+
+/** Marks a sequence whose activity is under way right now. */
+@Composable
+private fun RunningNowBadge(description: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            Modifier
+                .size(12.dp)
+                .clip(CircleShape)
+                .background(RunningNow),
+        )
+        Text(
+            text = description,
+            fontSize = 13.sp,
+            color = RunningNow,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(start = 6.dp),
+        )
+    }
+}
+
+/** Green of a task in progress; darkened so it reads on white. */
+private val RunningNow = Color(0xFF2E7D32)
 
 @Composable
 private fun NextAlarmRow(
@@ -224,13 +311,20 @@ private fun NextAlarmRow(
 }
 
 @Composable
-private fun HomeButton(text: String, enabled: Boolean = true, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        modifier = Modifier.fillMaxWidth().height(60.dp).padding(vertical = 4.dp),
-    ) {
-        Text(text, fontSize = 20.sp)
+private fun HomeButton(
+    text: String,
+    help: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
+    Help(help, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = onClick,
+            enabled = enabled,
+            modifier = Modifier.fillMaxWidth().height(60.dp).padding(vertical = 4.dp),
+        ) {
+            Text(text, fontSize = 20.sp)
+        }
     }
 }
 

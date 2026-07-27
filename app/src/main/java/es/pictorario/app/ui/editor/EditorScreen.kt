@@ -48,6 +48,7 @@ import es.pictorario.app.domain.TimeIndicator
 import es.pictorario.app.ui.PictogramTarget
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.OptionListDialog
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.PictorarioTimePicker
@@ -104,29 +105,36 @@ fun EditorScreen(state: PictorarioState) {
                     singleLine = true,
                     modifier = Modifier.weight(1f),
                 )
-                PictogramImage(
-                    pictogramId = draft.pictogramId,
-                    repository = state.pictograms,
-                    size = CellSize,
-                    contentDescription = "Pictograma de la secuencia",
-                    modifier = Modifier
-                        .padding(start = CellGap)
-                        .size(CellSize)
-                        .clickable { state.choosePictogramFor(PictogramTarget.SequenceIcon) },
-                )
+                Help("Elegir el pictograma que representa la secuencia") {
+                    PictogramImage(
+                        pictogramId = draft.pictogramId,
+                        repository = state.pictograms,
+                        size = CellSize,
+                        contentDescription = "Pictograma de la secuencia",
+                        modifier = Modifier
+                            .padding(start = CellGap)
+                            .size(CellSize)
+                            .clickable { state.choosePictogramFor(PictogramTarget.SequenceIcon) },
+                    )
+                }
             }
         }
 
         item {
             SettingRow("Tipo de tablero:") {
-                ValueButton(BOARD_TYPE_LABELS[draft.board.type.ordinal]) { boardPicker = true }
+                ValueButton(
+                    text = BOARD_TYPE_LABELS[draft.board.type.ordinal],
+                    help = "Cómo se dibuja el horario: reloj de mañana, de tarde, " +
+                        "de 24 horas, o arco con sólo las horas de la secuencia",
+                ) { boardPicker = true }
             }
         }
         item {
             SettingRow("Indicar hora actual:") {
-                ValueButton(TIME_INDICATOR_LABELS[draft.board.timeIndicator.ordinal]) {
-                    indicatorPicker = true
-                }
+                ValueButton(
+                    text = TIME_INDICATOR_LABELS[draft.board.timeIndicator.ordinal],
+                    help = "Cuántas agujas se dibujan sobre el tablero",
+                ) { indicatorPicker = true }
             }
         }
         item {
@@ -300,17 +308,19 @@ private fun SettingRow(label: String, content: @Composable RowScope.() -> Unit) 
 }
 
 @Composable
-private fun ValueButton(text: String, onClick: () -> Unit) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(CellSize)
-            .background(FieldSurface)
-            .border(1.dp, FieldBorder)
-            .clickable(onClick = onClick),
-    ) {
-        Text(text, fontSize = 16.sp, textAlign = TextAlign.Center)
+private fun ValueButton(text: String, help: String, onClick: () -> Unit) {
+    Help(help, modifier = Modifier.fillMaxWidth()) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(CellSize)
+                .background(FieldSurface)
+                .border(1.dp, FieldBorder)
+                .clickable(onClick = onClick),
+        ) {
+            Text(text, fontSize = 16.sp, textAlign = TextAlign.Center)
+        }
     }
 }
 
@@ -345,18 +355,20 @@ private fun ActivityRow(
                     .weight(1f)
                     .background(Color(Palette.color(index).toInt())),
             )
-            PictogramImage(
-                pictogramId = activity.pictogramId,
-                repository = state.pictograms,
-                size = CellSize,
-                contentDescription = "Pictograma de la actividad",
-                modifier = Modifier
-                    .padding(start = CellGap)
-                    .size(CellSize)
-                    .clickable {
-                        state.choosePictogramFor(PictogramTarget.ActivityIcon(index))
-                    },
-            )
+            Help("Elegir el pictograma de esta actividad") {
+                PictogramImage(
+                    pictogramId = activity.pictogramId,
+                    repository = state.pictograms,
+                    size = CellSize,
+                    contentDescription = "Pictograma de la actividad",
+                    modifier = Modifier
+                        .padding(start = CellGap)
+                        .size(CellSize)
+                        .clickable {
+                            state.choosePictogramFor(PictogramTarget.ActivityIcon(index))
+                        },
+                )
+            }
         }
 
         Row(
@@ -365,6 +377,7 @@ private fun ActivityRow(
         ) {
             TimeButton(
                 label = "Desde",
+                help = "Cambiar la hora a la que empieza la actividad",
                 hour = activity.startHour,
                 minute = activity.startMinute,
                 format24h = format24h,
@@ -372,16 +385,19 @@ private fun ActivityRow(
             ) { onEditTime(true) }
             TimeButton(
                 label = "Hasta",
+                help = "Cambiar la hora a la que termina la actividad",
                 hour = activity.endHour,
                 minute = activity.endMinute,
                 format24h = format24h,
                 modifier = Modifier.weight(1f),
             ) { onEditTime(false) }
-            Image(
-                painter = painterResource(R.drawable.engranaje),
-                contentDescription = "Opciones de la actividad",
-                modifier = Modifier.size(CellSize).clickable(onClick = onMenu),
-            )
+            Help("Borrar esta actividad") {
+                Image(
+                    painter = painterResource(R.drawable.engranaje),
+                    contentDescription = "Opciones de la actividad",
+                    modifier = Modifier.size(CellSize).clickable(onClick = onMenu),
+                )
+            }
         }
     }
 }
@@ -389,24 +405,28 @@ private fun ActivityRow(
 @Composable
 private fun TimeButton(
     label: String,
+    help: String,
     hour: Int,
     minute: Int,
     format24h: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .height(CellSize)
-            .background(FieldSurface)
-            .border(1.dp, FieldBorder)
-            .clickable(onClick = onClick),
-    ) {
-        Text(
-            text = "$label\n${TimeFormat.time(hour, minute, format24h)}",
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center,
-        )
+    Help(help, modifier = modifier) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(CellSize)
+                .background(FieldSurface)
+                .border(1.dp, FieldBorder)
+                .clickable(onClick = onClick),
+        ) {
+            Text(
+                text = "$label\n${TimeFormat.time(hour, minute, format24h)}",
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center,
+            )
+        }
     }
 }

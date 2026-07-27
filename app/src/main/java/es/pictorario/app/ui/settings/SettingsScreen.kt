@@ -33,6 +33,7 @@ import es.pictorario.app.alarm.AlarmScheduler
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ColorPickerDialog
 import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.HandColorRow
 
 private const val LOCK_EXPLANATION =
@@ -60,14 +61,22 @@ fun SettingsScreen(state: PictorarioState) {
     ) {
         Text("Configuración", fontSize = 24.sp, fontWeight = FontWeight.Bold)
 
-        SettingRow(icon = R.drawable.alarma, label = "Activar alarmas") {
+        SettingRow(
+            icon = R.drawable.alarma,
+            label = "Activar alarmas",
+            help = "Interruptor general: con esto apagado no suena ninguna alarma",
+        ) {
             Checkbox(
                 checked = settings.alarmsEnabled,
                 onCheckedChange = { on -> state.updateSettings { it.copy(alarmsEnabled = on) } },
             )
         }
 
-        SettingRow(icon = R.drawable.llave, label = "Proteger aplicación") {
+        SettingRow(
+            icon = R.drawable.llave,
+            label = "Proteger aplicación",
+            help = "Oculta los botones de edición para que el niño no pueda cambiar nada",
+        ) {
             Checkbox(
                 checked = settings.appProtected,
                 onCheckedChange = { on ->
@@ -97,7 +106,10 @@ fun SettingsScreen(state: PictorarioState) {
             }
         }
 
-        SettingRow(label = "Formato horario") {
+        SettingRow(
+            label = "Formato horario",
+            help = "Alterna entre 12 horas con a.m. y p.m., y 24 horas",
+        ) {
             Button(onClick = { state.updateSettings { it.copy(format24h = !it.format24h) } }) {
                 Text(if (settings.format24h) "24 horas" else "12 horas")
             }
@@ -112,15 +124,22 @@ fun SettingsScreen(state: PictorarioState) {
             modifier = Modifier.fillMaxWidth(0.6f),
         )
 
-        Button(
-            onClick = { confirmReset = true },
-            modifier = Modifier.fillMaxWidth().height(60.dp),
-        ) { Text("Reiniciar configuración") }
+        Help(
+            "Borra tus secuencias y los pictogramas descargados, y devuelve las de ejemplo",
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Button(
+                onClick = { confirmReset = true },
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+            ) { Text("Reiniciar configuración") }
+        }
 
-        Button(
-            onClick = state::navigateHome,
-            modifier = Modifier.fillMaxWidth().height(60.dp),
-        ) { Text("Volver a la portada") }
+        Help("Volver a la portada", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = state::navigateHome,
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+            ) { Text("Volver a la portada") }
+        }
     }
 
     colorPicker?.let { index ->
@@ -179,6 +198,7 @@ fun SettingsScreen(state: PictorarioState) {
 @Composable
 private fun SettingRow(
     label: String,
+    help: String,
     icon: Int? = null,
     content: @Composable () -> Unit,
 ) {
@@ -186,7 +206,9 @@ private fun SettingRow(
         modifier = Modifier.fillMaxWidth().height(80.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(label, fontSize = 16.sp, modifier = Modifier.weight(1f))
+        Help(help, modifier = Modifier.weight(1f)) {
+            Text(label, fontSize = 16.sp)
+        }
         icon?.let {
             Image(
                 painter = painterResource(it),

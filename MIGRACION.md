@@ -459,6 +459,14 @@ Esta fase cambió de alcance al saberse que **la ficha había sido retirada de G
 - **Assets recomprimidos**: seis pictogramas venían a 2500×2500. El directorio pasa de 1,6 MB a 288 KB y los iconos de interfaz de 700 KB a 140 KB, conservando la transparencia. El APK de publicación baja de 3,4 MB a 2,4 MB.
 - **Icono adaptativo** en las cinco densidades, con capa monocroma para los temas dinámicos.
 
+## Añadidos que no estaban en el original
+
+Tres mejoras pedidas sobre la marcha, ninguna presente en la versión B4A:
+
+- **Indicadores en la portada.** Cada secuencia muestra un icono de alarma si tiene avisos activados —y sólo si el interruptor general también lo está, porque si no el icono mentiría— y un punto verde con el nombre de la actividad cuando alguna está transcurriendo en ese momento. La portada late una vez por minuto, así que ambos se mantienen al día en vez de congelarse en la hora a la que se abrió la pantalla.
+- **Ayuda al mantener pulsado.** Todos los botones e iconos accionables explican qué hacen si se mantiene el dedo encima. La aplicación se apoya mucho en iconos —engranajes, candados, amaneceres— y la maneja tanto un adulto que la configura de higos a brevas como un niño que no lee las etiquetas. El texto sirve además de descripción para lectores de pantalla. Comprobado en el emulador que la pulsación larga muestra la ayuda **sin disparar la acción**, y que el toque corto sigue funcionando.
+- **Aviso al cambiar de vista**, descrito en las notas de la fase 3.
+
 ---
 
 ## Correcciones respecto al original

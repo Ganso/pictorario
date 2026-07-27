@@ -45,6 +45,7 @@ import es.pictorario.app.domain.TimeFormat
 import es.pictorario.app.domain.TimeIndicator
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.domain.BOARD_TYPE_LABELS
+import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.Notice
 import es.pictorario.app.ui.common.NoticeController
 import es.pictorario.app.ui.common.PictogramImage
@@ -189,11 +190,13 @@ private fun DialArea(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             if (!settings.appProtected) {
-                Button(
-                    onClick = state::navigateHome,
-                    modifier = Modifier.weight(1f).height(60.dp),
-                ) {
-                    Text("Cerrar visualización", fontSize = 18.sp)
+                Help("Volver a la portada", modifier = Modifier.weight(1f)) {
+                    Button(
+                        onClick = state::navigateHome,
+                        modifier = Modifier.fillMaxWidth().height(60.dp),
+                    ) {
+                        Text("Cerrar visualización", fontSize = 18.sp)
+                    }
                 }
             } else {
                 Box(Modifier.weight(1f))
@@ -212,11 +215,21 @@ private fun DialArea(
                     notice.show("Cambiando vista a ${BOARD_TYPE_LABELS[next.ordinal]}")
                 }
             }
-            Image(
-                painter = painterResource(boardIcon(sequence.board.type, settings.appProtected)),
-                contentDescription = if (settings.appProtected) "Desbloquear" else "Cambiar vista",
-                modifier = Modifier.size(60.dp).then(protectedModifier),
-            )
+            val help = if (settings.appProtected) {
+                "Para salir: toca una vez y después mantén pulsado"
+            } else {
+                "Cambiar entre reloj de mañana, de tarde, de 24 horas y secuencia completa"
+            }
+            Help(help) {
+                Image(
+                    painter = painterResource(
+                        boardIcon(sequence.board.type, settings.appProtected),
+                    ),
+                    contentDescription =
+                        if (settings.appProtected) "Desbloquear" else "Cambiar vista",
+                    modifier = Modifier.size(60.dp).then(protectedModifier),
+                )
+            }
         }
 
     }

@@ -41,6 +41,7 @@ import es.pictorario.app.BuildConfig
 import es.pictorario.app.R
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.Help
 
 /** The changelog shown once after an update. Port of `Starter.CambiosVersion`. */
 const val VERSION_CHANGES =
@@ -71,27 +72,31 @@ fun AboutScreen(state: PictorarioState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Image(
-            painter = painterResource(R.drawable.logotipo),
-            contentDescription = "Página del proyecto",
-            modifier = Modifier.size(100.dp).clickable { open(PROJECT_URL) },
-        )
+        Help("Abrir la página del proyecto en el navegador") {
+            Image(
+                painter = painterResource(R.drawable.logotipo),
+                contentDescription = "Página del proyecto",
+                modifier = Modifier.size(100.dp).clickable { open(PROJECT_URL) },
+            )
+        }
         Text("Pictorario", fontSize = 36.sp, fontWeight = FontWeight.Bold)
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                painter = painterResource(R.drawable.trabajar_en_el_ordenador),
-                contentDescription = "Web del autor",
-                modifier = Modifier.size(80.dp).clickable { open(AUTHOR_URL) },
-            )
+            Help("Abrir la web del autor en el navegador") {
+                Image(
+                    painter = painterResource(R.drawable.trabajar_en_el_ordenador),
+                    contentDescription = "Web del autor",
+                    modifier = Modifier.size(80.dp).clickable { open(AUTHOR_URL) },
+                )
+            }
             Text(
                 text = labelled("Aplicación: ", "Javier Prieto Martínez (www.ganso.org)") +
                     labelled("\nLicencia: ", "CC (BY-NC-SA)"),
@@ -104,11 +109,13 @@ fun AboutScreen(state: PictorarioState) {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                painter = painterResource(R.drawable.pictogramas),
-                contentDescription = "Web de ARASAAC",
-                modifier = Modifier.size(80.dp).clickable { open(ARASAAC_URL) },
-            )
+            Help("Abrir la web de ARASAAC en el navegador") {
+                Image(
+                    painter = painterResource(R.drawable.pictogramas),
+                    contentDescription = "Web de ARASAAC",
+                    modifier = Modifier.size(80.dp).clickable { open(ARASAAC_URL) },
+                )
+            }
             Text(
                 text = labelled("Pictogramas: ", "Sergio Palao") +
                     labelled("\nProcedencia: ", "ARASAAC (www.arasaac.org)") +
@@ -132,21 +139,27 @@ fun AboutScreen(state: PictorarioState) {
             fontSize = 36.sp,
         )
 
-        Text(
-            text = "Versión ${BuildConfig.VERSION_NAME}",
-            fontSize = 14.sp,
-            modifier = Modifier.clickable { changelog = true },
-        )
+        Help("Ver las novedades de esta versión") {
+            Text(
+                text = "Versión ${BuildConfig.VERSION_NAME}",
+                fontSize = 14.sp,
+                modifier = Modifier.clickable { changelog = true },
+            )
+        }
 
-        Button(
-            onClick = { open(VIDEO_URL) },
-            modifier = Modifier.fillMaxWidth().height(60.dp),
-        ) { Text("Ver el vídeo de presentación") }
+        Help("Abrir el vídeo en el navegador", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { open(VIDEO_URL) },
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+            ) { Text("Ver el vídeo de presentación") }
+        }
 
-        Button(
-            onClick = state::navigateHome,
-            modifier = Modifier.fillMaxWidth().height(60.dp),
-        ) { Text("Volver a la portada") }
+        Help("Volver a la portada", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = state::navigateHome,
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+            ) { Text("Volver a la portada") }
+        }
     }
 
     if (changelog) {

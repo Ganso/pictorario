@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import es.pictorario.app.R
 import es.pictorario.app.data.ArasaacApi
 import es.pictorario.app.ui.PictorarioState
+import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.theme.FieldBorder
 import es.pictorario.app.ui.theme.FieldSurface
@@ -157,18 +158,22 @@ fun PickerScreen(state: PictorarioState) {
                 keyboardActions = KeyboardActions(onSearch = { runSearch() }),
                 modifier = Modifier.weight(1f),
             )
-            Image(
-                painter = painterResource(R.drawable.buscar),
-                contentDescription = "Buscar",
-                modifier = Modifier.size(56.dp).clickable(onClick = ::runSearch),
-            )
+            Help("Buscar en ARASAAC y descargar los pictogramas encontrados") {
+                Image(
+                    painter = painterResource(R.drawable.buscar),
+                    contentDescription = "Buscar",
+                    modifier = Modifier.size(56.dp).clickable(onClick = ::runSearch),
+                )
+            }
         }
 
-        Button(
-            onClick = { state.applyPickedPictogram(null) },
-            modifier = Modifier.fillMaxWidth().height(60.dp).padding(horizontal = 8.dp),
-        ) {
-            Text("Cancelar", fontSize = 18.sp)
+        Help("Volver sin cambiar el pictograma", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { state.applyPickedPictogram(null) },
+                modifier = Modifier.fillMaxWidth().height(60.dp).padding(horizontal = 8.dp),
+            ) {
+                Text("Cancelar", fontSize = 18.sp)
+            }
         }
     }
 }
