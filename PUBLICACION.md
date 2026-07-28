@@ -4,20 +4,11 @@
 
 ---
 
-## 0. Lo primero de todo: ¿se puede recuperar la ficha?
+## 0. Estado de la ficha — RESUELTO
 
-**Esto hay que resolverlo antes de escribir una sola línea más de código de producto.** Determina si la migración se publica como actualización o como aplicación nueva.
+**La ficha se puede actualizar.** Play Console admite subir una versión nueva, así que el `applicationId` `javi.prieto.pictorario` se conserva y con él las instalaciones, las reseñas y el historial. La versión publicada era la **107 (1.07)**; el proyecto va con `versionCode 200` / `versionName 2.0`.
 
-En [Play Console](https://play.google.com/console), con la cuenta del desarrollador:
-
-1. **¿Aparece Pictorario en la lista de aplicaciones?**
-   - Si aparece como *removed* / *retirada*, normalmente se puede reinstaurar subiendo una versión que cumpla y solicitando la revisión. Es el mejor escenario: se conservan instalaciones, reseñas e historial.
-   - Si aparece como *suspended* / *suspendida*, hay que apelar antes de poder subir nada.
-   - Si **no aparece** o el estado es *terminated*, el nombre de paquete `javi.prieto.pictorario` puede haber quedado **bloqueado para siempre**. En ese caso hay que publicar ficha nueva con otro `applicationId`.
-2. **Revisar el estado de la cuenta** en *Política → Estado de la aplicación* y el histórico de avisos. Si la cuenta acumula avisos, cualquier envío nuevo se revisa con más severidad.
-3. **Comprobar la clave de subida** en *Prueba y lanzamiento → Integridad de la aplicación* (ver la sección «Firma de la aplicación» de [MIGRACION.md](MIGRACION.md)).
-
-**Hasta que esto esté aclarado, el `applicationId` del proyecto es provisional.** Cambiarlo es una línea en `app/build.gradle.kts`.
+La aplicación **está enrolada en Play App Signing**: el certificado de firma de aplicación pertenece a Google (`CN=Android, O=Google Inc.`). Eso resuelve de raíz la preocupación anterior sobre la clave DSA — la clave con la que Google firma lo que llega a los usuarios es suya y no se toca.
 
 ---
 
@@ -31,9 +22,56 @@ En [Play Console](https://play.google.com/console), con la cuenta del desarrolla
 | Formato de subida | Android App Bundle (`.aab`) | `./build_and_copy.sh` genera AAB | ✅ |
 | 64 bits | Obligatorio si hay código nativo | Sin código nativo | ✅ (no aplica) |
 | `versionCode` | Mayor que el publicado (107) | **200** | ✅ |
-| Firma | Misma clave de subida registrada | `app/upload-keystore.jks`, alias `b4a` | ⚠️ **verificar huella en Console** |
+| Firma | Clave de subida registrada en Play | **Pendiente de restablecer** — ver sección 1 bis | ⚠️ **bloqueante** |
 
-**Aviso sobre la clave:** es **DSA de 1024 bits**, que `keytool` marca como débil y que Play no acepta como clave de firma de aplicación en Play App Signing (exige RSA de 2048 o más). Si la ficha no está ya enrolada, habrá que generar una **clave de subida RSA nueva**. Los comandos están en MIGRACION.md.
+---
+
+## 1 bis. La clave de subida — hay que restablecerla
+
+**Este es el único punto que bloquea la subida.** Comparando los certificados descargados de Play con las claves disponibles en local:
+
+| Clave | Titular | Huella SHA-256 |
+|---|---|---|
+| **Firma de aplicación** (de Google) | `CN=Android, O=Google Inc.` | `30:2B:C6:FB:04:DC:D3:E5:47:FF:0C:82:A1:0B:12:1B:14:E1:68:A1:FE:F9:36:F1:C6:1D:8E:CE:B1:DC:8F:32` |
+| **Subida registrada** en Play | `CN=Anywhere Software` | `32:75:24:70:A3:5A:7B:B0:A2:99:11:80:F0:2B:AF:F4:9A:41:B9:D6:B2:B5:E4:4E:8A:A7:CB:73:67:52:E0:03` |
+| `firma.keystore` que apareció en local | `CN=Javier Prieto Martínez` | `82:8C:FA:F1:40:6B:C0:BE:…` |
+
+**La clave de subida registrada NO es `firma.keystore`.** Es `CN=Anywhere Software`, que es la **clave de depuración por defecto del IDE de B4A** — la misma con la que está firmado `b4a/Objects/pictorario.apk`, huella idéntica. La versión 1.07 se publicó firmada con ella.
+
+Esa clave venía con el IDE de B4A, que ya no se usa y que sólo funciona en Windows. No está en este equipo, y aunque estuviera, es una clave compartida por todos los desarrolladores de B4A: no es defendible seguir usándola.
+
+### Qué hay que hacer
+
+El proyecto ya trae generada una clave de subida nueva, en condiciones:
+
+| | |
+|---|---|
+| Fichero | `app/upload-keystore-rsa.jks` (no versionado) |
+| Alias | `upload` |
+| Algoritmo | **RSA de 4096 bits** |
+| Titular | `CN=Javier Prieto Martinez, O=Pictorario, C=ES` |
+| Huella SHA-256 | `72:96:F7:68:00:B0:BE:FA:64:31:07:09:ED:44:C3:77:F1:BE:95:F0:C0:74:F2:9C:2A:FF:68:F6:D7:93:D1:E1` |
+| Certificado a enviar | `upload_certificate.pem`, en la raíz del proyecto |
+
+Las credenciales están en `keystore.properties` (permisos 600, ignorado por git) y hay copia en `~/copias-seguridad-claves/`. **Guarda una copia adicional en un gestor de contraseñas: si se pierde, hay que volver a pedir un restablecimiento.**
+
+Pasos en Play Console:
+
+1. **Prueba y lanzamiento → Integridad de la aplicación → Clave de subida**.
+2. Solicitar el **restablecimiento de la clave de subida**.
+3. Adjuntar `upload_certificate.pem`.
+4. Google tarda normalmente entre uno y dos días laborables en aplicarlo. Avisan por correo.
+5. Cuando confirmen, ya se puede subir el AAB firmado con la clave nueva.
+
+Mientras tanto se puede preparar todo lo demás: la ficha, la política de privacidad y el cuestionario de contenido no dependen de esto.
+
+---
+
+## 1 ter. El Digital Asset Links JSON: no hace falta
+
+Play ofrece ese fragmento para **Android App Links**: asociar un dominio a la aplicación de modo que al abrir un enlace `https://…` de tu web, Android abra la aplicación en vez del navegador.
+
+**Pictorario no tiene enlaces profundos**: no hay ninguna URL que deba abrir la aplicación. El fragmento se puede ignorar sin consecuencias. Sólo haría falta si algún día se quisiera, por ejemplo, que un enlace del blog abriese una secuencia concreta.
 
 ---
 
@@ -49,7 +87,7 @@ La decisión rectora: **la aplicación es plenamente funcional sin ningún permi
 | `VIBRATE` | Gesto del candado parental y aviso de actividad | Ninguno |
 | `RECEIVE_BOOT_COMPLETED` | Reprogramar la alarma tras reiniciar | Ninguno |
 | `POST_NOTIFICATIONS` | Avisos de actividad; se pide en runtime y se acepta la negativa | Ninguno |
-| `SCHEDULE_EXACT_ALARM` | **Opcional.** Sin él la alarma salta igual, con una ventana de 5 min | Bajo: no se concede solo, lo activa el adulto desde los ajustes del sistema |
+| `SCHEDULE_EXACT_ALARM` | **Opcional.** Sin él la alarma salta igual, mediante `setAndAllowWhileIdle`, que atraviesa el modo de reposo aunque no sea puntual al segundo | Bajo: no se concede solo, lo activa el adulto desde los ajustes del sistema |
 
 ### Lo que se ha descartado a propósito
 
@@ -70,11 +108,7 @@ La decisión rectora: **la aplicación es plenamente funcional sin ningún permi
 Pictorario está pensada para niños. Eso activa la **política de Familias**, que es de las más estrictas de Play. Puntos a cubrir en la Console:
 
 - [ ] **Público objetivo y contenido**: declarar el rango de edad. Al incluir menores de 13 años, se aplican requisitos adicionales.
-- [ ] **Política de privacidad**: **obligatoria**, con URL pública y accesible. No es opcional para aplicaciones dirigidas a menores aunque no se recoja ningún dato. Debe explicar que:
-  - la aplicación **no recoge ni transmite datos personales**;
-  - los horarios se guardan **sólo en el dispositivo**;
-  - al buscar un pictograma se envía **únicamente el texto tecleado** a `api.arasaac.org`, sin identificador alguno;
-  - no hay cuentas, publicidad, analítica ni rastreo.
+- [x] **Política de privacidad**: redactada en `docs/pictorarioprivacy.html`. **Hay que subirla a `https://ganso.org/pictorarioprivacy.html`** y poner esa URL en Play Console. La aplicación ya la enlaza desde «Acerca de».
 - [ ] **Formulario de seguridad de los datos**: declarar la búsqueda en ARASAAC como transmisión a un tercero. Es puntual, iniciada por el adulto y sin identificadores, pero **hay que declararla igual**.
 - [ ] **Clasificación de contenido**: rellenar el cuestionario. Sin violencia, sin compras, sin contenido generado por usuarios.
 - [ ] **Sin publicidad**: marcarlo. La aplicación no tiene ninguna.
@@ -120,7 +154,6 @@ Para ver los permisos que realmente lleva el artefacto:
 
 Estos puntos dependen de información que sólo está en Play Console o que conviene contrastar contra la política vigente en el momento de subir:
 
-- **Estado de la ficha y del nombre de paquete** (sección 0). Es lo que más condiciona todo lo demás.
-- **Huella de la clave de subida** y si la clave DSA sirve.
-- **Texto de la política de privacidad** y dónde alojarla.
+- **Restablecimiento de la clave de subida** (sección 1 bis). Es lo único que bloquea la subida.
+- **Subir la política de privacidad** a `https://ganso.org/pictorarioprivacy.html` y declararla en Play Console.
 - **Nivel de API mínimo exigido** en la fecha del envío: Play lo sube cada año, y el proyecto va con `targetSdk 36`. Verificar que sigue siendo suficiente.

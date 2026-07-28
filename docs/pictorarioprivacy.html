@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad · Pictorario</title>
+<style>
+  :root {
+    --texto: #1a1a1a;
+    --suave: #5a5f66;
+    --borde: #e3e6ea;
+    --fondo: #ffffff;
+    --acento: #1565c0;
+    --destacado: #f4f8fd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 2.5rem 1.25rem 4rem;
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--texto);
+    background: var(--fondo);
+  }
+  main { max-width: 42rem; margin: 0 auto; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .35rem; }
+  h2 { font-size: 1.2rem; margin: 2.4rem 0 .6rem; }
+  .fecha { color: var(--suave); font-size: .95rem; margin: 0 0 2rem; }
+  p, li { margin: .6rem 0; }
+  ul { padding-left: 1.3rem; }
+  a { color: var(--acento); }
+  .resumen {
+    background: var(--destacado);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .resumen p { margin: .4rem 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--borde); vertical-align: top; }
+  th { font-weight: 600; }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--borde); color: var(--suave); font-size: .9rem; }
+  code { background: #f2f4f5; padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+  @media (prefers-color-scheme: dark) {
+    :root { --texto: #e8eaed; --suave: #9aa0a6; --borde: #33383d; --fondo: #16191c; --acento: #7fb3f0; --destacado: #1d2226; }
+    code { background: #23282c; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Política de privacidad de Pictorario</h1>
+<p class="fecha">Última actualización: 28 de julio de 2026</p>
+
+<div class="resumen">
+  <p><strong>En resumen: Pictorario no recoge ningún dato personal.</strong></p>
+  <p>No hay cuentas de usuario, ni publicidad, ni analítica, ni rastreo. Los horarios que creas se guardan únicamente en tu dispositivo y no se envían a ninguna parte.</p>
+</div>
+
+<p>Pictorario es una aplicación gratuita para crear y visualizar horarios con pictogramas, pensada especialmente para niños con Trastorno del Espectro Autista. La desarrolla de forma independiente <strong>Javier Prieto Martínez</strong>.</p>
+
+<p>Esta política explica qué ocurre con la información cuando usas la aplicación. Se aplica a la aplicación Android <code>javi.prieto.pictorario</code> distribuida en Google Play.</p>
+
+<h2>Qué información se guarda y dónde</h2>
+
+<p>Todo lo que creas en Pictorario —las secuencias, sus actividades, los horarios, los pictogramas elegidos y las preferencias— se guarda <strong>exclusivamente en el almacenamiento privado de tu dispositivo</strong>. Ni el autor ni terceros tienen acceso a ello.</p>
+
+<table>
+  <tr><th>Información</th><th>Dónde vive</th><th>¿Sale del dispositivo?</th></tr>
+  <tr><td>Horarios y actividades que creas</td><td>Almacenamiento privado de la aplicación</td><td>No</td></tr>
+  <tr><td>Pictogramas descargados</td><td>Almacenamiento privado de la aplicación</td><td>No</td></tr>
+  <tr><td>Preferencias (alarmas, colores, formato horario)</td><td>Almacenamiento privado de la aplicación</td><td>No</td></tr>
+</table>
+
+<p>Si tienes activada la copia de seguridad de Android, el sistema puede incluir tus horarios en la copia asociada a tu cuenta de Google. Eso lo gestiona Android, no Pictorario, y se rige por la política de privacidad de Google. Puedes desactivarlo desde los ajustes de tu dispositivo.</p>
+
+<h2>Datos personales</h2>
+
+<p><strong>Pictorario no recoge, almacena ni transmite ningún dato personal.</strong> En concreto, la aplicación no accede ni utiliza:</p>
+
+<ul>
+  <li>Nombre, correo electrónico ni ningún dato de contacto</li>
+  <li>Cuentas de usuario: la aplicación no tiene registro ni inicio de sesión</li>
+  <li>Ubicación</li>
+  <li>Contactos, agenda, fotos, cámara ni micrófono</li>
+  <li>Identificadores publicitarios ni de dispositivo</li>
+  <li>Historial de uso o de navegación</li>
+</ul>
+
+<p>No hay publicidad, ni analítica, ni herramientas de medición, ni SDK de terceros de ningún tipo.</p>
+
+<h2>La única conexión a internet: ARASAAC</h2>
+
+<p>Pictorario usa los pictogramas de <a href="https://arasaac.org" rel="noopener">ARASAAC</a>, el Portal Aragonés de la Comunicación Aumentativa y Alternativa.</p>
+
+<p>La aplicación incluye ya instalados los pictogramas necesarios para funcionar. <strong>Sólo se conecta a internet cuando un adulto busca un pictograma nuevo</strong> desde la pantalla de selección. En ese momento:</p>
+
+<ul>
+  <li>Se envía a <code>api.arasaac.org</code> <strong>únicamente la palabra que se ha escrito</strong> en el buscador.</li>
+  <li>Se descargan de <code>static.arasaac.org</code> las imágenes correspondientes.</li>
+  <li><strong>No se envía ningún identificador</strong> de usuario, de dispositivo ni de sesión. La petición no permite reconocer quién la hace.</li>
+  <li>El texto buscado no se guarda en ninguna parte.</li>
+</ul>
+
+<p>Como en cualquier conexión a internet, el servidor de ARASAAC recibe la dirección IP desde la que se realiza la petición, algo inherente al funcionamiento de la red. El tratamiento que ARASAAC haga de esa información se rige por sus propias condiciones.</p>
+
+<p>Si nunca usas el buscador, la aplicación no se conecta a internet en ningún momento.</p>
+
+<h2>Permisos que utiliza la aplicación</h2>
+
+<table>
+  <tr><th>Permiso</th><th>Para qué se usa</th></tr>
+  <tr><td>Internet</td><td>Buscar y descargar pictogramas de ARASAAC, sólo cuando lo pide el adulto</td></tr>
+  <tr><td>Notificaciones</td><td>Avisar de que empieza una actividad</td></tr>
+  <tr><td>Alarmas y recordatorios</td><td>Que el aviso llegue a la hora exacta. Es opcional: sin él la aplicación funciona igual, sólo que el aviso puede retrasarse</td></tr>
+  <tr><td>Vibración</td><td>Acompañar el aviso y confirmar el gesto de desbloqueo</td></tr>
+  <tr><td>Iniciar al arrancar</td><td>Volver a programar las alarmas después de reiniciar el dispositivo</td></tr>
+</table>
+
+<p>La aplicación no solicita acceso a la cámara, el micrófono, los contactos, la ubicación, las fotos ni el almacenamiento externo.</p>
+
+<h2>Niños y familias</h2>
+
+<p>Pictorario está pensada para que la configure un adulto y la use un niño. Precisamente por eso <strong>no recoge ningún dato</strong>: no hay nada que un menor pueda facilitar a la aplicación ni que la aplicación pueda transmitir sobre él.</p>
+
+<p>La aplicación no contiene publicidad, ni compras integradas, ni contenido generado por otros usuarios, ni enlaces a redes sociales. La pantalla «Acerca de» incluye enlaces a las páginas del autor, de ARASAAC y del proyecto, que se abren en el navegador del dispositivo; esos enlaces desaparecen de la vista cuando está activado el bloqueo parental.</p>
+
+<h2>Tus derechos</h2>
+
+<p>Como Pictorario no recoge ni conserva ningún dato personal, no hay información sobre ti que solicitar, rectificar o suprimir. Si quieres borrar todo lo que la aplicación guarda en tu dispositivo, puedes hacerlo de dos maneras:</p>
+
+<ul>
+  <li>Desde la propia aplicación: <em>Configuración → Reiniciar configuración</em>.</li>
+  <li>Desinstalando la aplicación, lo que elimina por completo sus datos del dispositivo.</li>
+</ul>
+
+<h2>Cambios en esta política</h2>
+
+<p>Si esta política cambia, se publicará la versión actualizada en esta misma dirección, con su fecha. Los cambios sustanciales se indicarán además en las notas de la versión en Google Play.</p>
+
+<h2>Contacto</h2>
+
+<p>Para cualquier duda sobre esta política o sobre la aplicación, puedes escribir a <a href="mailto:javi@ganso.org">javi@ganso.org</a>.</p>
+
+<footer>
+  <p>Pictorario es software libre y su código fuente está disponible en <a href="https://github.com/Ganso/pictorario" rel="noopener">github.com/Ganso/pictorario</a>.</p>
+  <p>Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón, han sido creados por Sergio Palao para ARASAAC y se distribuyen bajo licencia Creative Commons BY-NC-SA.</p>
+</footer>
+
+</main>
+</body>
+</html>

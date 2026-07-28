@@ -17,3 +17,5 @@ app/build/
 *.pepk
 keystore.properties
 clave*.txt
+*.pem
+*.der

@@ -33,6 +33,7 @@ import es.pictorario.app.alarm.AlarmScheduler
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ColorPickerDialog
 import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.ExactAlarmBanner
 import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.HandColorRow
 
@@ -86,30 +87,8 @@ fun SettingsScreen(state: PictorarioState) {
             )
         }
 
-        // Exact alarms are opt-in: without them the app still works, so the row
-        // only appears while the permission is missing and simply hands over to
-        // the system screen that grants it.
-        if (!AlarmScheduler.canScheduleExact(context)) {
-            Column {
-                Text(
-                    text = "Los avisos pueden retrasarse unos minutos. Para que " +
-                        "suenen a la hora exacta, concede el permiso de alarmas.",
-                    fontSize = 14.sp,
-                )
-                Help(
-                    "Abre los ajustes de Android donde se concede el permiso",
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Button(
-                        onClick = {
-                            AlarmScheduler.exactAlarmSettingsIntent(context)
-                                ?.let { runCatching { context.startActivity(it) } }
-                        },
-                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                    ) { Text("Permitir avisos puntuales") }
-                }
-            }
-        }
+        // Mismo aviso que en la portada: desaparece solo al conceder el permiso.
+        ExactAlarmBanner()
 
         SettingRow(
             label = "Formato horario",

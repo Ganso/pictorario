@@ -28,7 +28,9 @@ Los permisos que declara son exactamente cinco: acceso a internet para descargar
 
 **Los datos no salen del dispositivo.** No hay cuentas, publicidad, analítica ni rastreo. Lo único que se envía a un tercero es el texto que el adulto teclea al buscar un pictograma, que va a ARASAAC sin identificador alguno.
 
-Antes de subir cualquier versión hay que seguir [PUBLICACION.md](PUBLICACION.md).
+Antes de subir cualquier versión hay que seguir [PUBLICACION.md](PUBLICACION.md), y pasar la batería de pruebas de [PRUEBAS.md](PRUEBAS.md) en un móvil real.
+
+La política de privacidad está en [`docs/pictorarioprivacy.html`](docs/pictorarioprivacy.html) y se publica en <https://ganso.org/pictorarioprivacy.html>.
 
 ## Compilar
 

@@ -8,7 +8,6 @@ import android.os.Build
 import es.pictorario.app.domain.AlarmCalculator
 import es.pictorario.app.domain.AppData
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.ZoneId
 
 /**
@@ -21,39 +20,46 @@ object AlarmScheduler {
     /** Arms the next alarm and refreshes the standing notification. */
     fun reschedule(context: Context, data: AppData) {
         val manager = context.getSystemService(AlarmManager::class.java) ?: return
-        val pending = firePendingIntent(context)
 
-        manager.cancel(pending)
+        manager.cancel(firePendingIntent(context, sequenceIndex = -1, activityIndex = -1))
 
-        val now = LocalTime.now()
+        val now = LocalDateTime.now()
         val next = AlarmCalculator.next(data, now.hour * 60 + now.minute)
         Notifications.showUpcoming(context, data, next)
         if (next == null) return
 
-        val triggerAt = LocalDateTime.now()
-            .toLocalDate()
+        val triggerAt = now.toLocalDate()
             .plusDays(if (next.isTomorrow) 1 else 0)
             .atTime(next.hour, next.minute)
             .atZone(ZoneId.systemDefault())
             .toInstant()
             .toEpochMilli()
 
-        // Exact alarms are an optional extra, not a requirement. Without the
-        // permission the alarm still fires, just inside a window — which needs
-        // no permission at all and keeps the app off Play's restricted list.
+        // Which activity this alarm is for travels inside the intent. Working it
+        // out again from the clock when the alarm goes off was the bug that made
+        // the alarm silently do nothing: a delay of even one minute pushed the
+        // lookup past the start time and the receiver concluded the activity was
+        // tomorrow's.
+        val pending = firePendingIntent(context, next.sequenceIndex, next.activityIndex)
+
         if (canScheduleExact(context, manager)) {
             manager.setAlarmClock(
                 AlarmManager.AlarmClockInfo(triggerAt, showPendingIntent(context)),
                 pending,
             )
         } else {
-            manager.setWindow(AlarmManager.RTC_WAKEUP, triggerAt, INEXACT_WINDOW_MILLIS, pending)
+            // Without the exact-alarm permission the alarm still has to survive
+            // Doze, which is precisely when a schedule matters: the device is
+            // idle because the child is not using it. setWindow gets no such
+            // exemption and could be held back for hours; this one fires, just
+            // not to the second.
+            manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pending)
         }
     }
 
     /**
      * Opens the system screen where exact alarms are granted. Only reachable
-     * from a button the adult presses in Settings, never on its own.
+     * from a button the adult presses, never on its own.
      */
     fun exactAlarmSettingsIntent(context: Context): Intent? {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return null
@@ -64,7 +70,8 @@ object AlarmScheduler {
     }
 
     fun cancel(context: Context) {
-        context.getSystemService(AlarmManager::class.java)?.cancel(firePendingIntent(context))
+        context.getSystemService(AlarmManager::class.java)
+            ?.cancel(firePendingIntent(context, sequenceIndex = -1, activityIndex = -1))
     }
 
     /** Whether the system will honour an exact alarm right now. */
@@ -74,10 +81,23 @@ object AlarmScheduler {
         return alarms.canScheduleExactAlarms()
     }
 
-    private fun firePendingIntent(context: Context): PendingIntent = PendingIntent.getBroadcast(
+    /**
+     * The alarm's own intent. Two `PendingIntent`s match when their intents are
+     * `filterEquals`, which ignores extras, so the same request code always
+     * refers to the one armed alarm and `FLAG_UPDATE_CURRENT` refreshes which
+     * activity it points at.
+     */
+    private fun firePendingIntent(
+        context: Context,
+        sequenceIndex: Int,
+        activityIndex: Int,
+    ): PendingIntent = PendingIntent.getBroadcast(
         context,
         0,
-        Intent(context, AlarmReceiver::class.java).setAction(AlarmReceiver.ACTION_FIRE),
+        Intent(context, AlarmReceiver::class.java)
+            .setAction(AlarmReceiver.ACTION_FIRE)
+            .putExtra(AlarmReceiver.EXTRA_SEQUENCE, sequenceIndex)
+            .putExtra(AlarmReceiver.EXTRA_ACTIVITY, activityIndex),
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 
@@ -88,6 +108,4 @@ object AlarmScheduler {
         Intent(context, es.pictorario.app.MainActivity::class.java),
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
-
-    private const val INEXACT_WINDOW_MILLIS = 5 * 60 * 1000L
 }

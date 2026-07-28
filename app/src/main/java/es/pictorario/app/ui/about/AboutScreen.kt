@@ -56,6 +56,7 @@ private const val AUTHOR_URL = "http://www.ganso.org"
 private const val ARASAAC_URL = "http://www.arasaac.org"
 private const val PROJECT_URL = "http://blog.ganso.org/proyectos/pictorario"
 private const val VIDEO_URL = "http://Bit.ly/VideoPictorario"
+private const val PRIVACY_URL = "https://ganso.org/pictorarioprivacy.html"
 
 /** Credits, licences and links. Port of `AcercaDe.bas`. */
 @Composable
@@ -145,6 +146,13 @@ fun AboutScreen(state: PictorarioState) {
                 fontSize = 14.sp,
                 modifier = Modifier.clickable { changelog = true },
             )
+        }
+
+        Help("Abrir la política de privacidad en el navegador", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { open(PRIVACY_URL) },
+                modifier = Modifier.fillMaxWidth().height(60.dp),
+            ) { Text("Política de privacidad") }
         }
 
         Help("Abrir el vídeo en el navegador", modifier = Modifier.fillMaxWidth()) {

@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import es.pictorario.app.domain.Activity
 import es.pictorario.app.ui.clock.rememberClockTick
+import es.pictorario.app.ui.common.ExactAlarmBanner
 import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.lockGesture
@@ -96,6 +97,12 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
 
             if (nextAlarm != null) {
                 item { NextAlarmRow(nextAlarm, sequences, state) }
+            }
+
+            // Sólo tiene sentido pedir el permiso si hay alguna alarma que
+            // pueda llegar tarde.
+            if (settings.alarmsEnabled && sequences.any { it.notifications }) {
+                item { ExactAlarmBanner() }
             }
 
             item {
