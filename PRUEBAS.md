@@ -2,15 +2,17 @@
 
 Pensada para pasarla **en un móvil real**, no en el emulador. Marca lo que vayas comprobando y anota cualquier cosa rara aunque parezca menor.
 
-Instala con:
+Con el móvil conectado por USB:
 
 ```bash
-./build_and_copy.sh --dry-run
+./build_and_copy.sh
 ```
 
-y pasa el APK al móvil, o conéctalo por USB y usa `./build_and_copy.sh` directamente.
+compila, instala el APK de depuración y abre la aplicación. Para sólo compilar, `--dry-run`.
 
-> **Ojo:** el APK de depuración se instala como `javi.prieto.pictorario.debug`, así que **convive** con la versión publicada. Para probar el comportamiento real de publicación, instala el AAB desde un canal de pruebas internas de Play.
+> **Ojo:** el APK de depuración se instala como `javi.prieto.pictorario.debug` y **convive** con la versión publicada, lo que va bien para comparar. Pero el permiso de alarmas exactas y el de notificaciones se conceden por separado a cada uno.
+>
+> **Lo que se sube a producción hay que probarlo como AAB desde un canal de pruebas internas de Play**, no sólo con el APK de depuración: R8 sólo actúa en release y puede sacar a la luz problemas que en depuración no aparecen.
 
 ---
 

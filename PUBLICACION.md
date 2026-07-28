@@ -171,6 +171,41 @@ Para ver los permisos que realmente lleva el artefacto:
 
 ---
 
+## 5 bis. Notas de la versión 2.0
+
+Google Play limita este campo a **500 caracteres**. Texto listo para pegar en *Novedades* (español):
+
+```
+Pictorario se ha reescrito por completo para volver a cumplir los requisitos de Google Play y funcionar en las versiones actuales de Android.
+
+• El aviso vuelve a abrir el horario a pantalla completa cuando empieza una actividad.
+• Mantén pulsado cualquier botón o icono para ver qué hace.
+• La portada señala las secuencias con alarma y la actividad en curso.
+• Corregidos varios errores del reloj y de los horarios.
+
+IMPORTANTE: la configuración se reinicia. Los horarios de la versión anterior no se conservan.
+```
+
+El aviso del reinicio de configuración **no es opcional**: quien actualice desde la 1.07 perderá sus secuencias, porque los datos antiguos se guardaban en un formato propio de B4A que no se migra. Decirlo aquí evita reseñas negativas de gente que crea que ha perdido su trabajo por un fallo.
+
+La aplicación además lo explica al arrancar por primera vez tras actualizar, en el aviso de novedades.
+
+### Versión larga, por si hace falta en otro sitio
+
+Pictorario 2.0 es una reescritura completa en Kotlin. La versión anterior estaba hecha en B4A con un nivel de API que Google Play dejó de admitir, lo que obligó a retirar la aplicación; esta versión vuelve a cumplir y podrá seguir actualizándose.
+
+Cambios visibles:
+
+- Cuando empieza una actividad, el aviso enciende la pantalla y muestra el horario con el pictograma en grande, incluso con el móvil bloqueado.
+- Todos los botones e iconos explican qué hacen si se mantiene el dedo encima.
+- La portada indica qué secuencias tienen alarma y qué actividad está en curso.
+- El editor avisa cuando una hora no se puede aplicar porque se solapa con otra actividad, en lugar de cambiarla en silencio.
+- El botón Atrás funciona con normalidad en toda la aplicación.
+
+Correcciones respecto a la versión anterior: las agujas del reloj eran elípticas, el cambio de tipo de tablero no se guardaba, faltaba un color en la paleta de actividades, el temporizador seguía corriendo en segundo plano, y el toque sobre el reloj podía seleccionar una actividad desde cualquier punto de la pantalla.
+
+---
+
 ## 6. Pendiente de comprobación
 
 Estos puntos dependen de información que sólo está en Play Console o que conviene contrastar contra la política vigente en el momento de subir:

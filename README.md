@@ -4,11 +4,11 @@ Esta aplicación es completamente gratuita, y ha sido creada por su autor como T
 
 Los símbolos pictográficos utilizados son propiedad del Gobierno de Aragón y han sido creados por Sergio Palao para ARASAAC (http://arasaac.org) que los distribuye bajo licencia Creative Commons (BY-NC-SA).
 
-[Presentación en Youtube](https://youtu.be/cjTAGguz5H0?si=9tW0Vji1QCRNCyKs)
+[Presentación en Youtube](https://www.youtube.com/watch?v=cjTAGguz5H0)
 
 # Versión 2.0: reescritura en Kotlin
 
-**Migración en curso.** La versión 1.x estaba escrita en [B4A (Basic4Android)](https://www.b4x.com/b4a.html) y se conserva íntegra en la carpeta [`b4a/`](b4a/). La versión 2.0 es una reescritura completa en **Kotlin nativo con Jetpack Compose**, manteniendo la misma interfaz y funcionalidad.
+La versión 1.x estaba escrita en [B4A (Basic4Android)](https://www.b4x.com/b4a.html) y se conserva íntegra en la carpeta [`b4a/`](b4a/). La versión 2.0 es una reescritura completa en **Kotlin nativo con Jetpack Compose**, manteniendo la misma interfaz y funcionalidad.
 
 Los motivos de la migración:
 
@@ -16,15 +16,15 @@ Los motivos de la migración:
 - El IDE de B4A es propietario y sólo funciona en Windows.
 - Desde Android 10, el sistema bloquea el arranque de una *Activity* desde un servicio en segundo plano, que es justo el mecanismo con el que la versión antigua avisaba de una actividad.
 
-El plan de trabajo completo, fase a fase, está en [MIGRACION.md](MIGRACION.md).
+El registro de cómo se hizo, qué se decidió y qué se corrigió respecto al original está en [MIGRACION.md](MIGRACION.md).
 
 > **Aviso para quien actualice desde la versión 1.x:** la configuración se reinicia. Los datos antiguos se guardaban en un formato propio de B4A que no se migra, así que la aplicación arranca con las secuencias de ejemplo.
 
 ## Publicación
 
-La ficha de Pictorario fue **retirada de Google Play por incumplimiento de políticas**, al no haberse actualizado al nivel de API exigido. Por eso el proyecto adopta la postura más conservadora posible: la aplicación es plenamente funcional **sin ningún permiso sujeto a revisión de políticas**.
+La ficha de Pictorario fue **retirada de Google Play por incumplimiento de políticas**, al no haberse actualizado al nivel de API exigido. La 2.0 vuelve a cumplir y el criterio del proyecto es pedir lo mínimo imprescindible.
 
-Los permisos que declara son exactamente cinco: acceso a internet para descargar pictogramas, vibración, reprogramar la alarma tras reiniciar, notificaciones y —opcional— alarmas exactas. Se ha renunciado a propósito a `USE_EXACT_ALARM` y a `USE_FULL_SCREEN_INTENT`, que Google Play reserva a aplicaciones de despertador, calendario o llamadas.
+Declara seis permisos: internet para descargar pictogramas, vibración, reprogramar la alarma tras reiniciar, notificaciones, alarmas exactas (opcional, lo concede el usuario) y apertura a pantalla completa para el aviso de actividad. Este último está sujeto a revisión de Google Play y su justificación está redactada en [PUBLICACION.md](PUBLICACION.md); se declara porque sin él el aviso no cumple su función para un niño que no lee. **No** se declara `USE_EXACT_ALARM`.
 
 **Los datos no salen del dispositivo.** No hay cuentas, publicidad, analítica ni rastreo. Lo único que se envía a un tercero es el texto que el adulto teclea al buscar un pictograma, que va a ARASAAC sin identificador alguno.
 
@@ -71,3 +71,36 @@ Antes de generar una versión para publicar, editar **`app/build.gradle.kts`** y
 # Histórico
 
 La carpeta [`b4a/`](b4a/) contiene el proyecto original en B4A, congelado tal como quedó en la versión 1.07. No se compila y se conserva únicamente como referencia durante la migración y como memoria del proyecto. Su documentación original está en [`b4a/README.md`](b4a/README.md), e incluye el enlace a la memoria del Trabajo Fin de Grado presentada a la Universidad Internacional de La Rioja.
+
+# Ideas para más adelante
+
+Nada de esto entra en la 2.0, que es paridad funcional con la versión original más las correcciones. Se recoge para no perderlo.
+
+**Accesibilidad y comunicación**
+- [ ] Lectura en voz alta de la actividad con TTS (la app no tiene voz; útil para quien no lee)
+- [ ] Repasar etiquetas de TalkBack, tamaños táctiles y escalado de fuente del sistema
+- [ ] Modo alto contraste y tema oscuro
+- [ ] Localizar la interfaz a otros idiomas (hoy todo el texto está en castellano)
+- [ ] Búsqueda de pictogramas en otros idiomas (la API lo soporta; el código tiene `es` fijo)
+
+**Funcionalidad**
+- [ ] Secuencias por día de la semana (hoy una secuencia no distingue días)
+- [ ] Marcar actividades como completadas, con refuerzo visual
+- [ ] Temporizador o cuenta atrás visual de la actividad en curso
+- [ ] Programar varias alarmas a la vez (hoy sólo se programa la más próxima)
+- [ ] Actividades que cruzan la medianoche (el modelo actual topa en 23:59)
+- [ ] Usar fotos propias como pictogramas (cámara y galería)
+- [ ] Exportar e importar secuencias, para compartirlas entre cuidadores o dispositivos
+- [ ] Copia de seguridad y restauración
+- [ ] Widget de pantalla de inicio con la actividad actual
+- [ ] Elevar los límites de 10 secuencias y 20 actividades (el de 20 exige ampliar la paleta de colores)
+
+**Presentación**
+- [ ] Disposición específica para tablet y para horizontal (hoy portrait fijo)
+- [ ] Estilos alternativos de esfera de reloj
+- [ ] Usar los pictogramas `_2500` en pantallas grandes
+
+**Proyecto**
+- [ ] Actualizar a AGP 9.1 y compileSdk 37 para poder usar las últimas versiones de AndroidX
+- [ ] CI en GitHub Actions que compile el AAB y ejecute los tests
+- [ ] Capturas y material gráfico nuevos para la ficha de Play

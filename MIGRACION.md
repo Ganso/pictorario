@@ -1,7 +1,8 @@
 # Migración de Pictorario: B4A → Kotlin + Jetpack Compose
 
-> **Plan de trabajo aprobado el 27/07/2026. Pendiente de ejecutar.**
-> Documento vivo: al completar cada fase, marcarla aquí. La sección «Mejoras futuras» se trasladará al README en la fase 9.
+> **Migración completada el 28/07/2026.** Las diez fases están hechas y verificadas.
+>
+> Este documento deja de ser un plan y pasa a ser el **registro de por qué la aplicación es como es**: qué se decidió, qué se encontró al portar cada pantalla y qué se corrigió respecto al original. Para publicar, el documento a seguir es [PUBLICACION.md](PUBLICACION.md); para probar, [PRUEBAS.md](PRUEBAS.md).
 
 ## Contexto
 
@@ -452,8 +453,9 @@ La pantalla del reloj queda completa. Comparativa en `docs/comparativas/fase4-re
 
 Esta fase cambió de alcance al saberse que **la ficha había sido retirada de Google Play por incumplimiento**. El cumplimiento pasó de ser un trámite final a ser el criterio rector, y costó funcionalidad a propósito. Todo el detalle está en [PUBLICACION.md](PUBLICACION.md).
 
-- **Se renuncia a `USE_EXACT_ALARM` y a `USE_FULL_SCREEN_INTENT`.** Google Play los reserva a aplicaciones cuya función principal es despertador, calendario o llamadas. Pictorario es defendible como agenda, pero una declaración rechazada bloquearía la republicación, que es exactamente lo que no se puede arriesgar. **Consecuencia:** el aviso ya no abre el reloj a pantalla completa sobre el dispositivo bloqueado; ahora es una notificación prominente con sonido y vibración que lo abre al tocarla.
-- **Las alarmas exactas pasan a ser opcionales.** Por defecto se usa `setWindow`, que no requiere permiso alguno; si el adulto concede `SCHEDULE_EXACT_ALARM` desde los ajustes del sistema, se usa `setAlarmClock`. La fila correspondiente sólo aparece en Configuración mientras falte el permiso.
+- **Se renuncia a `USE_EXACT_ALARM`.** Google Play lo reserva a aplicaciones cuya función principal es despertador o calendario, y una declaración rechazada bloquearía la republicación.
+- **`USE_FULL_SCREEN_INTENT` se renunció primero y se recuperó después.** Probada la notificación sola en un móvil real, no cumplía su función: llegaba la hora y el niño no se enteraba. Se declara, con la justificación redactada en PUBLICACION.md. Es el único permiso restringido que pide la aplicación.
+- **Las alarmas exactas son opcionales.** Sin el permiso se usa `setAndAllowWhileIdle`, que atraviesa el modo de reposo y no requiere nada; con él, `setAlarmClock`. El aviso para concederlo aparece en la portada, no escondido en Configuración, porque ahí no lo encontraba nadie.
 - **Permisos del artefacto de publicación verificados con `aapt2`**: `INTERNET`, `VIBRATE`, `RECEIVE_BOOT_COMPLETED`, `POST_NOTIFICATIONS` y `SCHEDULE_EXACT_ALARM`. Nada más.
 - **Reglas de copia de seguridad** que respaldan los horarios y dejan fuera los pictogramas descargados, que se pueden volver a obtener. `lintVitalRelease` rechazó la primera versión de esas reglas por redundante, y con razón.
 - **Assets recomprimidos**: seis pictogramas venían a 2500×2500. El directorio pasa de 1,6 MB a 288 KB y los iconos de interfaz de 700 KB a 140 KB, conservando la transparencia. El APK de publicación baja de 3,4 MB a 2,4 MB.
@@ -492,7 +494,7 @@ A documentar en el README:
 | `Visualizacion.bas:307-332` | Sectores con borde exterior poligonal | `drawArc` con arco real |
 | `SeleccionPictogramas.bas:82-83` | Topes fijos de 100/60 resultados, cuando la API devuelve hasta 145 | `LazyVerticalGrid` sin tope artificial |
 | `SeleccionPictogramas.bas:117` | Descargas secuenciales | Concurrentes con `Semaphore(6)` |
-| `Avisos.bas:26-30` | `StartActivity` desde Service: bloqueado en Android 10+ | Notificación prominente que abre el reloj al tocarla |
+| `Avisos.bas:26-30` | `StartActivity` desde Service: bloqueado en Android 10+ | Notificación con intent a pantalla completa, que es el mecanismo que Android ofrece para esto |
 | `ArranqueAutomatico.bas` | Sólo reprograma en `BOOT_COMPLETED` | También en `MY_PACKAGE_REPLACED`, `TIME_SET`, `TIMEZONE_CHANGED` |
 | Manifest | `WRITE_EXTERNAL_STORAGE`, `WRITE_SETTINGS`, `WAKE_LOCK`, `FOREGROUND_SERVICE` sin uso | Eliminados |
 | Assets | Seis pictogramas a 2500×2500 y cuatro iconos JPEG con extensión `.png` | Recomprimidos a 500×500 y convertidos |
@@ -531,123 +533,19 @@ Para comparar contra la versión antigua, instalar en paralelo el APK B4A: `adb 
 - Toque en sector y en botón-pictograma seleccionan la misma actividad; el carrusel se sincroniza en ambos sentidos.
 - El editor ordena y recorta solapes igual; el `TimePicker` respeta el formato 12/24 h.
 - Buscar y descargar un pictograma nuevo; persiste tras reiniciar la app.
-- Alarma: actividad a 2 minutos vista, dispositivo bloqueado → salta el aviso a pantalla completa. Reiniciar el móvil y comprobar que sigue programada. Cambiar la hora del sistema y comprobar la reprogramación.
+- Alarma: actividad a 2 minutos vista, dispositivo bloqueado → la pantalla se enciende y aparece el tablero con el aviso. Reiniciar el móvil y comprobar que sigue programada. Cambiar la hora del sistema y comprobar la reprogramación.
+
+La batería completa, para pasar a mano en un móvil real, está en [PRUEBAS.md](PRUEBAS.md).
 - Bloqueo parental: activar, comprobar que desaparecen los controles de edición y que **Atrás sigue funcionando**; desbloquear con el gesto corto+largo.
 
 **Release**: `./build_and_copy.sh` genera APK debug y AAB release firmado, con `versionCode` > 107.
 
 ---
 
-## Mejoras futuras (TODO, sin detalle)
-
-Lista para la sección final del README. **Nada de esto entra en la migración**: la 2.0 es paridad funcional. Se recoge aquí para no perderlo.
-
-**Accesibilidad y comunicación**
-- [ ] Lectura en voz alta de la actividad con TTS (la app no tiene voz; útil para quien no lee)
-- [ ] Etiquetas de TalkBack, tamaños táctiles y respeto al escalado de fuente del sistema
-- [ ] Modo alto contraste y tema oscuro
-- [ ] Localizar la interfaz a otros idiomas (hoy todo el texto está en castellano)
-- [ ] Búsqueda de pictogramas en otros idiomas (la API lo soporta; el código tiene `es` fijo)
-
-**Funcionalidad**
-- [ ] Secuencias por día de la semana (hoy una secuencia no distingue días)
-- [ ] Marcar actividades como completadas, con refuerzo visual
-- [ ] Temporizador o cuenta atrás visual de la actividad en curso
-- [ ] Programar varias alarmas a la vez (hoy sólo se programa la más próxima)
-- [ ] Actividades que cruzan la medianoche (el modelo actual topa en 23:59)
-- [ ] Usar fotos propias como pictogramas (cámara y galería)
-- [ ] Exportar e importar secuencias, para compartirlas entre cuidadores o dispositivos
-- [ ] Copia de seguridad y restauración
-- [ ] Widget de pantalla de inicio con la actividad actual
-- [ ] Elevar los límites de 10 secuencias y 20 actividades (el de 20 exige ampliar la paleta de colores)
-
-**Presentación**
-- [ ] Disposición específica para tablet y para horizontal (hoy portrait fijo)
-- [ ] Estilos alternativos de esfera de reloj
-- [ ] Usar los pictogramas `_2500` en pantallas grandes
-
-**Proyecto**
-- [ ] Actualizar a AGP 9.1 y compileSdk 37 para poder usar las últimas versiones de AndroidX
-- [ ] CI en GitHub Actions que compile el AAB y ejecute los tests
-- [ ] Capturas y material gráfico nuevos para la ficha de Play
-
----
-
 ## Firma de la aplicación
 
-**Estado: keystore localizado y funcionando.** El release se compila y firma correctamente.
+Todo lo relativo a claves, certificados y publicación vive en [PUBLICACION.md](PUBLICACION.md).
 
-| Dato | Valor |
-|---|---|
-| Fichero | `app/upload-keystore.jks` (no versionado) |
-| Formato | JKS |
-| Alias | `b4a` |
-| Titular | `CN=Javier Prieto Martínez, O=Javi Prieto, C=sp` |
-| Creado | 23/05/2018 · válido hasta 20/09/2056 |
-| Algoritmo | **DSA de 1024 bits** con SHA256withDSA |
-| Huella SHA-256 | `82:8C:FA:F1:40:6B:C0:BE:1B:4A:DB:EB:3C:DA:E7:A3:7D:6E:B3:89:75:E2:F6:8D:44:CD:4C:11:10:9C:6C:66` |
-| Huella SHA-1 | `8C:E5:E6:CA:9E:86:32:80:6E:92:19:3B:7C:C9:96:68:F3:FC:23:30` |
-
-La contraseña del almacén sirve también para la clave. Se configura en `keystore.properties` (raíz, permisos 600, ignorado por git):
-
-```properties
-storeFile=upload-keystore.jks
-storePassword=…
-keyAlias=b4a
-keyPassword=…
-```
-
-### Dos avisos importantes
-
-1. **La clave es DSA de 1024 bits, que `keytool` marca como débil.** Google Play exige **RSA de 2048 bits o más** para la clave de firma de aplicación en Play App Signing. Si la ficha no está aún enrolada en Play App Signing, enrolarla con esta clave puede ser rechazado, y **subir un AAB obliga a estar enrolado**. Hay que comprobarlo en Play Console antes de preparar el release (ver más abajo). Si se confirma el problema, la salida es enrolarse generando una **clave de subida RSA nueva** — Play permite que la clave de subida sea distinta de la de firma.
-2. **El APK de `b4a/Objects/pictorario.apk` NO está firmado con esta clave**, sino con la de depuración de B4A (`CN=Anywhere Software`). Es la salida de depuración del IDE, no el artefacto publicado. Por eso no sirve para confirmar que este keystore sea el registrado en Play; eso sólo se puede verificar en Play Console.
-
-### Cómo verificar la clave registrada en Play
-
-1. Entrar en [Play Console](https://play.google.com/console) → aplicación **Pictorario**.
-2. Menú lateral: **Prueba y lanzamiento → Integridad de la aplicación** (antes *Configuración → Firma de la aplicación*).
-3. Ahí aparecen dos bloques, y hay que mirar los dos:
-   - **Certificado de la clave de firma de la aplicación**: con el que Play firma lo que llega a los usuarios.
-   - **Certificado de la clave de subida**: con el que hay que firmar lo que se sube.
-4. Comparar la huella **SHA-256** de la *clave de subida* con la de la tabla de arriba.
-   - **Coincide** → este keystore es el correcto, no hay nada que hacer.
-   - **No coincide, o no existe el bloque de clave de subida** → la ficha está en modo antiguo (firmada directamente por el desarrollador) o usa otra clave. Ver el punto siguiente.
-   - **No aparece la sección** → la app no está enrolada en Play App Signing.
-
-Para obtener la huella de cualquier keystore en local:
-
-```bash
-keytool -list -v -keystore app/upload-keystore.jks -alias b4a
-```
-
-### Si la clave no es la correcta o se ha perdido
-
-Sólo hay salida si la app está enrolada en **Play App Signing**: en *Integridad de la aplicación* existe la opción de **solicitar el restablecimiento de la clave de subida**, generando una nueva y subiendo su certificado. Google tarda un par de días en aplicarlo. La clave de *firma* no se puede cambiar nunca; si la app no está enrolada y se pierde esa clave, no hay forma de actualizar la ficha y hay que publicar una nueva con otro `applicationId`.
-
-Para generar una clave de subida nueva (RSA, lo que exige Play hoy):
-
-```bash
-keytool -genkeypair -v -keystore upload-keystore.jks -alias upload \
-  -keyalg RSA -keysize 4096 -validity 10000
-```
-
-y exportar su certificado para enviarlo a Google:
-
-```bash
-keytool -export -rfc -keystore upload-keystore.jks -alias upload -file upload_certificate.pem
-```
-
-### Copia de seguridad
-
-El keystore es **irrecuperable**: si se pierde y la app no está en Play App Signing, se pierde la capacidad de actualizarla. Hay una copia de los ficheros originales en `~/copias-seguridad-claves/` (fuera del repositorio, permisos 600). **Conviene guardar además una copia en un gestor de contraseñas o en almacenamiento cifrado externo.**
+Resumen de lo que se descubrió por el camino: el `firma.keystore` que apareció en local **no era** la clave de subida registrada en Play. La registrada resultó ser `CN=Anywhere Software`, la clave de depuración por defecto del IDE de B4A, con la que se publicó la 1.07. Como la aplicación estaba enrolada en Play App Signing, se pudo solicitar un restablecimiento y se generó una clave RSA de 4096 bits propia, que Google ya ha aplicado.
 
 ---
-
-## Pendiente de verificar
-
-Todo esto vive ahora en [PUBLICACION.md](PUBLICACION.md), que es el documento a seguir antes de subir nada. Lo más urgente:
-
-1. **Si la ficha se puede recuperar.** Fue retirada por incumplimiento. Si el nombre de paquete quedó bloqueado, hay que publicar ficha nueva con otro `applicationId`.
-2. **Si la clave DSA de 1024 bits sirve**, o hay que generar una clave de subida RSA.
-3. **Política de privacidad**, obligatoria por tratarse de una aplicación dirigida a menores.
-- **Aviso de pérdida de datos**: al no migrar el `KeyValueStore` antiguo, un usuario existente con secuencias propias las perderá al actualizar. Conviene indicarlo en las notas de la versión y mostrar un aviso de una sola vez en el primer arranque tras actualizar (barato, y evita reseñas negativas).
