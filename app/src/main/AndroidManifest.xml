@@ -28,6 +28,14 @@
     -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
+    <!--
+        El aviso abre el tablero sobre la pantalla bloqueada. Google Play lo
+        reserva a aplicaciones de alarma y de llamadas, y hay que justificarlo al
+        subir: Pictorario es una agenda con alarmas para niños que no leen, y una
+        notificación silenciosa no cumple su función. Ver PUBLICACION.md.
+    -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <application
         android:name=".PictorarioApp"
         android:allowBackup="true"
@@ -43,7 +51,10 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="DiscouragedApi">
             <intent-filter>

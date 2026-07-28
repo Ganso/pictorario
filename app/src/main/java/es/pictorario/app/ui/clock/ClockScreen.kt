@@ -114,6 +114,21 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
         // Floats over everything, near the bottom, so it never hides the dial.
         Notice(notice)
     }
+
+    // An alarm that has just gone off takes over the screen until acknowledged.
+    state.firedAlarm?.let { (alarmSequence, alarmActivity) ->
+        if (alarmSequence == sequenceIndex) {
+            sequence.activities.getOrNull(alarmActivity)?.let { fired ->
+                LaunchedEffect(fired) { selected = alarmActivity }
+                AlarmDialog(
+                    activity = fired,
+                    repository = state.pictograms,
+                    format24h = settings.format24h,
+                    onDismiss = state::dismissFiredAlarm,
+                )
+            }
+        }
+    }
 }
 
 @Composable

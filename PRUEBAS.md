@@ -61,9 +61,11 @@ Esta es la parte que más conviene mirar.
 - [ ] En una secuencia, activar «Activar alarmas» y poner una actividad **2 minutos** en el futuro.
 - [ ] En la portada aparece «Próxima alarma» con la hora correcta.
 - [ ] Si sale el aviso amarillo «Las alarmas pueden llegar tarde», pulsar el botón, activar «Alarmas y recordatorios» en los ajustes de Android y volver. **El aviso debe desaparecer.**
-- [ ] Bloquear el móvil y esperar. **A la hora exacta debe sonar el aviso**, con vibración y con el nombre de la actividad.
-- [ ] Al tocar la notificación se abre el tablero de esa secuencia.
-- [ ] Después del aviso, la notificación de «Próxima actividad» pasa a la siguiente (o a mañana).
+- [ ] Bloquear el móvil y esperar. A la hora exacta **la pantalla debe encenderse sola y aparecer el tablero** con un aviso grande: «¡Empieza ahora!», el pictograma, el nombre de la actividad y hasta qué hora dura.
+- [ ] El sonido **se repite** hasta pulsar «Entendido».
+- [ ] Al pulsar «Entendido» el aviso desaparece, la notificación de alarma se retira y queda el tablero con esa actividad seleccionada.
+- [ ] **No deben quedar dos notificaciones**: sólo la de «Próxima actividad», ya apuntando a la siguiente o a mañana.
+- [ ] Repetirlo con el móvil desbloqueado y en uso: debe salir como notificación prominente en la parte superior.
 
 ### 5.2 Sin el permiso de alarmas exactas
 

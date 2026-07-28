@@ -98,6 +98,22 @@ class PictorarioState(
     var pictogramTarget by mutableStateOf<PictogramTarget?>(null)
         private set
 
+    /**
+     * Activity whose alarm has just gone off, if any. Set when the alarm brings
+     * the app to the front, and cleared when the adult acknowledges it.
+     */
+    var firedAlarm by mutableStateOf<Pair<Int, Int>?>(null)
+        private set
+
+    fun alarmFired(sequenceIndex: Int, activityIndex: Int) {
+        firedAlarm = sequenceIndex to activityIndex
+        screen = Screen.Clock(sequenceIndex)
+    }
+
+    fun dismissFiredAlarm() {
+        firedAlarm = null
+    }
+
     fun startEditing(index: Int?) {
         draftIndex = index
         draft = index?.let { sequences.getOrNull(it) }

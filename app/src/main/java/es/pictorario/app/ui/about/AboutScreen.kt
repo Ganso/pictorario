@@ -55,7 +55,7 @@ const val VERSION_CHANGES =
 private const val AUTHOR_URL = "http://www.ganso.org"
 private const val ARASAAC_URL = "http://www.arasaac.org"
 private const val PROJECT_URL = "http://blog.ganso.org/proyectos/pictorario"
-private const val VIDEO_URL = "http://Bit.ly/VideoPictorario"
+private const val VIDEO_URL = "https://www.youtube.com/watch?v=cjTAGguz5H0"
 private const val PRIVACY_URL = "https://ganso.org/pictorarioprivacy.html"
 
 /** Credits, licences and links. Port of `AcercaDe.bas`. */

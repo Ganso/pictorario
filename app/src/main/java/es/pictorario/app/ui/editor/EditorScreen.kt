@@ -126,24 +126,31 @@ fun EditorScreen(state: PictorarioState) {
         }
 
         item {
-            SettingRow("Tipo de tablero:") {
-                ValueButton(
-                    text = BOARD_TYPE_LABELS[draft.board.type.ordinal],
-                    help = "Cómo se dibuja el horario: reloj de mañana, de tarde, " +
-                        "de 24 horas, o arco con sólo las horas de la secuencia",
-                ) { boardPicker = true }
+            SettingRow(
+                label = "Tipo de tablero:",
+                help = "Cómo se dibuja el horario: reloj de mañana, de tarde, " +
+                    "de 24 horas, o arco con sólo las horas de la secuencia",
+            ) {
+                ValueButton(BOARD_TYPE_LABELS[draft.board.type.ordinal]) { boardPicker = true }
             }
         }
         item {
-            SettingRow("Indicar hora actual:") {
-                ValueButton(
-                    text = TIME_INDICATOR_LABELS[draft.board.timeIndicator.ordinal],
-                    help = "Cuántas agujas se dibujan sobre el tablero",
-                ) { indicatorPicker = true }
+            SettingRow(
+                label = "Indicar hora actual:",
+                help = "Cuántas agujas se dibujan sobre el tablero: ninguna, sólo " +
+                    "la de la hora, con minutero, o también con segundero",
+            ) {
+                ValueButton(TIME_INDICATOR_LABELS[draft.board.timeIndicator.ordinal]) {
+                    indicatorPicker = true
+                }
             }
         }
         item {
-            SettingRow("Tamaño de los iconos:") {
+            SettingRow(
+                label = "Tamaño de los iconos:",
+                help = "Tamaño de los pictogramas que se dibujan sobre el reloj. " +
+                    "Al mínimo no se dibuja ninguno",
+            ) {
                 Slider(
                     value = draft.board.iconSizePercent.toFloat(),
                     onValueChange = { value ->
@@ -158,7 +165,10 @@ fun EditorScreen(state: PictorarioState) {
             }
         }
         item {
-            SettingRow("Activar alarmas:") {
+            SettingRow(
+                label = "Activar alarmas:",
+                help = "Avisar cuando empiece cada actividad de esta secuencia",
+            ) {
                 Checkbox(
                     checked = draft.notifications,
                     onCheckedChange = { checked ->
@@ -320,20 +330,27 @@ private fun noticeFor(outcome: TimeChangeOutcome): String? = when (outcome) {
 }
 
 @Composable
-private fun SettingRow(label: String, content: @Composable RowScope.() -> Unit) {
-    Row(
-        modifier = Modifier.fillMaxWidth().height(CellSize),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(label, fontSize = 16.sp, modifier = Modifier.fillMaxWidth(0.4f))
-        content()
+private fun SettingRow(
+    label: String,
+    help: String,
+    content: @Composable RowScope.() -> Unit,
+) {
+    // La ayuda cubre la fila entera: el dedo aterriza tanto en la etiqueta como
+    // en el control, y desde cualquiera de los dos debe poder pedirse.
+    Help(help, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth().height(CellSize),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(label, fontSize = 16.sp, modifier = Modifier.fillMaxWidth(0.4f))
+            content()
+        }
     }
 }
 
 @Composable
-private fun ValueButton(text: String, help: String, onClick: () -> Unit) {
-    Help(help, modifier = Modifier.fillMaxWidth()) {
-        Box(
+private fun ValueButton(text: String, onClick: () -> Unit) {
+    Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -342,8 +359,7 @@ private fun ValueButton(text: String, help: String, onClick: () -> Unit) {
                 .border(1.dp, FieldBorder)
                 .clickable(onClick = onClick),
         ) {
-            Text(text, fontSize = 16.sp, textAlign = TextAlign.Center)
-        }
+        Text(text, fontSize = 16.sp, textAlign = TextAlign.Center)
     }
 }
 

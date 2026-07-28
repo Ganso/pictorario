@@ -22,13 +22,24 @@ La aplicación **está enrolada en Play App Signing**: el certificado de firma d
 | Formato de subida | Android App Bundle (`.aab`) | `./build_and_copy.sh` genera AAB | ✅ |
 | 64 bits | Obligatorio si hay código nativo | Sin código nativo | ✅ (no aplica) |
 | `versionCode` | Mayor que el publicado (107) | **200** | ✅ |
-| Firma | Clave de subida registrada en Play | **Pendiente de restablecer** — ver sección 1 bis | ⚠️ **bloqueante** |
+| Firma | Clave de subida registrada en Play | RSA 4096, SHA-1 `63:49:AF:0F:…:15:80`, **confirmada por Google** | ✅ |
 
 ---
 
-## 1 bis. La clave de subida — hay que restablecerla
+## 1 bis. La clave de subida — RESUELTO
 
-**Este es el único punto que bloquea la subida.** Comparando los certificados descargados de Play con las claves disponibles en local:
+**Google ya ha aplicado el restablecimiento.** Las huellas que devolvió coinciden con la clave generada para el proyecto:
+
+| | |
+|---|---|
+| SHA-1 según Google | `63:49:AF:0F:07:7F:52:EE:7A:20:3D:65:9B:3D:18:39:64:77:15:80` |
+| SHA-1 de `app/upload-keystore-rsa.jks` | `63:49:AF:0F:07:7F:52:EE:7A:20:3D:65:9B:3D:18:39:64:77:15:80` |
+
+El AAB firmado con esa clave ya se puede subir. El resto de esta sección queda como registro de por qué hubo que restablecerla.
+
+### Antecedente
+
+Comparando los certificados descargados de Play con las claves disponibles en local:
 
 | Clave | Titular | Huella SHA-256 |
 |---|---|---|
@@ -55,15 +66,7 @@ El proyecto ya trae generada una clave de subida nueva, en condiciones:
 
 Las credenciales están en `keystore.properties` (permisos 600, ignorado por git) y hay copia en `~/copias-seguridad-claves/`. **Guarda una copia adicional en un gestor de contraseñas: si se pierde, hay que volver a pedir un restablecimiento.**
 
-Pasos en Play Console:
-
-1. **Prueba y lanzamiento → Integridad de la aplicación → Clave de subida**.
-2. Solicitar el **restablecimiento de la clave de subida**.
-3. Adjuntar `upload_certificate.pem`.
-4. Google tarda normalmente entre uno y dos días laborables en aplicarlo. Avisan por correo.
-5. Cuando confirmen, ya se puede subir el AAB firmado con la clave nueva.
-
-Mientras tanto se puede preparar todo lo demás: la ficha, la política de privacidad y el cuestionario de contenido no dependen de esto.
+El restablecimiento se solicitó desde **Prueba y lanzamiento → Integridad de la aplicación → Clave de subida**, adjuntando `upload_certificate.pem`, y Google lo aplicó.
 
 ---
 
@@ -94,12 +97,30 @@ La decisión rectora: **la aplicación es plenamente funcional sin ningún permi
 | Permiso | Por qué se descarta |
 |---|---|
 | **`USE_EXACT_ALARM`** | Google Play lo reserva a aplicaciones cuya **función principal** es despertador o calendario. Pictorario es una agenda visual: defendible, pero discutible para un revisor. Una declaración rechazada bloquearía la republicación, que es justo lo que no nos podemos permitir. |
-| **`USE_FULL_SCREEN_INTENT`** | Igualmente restringido a aplicaciones de alarma y de llamadas, y desde Android 14 se revoca por defecto al resto. Era la forma de reproducir el comportamiento original de abrir la pantalla del reloj sobre el dispositivo bloqueado. |
+| ~~`USE_FULL_SCREEN_INTENT`~~ | **Se ha vuelto a declarar.** Ver la sección 2 bis. |
 | `FOREGROUND_SERVICE` | Ya no hace falta ningún servicio: la alarma la atiende un `BroadcastReceiver`. Esto esquiva además los tipos obligatorios de servicio en primer plano de API 34+. |
 | `WAKE_LOCK` | Innecesario con `AlarmManager`. |
 | `WRITE_EXTERNAL_STORAGE`, `WRITE_SETTINGS` | Estaban en la versión B4A **sin usarse**. Eliminados. |
 
-**Consecuencia funcional que hay que aceptar:** cuando llega la hora de una actividad, la versión B4A abría el reloj a pantalla completa. Ahora aparece una notificación prominente con sonido y vibración que abre el reloj al tocarla. Es la diferencia entre pasar la revisión y arriesgarse a no pasarla. Si más adelante la ficha está restablecida y con buen historial, se puede reconsiderar declarar `USE_FULL_SCREEN_INTENT`.
+---
+
+## 2 bis. `USE_FULL_SCREEN_INTENT`: por qué se declara
+
+Primero se renunció a este permiso para no arriesgar la revisión, y el aviso quedó reducido a una notificación. **Probado en un móvil real, no cumplía su función**: llegaba la hora, la notificación se posaba en la bandeja sin sonar de forma reconocible, y el niño no se enteraba de nada. Una agenda visual que no avisa no sirve para lo que existe.
+
+Así que se declara, y hay que justificarlo al subir. **Justificación para Play Console:**
+
+> Pictorario es una agenda visual con alarmas para niños con Trastorno del Espectro Autista, que en muchos casos no saben leer. Su función principal es avisar al niño de que empieza una actividad y mostrarle el pictograma correspondiente. El aviso debe presentar esa imagen a pantalla completa aunque el dispositivo esté bloqueado, porque una notificación de texto no cumple ninguna función para el usuario final. El permiso se usa exclusivamente para los avisos de actividad que el adulto ha programado, nunca con fines publicitarios ni promocionales.
+
+Qué implica en la práctica:
+
+- Con el dispositivo bloqueado o en reposo, Android enciende la pantalla y abre el tablero, con el pictograma de la actividad en grande.
+- Con el dispositivo en uso, aparece como notificación prominente.
+- El sonido se repite (`FLAG_INSISTENT`) hasta que un adulto pulsa «Entendido», y en ese momento la notificación se retira.
+
+**Sigue sin declararse `USE_EXACT_ALARM`**, que es el otro permiso restringido. La puntualidad exacta se pide al usuario con `SCHEDULE_EXACT_ALARM`, que él concede desde los ajustes del sistema.
+
+Si Google rechazara la declaración, revertirlo es quitar una línea del manifest y la llamada a `setFullScreenIntent`; la aplicación seguiría funcionando con la notificación sola.
 
 ---
 
@@ -154,6 +175,5 @@ Para ver los permisos que realmente lleva el artefacto:
 
 Estos puntos dependen de información que sólo está en Play Console o que conviene contrastar contra la política vigente en el momento de subir:
 
-- **Restablecimiento de la clave de subida** (sección 1 bis). Es lo único que bloquea la subida.
 - **Subir la política de privacidad** a `https://ganso.org/pictorarioprivacy.html` y declararla en Play Console.
 - **Nivel de API mínimo exigido** en la fecha del envío: Play lo sube cada año, y el proyecto va con `targetSdk 36`. Verificar que sigue siendo suficiente.

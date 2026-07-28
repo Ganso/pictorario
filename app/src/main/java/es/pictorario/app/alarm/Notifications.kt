@@ -1,5 +1,6 @@
 package es.pictorario.app.alarm
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -34,10 +35,14 @@ private const val NOTIFICATION_ALARM = 2
  *
  * The B4A version fired its alarm by having a background service call
  * `StartActivity` (`Avisos.bas:26-30`), which Android has blocked since API 29.
- * The replacement is a high-importance notification: it appears as a heads-up
- * with sound and vibration, and opens the board when tapped. A full-screen
- * intent would reproduce the old behaviour more closely, but Play restricts it
- * to alarm and calling apps and this one cannot afford a rejected declaration.
+ * The replacement is a full-screen intent: on a locked or idle device Android
+ * brings the board up itself, and while the device is in use it shows a
+ * heads-up instead. The sound repeats until the alarm is acknowledged.
+ *
+ * A quiet notification was tried first, to keep the app clear of Play's
+ * restricted permissions, and it simply did not do the job: the point of this
+ * app is that a child who cannot read is shown what comes next, and a silent
+ * line in the shade achieves nothing.
  */
 object Notifications {
 
@@ -109,7 +114,7 @@ object Notifications {
         val sequence = data.sequences.getOrNull(alarm.sequenceIndex) ?: return
         val activity = sequence.activities.getOrNull(alarm.activityIndex) ?: return
 
-        val open = openApp(context, alarm.sequenceIndex, fromAlarm = true)
+        val open = openApp(context, alarm.sequenceIndex, alarm.activityIndex, fromAlarm = true)
         val builder = NotificationCompat.Builder(context, CHANNEL_ALARM)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(activity.description)
@@ -117,35 +122,48 @@ object Notifications {
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
+            .setOngoing(true)
             .setContentIntent(open)
-            // Deliberately NOT a full-screen intent. Google Play reserves that
-            // for alarm and calling apps, and a rejected declaration would keep
-            // the app off the store. A high-importance heads-up notification
-            // that opens the board when tapped conveys the same thing without
-            // any restricted permission.
+            .setFullScreenIntent(open, true)
 
         pictograms.fileFor(activity.pictogramId)
             .takeIf { it.exists() }
             ?.let { BitmapFactory.decodeFile(it.path) }
             ?.let(builder::setLargeIcon)
 
+        val notification = builder.build().apply {
+            // Keeps ringing until the alarm is acknowledged, as the original's
+            // Insistent flag did. Without it a single chime is easy to miss.
+            flags = flags or Notification.FLAG_INSISTENT
+        }
+
         runCatching {
-            NotificationManagerCompat.from(context).notify(NOTIFICATION_ALARM, builder.build())
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ALARM, notification)
         }
         context.vibrateOnce()
     }
 
-    private fun openApp(context: Context, sequenceIndex: Int, fromAlarm: Boolean = false) =
-        PendingIntent.getActivity(
-            context,
-            if (fromAlarm) 1 else 0,
-            Intent(context, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                putExtra(MainActivity.EXTRA_SEQUENCE, sequenceIndex)
-                putExtra(MainActivity.EXTRA_FROM_ALARM, fromAlarm)
-            },
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-        )
+    /** Silences and clears the alarm once the board is on screen. */
+    fun dismissAlarm(context: Context) {
+        runCatching { NotificationManagerCompat.from(context).cancel(NOTIFICATION_ALARM) }
+    }
+
+    private fun openApp(
+        context: Context,
+        sequenceIndex: Int,
+        activityIndex: Int = -1,
+        fromAlarm: Boolean = false,
+    ) = PendingIntent.getActivity(
+        context,
+        if (fromAlarm) 1 else 0,
+        Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(MainActivity.EXTRA_SEQUENCE, sequenceIndex)
+            putExtra(MainActivity.EXTRA_ACTIVITY, activityIndex)
+            putExtra(MainActivity.EXTRA_FROM_ALARM, fromAlarm)
+        },
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+    )
 }
 
 /** One second of vibration, as `Visualizacion.AvisoActividad` did. */
