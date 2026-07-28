@@ -18,6 +18,8 @@ Los motivos de la migración:
 
 El registro de cómo se hizo, qué se decidió y qué se corrigió respecto al original está en [MIGRACION.md](MIGRACION.md).
 
+Si vas a trabajar en el proyecto —o si eres una IA a la que le han pedido que lo haga—, empieza por [AGENTS.md](AGENTS.md): resume la arquitectura, las convenciones, los comandos y las trampas conocidas sin necesidad de leer el código.
+
 > **Aviso para quien actualice desde la versión 1.x:** la configuración se reinicia. Los datos antiguos se guardaban en un formato propio de B4A que no se migra, así que la aplicación arranca con las secuencias de ejemplo.
 
 ## Publicación
