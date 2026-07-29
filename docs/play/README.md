@@ -26,24 +26,13 @@ bordes**; el título y los reclamos están dentro del tercio central por eso.
 
 ### Icono de la ficha
 
-`icono-ficha.png` — 512 × 512, PNG de 32 bits opaco. Reconstruye el logotipo del proyecto
-igual que se hizo a mano en su día: el pictograma «reloj» de ARASAAC, el
-[7230](https://arasaac.org/pictograms/es/7230/reloj), con cuatro sectores de color
-añadidos bajo la esfera.
+`icono-ficha.png` — 512 × 512, PNG de 32 bits opaco. Lo genera
+[`tools/generar-iconos.py`](../../tools/generar-iconos.py) junto con los iconos de la
+aplicación, para que todos salgan del mismo dibujo:
 
 ```bash
-python3 docs/play/icono-ficha.py
+python3 tools/generar-iconos.py
 ```
-
-Parte del original a 2500 px y colorea ahí, en vez de reescalar el icono de 192 px del
-launcher, que a 512 saldría borroso. Colores, ángulos y radio de los sectores no son un
-ojo nuevo: están medidos sobre `res/drawable/logotipo.png`, así que el icono de la ficha
-y el de la aplicación son el mismo dibujo. La primera ejecución descarga el pictograma y
-lo cachea en `docs/play/.arasaac-7230.png`, que no se versiona.
-
-Los mismos 2500 px servirían para rehacer los `ic_launcher_foreground` de
-`res/mipmap-*`, que hoy salen del original pequeño. No se ha tocado: el icono instalado
-se ve correcto a los tamaños a los que se muestra.
 
 ### Capturas
 

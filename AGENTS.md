@@ -25,6 +25,8 @@ Aplicación Android que muestra horarios con pictogramas de ARASAAC, pensada par
 | `docs/pictorarioprivacy.html` | Política de privacidad, se publica en ganso.org |
 | `docs/referencia-b4a/` | Capturas de la app original corriendo, para comparar |
 | `docs/comparativas/` | Comparativas original/nuevo de la migración del reloj |
+| `docs/play/` | Material de la ficha: capturas, gráfico destacado e icono |
+| `tools/` | Utilidades del proyecto que no son parte de la aplicación |
 
 **Antes de tocar el reloj, el editor o las alarmas, lee la sección correspondiente de MIGRACION.md.** Contiene hallazgos que costaron caro y que no se deducen del código.
 
@@ -215,6 +217,18 @@ Ni la lectura en voz alta ni la copia de seguridad añadieron ninguno: `TextToSp
 - **`USE_FULL_SCREEN_INTENT` está sujeto a revisión de Play.** Se declara porque sin él el aviso no cumple su función para un niño que no lee; la justificación está redactada en PUBLICACION.md. Se probó primero sin él y no servía.
 - **`USE_EXACT_ALARM` NO se declara.** La puntualidad exacta se pide al usuario con `SCHEDULE_EXACT_ALARM`, que concede desde los ajustes.
 - Añadir cualquier permiso nuevo exige justificarlo en PUBLICACION.md.
+
+## Iconos
+
+El logotipo es el pictograma «reloj» de ARASAAC —el 7230— con cuatro sectores de color añadidos bajo la esfera. **No se editan a mano**: los genera `tools/generar-iconos.py` desde el original a 2500 px, y de ahí salen los `mipmap-*`, el `drawable/logotipo.png` y el icono de 512 px de la ficha de Play.
+
+```bash
+python3 tools/generar-iconos.py
+```
+
+Los sectores no se dibujan a ojo: colores, ángulos —cuatro cuadrantes girados 21° respecto a las doce— y radio están medidos sobre el logotipo original, y el encuadre de cada icono sobre el icono al que sustituye. Al reducir se **premultiplica el alfa**; sin eso, la interpolación mezcla el RGB de los píxeles transparentes —negro en este PNG— y el reloj sale con un cerco oscuro.
+
+Si cambia el logotipo hay que rehacer también el gráfico destacado y la captura de la portada, que lo llevan dentro. Ver `docs/play/README.md`.
 
 ## Firma
 

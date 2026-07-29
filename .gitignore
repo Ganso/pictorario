@@ -19,4 +19,4 @@ keystore.properties
 clave*.txt
 *.pem
 *.der
-docs/play/.arasaac-*.png
+tools/.arasaac-*.png
