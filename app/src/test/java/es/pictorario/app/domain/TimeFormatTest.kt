@@ -6,6 +6,12 @@ import org.junit.Test
 class TimeFormatTest {
 
     @Test
+    fun theEndOfTheDayIsNamedRatherThanMarkedAsAfternoon() {
+        assertEquals("24:00", TimeFormat.time(24, 0, format24h = true))
+        assertEquals("12:00 de la noche", TimeFormat.time(24, 0, format24h = false))
+    }
+
+    @Test
     fun afternoonTimesAreHalvedAndMarkedInTwelveHourMode() {
         assertEquals("01:05 p.m.", TimeFormat.time(13, 5, format24h = false))
         assertEquals("13:05", TimeFormat.time(13, 5, format24h = true))

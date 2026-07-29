@@ -4,12 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -40,17 +38,30 @@ import androidx.compose.ui.unit.sp
 import es.pictorario.app.BuildConfig
 import es.pictorario.app.R
 import es.pictorario.app.ui.PictorarioState
-import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.MessageDialog
 import es.pictorario.app.ui.common.Help
+import es.pictorario.app.ui.common.readableWidth
 
 /** The changelog shown once after an update. Port of `Starter.CambiosVersion`. */
+/**
+ * What is new, shown once per update and from the version number here.
+ *
+ * Kept under Google Play's 500-character limit for the *What's new* field, so
+ * the same text serves both places and cannot drift apart. See CHANGELOG.md for
+ * the full account.
+ */
 const val VERSION_CHANGES =
-    "- Reescritura completa en Kotlin, para poder seguir actualizando la " +
-        "aplicación en Google Play.\n\n" +
-        "- La configuración se reinicia: los horarios de la versión anterior no " +
-        "se conservan.\n\n" +
-        "- Podéis notificar cualquier fallo o sugerencia por correo a " +
-        "javi@ganso.org.\nGRACIAS"
+    "Pictorario vuelve, reescrito por completo para funcionar en los Android " +
+        "de hoy.\n\n" +
+        "• Lectura en voz alta de las actividades.\n" +
+        "• Copia de seguridad: guarda tus horarios y recupéralos en otro " +
+        "móvil.\n" +
+        "• El aviso abre el horario a pantalla completa al empezar una " +
+        "actividad.\n" +
+        "• Diseño para tablet y para pantalla horizontal.\n" +
+        "• Mantén pulsado cualquier botón para ver qué hace.\n" +
+        "• Corregidos errores del reloj y de los horarios.\n\n" +
+        "Fallos y sugerencias: javi@ganso.org"
 
 private const val AUTHOR_URL = "http://www.ganso.org"
 private const val ARASAAC_URL = "http://www.arasaac.org"
@@ -72,7 +83,7 @@ fun AboutScreen(state: PictorarioState) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .readableWidth()
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -171,11 +182,9 @@ fun AboutScreen(state: PictorarioState) {
     }
 
     if (changelog) {
-        ConfirmDialog(
+        MessageDialog(
             title = "Novedades de esta versión",
             message = VERSION_CHANGES,
-            confirmText = "Aceptar",
-            onConfirm = { changelog = false },
             onDismiss = { changelog = false },
         )
     }

@@ -1,7 +1,17 @@
 package es.pictorario.app.domain
 
-/** Last representable instant of a day, in minutes since midnight: 23:59. */
+/** Latest an activity may *start*, in minutes since midnight: 23:59. */
 const val LAST_MINUTE_OF_DAY = 23 * 60 + 59
+
+/**
+ * Latest an activity may *end*: midnight, stored as 24:00.
+ *
+ * The B4A original capped both ends at 23:59, so «until bedtime» could never be
+ * written down exactly and the last minute of the day always fell outside every
+ * activity. An end of 24:00 is still the same day — it is not a schedule that
+ * crosses midnight, which the model does not represent.
+ */
+const val END_OF_DAY = 24 * 60
 
 /** Default span given to a newly added activity. */
 private const val NEW_ACTIVITY_MINUTES = 30
@@ -74,16 +84,22 @@ object ActivityRules {
     fun withStart(activity: Activity, hour: Int, minute: Int): Activity {
         val moved = activity.copy(startHour = hour, startMinute = minute)
         if (moved.startMinutes < moved.endMinutes) return moved
-        val end = minOf(moved.startMinutes + NEW_ACTIVITY_MINUTES, LAST_MINUTE_OF_DAY)
+        val end = minOf(moved.startMinutes + NEW_ACTIVITY_MINUTES, END_OF_DAY)
         return moved.copy(endHour = end / 60, endMinute = end % 60)
     }
 
     /**
      * Applies a new end time, pulling the start back so the activity keeps a
      * positive span.
+     *
+     * Midnight is the one time a clock picker cannot tell apart: 00:00 is both
+     * the first minute of the day and the last. Asked for as an *end* it can
+     * only mean the end, so it is stored as [END_OF_DAY] — which is also what
+     * lets an activity run to the very end of the day at all.
      */
     fun withEnd(activity: Activity, hour: Int, minute: Int): Activity {
-        val moved = activity.copy(endHour = hour, endMinute = minute)
+        val requested = if (hour == 0 && minute == 0) END_OF_DAY else hour * 60 + minute
+        val moved = activity.copy(endHour = requested / 60, endMinute = requested % 60)
         if (moved.startMinutes < moved.endMinutes) return moved
         val start = maxOf(moved.endMinutes - NEW_ACTIVITY_MINUTES, 0)
         return moved.copy(startHour = start / 60, startMinute = start % 60)
@@ -114,7 +130,9 @@ object ActivityRules {
         } else {
             withEnd(original, hour, minute)
         }
-        val requested = hour * 60 + minute
+        // Read back off the moved activity rather than recomputed, so the
+        // midnight translation withEnd applies is taken into account.
+        val requested = if (isStart) moved.startMinutes else moved.endMinutes
 
         // Sorting is tracked by index rather than by value: two activities can
         // hold identical times, so the edited one cannot be found by equality.
@@ -166,7 +184,7 @@ object ActivityRules {
     fun newActivity(existing: List<Activity>): Activity {
         val start = existing.lastOrNull()?.endMinutes ?: FIRST_ACTIVITY_START
         val cappedStart = minOf(start, LAST_MINUTE_OF_DAY)
-        val end = minOf(cappedStart + NEW_ACTIVITY_MINUTES, LAST_MINUTE_OF_DAY)
+        val end = minOf(cappedStart + NEW_ACTIVITY_MINUTES, END_OF_DAY)
         return Activity(
             startHour = cappedStart / 60,
             startMinute = cappedStart % 60,

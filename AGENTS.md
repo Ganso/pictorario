@@ -18,6 +18,7 @@ Aplicación Android que muestra horarios con pictogramas de ARASAAC, pensada par
 | Fichero | Para qué |
 |---|---|
 | [README.md](README.md) | Presentación, cómo compilar, ideas para más adelante |
+| [CHANGELOG.md](CHANGELOG.md) | Qué trae cada versión, de cara al usuario |
 | [MIGRACION.md](MIGRACION.md) | **Por qué la aplicación es como es.** Decisiones, hallazgos al portar cada pantalla, y la tabla de correcciones respecto al original |
 | [PUBLICACION.md](PUBLICACION.md) | Firma, permisos, política de Familias, notas de versión, checklist de envío |
 | [PRUEBAS.md](PRUEBAS.md) | Batería de pruebas manual, para móvil real |
@@ -39,14 +40,14 @@ Aplicación Android que muestra horarios con pictogramas de ARASAAC, pensada par
 ## Compilar y probar
 
 ```bash
-./gradlew test                 # 63 tests JVM, sin Android
+./gradlew test                 # 83 tests JVM, sin Android
 ./gradlew assembleDebug
 ./build_and_copy.sh            # compila, arranca un emulador si hace falta, instala y abre
 ./build_and_copy.sh --dry-run  # sólo compilar
 ./build_and_copy.sh --headless # emulador sin ventana
 ```
 
-- El AVD por defecto es `pictorario_test` (Pixel 6, API 36). El SDK está en `~/Android/Sdk`.
+- El AVD por defecto es `pictorario_test` (Pixel 6, API 36); para el repaso de tablet hay `pictorario_tablet` (Pixel Tablet, API 36). El SDK está en `~/Android/Sdk`.
 - **El APK de depuración se instala como `javi.prieto.pictorario.debug`**, con sufijo `-debug` en el `versionName`, para poder convivir con la versión publicada.
 - Emulador a mano: `~/Android/Sdk/emulator/emulator -avd pictorario_test -no-audio -no-boot-anim -gpu host`.
 
@@ -71,6 +72,23 @@ adb shell "run-as javi.prieto.pictorario.debug cp /data/local/tmp/d.json files/p
 
 Los avisos superpuestos (`Notice`) duran ~2,2 s: hay que capturar **durante** la acción, no después, o parecerá que no salen.
 
+Para girar la pantalla sin depender del sensor:
+
+```bash
+adb shell settings put system accelerometer_rotation 0
+adb shell settings put system user_rotation 1   # 0 vertical, 1 horizontal
+```
+
+El emulador arranca con `-no-audio`, así que la lectura en voz alta no se oye. Se comprueba igualmente: al hablar, el motor crea un reproductor y aparece en `adb shell dumpsys audio | grep CONTENT_TYPE_SPEECH`.
+
+Para forzar el aviso de actividad sin esperar a que salte la alarma:
+
+```bash
+adb shell am start -n javi.prieto.pictorario.debug/es.pictorario.app.MainActivity \
+  --ei es.pictorario.app.SEQUENCE 0 --ei es.pictorario.app.ACTIVITY 0 \
+  --ez es.pictorario.app.FROM_ALARM true
+```
+
 ---
 
 ## Arquitectura
@@ -90,12 +108,17 @@ data/
   AppDataStore.kt      DataStore<AppData> con Serializer JSON propio
   PictogramRepository.kt  ficheros en filesDir/pictogramas, siembra desde assets
   ArasaacApi.kt        HttpURLConnection: búsqueda y descarga concurrente
+  Transfer.kt          exportar/importar el documento; validación de lo importado
 alarm/
   AlarmScheduler.kt · AlarmReceiver.kt · BootReceiver.kt · Notifications.kt
 ui/
   PictorarioState.kt   Estado global. Sustituye al singleton Starter.bas de B4A
   AppRoot.kt           sealed interface Screen + host de pantallas
   home/ clock/ editor/ picker/ settings/ about/ common/ theme/
+    common/Speech.kt     Speaker (TTS), rememberSpeak, speakOnTap
+    common/WindowSize.kt isLargeScreen / isWideWindow / isLandscape / readableWidth
+    settings/BackupSection.kt      guardar y recuperar copia con el SAF
+    settings/PictogramQuality.kt   re-descarga a 2500 px, sólo en tablet
 ```
 
 ### Reglas de arquitectura
@@ -104,6 +127,7 @@ ui/
 2. **`PictorarioState` es el único estado mutable.** Se crea en `MainActivity` y se pasa a las pantallas. No hay ViewModel por pantalla.
 3. **`DataStore` y `PictogramRepository` son singletons de proceso**, en `PictorarioApp`. Ver la trampa correspondiente más abajo.
 4. Toda escritura reprograma la alarma automáticamente, vía `onDataChanged`.
+5. **Las decisiones de disposición se toman con `isWideWindow()`, no con `isLargeScreen()`.** Lo primero mira el ancho de la ventana ahora mismo —un móvil apaisado también es ancho—; lo segundo mira el `smallestScreenWidthDp` y sólo sirve para decidir la resolución de los pictogramas que se descargan.
 
 ### Persistencia
 
@@ -127,6 +151,16 @@ Dentro de un `Row`: pon el peso en un `Box` normal y el `Help` dentro.
 
 `Help` colgado del texto de una fila no aparece nunca: el dedo aterriza en la casilla o el botón. Envuelve la fila entera.
 
+### `TooltipBox` tampoco propaga el `align` de un `Box`
+
+Es la misma trampa del `weight`, con otra cara. El candado de la portada llevaba `Modifier.align(Alignment.BottomEnd)` **dentro de un `Help`**, y aparecía arriba a la izquierda, encima de la cabecera. Cualquier modificador de disposición que dependa del padre —`weight`, `align`— va en un `Box` normal, con el `Help` dentro.
+
+### La voz llega a la visualización, no a la configuración
+
+Se probó a leer todos los botones y todos los campos de la aplicación, y se revirtió: configurar la aplicación se convertía en una locución continua. Habla lo que el niño usa solo —la alarma, abrir una secuencia, los pictogramas del reloj y del carrusel, y los dos botones del tablero— y nada más.
+
+`Modifier.speakOnTap` observa el primer contacto en la fase `Initial` y **no consume nada**, así que el control sigue disparándose al soltar y la pulsación larga sigue mostrando la ayuda.
+
 ### DataStore no admite dos instancias sobre el mismo fichero
 
 El receptor de alarma y la interfaz leen el mismo documento. Crear un `DataStore` en cada sitio lanza `IllegalStateException` y **mata la aplicación en cuanto salta una alarma**. Por eso está en `PictorarioApp` con ámbito de proceso — que además hace que sobreviva a que se recree la Activity.
@@ -147,6 +181,16 @@ El recorte de `Visualizacion.bas:132,143` **no es un bug**. El vértice de cierr
 
 Centro en `(50%W, 60%W)` y radio `45%W`. Tomarlos del alto deforma la esfera en pantallas altas.
 
+Por eso el apaisado **no cambia la fórmula**, sino la caja: `DialArea` recibe `aspectRatio(..., matchHeightConstraintsFirst = true)`, que fija el ancho a partir del alto disponible y deja la geometría intacta. Y por eso hay dos razones de aspecto: `BOARD_ASPECT_RATIO` (1/1.3) incluye la franja de los botones bajo la esfera, y `DIAL_ASPECT_RATIO` (1/1.05) es sólo la esfera, que es lo que se usa en apaisado, donde los botones viven en su propia columna.
+
+### Un `item` de `LazyVerticalGrid` admite un solo hijo
+
+En un `LazyColumn` se pueden emitir varios composables dentro de un `item` y se apilan. En un `LazyVerticalGrid` **se dibujan unos encima de otros**. Al pasar la portada a rejilla, los cuatro botones del pie quedaron superpuestos y sólo se veía «Salir». Envuélvelos en una `Column`.
+
+### La hora de fin 24:00 no se puede elegir en el selector
+
+`rememberTimePickerState` sólo admite horas 0..23 y **lanza excepción** si le pasas 24. Por eso el campo «Hasta» interpreta las 00:00 como fin de día (`ActivityRules.END_OF_DAY`, 1440) y le devuelve al selector `endHour % 24`. `TimeFormat.time` intercepta la hora 24 antes de `displayHour`, porque en formato de 12 horas saldría «12:00 p.m.», que es el mediodía: justo el otro extremo del día.
+
 ---
 
 ## Alarmas: cómo funciona el conjunto
@@ -165,6 +209,8 @@ Centro en `(50%W, 60%W)` y radio `45%W`. Tomarlos del alto deforma la esfera en 
 La ficha fue retirada una vez. El criterio es **pedir lo mínimo**. Los declarados son:
 
 `INTERNET` · `VIBRATE` · `RECEIVE_BOOT_COMPLETED` · `POST_NOTIFICATIONS` · `SCHEDULE_EXACT_ALARM` · `USE_FULL_SCREEN_INTENT`
+
+Ni la lectura en voz alta ni la copia de seguridad añadieron ninguno: `TextToSpeech` no requiere permiso, y el *Storage Access Framework* entrega un `Uri` que el usuario ya ha autorizado al elegir el fichero. Si alguna vez se sustituye el selector del sistema por acceso directo al almacenamiento, eso **sí** sería un permiso nuevo y habría que justificarlo.
 
 - **`USE_FULL_SCREEN_INTENT` está sujeto a revisión de Play.** Se declara porque sin él el aviso no cumple su función para un niño que no lee; la justificación está redactada en PUBLICACION.md. Se probó primero sin él y no servía.
 - **`USE_EXACT_ALARM` NO se declara.** La puntualidad exacta se pide al usuario con `SCHEDULE_EXACT_ALARM`, que concede desde los ajustes.
@@ -198,7 +244,7 @@ El idioma está fijado a `es`. Las descargas van en paralelo con `Semaphore(6)`.
 
 ## Tests
 
-8 clases, 63 tests, JUnit 4 plano, sin mocks ni Robolectric. Todo en `app/src/test/java/es/pictorario/app/domain/` salvo `ArasaacResponseTest`, que valida el parseo contra una respuesta real recortada como fixture — **sin red**, para que la suite sea determinista.
+9 clases, 83 tests, JUnit 4 plano, sin mocks ni Robolectric. Casi todo en `app/src/test/java/es/pictorario/app/domain/`; las excepciones son `ArasaacResponseTest`, que valida el parseo contra una respuesta real recortada como fixture —**sin red**, para que la suite sea determinista—, y `TransferTest`, que cubre la validación de una copia importada (`data/Transfer.kt` es Kotlin puro justamente para poder probarlo en la JVM).
 
 Nombres de método como frase en inglés. `AlarmCalculator` recibe el «ahora» por parámetro precisamente para poder probarlo.
 
@@ -209,7 +255,8 @@ Nombres de método como frase en inglés. `AlarmCalculator` recibe el «ahora» 
 ## Antes de dar algo por bueno
 
 1. `./gradlew assembleDebug assembleRelease test` en verde. El release importa: **R8 sólo actúa ahí**.
-2. Si tocaste interfaz, **repasa las seis pantallas**, no sólo la que cambiaste. Tres regresiones se colaron por comprobar sólo una.
+2. Si tocaste interfaz, **repasa las seis pantallas en vertical y en horizontal**, no sólo la que cambiaste. Tres regresiones se colaron por comprobar sólo una, y desde que la aplicación gira son ocho combinaciones. Hay un AVD `pictorario_tablet` (Pixel Tablet, API 36) además del `pictorario_test`.
 3. Si tocaste permisos, verifica el artefacto real:
    `aapt2 dump permissions app/build/outputs/apk/release/app-release.apk`
 4. Anota en MIGRACION.md lo que hayas descubierto y actualiza este fichero si cambian las reglas.
+5. Si el cambio se nota desde fuera, entra en CHANGELOG.md. Y si merece salir en la ficha de Play, en `VERSION_CHANGES` — que es de donde se copia el texto de *Novedades*, y no puede pasar de 500 caracteres.

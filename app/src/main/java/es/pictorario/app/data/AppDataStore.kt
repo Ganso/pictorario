@@ -26,7 +26,11 @@ import java.io.OutputStream
  */
 object AppDataSerializer : Serializer<AppData> {
 
-    private val json = Json {
+    /**
+     * Also what export and import use, so a backup file is byte for byte the
+     * same document the app keeps on disk. See [Transfer].
+     */
+    val json = Json {
         prettyPrint = true
         ignoreUnknownKeys = true
         encodeDefaults = true

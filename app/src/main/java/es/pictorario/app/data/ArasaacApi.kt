@@ -15,6 +15,14 @@ import java.net.URL
 import java.net.URLEncoder
 
 /**
+ * The two sizes ARASAAC is asked for. Phones take the small one — anything more
+ * is invisible on a 60 dp button and costs storage and decoding time — and
+ * tablets the large one, where a pictogram can fill a third of the screen.
+ */
+const val PICTOGRAM_SMALL = 500
+const val PICTOGRAM_LARGE = 2500
+
+/**
  * The two ARASAAC endpoints the app needs. No key, no token, no pagination —
  * verified against the live service, unchanged since the B4A version.
  *
@@ -48,25 +56,40 @@ class ArasaacApi(private val language: String = "es") {
     suspend fun downloadMissing(
         ids: List<Int>,
         repository: PictogramRepository,
+        resolution: Int = PICTOGRAM_SMALL,
+        onProgress: (done: Int, total: Int) -> Unit = { _, _ -> },
+    ): Int = download(ids.filterNot(repository::exists), repository, resolution, onProgress)
+
+    /**
+     * Fetches [ids] whether or not they are already on disk, which is how a
+     * device swaps its small pictograms for large ones.
+     *
+     * Each file is only replaced once its download succeeds, so losing the
+     * connection half way through leaves the previous images in place rather
+     * than a schedule full of blanks.
+     */
+    suspend fun download(
+        ids: List<Int>,
+        repository: PictogramRepository,
+        resolution: Int = PICTOGRAM_SMALL,
         onProgress: (done: Int, total: Int) -> Unit = { _, _ -> },
     ): Int = coroutineScope {
-        val missing = ids.filterNot(repository::exists)
-        if (missing.isEmpty()) return@coroutineScope 0
+        if (ids.isEmpty()) return@coroutineScope 0
 
         val gate = Semaphore(MAX_PARALLEL_DOWNLOADS)
         var done = 0
-        missing.map { id ->
+        ids.map { id ->
             async(Dispatchers.IO) {
                 gate.withPermit {
                     runCatching {
-                        val bytes = URL("$STATIC_BASE/pictograms/$id/${id}_500.png").readBytesOrThrow()
-                        repository.store(id, bytes)
+                        val url = "$STATIC_BASE/pictograms/$id/${id}_$resolution.png"
+                        repository.store(id, URL(url).readBytesOrThrow())
                     }
-                    synchronized(gate) { onProgress(++done, missing.size) }
+                    synchronized(gate) { onProgress(++done, ids.size) }
                 }
             }
         }.awaitAll()
-        missing.size
+        ids.size
     }
 
     private fun URL.readTextOrThrow(): String =

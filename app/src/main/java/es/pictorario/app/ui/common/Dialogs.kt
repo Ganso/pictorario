@@ -1,6 +1,8 @@
 package es.pictorario.app.ui.common
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +15,7 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 
 /**
@@ -83,6 +86,24 @@ fun PictorarioTimePicker(
             }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancelar") } },
+    )
+}
+
+/** Something to read and acknowledge. Unlike [ConfirmDialog] there is nothing to cancel. */
+@Composable
+fun MessageDialog(title: String, message: String, onDismiss: () -> Unit) =
+    MessageDialog(title, AnnotatedString(message), onDismiss)
+
+/** As above, for a message that needs a word or two picked out. */
+@Composable
+fun MessageDialog(title: String, message: AnnotatedString, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        // Scrolls rather than clips: the what's-new text is the longest in the
+        // app, and a small screen with a large system font would cut it off.
+        text = { Text(message, modifier = Modifier.verticalScroll(rememberScrollState())) },
+        confirmButton = { TextButton(onClick = onDismiss) { Text("Aceptar") } },
     )
 }
 

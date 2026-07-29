@@ -16,6 +16,7 @@ import es.pictorario.app.alarm.Notifications
 import es.pictorario.app.ui.AppRoot
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.Screen
+import es.pictorario.app.ui.common.Speaker
 
 /**
  * The single activity hosting every screen. Navigation is a plain state machine
@@ -24,6 +25,7 @@ import es.pictorario.app.ui.Screen
 class MainActivity : ComponentActivity() {
 
     private lateinit var state: PictorarioState
+    private lateinit var speaker: Speaker
 
     private val requestNotifications =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { /* optional */ }
@@ -32,6 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         Notifications.createChannels(this)
+        speaker = Speaker(this)
 
         state = PictorarioState(
             store = pictorario.dataStore,
@@ -47,8 +50,13 @@ class MainActivity : ComponentActivity() {
         askForNotificationsIfNeeded()
 
         setContent {
-            AppRoot(state = state, onExit = ::finish)
+            AppRoot(state = state, speaker = speaker, onExit = ::finish)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speaker.shutdown()
     }
 
     override fun onNewIntent(intent: Intent) {

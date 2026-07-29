@@ -56,6 +56,8 @@ fun ActivityPager(
     format24h: Boolean,
     repository: PictogramRepository,
     onSelect: (Int) -> Unit,
+    /** Tapping a thumbnail is a deliberate choice; swiping the pager is not. */
+    onSelectThumbnail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val activities = sequence.activities
@@ -92,7 +94,7 @@ fun ActivityPager(
             activities = activities,
             selectedIndex = selectedIndex,
             repository = repository,
-            onSelect = onSelect,
+            onSelect = onSelectThumbnail,
         )
     }
 }

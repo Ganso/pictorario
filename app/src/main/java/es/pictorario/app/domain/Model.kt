@@ -80,6 +80,8 @@ data class Settings(
     val alarmsEnabled: Boolean = true,
     val appProtected: Boolean = false,
     val format24h: Boolean = false,
+    /** Whether activities and sequences are also read aloud. */
+    val speechEnabled: Boolean = false,
     val hourColor: Long = 0xFF000000,
     val minuteColor: Long = 0xFF0000FF,
     val secondColor: Long = 0xFFFF0000,

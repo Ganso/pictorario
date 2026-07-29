@@ -20,8 +20,8 @@ class PictogramRepository(private val context: Context) {
     private val directory = File(context.filesDir, "pictogramas")
 
     /**
-     * Decoded pictograms, capped by pixel footprint rather than entry count:
-     * one 2500×2500 asset would otherwise evict everything else on its own.
+     * Decoded pictograms, capped by pixel footprint rather than entry count: a
+     * 2500×2500 download would otherwise evict everything else on its own.
      */
     private val cache = object : LruCache<Int, ImageBitmap>(CACHE_BYTES) {
         override fun sizeOf(key: Int, value: ImageBitmap): Int = value.width * value.height * 4
@@ -56,9 +56,8 @@ class PictogramRepository(private val context: Context) {
     }
 
     /**
-     * Loads a pictogram scaled down to roughly [targetPx]. Six of the bundled
-     * assets are 2500×2500, so decoding them at full size would waste 25 MB
-     * each.
+     * Loads a pictogram scaled down to roughly [targetPx]. On a tablet the
+     * files are 2500×2500, and decoding one at full size would waste 25 MB.
      */
     suspend fun load(id: Int, targetPx: Int): ImageBitmap? = withContext(Dispatchers.IO) {
         cache.get(id)?.let { return@withContext it }

@@ -55,6 +55,7 @@ import es.pictorario.app.ui.common.rememberNotice
 import es.pictorario.app.ui.common.OptionListDialog
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.PictorarioTimePicker
+import es.pictorario.app.ui.common.readableWidth
 import es.pictorario.app.ui.theme.FieldBorder
 import es.pictorario.app.ui.theme.FieldSurface
 
@@ -88,7 +89,7 @@ fun EditorScreen(state: PictorarioState) {
 
     Box(Modifier.fillMaxSize()) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(horizontal = CellGap),
+        modifier = Modifier.readableWidth().padding(horizontal = CellGap),
         verticalArrangement = Arrangement.spacedBy(CellGap),
     ) {
         item {
@@ -264,7 +265,9 @@ fun EditorScreen(state: PictorarioState) {
         val activity = draft.activities.getOrNull(edit.activityIndex) ?: return@let
         PictorarioTimePicker(
             title = if (edit.isStart) "Hora inicial" else "Hora final",
-            hour = if (edit.isStart) activity.startHour else activity.endHour,
+            // An end of 24:00 goes back into the picker as 00:00: Material's
+            // clock only knows hours 0..23, and asking it for 24 throws.
+            hour = if (edit.isStart) activity.startHour else activity.endHour % 24,
             minute = if (edit.isStart) activity.startMinute else activity.endMinute,
             format24h = format24h,
             onAccept = { hour, minute ->
@@ -424,7 +427,8 @@ private fun ActivityRow(
             ) { onEditTime(true) }
             TimeButton(
                 label = "Hasta",
-                help = "Cambiar la hora a la que termina la actividad",
+                help = "Cambiar la hora a la que termina la actividad. " +
+                    "Elige las 12 de la noche para que dure hasta el final del día",
                 hour = activity.endHour,
                 minute = activity.endMinute,
                 format24h = format24h,

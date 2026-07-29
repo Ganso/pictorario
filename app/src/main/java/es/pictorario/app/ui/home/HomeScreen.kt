@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +50,9 @@ import es.pictorario.app.ui.clock.rememberClockTick
 import es.pictorario.app.ui.common.ExactAlarmBanner
 import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.PictogramImage
+import es.pictorario.app.ui.common.isWideWindow
 import es.pictorario.app.ui.common.lockGesture
+import es.pictorario.app.ui.common.rememberSpeak
 import java.time.LocalTime
 
 /**
@@ -61,6 +65,7 @@ import java.time.LocalTime
 fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
     val settings = state.settings
     val sequences = state.sequences
+    val speak = rememberSpeak()
     var menuFor by remember { mutableStateOf<Int?>(null) }
     var confirmDelete by remember { mutableStateOf<Int?>(null) }
 
@@ -74,8 +79,17 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
     }
 
     Box(Modifier.fillMaxSize()) {
-        LazyColumn(Modifier.fillMaxSize().padding(horizontal = 10.dp)) {
-            item { Header() }
+        // Given the width — a tablet, or a phone held sideways — the sequences
+        // pair up: one 90 dp row spanning 900 dp leaves its gear button an
+        // inch from the description it belongs to. Everything else — the
+        // header, the next alarm, the buttons — still runs the full width.
+        val columns = if (isWideWindow()) 2 else 1
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(columns),
+            modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+        ) {
+            item(span = { GridItemSpan(maxLineSpan) }) { Header() }
 
             itemsIndexed(sequences) { index, sequence ->
                 SequenceRow(
@@ -90,56 +104,60 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
                         it.contains(minutesOfDay)
                     },
                     format24h = settings.format24h,
-                    onOpen = { state.navigateTo(Screen.Clock(index)) },
+                    onOpen = {
+                        speak(sequence.description)
+                        state.navigateTo(Screen.Clock(index))
+                    },
                     onGear = { menuFor = index },
                 )
             }
 
             if (nextAlarm != null) {
-                item { NextAlarmRow(nextAlarm, sequences, state) }
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    NextAlarmRow(nextAlarm, sequences, state)
+                }
             }
 
             // Sólo tiene sentido pedir el permiso si hay alguna alarma que
             // pueda llegar tarde.
             if (settings.alarmsEnabled && sequences.any { it.notifications }) {
-                item { ExactAlarmBanner() }
+                item(span = { GridItemSpan(maxLineSpan) }) { ExactAlarmBanner() }
             }
 
-            item {
-                if (!settings.appProtected) {
-                    HomeButton(
-                        text = "Crear Secuencia",
-                        help = if (sequences.size < MAX_SEQUENCES) {
-                            "Crear un horario nuevo"
-                        } else {
-                            "Ya tienes el máximo de $MAX_SEQUENCES secuencias"
-                        },
-                        enabled = sequences.size < MAX_SEQUENCES,
-                        onClick = { state.startEditing(null) },
-                    )
-                    HomeButton("Configuración", "Alarmas, protección, formato horario y colores") {
-                        state.navigateTo(Screen.Settings)
+            // Explicitly stacked: a grid cell holds one child, so without the
+            // Column the four buttons draw on top of each other.
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Column {
+                    if (!settings.appProtected) {
+                        HomeButton(
+                            text = "Crear Secuencia",
+                            help = if (sequences.size < MAX_SEQUENCES) {
+                                "Crear un horario nuevo"
+                            } else {
+                                "Ya tienes el máximo de $MAX_SEQUENCES secuencias"
+                            },
+                            enabled = sequences.size < MAX_SEQUENCES,
+                            onClick = { state.startEditing(null) },
+                        )
+                        HomeButton("Configuración", "Alarmas, protección, formato horario y colores") {
+                            state.navigateTo(Screen.Settings)
+                        }
+                        HomeButton("Acerca de Pictorario", "Créditos, licencia y versión") {
+                            state.navigateTo(Screen.About)
+                        }
                     }
-                    HomeButton("Acerca de Pictorario", "Créditos, licencia y versión") {
-                        state.navigateTo(Screen.About)
+                    // Locked, the padlock takes the place the edit buttons
+                    // leave: an icon floating in a corner reads as decoration,
+                    // and this is the only way back to the adult's side.
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.weight(1f)) {
+                            HomeButton("Salir", "Cerrar Pictorario", onClick = onExit)
+                        }
+                        if (settings.appProtected) {
+                            UnlockPadlock(state, Modifier.padding(start = 10.dp))
+                        }
                     }
                 }
-                HomeButton("Salir", "Cerrar Pictorario", onClick = onExit)
-            }
-        }
-
-        if (settings.appProtected) {
-            Help(
-                text = "Para desbloquear: toca una vez y después mantén pulsado",
-                modifier = Modifier.align(Alignment.BottomEnd).padding(10.dp),
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.candado),
-                    contentDescription = "Desbloquear la aplicación",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .lockGesture { state.updateSettings { it.copy(appProtected = false) } },
-                )
             }
         }
     }
@@ -169,6 +187,29 @@ fun HomeScreen(state: PictorarioState, onExit: () -> Unit) {
                 TextButton(onClick = { confirmDelete = null }) { Text("Cancelar") }
             },
         )
+    }
+}
+
+/**
+ * The way back to the adult's side of the app.
+ *
+ * The gesture — a tap, then a long press — is deliberately one a child will not
+ * find by accident, which is the whole point of the lock. It is wrapped in a
+ * plain `Box` because `TooltipBox` does not carry a layout modifier through to
+ * its anchor; see the note on [Help].
+ */
+@Composable
+fun UnlockPadlock(state: PictorarioState, modifier: Modifier = Modifier) {
+    Box(modifier) {
+        Help("Para desbloquear la aplicación: toca una vez y después mantén pulsado") {
+            Image(
+                painter = painterResource(R.drawable.candado),
+                contentDescription = "Desbloquear la aplicación",
+                modifier = Modifier
+                    .size(60.dp)
+                    .lockGesture { state.updateSettings { it.copy(appProtected = false) } },
+            )
+        }
     }
 }
 

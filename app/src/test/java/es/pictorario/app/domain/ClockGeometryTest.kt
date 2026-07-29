@@ -32,6 +32,32 @@ class ClockGeometryTest {
     }
 
     @Test
+    fun anActivityEndingAtMidnightStillSweepsForwards() {
+        val geom = geometry(BoardType.DAY_24H)
+        val night = activity(22, 0, 24, 0)
+        assertEquals(30f, geom.sweepAngle(night), TOLERANCE)
+    }
+
+    @Test
+    fun theArcStretchesToMidnightWhenAnActivityEndsThere() {
+        val hours = ClockGeometry.dialHours(
+            BoardType.FULL_SEQUENCE,
+            listOf(activity(20, 0, 22, 0), activity(22, 0, 24, 0)),
+        )
+        assertEquals(HourRange(20, 24), hours)
+    }
+
+    @Test
+    fun theAfternoonBoardKeepsAnActivityThatEndsAtMidnight() {
+        val visible = ClockGeometry.visibleActivities(
+            BoardType.AFTERNOON_12H,
+            listOf(activity(22, 0, 24, 0)),
+        )
+        assertEquals(1, visible.size)
+        assertEquals(24, visible.first().value.endHour)
+    }
+
+    @Test
     fun minutesAdvanceTheAngleProportionally() {
         val geom = geometry(BoardType.MORNING_12H)
         assertEquals(285f, geom.angleDegrees(0f, 30f), TOLERANCE)

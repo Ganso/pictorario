@@ -43,6 +43,7 @@ import es.pictorario.app.data.ArasaacApi
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.PictogramImage
+import es.pictorario.app.ui.common.pictogramResolution
 import es.pictorario.app.ui.theme.FieldBorder
 import es.pictorario.app.ui.theme.FieldSurface
 import kotlinx.coroutines.launch
@@ -64,6 +65,7 @@ fun PickerScreen(state: PictorarioState) {
     val api = remember { ArasaacApi() }
     val scope = rememberCoroutineScope()
     val keyboard = LocalSoftwareKeyboardController.current
+    val resolution = pictogramResolution()
 
     var query by remember { mutableStateOf("") }
     var status by remember { mutableStateOf<PickerStatus>(PickerStatus.Idle) }
@@ -91,7 +93,7 @@ fun PickerScreen(state: PictorarioState) {
                 return@launch
             }
             status = PickerStatus.Downloading(0, ids.size)
-            api.downloadMissing(ids, state.pictograms) { done, total ->
+            api.downloadMissing(ids, state.pictograms, resolution) { done, total ->
                 status = PickerStatus.Downloading(done, total)
             }
             results = ids.filter(state.pictograms::exists)
@@ -120,7 +122,9 @@ fun PickerScreen(state: PictorarioState) {
         }
 
         LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
+            // Three across on a phone; on a tablet the same 120 dp cell simply
+            // fits more times, rather than three pictograms stretching to fill.
+            columns = GridCells.Adaptive(minSize = 120.dp),
             modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),

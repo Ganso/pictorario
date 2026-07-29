@@ -146,11 +146,17 @@ Resumen para rellenar el formulario de seguridad de los datos:
 | Horarios y actividades creados por el adulto | No sale del dispositivo | No | `files/pictorario.json`, almacenamiento privado |
 | Pictogramas descargados | No sale del dispositivo | No | `files/pictogramas/`, almacenamiento privado |
 | Texto de búsqueda de pictogramas | — | **Sí, a ARASAAC**, sólo al pulsar buscar | No se almacena |
+| Texto leído en voz alta | — | No | El motor de voz es el del propio dispositivo |
+| Copia de seguridad exportada por el adulto | Sólo si la pide | La lleva el adulto a donde quiera | Fichero elegido en el selector del sistema |
 | Identificadores, ubicación, contactos, cuentas | **Nada de esto** | — | — |
 
 No hay analítica, ni SDK de terceros, ni publicidad, ni cuentas de usuario. Las únicas dependencias son AndroidX y kotlinx.serialization.
 
 La copia de seguridad de Android incluye `pictorario.json` (para no perder los horarios al cambiar de móvil) y excluye los pictogramas descargados, que se pueden volver a obtener. Ver `res/xml/backup_rules.xml`.
+
+La 2.0 permite además que el adulto **guarde y recupere una copia en un fichero JSON**, mediante el selector del sistema (*Storage Access Framework*). No se declara ningún permiso de almacenamiento: el sistema entrega un `Uri` ya autorizado por el usuario para el fichero concreto que él ha elegido. El fichero contiene únicamente lo que el adulto ha escrito —descripciones y horas— y sale del dispositivo sólo si él lo lleva ahí.
+
+La **lectura en voz alta** usa `android.speech.tts.TextToSpeech`, es decir, el motor instalado en el dispositivo. No requiere permiso, no graba nada y no envía texto a ningún servicio propio; lo que el motor del sistema haga con él depende del motor que el usuario tenga configurado. En el formulario de seguridad de los datos no hay nada que declarar por esto.
 
 ---
 
@@ -161,7 +167,9 @@ La copia de seguridad de Android incluye `pictorario.json` (para no perder los h
 - [ ] `./build_and_copy.sh` genera APK de depuración y AAB de publicación.
 - [ ] Probar el AAB de publicación en un dispositivo real, no sólo el APK de depuración: **R8 sólo actúa en release**.
 - [ ] Comprobar que la lista de permisos del AAB es exactamente la de la sección 2.
-- [ ] Notas de la versión avisando de que **la configuración se reinicia** al venir de la 1.x.
+- [ ] Notas de la versión copiadas de `VERSION_CHANGES` — ver la sección 5 bis.
+- [ ] Repasar las seis pantallas en las cuatro combinaciones de tamaño y orientación: móvil vertical y horizontal, tablet vertical y horizontal. La 2.0 ya no fija la aplicación a `portrait`.
+- [ ] Capturas de la ficha al día: Play pide juegos separados para teléfono y para tablet de 7\" y 10\".
 
 Para ver los permisos que realmente lleva el artefacto:
 
@@ -173,36 +181,38 @@ Para ver los permisos que realmente lleva el artefacto:
 
 ## 5 bis. Notas de la versión 2.0
 
-Google Play limita este campo a **500 caracteres**. Texto listo para pegar en *Novedades* (español):
+Google Play limita este campo a **500 caracteres**. El texto ya está escrito y
+vive en el código, como `VERSION_CHANGES` en `ui/about/AboutScreen.kt`: es el
+mismo que la aplicación muestra al arrancar tras actualizar y desde el número de
+versión de «Acerca de». **Cópialo de ahí**, para que la ficha y la aplicación no
+puedan decir cosas distintas. Hoy son 455 caracteres:
 
 ```
-Pictorario se ha reescrito por completo para volver a cumplir los requisitos de Google Play y funcionar en las versiones actuales de Android.
+Pictorario vuelve, reescrito por completo para funcionar en los Android de hoy.
 
-• El aviso vuelve a abrir el horario a pantalla completa cuando empieza una actividad.
-• Mantén pulsado cualquier botón o icono para ver qué hace.
-• La portada señala las secuencias con alarma y la actividad en curso.
-• Corregidos varios errores del reloj y de los horarios.
+• Lectura en voz alta de las actividades.
+• Copia de seguridad: guarda tus horarios y recupéralos en otro móvil.
+• El aviso abre el horario a pantalla completa al empezar una actividad.
+• Diseño para tablet y para pantalla horizontal.
+• Mantén pulsado cualquier botón para ver qué hace.
+• Corregidos errores del reloj y de los horarios.
 
-IMPORTANTE: la configuración se reinicia. Los horarios de la versión anterior no se conservan.
+Fallos y sugerencias: javi@ganso.org
 ```
 
-El aviso del reinicio de configuración **no es opcional**: quien actualice desde la 1.07 perderá sus secuencias, porque los datos antiguos se guardaban en un formato propio de B4A que no se migra. Decirlo aquí evita reseñas negativas de gente que crea que ha perdido su trabajo por un fallo.
+No se avisa de que la configuración se reinicia. La ficha lleva años retirada de
+Play, así que nadie está actualizando desde la 1.07: para quien la instale ahora
+es una aplicación nueva, y el aviso sólo sembraría una duda sin motivo. El
+detalle sigue anotado en el README y en [CHANGELOG.md](CHANGELOG.md) para quien
+venga del proyecto.
 
-La aplicación además lo explica al arrancar por primera vez tras actualizar, en el aviso de novedades.
+El relato completo de la versión está en [CHANGELOG.md](CHANGELOG.md).
 
 ### Versión larga, por si hace falta en otro sitio
 
-Pictorario 2.0 es una reescritura completa en Kotlin. La versión anterior estaba hecha en B4A con un nivel de API que Google Play dejó de admitir, lo que obligó a retirar la aplicación; esta versión vuelve a cumplir y podrá seguir actualizándose.
-
-Cambios visibles:
-
-- Cuando empieza una actividad, el aviso enciende la pantalla y muestra el horario con el pictograma en grande, incluso con el móvil bloqueado.
-- Todos los botones e iconos explican qué hacen si se mantiene el dedo encima.
-- La portada indica qué secuencias tienen alarma y qué actividad está en curso.
-- El editor avisa cuando una hora no se puede aplicar porque se solapa con otra actividad, en lugar de cambiarla en silencio.
-- El botón Atrás funciona con normalidad en toda la aplicación.
-
-Correcciones respecto a la versión anterior: las agujas del reloj eran elípticas, el cambio de tipo de tablero no se guardaba, faltaba un color en la paleta de actividades, el temporizador seguía corriendo en segundo plano, y el toque sobre el reloj podía seleccionar una actividad desde cualquier punto de la pantalla.
+Ver [CHANGELOG.md](CHANGELOG.md), que es el relato completo y el sitio donde se
+mantiene. Aquí no se duplica: dos textos largos que dicen lo mismo acaban
+diciendo cosas distintas.
 
 ---
 

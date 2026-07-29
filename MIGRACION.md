@@ -501,6 +501,34 @@ A documentar en el README:
 
 ---
 
+## Añadidos posteriores a la 2.0
+
+Ya no son migración: son la primera tanda de la lista de «ideas para más adelante» del README. Se anotan aquí lo que costó averiguar, no lo que se ve en el código.
+
+- **Lectura en voz alta.** `TextToSpeech` del sistema, sin permisos ni dependencias. Sólo habla en respuesta a un toque deliberado —abrir una secuencia, tocar un pictograma del reloj o una miniatura, pulsar uno de los dos botones del tablero— y al saltar la alarma. Deslizar el carrusel **no** habla: con `QUEUE_FLUSH` cada página cortaría a la anterior y el resultado era un tartamudeo.
+
+  Se llegó a extender a todos los botones y campos de la aplicación, y se revirtió: leer el editor y la configuración entera convertía la puesta a punto en una locución continua, y la voz dejaba de significar «esto es lo que estás mirando». La regla que queda es que la voz acompaña **la visualización**, que es la pantalla que el niño usa solo.
+
+  Todo fallo del motor es silencioso a propósito: la voz es una ayuda, y ninguna ruta de la aplicación puede quedar bloqueada por ella.
+
+- **Copia de seguridad a fichero.** El *Storage Access Framework* evita declarar permiso de almacenamiento: el usuario elige el fichero y el sistema entrega un `Uri` ya autorizado. Se descartó la Drive API, que habría exigido Google Sign-In, Play Services y otra revisión de Play, además de contradecir el «los datos no salen del dispositivo» de la política de privacidad.
+
+  Conviene tener presente el límite: la copia automática de Android que ya declaraba `backup_rules.xml` restaura al **instalar en un móvil nuevo**, no sincroniza dos dispositivos en uso. Exportar e importar es lo que cubre ese caso, y los ajustes locales —colores, bloqueo parental, lectura en voz alta— no viajan en el fichero: pertenecen al dispositivo donde se pusieron.
+
+  Lo importado no se cree: `Transfer.decode` recorta a los topes de secuencias y actividades, descarta actividades con horas imposibles, normaliza solapes, y devuelve `null` para un documento sin secuencias, que sólo podría servir para borrar lo que el usuario ya tiene.
+
+- **Fin de actividad a las 24:00.** No es el cruce de medianoche que pide el README, que exige otro modelo; es el tope, que en el original estaba en 23:59 y dejaba el último minuto del día fuera de toda actividad. El obstáculo era el selector: `rememberTimePickerState` sólo admite horas 0..23 y lanza excepción con 24. Por eso el campo «Hasta» lee las 00:00 como fin de día, que además es como se dice en voz alta.
+
+- **Tablet y horizontal.** Quitar `screenOrientation="portrait"` fue lo de menos. La clave está en que la esfera se mide contra su propio ancho, así que en apaisado **no se toca la fórmula**: se le da una caja cuyo ancho sale del alto disponible, con `aspectRatio(..., matchHeightConstraintsFirst = true)`. Los botones, que en vertical viven en el hueco bajo la esfera, no caben ahí cuando la esfera ocupa toda la altura; pasan a una columna propia junto con la hora en cifras, y la pantalla queda en tres bloques: esfera, controles, actividad.
+
+- **El candado deja pasar la navegación.** Al principio el bloqueo escondía «Cerrar visualización» y dejaba el gesto del candado como única salida del tablero, lo que obligaba al niño a pedir ayuda para volver a la portada. Salir de una pantalla no es editar: ahora el botón está siempre, y el candado **sólo** desbloquea, en las dos pantallas donde aparece. También bajó de la esquina flotante al pie, junto a los demás botones, que es donde se busca.
+
+  Y como el bloqueo no tiene otra salida —ni contraseña, ni ajuste alcanzable con la aplicación bloqueada—, al activarlo se explica en dos pantallas: qué hace, y cómo se quita.
+
+- **Pictogramas `_2500`.** La decisión de resolución es del dispositivo (`smallestScreenWidthDp >= 600`), no de la ventana: un móvil en horizontal es ancho pero su pantalla no gana detalle. Los assets empaquetados se quedan en 500 px —multiplicar por veinticinco el AAB por dieciocho imágenes de ejemplo no compensa—, y para lo ya descargado hay un botón en Ajustes, visible sólo en tablet, que vuelve a pedirlo en grande. Descarga sobre el fichero existente en lugar de borrar primero, para que perder la conexión a mitad no deje un horario en blanco.
+
+---
+
 ## Entorno de pruebas
 
 `./build_and_copy.sh` compila, y salvo que se le pase `--dry-run` detecta si hay un emulador disponible, arranca uno si hace falta, instala el APK de depuración y abre la aplicación. Con `--headless` el emulador arranca sin ventana, y con `--avd NOMBRE` se elige otro distinto de `pictorario_test`.

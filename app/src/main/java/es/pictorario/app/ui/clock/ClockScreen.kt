@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +35,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,7 +53,11 @@ import es.pictorario.app.ui.common.Notice
 import es.pictorario.app.ui.common.NoticeController
 import es.pictorario.app.ui.common.PictogramImage
 import es.pictorario.app.ui.common.rememberNotice
-import es.pictorario.app.ui.common.lockGesture
+import es.pictorario.app.ui.home.UnlockPadlock
+import es.pictorario.app.ui.common.isLandscape
+import es.pictorario.app.ui.common.readableWidth
+import es.pictorario.app.ui.common.rememberSpeak
+import es.pictorario.app.ui.common.speakOnTap
 import java.time.LocalTime
 
 /**
@@ -71,6 +78,15 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
 
     var selected by remember(sequenceIndex) { mutableIntStateOf(-1) }
     val notice = rememberNotice()
+    val speak = rememberSpeak()
+
+    // Reading aloud hangs off the deliberate taps only. Selecting by swiping the
+    // carousel, or the automatic pick of whatever is happening now, stay silent:
+    // the voice answers a finger on a pictogram, it is not a running commentary.
+    val selectAndSpeak: (Int) -> Unit = { index ->
+        selected = index
+        sequence.activities.getOrNull(index)?.let { speak(it.description) }
+    }
 
     // Whatever is happening right now is selected on arrival, and again as the
     // day moves on, unless the user has picked something else in the meantime.
@@ -82,11 +98,15 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
 
     BackHandler { state.navigateHome() }
 
+    val landscape = isLandscape()
+
     Box(Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        // The dial is a tall shape — 1.3 times as high as it is wide — so
+        // sideways it cannot sit above the carousel. It is fitted to the height
+        // instead, and the screen becomes three columns: the dial, the controls
+        // and the time, and the activity. Either way the board is still
+        // measured against its own width, which its geometry assumes.
+        val dial: @Composable (Modifier) -> Unit = { modifier ->
             DialArea(
                 sequence = sequence,
                 state = state,
@@ -95,9 +115,15 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
                 selected = selected,
                 screenHeightPx = screenHeightPx,
                 notice = notice,
-                onSelect = { selected = it },
+                onSelect = selectAndSpeak,
+                overlayControls = !landscape,
+                modifier = modifier.aspectRatio(
+                    if (landscape) DIAL_ASPECT_RATIO else BOARD_ASPECT_RATIO,
+                    landscape,
+                ),
             )
-
+        }
+        val carousel: @Composable (Modifier) -> Unit = { modifier ->
             if (selected in sequence.activities.indices) {
                 ActivityPager(
                     sequence = sequence,
@@ -106,8 +132,33 @@ fun ClockScreen(state: PictorarioState, sequenceIndex: Int) {
                     format24h = settings.format24h,
                     repository = state.pictograms,
                     onSelect = { selected = it },
-                    modifier = Modifier.fillMaxSize(),
+                    onSelectThumbnail = selectAndSpeak,
+                    modifier = modifier,
                 )
+            }
+        }
+
+        if (landscape) {
+            Row(Modifier.fillMaxSize()) {
+                dial(Modifier.fillMaxHeight())
+                BoardControls(
+                    sequence = sequence,
+                    state = state,
+                    sequenceIndex = sequenceIndex,
+                    now = now,
+                    notice = notice,
+                    vertical = true,
+                    modifier = Modifier.width(CONTROLS_COLUMN_WIDTH).fillMaxHeight(),
+                )
+                carousel(Modifier.weight(1f).fillMaxHeight())
+            }
+        } else {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                dial(Modifier.readableWidth())
+                carousel(Modifier.fillMaxSize())
             }
         }
 
@@ -141,6 +192,9 @@ private fun DialArea(
     screenHeightPx: Float,
     notice: NoticeController,
     onSelect: (Int) -> Unit,
+    /** False when the caller draws the time and the buttons in a column of their own. */
+    overlayControls: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     val settings = state.settings
     val density = LocalDensity.current
@@ -150,9 +204,7 @@ private fun DialArea(
     }
 
     Box(
-        Modifier
-            .fillMaxWidth()
-            .aspectRatio(BOARD_ASPECT_RATIO)
+        modifier
             .pointerInput(geometry, sequence.activities) {
                 val geom = geometry ?: return@pointerInput
                 val visible = ClockGeometry.visibleActivities(
@@ -181,7 +233,7 @@ private fun DialArea(
             modifier = Modifier.fillMaxSize(),
         )
 
-        if (sequence.board.timeIndicator != TimeIndicator.NONE) {
+        if (overlayControls && sequence.board.timeIndicator != TimeIndicator.NONE) {
             Text(
                 text = TimeFormat.digitalClock(now.hour, now.minute, settings.format24h),
                 fontSize = 34.sp,
@@ -196,59 +248,122 @@ private fun DialArea(
             CentrePictogram(sequence, geom, state, selected, density)
         }
 
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp, vertical = 30.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            if (!settings.appProtected) {
-                Box(Modifier.weight(1f)) {
-                    Help("Volver a la portada", modifier = Modifier.fillMaxWidth()) {
-                        Button(
-                            onClick = state::navigateHome,
-                            modifier = Modifier.fillMaxWidth().height(60.dp),
-                        ) {
-                            Text("Cerrar visualización", fontSize = 18.sp)
-                        }
-                    }
-                }
-            } else {
-                Box(Modifier.weight(1f))
-            }
+        // In portrait the controls sit in the gap the dial leaves below itself.
+        // Sideways there is no such gap — the dial is as tall as the window —
+        // so the caller places them underneath instead.
+        if (overlayControls) {
+            BoardControls(
+                sequence = sequence,
+                state = state,
+                sequenceIndex = sequenceIndex,
+                now = now,
+                notice = notice,
+                vertical = false,
+                modifier = Modifier.align(Alignment.BottomCenter).padding(vertical = 30.dp),
+            )
+        }
 
-            val protectedModifier = if (settings.appProtected) {
-                Modifier.lockGesture(state::navigateHome)
-            } else {
-                Modifier.clickable {
-                    // The board changes underneath without any transition, so
-                    // the notice is what tells the user which one they landed on.
-                    val next = BoardType.entries[
-                        (sequence.board.type.ordinal + 1) % BoardType.entries.size,
-                    ]
-                    state.cycleBoardType(sequenceIndex)
-                    notice.show("Cambiando vista a ${BOARD_TYPE_LABELS[next.ordinal]}")
-                }
+    }
+}
+
+/**
+ * What the board offers besides itself: the time in figures, a way to change
+ * how it is drawn, and a way out. With the app locked the last two merge into
+ * the padlock, which only the long press an adult knows gets past.
+ *
+ * Laid out in a row under the dial in portrait, and as its own column between
+ * the dial and the carousel when the screen is wider than it is tall.
+ */
+@Composable
+private fun BoardControls(
+    sequence: Sequence,
+    state: PictorarioState,
+    sequenceIndex: Int,
+    now: LocalTime,
+    notice: NoticeController,
+    vertical: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    val settings = state.settings
+
+    val clock: @Composable () -> Unit = {
+        if (sequence.board.timeIndicator != TimeIndicator.NONE) {
+            Text(
+                // "12:57 del mediodía" does not fit across a narrow column at
+                // the size it takes over the dial, and clipping the time is
+                // worse than shrinking it.
+                text = TimeFormat.digitalClock(now.hour, now.minute, settings.format24h),
+                fontSize = if (vertical) 22.sp else 34.sp,
+                fontWeight = FontWeight.Bold,
+                color = DigitalClockColor,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+
+    // Always offered, lock or no lock. Leaving the board is not editing, and a
+    // child using the app on their own has to be able to go back without asking
+    // an adult for the unlock gesture.
+    val closeButton: @Composable () -> Unit = {
+        Help("Volver a la portada", modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = state::navigateHome,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .speakOnTap("Cerrar visualización"),
+            ) {
+                Text("Cerrar visualización", fontSize = 18.sp, textAlign = TextAlign.Center)
             }
-            val help = if (settings.appProtected) {
-                "Para salir: toca una vez y después mantén pulsado"
-            } else {
-                "Cambiar entre reloj de mañana, de tarde, de 24 horas y secuencia completa"
-            }
-            Help(help) {
+        }
+    }
+
+    // With the app locked this becomes the padlock, because changing the board
+    // style writes to the stored sequence and that is exactly what the lock is
+    // for. The padlock only unlocks: it does not navigate anywhere.
+    val viewButton: @Composable () -> Unit = {
+        if (settings.appProtected) {
+            UnlockPadlock(state)
+        } else {
+            Help("Cambiar entre reloj de mañana, de tarde, de 24 horas y secuencia completa") {
                 Image(
-                    painter = painterResource(
-                        boardIcon(sequence.board.type, settings.appProtected),
-                    ),
-                    contentDescription =
-                        if (settings.appProtected) "Desbloquear" else "Cambiar vista",
-                    modifier = Modifier.size(60.dp).then(protectedModifier),
+                    painter = painterResource(boardIcon(sequence.board.type)),
+                    contentDescription = "Cambiar vista",
+                    modifier = Modifier.size(60.dp).speakOnTap("Cambiar vista").clickable {
+                        // The board changes underneath without any transition,
+                        // so the notice is what tells the user where they
+                        // landed.
+                        val next = BoardType.entries[
+                            (sequence.board.type.ordinal + 1) % BoardType.entries.size,
+                        ]
+                        state.cycleBoardType(sequenceIndex)
+                        notice.show("Cambiando vista a ${BOARD_TYPE_LABELS[next.ordinal]}")
+                    },
                 )
             }
         }
+    }
 
+    if (vertical) {
+        Column(
+            modifier = modifier.padding(horizontal = 10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+        ) {
+            clock()
+            viewButton()
+            closeButton()
+        }
+    } else {
+        Row(
+            modifier = modifier.fillMaxWidth().padding(horizontal = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Box(Modifier.weight(1f)) { closeButton() }
+            viewButton()
+        }
     }
 }
 
@@ -338,12 +453,14 @@ private fun PictogramAt(
 }
 
 /** The `CambiarVista` button shows which board is currently on screen. */
-private fun boardIcon(boardType: BoardType, appProtected: Boolean): Int = when {
-    appProtected -> R.drawable.candado
-    boardType == BoardType.MORNING_12H -> R.drawable.manana
-    boardType == BoardType.AFTERNOON_12H -> R.drawable.tarde
-    boardType == BoardType.DAY_24H -> R.drawable.dia
-    else -> R.drawable.fila
+private fun boardIcon(boardType: BoardType): Int = when (boardType) {
+    BoardType.MORNING_12H -> R.drawable.manana
+    BoardType.AFTERNOON_12H -> R.drawable.tarde
+    BoardType.DAY_24H -> R.drawable.dia
+    BoardType.FULL_SEQUENCE -> R.drawable.fila
 }
 
 private val DigitalClockColor = Color(0xFF909090)
+
+/** Width of the middle column in landscape: enough for a 60 dp icon and a label. */
+private val CONTROLS_COLUMN_WIDTH = 200.dp

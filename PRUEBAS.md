@@ -91,6 +91,11 @@ Esta es la parte que más conviene mirar.
 
 ## 7. Bloqueo parental
 
+- [ ] Al activarlo en Configuración salen **dos** pantallas seguidas: qué hace el bloqueo, y cómo se quita —con «IMPORTANTE» en negrita—.
+- [ ] Con el candado puesto, el niño **sí** puede abrir una secuencia y cerrarla con «Cerrar visualización»; lo que no puede es editar ni cambiar la vista del tablero.
+- [ ] El candado aparece abajo, junto a «Salir» en la portada y junto a «Cerrar visualización» en el reloj; nunca flotando en una esquina.
+- [ ] El gesto —toque corto y después mantener— quita el candado desde cualquiera de las dos pantallas, y **no** cambia de pantalla al hacerlo.
+
 - [ ] Activarlo en Configuración. Sale la explicación del gesto.
 - [ ] En la portada desaparecen los engranajes y los botones de crear, configurar y «Acerca de». Queda «Salir» y el candado.
 - [ ] En el tablero desaparece «Cerrar visualización».
@@ -109,13 +114,42 @@ Esta es la parte que más conviene mirar.
 - [ ] Cambiar el formato horario entre 12 y 24 horas y ver que se refleja en el reloj y en el editor.
 - [ ] Cambiar los tres colores de las agujas y comprobarlo en un tablero con hora, minutos y segundos.
 - [ ] «Reiniciar configuración» pide confirmación y devuelve las secuencias de ejemplo.
+- [ ] Una actividad puede terminar a las 24:00: en «Hasta» se eligen las 12 de la noche y el botón pasa a mostrar `24:00` (o `12:00 de la noche` en formato de 12 horas). El sector llega hasta el final en las cuatro vistas de tablero.
 - [ ] En «Acerca de», los enlaces abren el navegador: web del autor, ARASAAC, proyecto, vídeo y **política de privacidad**.
 - [ ] «Para Teo» se ve con la letra manuscrita.
 - [ ] Pulsando la versión salen las novedades.
 
+## 9 bis. Lectura en voz alta
+
+- [ ] Con el interruptor apagado, ningún toque habla.
+- [ ] Encendido: al abrir una secuencia dice su nombre; al tocar un pictograma del reloj o una miniatura del carrusel dice la actividad; al saltar una alarma lee la actividad y su hora de fin.
+- [ ] **Deslizar** el carrusel no habla: la voz responde al dedo sobre un pictograma, no al paso de páginas.
+- [ ] En el tablero, «Cerrar visualización» y el botón de cambiar vista dicen su nombre al pulsarlos.
+- [ ] **Configuración, editor y selector de pictogramas están en silencio**: la voz es para el niño, no para quien configura.
+- [ ] La pulsación larga sigue mostrando la ayuda, y el toque corto sigue haciendo lo suyo: la voz no se come ni cambia ninguna acción.
+- [ ] Con el volumen de multimedia a cero, la aplicación sigue funcionando con normalidad.
+- [ ] En un dispositivo sin motor de voz o sin la voz española instalada, tampoco falla nada: simplemente no habla.
+
+## 9 ter. Copia de seguridad
+
+- [ ] «Guardar copia» abre el selector del sistema con el nombre `pictorario-AAAA-MM-DD.json` y guarda el fichero donde se le diga, Google Drive incluido.
+- [ ] El fichero guardado es idéntico a `files/pictorario.json`.
+- [ ] «Recuperar copia» ofrece reemplazar o añadir, y hace lo que dice en cada caso.
+- [ ] Recuperar en un dispositivo que no tenga esos pictogramas los descarga, con barra de progreso; sin conexión avisa y las secuencias entran igualmente.
+- [ ] Un fichero que no sea una copia de Pictorario se rechaza **sin tocar** las secuencias existentes.
+- [ ] Los colores de las agujas, la protección y la lectura en voz alta **no** viajan en la copia: son de cada dispositivo.
+
+## 9 quater. Tablet y horizontal
+
+- [ ] Girar el móvil: la esfera cabe entera, con los botones y la hora en una columna propia y la actividad a la derecha.
+- [ ] En tablet, la portada muestra las secuencias en dos columnas.
+- [ ] Repasar las seis pantallas en las cuatro combinaciones: móvil vertical y horizontal, tablet vertical y horizontal.
+- [ ] En tablet aparece «Mejorar calidad de los pictogramas»; al pulsarlo se re-descargan y los ficheros de `files/pictogramas/` pasan de unos 15 kB a unos 200 kB.
+- [ ] En móvil ese botón **no** aparece.
+
 ## 10. Comportamiento general
 
-- [ ] Girar el móvil: la aplicación se mantiene en vertical.
+- [ ] Girar el móvil no pierde el estado: la secuencia abierta y la actividad seleccionada siguen ahí.
 - [ ] Salir con Atrás desde la portada cierra la aplicación.
 - [ ] Volver a abrirla conserva todo.
 - [ ] Dejar la aplicación en segundo plano un rato y volver: el reloj sigue en hora.

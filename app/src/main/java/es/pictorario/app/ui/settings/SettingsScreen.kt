@@ -2,11 +2,9 @@ package es.pictorario.app.ui.settings
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,23 +22,43 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalContext
 import es.pictorario.app.R
-import es.pictorario.app.alarm.AlarmScheduler
 import es.pictorario.app.ui.PictorarioState
 import es.pictorario.app.ui.common.ColorPickerDialog
 import es.pictorario.app.ui.common.ConfirmDialog
+import es.pictorario.app.ui.common.MessageDialog
 import es.pictorario.app.ui.common.ExactAlarmBanner
 import es.pictorario.app.ui.common.Help
 import es.pictorario.app.ui.common.HandColorRow
+import es.pictorario.app.ui.common.readableWidth
 
 private const val LOCK_EXPLANATION =
     "Con la aplicación protegida desaparecen los botones de edición y sólo se " +
-        "puede ver el horario.\n\nPara desbloquearla, toca el candado una vez y " +
-        "después mantenlo pulsado."
+        "puede ver el horario. El niño sigue pudiendo abrir y cerrar sus " +
+        "secuencias; lo que no puede es cambiarlas."
+
+/**
+ * Shown right after the explanation, on a screen of its own.
+ *
+ * The lock has no other way out — no password, no menu, no setting reachable
+ * from the locked app — so an adult who does not take in the gesture is left
+ * with a device they cannot get back. That is worth a second dialogue.
+ */
+private val LOCK_WARNING = buildAnnotatedString {
+    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) { append("IMPORTANTE: ") }
+    append(
+        "Recuerda que para quitar el candado tienes que hacer una pulsación " +
+            "corta y después mantenerlo apretado. No hay otra manera de " +
+            "desactivar el modo seguro.",
+    )
+}
 
 /** Global preferences. Port of `Configuracion.bas`. */
 @Composable
@@ -50,13 +68,14 @@ fun SettingsScreen(state: PictorarioState) {
     var colorPicker by remember { mutableStateOf<Int?>(null) }
     var confirmReset by remember { mutableStateOf(false) }
     var lockExplanation by remember { mutableStateOf(false) }
+    var lockWarning by remember { mutableStateOf(false) }
 
     BackHandler { state.navigateHome() }
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
+            .readableWidth()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -87,6 +106,17 @@ fun SettingsScreen(state: PictorarioState) {
             )
         }
 
+        SettingRow(
+            label = "Leer en voz alta",
+            help = "Dice el nombre de la actividad al saltar la alarma y al tocar " +
+                "un pictograma o una secuencia",
+        ) {
+            Checkbox(
+                checked = settings.speechEnabled,
+                onCheckedChange = { on -> state.updateSettings { it.copy(speechEnabled = on) } },
+            )
+        }
+
         // Mismo aviso que en la portada: desaparece solo al conceder el permiso.
         ExactAlarmBanner()
 
@@ -109,6 +139,10 @@ fun SettingsScreen(state: PictorarioState) {
             onPick = { colorPicker = it },
             modifier = Modifier.fillMaxWidth(0.6f),
         )
+
+        BackupSection(state)
+
+        PictogramQualitySection(state)
 
         Help(
             "Borra tus secuencias y los pictogramas descargados, y devuelve las de ejemplo",
@@ -156,12 +190,21 @@ fun SettingsScreen(state: PictorarioState) {
     }
 
     if (lockExplanation) {
-        ConfirmDialog(
+        MessageDialog(
             title = "Aplicación protegida",
             message = LOCK_EXPLANATION,
-            confirmText = "Entendido",
-            onConfirm = { lockExplanation = false },
-            onDismiss = { lockExplanation = false },
+            onDismiss = {
+                lockExplanation = false
+                lockWarning = true
+            },
+        )
+    }
+
+    if (lockWarning) {
+        MessageDialog(
+            title = "Cómo se quita el candado",
+            message = LOCK_WARNING,
+            onDismiss = { lockWarning = false },
         )
     }
 

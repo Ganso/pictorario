@@ -11,8 +11,15 @@ package es.pictorario.app.domain
  */
 object TimeFormat {
 
-    /** `"13:05"` in 24-hour mode, `"01:05 p.m."` in 12-hour mode. */
+    /**
+     * `"13:05"` in 24-hour mode, `"01:05 p.m."` in 12-hour mode.
+     *
+     * The end of the day is 24:00, and in 12-hour mode it has to be named rather
+     * than suffixed: `12:00 p.m.` would read as noon, which is the opposite end
+     * of the day from what the activity means.
+     */
     fun time(hour: Int, minute: Int, format24h: Boolean): String {
+        if (hour >= 24) return if (format24h) "24:00" else "12:00 de la noche"
         val text = "%02d:%02d".format(displayHour(hour, format24h), minute)
         if (format24h) return text
         return if (hour < 12) "$text a.m." else "$text p.m."

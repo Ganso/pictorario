@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import es.pictorario.app.data.PictogramRepository
+import es.pictorario.app.data.Transfer
 import es.pictorario.app.domain.AppData
 import es.pictorario.app.domain.BoardType
 import es.pictorario.app.domain.MAX_SEQUENCES
@@ -24,6 +25,14 @@ sealed interface Screen {
     data object Settings : Screen
     data object About : Screen
 }
+
+/** How an import went, so the screen can say what actually happened. */
+data class ImportResult(
+    val restored: Int,
+    /** Sequences left out because the file would have gone past [MAX_SEQUENCES]. */
+    val dropped: Int,
+    val missingPictograms: List<Int>,
+)
 
 /** What the pictogram picker is about to replace. */
 sealed interface PictogramTarget {
@@ -230,4 +239,39 @@ class PictorarioState(
     }
 
     suspend fun snapshot(): AppData = data ?: store.data.first()
+
+    /** Every pictogram the schedules refer to, sequences and activities alike. */
+    fun pictogramIdsInUse(): List<Int> = sequences.flatMap { sequence ->
+        sequence.activities.map { it.pictogramId } + sequence.pictogramId
+    }.distinct()
+
+    // ---- Backup ----------------------------------------------------------
+
+    /** The whole configuration as the JSON that goes into a backup file. */
+    suspend fun exportJson(): String = Transfer.encode(snapshot())
+
+    /**
+     * Restores sequences from a backup file, or returns `null` when the text is
+     * not a Pictorario document.
+     *
+     * The pictograms are not written here: the caller downloads
+     * [ImportResult.missingPictograms] so it can show the same progress bar the
+     * picker does.
+     */
+    suspend fun importSequences(text: String, replace: Boolean): ImportResult? {
+        val imported = Transfer.decode(text) ?: return null
+        val dropped = if (replace) 0 else Transfer.droppedByLimit(snapshot(), imported)
+
+        store.updateData { Transfer.merge(it, imported, replace) }
+
+        val ids = imported.sequences.flatMap { sequence ->
+            sequence.activities.map { it.pictogramId } + sequence.pictogramId
+        }.distinct()
+
+        return ImportResult(
+            restored = imported.sequences.size - dropped,
+            dropped = dropped,
+            missingPictograms = ids.filterNot(pictograms::exists),
+        )
+    }
 }

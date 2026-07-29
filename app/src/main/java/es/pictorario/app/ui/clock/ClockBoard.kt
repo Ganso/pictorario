@@ -30,6 +30,13 @@ import kotlin.math.sin
 /** Panel proportions from `LS_visualizarsecuencia.java`: 130% of the width. */
 const val BOARD_ASPECT_RATIO = 1f / 1.3f
 
+/**
+ * The dial on its own, without the strip the controls occupy underneath it. The
+ * face reaches from the top of the box down to 1.05 times its width — centre at
+ * 60%, radius 45% — so this is all the height it actually needs.
+ */
+const val DIAL_ASPECT_RATIO = 1f / 1.05f
+
 private val FrameColor = Color(0xFF808080)
 private val FaceColor = Color.White
 private val TickColor = Color(0xFFCCCCCC)

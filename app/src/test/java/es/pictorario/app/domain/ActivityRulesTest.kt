@@ -90,7 +90,48 @@ class ActivityRulesTest {
     @Test
     fun aNewActivityNeverRunsPastTheEndOfTheDay() {
         val added = ActivityRules.newActivity(listOf(activity(23, 0, 23, 50)))
-        assertEquals(LAST_MINUTE_OF_DAY, added.endHour * 60 + added.endMinute)
+        assertEquals(END_OF_DAY, added.endHour * 60 + added.endMinute)
+    }
+
+    @Test
+    fun midnightAsAnEndMeansTheEndOfTheDay() {
+        val moved = ActivityRules.withEnd(activity(22, 0, 23, 0), 0, 0)
+        assertEquals(24, moved.endHour)
+        assertEquals(0, moved.endMinute)
+        assertEquals(END_OF_DAY, moved.endMinutes)
+    }
+
+    @Test
+    fun midnightAsAnEndDoesNotDragTheStartBackwards() {
+        val moved = ActivityRules.withEnd(activity(22, 0, 23, 0), 0, 0)
+        assertEquals(22, moved.startHour)
+    }
+
+    @Test
+    fun anActivityEndingAtMidnightCoversTheLastMinuteOfTheDay() {
+        assertTrue(ActivityRules.withEnd(activity(22, 0, 23, 0), 0, 0).contains(23 * 60 + 59))
+    }
+
+    @Test
+    fun anEndOfMidnightIsReportedAsApplied() {
+        val change = ActivityRules.changeTime(
+            listOf(activity(22, 0, 23, 0)),
+            index = 0,
+            isStart = false,
+            hour = 0,
+            minute = 0,
+        )
+        assertEquals(TimeChangeOutcome.Applied, change.outcome)
+        assertEquals(END_OF_DAY, change.activities[0].endMinutes)
+    }
+
+    @Test
+    fun anEndOfMidnightIsNotTrimmedByAnActivityThatStartsEarlier() {
+        val normalized = ActivityRules.normalize(
+            listOf(activity(22, 0, 24, 0), activity(9, 0, 10, 0)),
+        )
+        assertEquals(listOf(9, 22), normalized.map { it.startHour })
+        assertEquals(END_OF_DAY, normalized[1].endMinutes)
     }
 
     @Test

@@ -16,7 +16,7 @@ Los motivos de la migración:
 - El IDE de B4A es propietario y sólo funciona en Windows.
 - Desde Android 10, el sistema bloquea el arranque de una *Activity* desde un servicio en segundo plano, que es justo el mecanismo con el que la versión antigua avisaba de una actividad.
 
-El registro de cómo se hizo, qué se decidió y qué se corrigió respecto al original está en [MIGRACION.md](MIGRACION.md).
+Lo que trae la versión, contado de cara al usuario, está en [CHANGELOG.md](CHANGELOG.md). El registro de cómo se hizo, qué se decidió y qué se corrigió respecto al original está en [MIGRACION.md](MIGRACION.md).
 
 Si vas a trabajar en el proyecto —o si eres una IA a la que le han pedido que lo haga—, empieza por [AGENTS.md](AGENTS.md): resume la arquitectura, las convenciones, los comandos y las trampas conocidas sin necesidad de leer el código.
 
@@ -76,10 +76,10 @@ La carpeta [`b4a/`](b4a/) contiene el proyecto original en B4A, congelado tal co
 
 # Ideas para más adelante
 
-Nada de esto entra en la 2.0, que es paridad funcional con la versión original más las correcciones. Se recoge para no perderlo.
+Lista de mejoras que se fueron apartando durante la reescritura. Lo marcado entró finalmente en la 2.0 y está contado en [CHANGELOG.md](CHANGELOG.md); el resto se recoge para no perderlo.
 
 **Accesibilidad y comunicación**
-- [ ] Lectura en voz alta de la actividad con TTS (la app no tiene voz; útil para quien no lee)
+- [x] Lectura en voz alta de la actividad con TTS — opcional, en Configuración
 - [ ] Repasar etiquetas de TalkBack, tamaños táctiles y escalado de fuente del sistema
 - [ ] Modo alto contraste y tema oscuro
 - [ ] Localizar la interfaz a otros idiomas (hoy todo el texto está en castellano)
@@ -90,19 +90,21 @@ Nada de esto entra en la 2.0, que es paridad funcional con la versión original 
 - [ ] Marcar actividades como completadas, con refuerzo visual
 - [ ] Temporizador o cuenta atrás visual de la actividad en curso
 - [ ] Programar varias alarmas a la vez (hoy sólo se programa la más próxima)
-- [ ] Actividades que cruzan la medianoche (el modelo actual topa en 23:59)
+- [x] Actividades que terminan a las 24:00 (elegir las 12 de la noche como hora final)
+- [ ] Actividades que **cruzan** la medianoche, de un día al siguiente
 - [ ] Usar fotos propias como pictogramas (cámara y galería)
-- [ ] Exportar e importar secuencias, para compartirlas entre cuidadores o dispositivos
-- [ ] Copia de seguridad y restauración
+- [x] Exportar e importar secuencias, para compartirlas entre cuidadores o dispositivos
+- [x] Copia de seguridad y restauración — a un fichero JSON, desde Configuración
 - [ ] Widget de pantalla de inicio con la actividad actual
 - [ ] Elevar los límites de 10 secuencias y 20 actividades (el de 20 exige ampliar la paleta de colores)
 
 **Presentación**
-- [ ] Disposición específica para tablet y para horizontal (hoy portrait fijo)
+- [x] Disposición específica para tablet y para horizontal
 - [ ] Estilos alternativos de esfera de reloj
-- [ ] Usar los pictogramas `_2500` en pantallas grandes
+- [x] Usar los pictogramas `_2500` en pantallas grandes
 
 **Proyecto**
 - [ ] Actualizar a AGP 9.1 y compileSdk 37 para poder usar las últimas versiones de AndroidX
 - [ ] CI en GitHub Actions que compile el AAB y ejecute los tests
-- [ ] Capturas y material gráfico nuevos para la ficha de Play
+- [x] Capturas nuevas para la ficha de Play — en [`docs/play/`](docs/play/)
+- [ ] Gráfico destacado y descripción de la ficha, que no salen del emulador
