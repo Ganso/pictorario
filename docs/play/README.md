@@ -24,6 +24,27 @@ Necesita Pillow y las fuentes Roboto del sistema. Play recorta este gráfico por
 en algunas presentaciones de la tienda, así que **nada esencial debe quedar pegado a los
 bordes**; el título y los reclamos están dentro del tercio central por eso.
 
+### Icono de la ficha
+
+`icono-ficha.png` — 512 × 512, PNG de 32 bits opaco. Reconstruye el logotipo del proyecto
+igual que se hizo a mano en su día: el pictograma «reloj» de ARASAAC, el
+[7230](https://arasaac.org/pictograms/es/7230/reloj), con cuatro sectores de color
+añadidos bajo la esfera.
+
+```bash
+python3 docs/play/icono-ficha.py
+```
+
+Parte del original a 2500 px y colorea ahí, en vez de reescalar el icono de 192 px del
+launcher, que a 512 saldría borroso. Colores, ángulos y radio de los sectores no son un
+ojo nuevo: están medidos sobre `res/drawable/logotipo.png`, así que el icono de la ficha
+y el de la aplicación son el mismo dibujo. La primera ejecución descarga el pictograma y
+lo cachea en `docs/play/.arasaac-7230.png`, que no se versiona.
+
+Los mismos 2500 px servirían para rehacer los `ic_launcher_foreground` de
+`res/mipmap-*`, que hoy salen del original pequeño. No se ha tocado: el icono instalado
+se ve correcto a los tamaños a los que se muestra.
+
 ### Capturas
 
 Cómo se regeneran, con la aplicación recién instalada y la configuración reiniciada:
@@ -39,11 +60,8 @@ explica AGENTS.md.
 
 ## Qué falta antes de subir la ficha
 
-Esto **no está hecho** y no se puede sacar del emulador; lo decide el autor:
+Esto **no está hecho**; lo decide el autor:
 
-- **Icono de la ficha**, 512 × 512 px PNG de 32 bits. El del launcher está en
-  `app/src/main/res/mipmap-*`, pero el mayor es de 192 px: para 512 hay que partir del
-  original vectorial, no reescalar ése.
 - **Texto breve** (80 caracteres) y **descripción completa** (4000), revisados para
   mencionar lo que trae esta versión: lectura en voz alta, copia de seguridad, y
   disposición para tablet. El texto de *Novedades* ya está escrito: es el mismo
