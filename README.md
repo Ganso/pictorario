@@ -107,4 +107,5 @@ Lista de mejoras que se fueron apartando durante la reescritura. Lo marcado entr
 - [ ] Actualizar a AGP 9.1 y compileSdk 37 para poder usar las últimas versiones de AndroidX
 - [ ] CI en GitHub Actions que compile el AAB y ejecute los tests
 - [x] Capturas nuevas para la ficha de Play — en [`docs/play/`](docs/play/)
-- [ ] Gráfico destacado y descripción de la ficha, que no salen del emulador
+- [x] Gráfico destacado de la ficha — [`docs/play/grafico-destacado.png`](docs/play/grafico-destacado.png)
+- [ ] Icono de 512 px y descripción de la ficha
