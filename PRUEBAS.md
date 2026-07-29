@@ -154,6 +154,12 @@ Esta es la parte que más conviene mirar.
 - [ ] Volver a abrirla conserva todo.
 - [ ] Dejar la aplicación en segundo plano un rato y volver: el reloj sigue en hora.
 - [ ] **Con poca batería o en ahorro de energía**, comprobar que las alarmas siguen llegando.
+- [ ] Cambiar la zona horaria del dispositivo con una alarma armada: la portada y la notificación deben pasar a decir la hora nueva. La hora de la actividad es de reloj de pared, así que «desayuno a las 8» siguen siendo las 8 en el sitio nuevo.
+- [ ] Comprobar contra el sistema, y no sólo contra lo que dice la aplicación, que la alarma está donde debe:
+
+```bash
+adb shell dumpsys alarm | grep -A3 es.pictorario.app.ALARM_FIRE | grep origWhen
+```
 
 ---
 

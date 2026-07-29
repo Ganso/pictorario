@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import es.pictorario.app.domain.AlarmCalculator
+import es.pictorario.app.domain.AlarmSchedule
 import es.pictorario.app.domain.AppData
-import java.time.LocalDateTime
-import java.time.ZoneId
+import java.time.ZonedDateTime
 
 /**
  * Keeps exactly one alarm armed: the next activity due, across every sequence
@@ -23,17 +23,15 @@ object AlarmScheduler {
 
         manager.cancel(firePendingIntent(context, sequenceIndex = -1, activityIndex = -1))
 
-        val now = LocalDateTime.now()
+        val now = ZonedDateTime.now()
         val next = AlarmCalculator.next(data, now.hour * 60 + now.minute)
         Notifications.showUpcoming(context, data, next)
         if (next == null) return
 
-        val triggerAt = now.toLocalDate()
-            .plusDays(if (next.isTomorrow) 1 else 0)
-            .atTime(next.hour, next.minute)
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli()
+        // La conversión a instante vive en el dominio y está cubierta por
+        // tests: es donde una alarma puede quedarse una hora corrida, o armada
+        // en el pasado, los dos días del año en que el reloj cambia.
+        val triggerAt = AlarmSchedule.triggerAt(now, next).toEpochMilli()
 
         // Which activity this alarm is for travels inside the intent. Working it
         // out again from the clock when the alarm goes off was the bug that made

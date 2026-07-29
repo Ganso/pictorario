@@ -171,6 +171,12 @@ El receptor de alarma y la interfaz leen el mismo documento. Crear un `DataStore
 
 `AlarmReceiver` recibe los índices de secuencia y actividad **dentro del intent**, decididos al armarla. Deducirlos del reloj al dispararse hacía que un retraso de un solo minuto concluyera que la actividad era la de mañana: no mostraba nada y sólo reprogramaba.
 
+### La conversión a instante es del dominio, no del scheduler
+
+`AlarmScheduler` sólo entrega el epoch a `AlarmManager`; quien lo calcula es `AlarmSchedule.triggerAt`, en `domain/`, porque es la parte que puede fallar en silencio. Lo que la aplicación guarda es una hora de reloj sin fecha ni zona, y convertirla mal deja la alarma una hora corrida —o armada en el pasado, que es peor: salta al instante y se lleva por delante el resto de la cadena.
+
+Los dos días del año en que el reloj cambia son el caso a vigilar. `ZonedDateTime` resuelve una hora ambigua —la que se repite en octubre— a la **primera** de las dos; pedida durante la segunda pasada, eso es una hora atrás. Y la hora que marzo se salta no existe, así que no tiene instante al que disparar. Ambos casos están resueltos y cubiertos por `AlarmScheduleTest`, que además barre un año entero hora a hora comprobando que ninguna alarma queda en el pasado.
+
 ### Alarmas sin permiso: `setAndAllowWhileIdle`, nunca `setWindow`
 
 `setWindow` no está exento del modo de reposo y puede quedarse esperando horas, justo cuando más falta hace. Con permiso se usa `setAlarmClock`.

@@ -58,6 +58,10 @@ sigue añadido o corregido.
   cambiar de zona horaria y al actualizar la aplicación, no sólo al reiniciar.
 - **Puntualidad exacta opcional.** Si el sistema no la concede sola, la portada
   ofrece pedirla; sin ella los avisos siguen llegando, con un pequeño margen.
+- **Los cambios de hora no descolocan las alarmas.** La madrugada en que el
+  reloj se atrasa, la hora entre las dos y las tres pasa dos veces: una alarma
+  puesta ahí se armaba en el pasado y sonaba de golpe. Y la que el reloj de
+  primavera se salta no existe, así que ahora suena en cuanto el día se reanuda.
 
 **Bloqueo parental**
 
