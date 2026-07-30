@@ -170,6 +170,30 @@ sección 2 bis.
 | `minSdk` / `targetSdk` | 26 / 36 |
 | Firma | Clave de subida, SHA-1 `63:49:AF:0F:07:7F:52:EE:7A:20:3D:65:9B:3D:18:39:64:77:15:80` |
 
-Sube también `app/build/outputs/mapping/release/mapping.txt` en «Desofuscar
-archivos». R8 renombra las clases en release, y sin ese fichero los informes de
-fallos llegan ilegibles.
+### Sobre los dos ficheros que Play menciona en cada versión
+
+**El de desofuscación no hay que subirlo.** El AAB ya lo lleva dentro, en
+`BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`: AGP lo mete
+al empaquetar y la Console lo recoge sola. `app/build/outputs/mapping/release/`
+sirve para leerlo a mano, no para subirlo.
+
+**El de símbolos de depuración nativos se puede ignorar.** Play lo pide porque el
+bundle lleva ocho librerías `.so`, pero **ninguna es de este proyecto**: son
+`libandroidx.graphics.path` de Compose y `libdatastore_shared_counter` de
+DataStore. Y vienen ya *stripped* de AndroidX: conservan sólo `.dynsym` —8 y 19
+funciones exportadas—, sin `.symtab` ni `.debug_info`. Aunque se instalara el NDK
+y se activara `debugSymbolLevel`, lo que se subiría no daría ni números de línea
+ni funciones internas. Es una advertencia, no un requisito: la versión se publica
+igual.
+
+Comprobado así, por si en alguna versión cambia:
+
+```bash
+unzip -l app/build/outputs/bundle/release/app-release.aab | grep '\.so$'
+unzip -o app/build/outputs/bundle/release/app-release.aab 'base/lib/*' -d /tmp/so
+file /tmp/so/base/lib/arm64-v8a/*.so     # «stripped» = no hay nada que subir
+```
+
+Si algún día el proyecto incorpora código nativo propio, entonces sí: instalar el
+NDK y añadir `ndk { debugSymbolLevel = "FULL" }` al bloque `release`, que hace
+que los símbolos viajen dentro del AAB sin subir nada a mano.

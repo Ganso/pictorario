@@ -170,7 +170,7 @@ La **lectura en voz alta** usa `android.speech.tts.TextToSpeech`, es decir, el m
 - [ ] Notas de la versión copiadas de `VERSION_CHANGES` — ver la sección 5 bis.
 - [ ] Repasar las seis pantallas en las cuatro combinaciones de tamaño y orientación: móvil vertical y horizontal, tablet vertical y horizontal. La 2.0 ya no fija la aplicación a `portrait`.
 - [ ] Capturas de la ficha al día: Play pide juegos separados para teléfono y para tablet de 7\" y 10\". Están en `docs/play/`.
-- [ ] Subir `app/build/outputs/mapping/release/mapping.txt` en «Desofuscar archivos», o los informes de fallos llegarán ilegibles.
+- [ ] Play avisará de que falta el **archivo de símbolos de depuración**: se ignora, y el porqué está en [`docs/play/ficha.md`](docs/play/ficha.md). El de **desofuscación** no hay que subirlo, ya viaja dentro del AAB.
 
 Los textos de la ficha y los cuestionarios de la Console están resueltos en [`docs/play/ficha.md`](docs/play/ficha.md).
 
