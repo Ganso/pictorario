@@ -169,7 +169,10 @@ La **lectura en voz alta** usa `android.speech.tts.TextToSpeech`, es decir, el m
 - [ ] Comprobar que la lista de permisos del AAB es exactamente la de la sección 2.
 - [ ] Notas de la versión copiadas de `VERSION_CHANGES` — ver la sección 5 bis.
 - [ ] Repasar las seis pantallas en las cuatro combinaciones de tamaño y orientación: móvil vertical y horizontal, tablet vertical y horizontal. La 2.0 ya no fija la aplicación a `portrait`.
-- [ ] Capturas de la ficha al día: Play pide juegos separados para teléfono y para tablet de 7\" y 10\".
+- [ ] Capturas de la ficha al día: Play pide juegos separados para teléfono y para tablet de 7\" y 10\". Están en `docs/play/`.
+- [ ] Subir `app/build/outputs/mapping/release/mapping.txt` en «Desofuscar archivos», o los informes de fallos llegarán ilegibles.
+
+Los textos de la ficha y los cuestionarios de la Console están resueltos en [`docs/play/ficha.md`](docs/play/ficha.md).
 
 Para ver los permisos que realmente lleva el artefacto:
 

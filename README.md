@@ -109,4 +109,4 @@ Lista de mejoras que se fueron apartando durante la reescritura. Lo marcado entr
 - [x] Capturas nuevas para la ficha de Play — en [`docs/play/`](docs/play/)
 - [x] Gráfico destacado de la ficha — [`docs/play/grafico-destacado.png`](docs/play/grafico-destacado.png)
 - [x] Icono de 512 px de la ficha — [`docs/play/icono-ficha.png`](docs/play/icono-ficha.png)
-- [ ] Texto breve y descripción completa de la ficha
+- [x] Texto breve y descripción completa de la ficha — [`docs/play/ficha.md`](docs/play/ficha.md)

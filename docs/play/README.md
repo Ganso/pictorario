@@ -47,15 +47,8 @@ adb exec-out screencap -p > docs/play/telefono/1-portada.png
 El aviso de actividad no hay que esperarlo: se dispara con el intent de la alarma, como
 explica AGENTS.md.
 
-## Qué falta antes de subir la ficha
+## Textos de la ficha
 
-Esto **no está hecho**; lo decide el autor:
-
-- **Texto breve** (80 caracteres) y **descripción completa** (4000), revisados para
-  mencionar lo que trae esta versión: lectura en voz alta, copia de seguridad, y
-  disposición para tablet. El texto de *Novedades* ya está escrito: es el mismo
-  `VERSION_CHANGES` que la aplicación muestra al arrancar, y cabe en los 500
-  caracteres que admite Play.
-- Play acepta hasta 8 capturas por tipo de dispositivo y pide juegos separados para
-  teléfono, tablet de 7" y tablet de 10". Las de `tablet/` sirven para ambos tamaños de
-  tablet, pero conviene comprobar los requisitos vigentes en la Console al subirlas.
+Todos los que pide la Console —texto breve, descripción completa, novedades— están
+en [`ficha.md`](ficha.md), listos para copiar y con los cuestionarios de público
+objetivo, clasificación de contenido y seguridad de los datos ya respondidos.
